@@ -1,0 +1,15 @@
+{
+  "main": "main.tns.js",
+  "android": {
+    "v8Flags": "--expose_gc",
+    "markingMode": "none"
+  },
+  "dependencies": {
+    "@angular/cdk": "^10.1.3",
+    "@angular/material": "^10.1.3",
+    "material-design-icons": "^3.0.1"
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
+  }
+}

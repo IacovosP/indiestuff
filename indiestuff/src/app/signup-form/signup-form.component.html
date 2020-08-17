@@ -1,0 +1,122 @@
+<mat-dialog-content class="mat-typography" style="width: 750px;">
+  <div class="row custom-modal">
+    <div class="col-sm-7 jumbotron">
+      <form
+        novalidate
+        (ngSubmit)="onFormSubmit(signupForm)"
+        #signupForm="ngForm"
+      >
+        <div class="signup-title">
+          <p class="signup-title-text">sign up for fan account</p>
+        </div>
+
+        <!-- Email input block -->
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-2 control-label">email</label>
+          <div class="col-lg-7">
+            <input
+              type="text"
+              class="form-control input-custom"
+              [ngModel]="user.email"
+              name="email"
+              #email="ngModel"
+              id="inputEmail"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+              required
+            />
+          </div>
+
+          <!-- Email error block -->
+
+          <div
+            *ngIf="email.invalid && email.touched"
+            class="col-sm-3 text-danger"
+          >
+            <div *ngIf="email.errors?.required">
+              Email field can't be blank
+            </div>
+            <div *ngIf="email.errors?.pattern && email.touched">
+              The email id doesn't seem right
+            </div>
+          </div>
+        </div>
+
+        <!-- Password block -->
+        <div ngModelGroup="password" #userPassword="ngModelGroup">
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label"
+              >password</label
+            >
+            <div class="col-lg-7">
+              <input
+                type="password"
+                class="form-control input-custom"
+                ngModel
+                name="pwd"
+                id="inputPassword"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password error block -->
+          <div
+            *ngIf="userPassword.invalid && userPassword.touched"
+            class="col-sm-3 text-danger"
+          >
+            <div *ngIf="userPassword.invalid">
+              password needs to be more than 8 characters
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-lg-2 control-label"
+              >username</label
+            >
+            <div class="col-lg-7">
+              <input
+                type="text"
+                class="form-control input-custom"
+                ngModel
+                name="username"
+                id="username"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="color: #00a6ff;"
+            >i've read the terms and conditions</label
+          >
+          <input
+            class="checkmark"
+            type="checkbox"
+            id="tac"
+            name="tac"
+            value="tac"
+          />
+
+          <!-- Buttons block -->
+          <mat-dialog-actions>
+            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+            <button
+              type="submit"
+              class="btn btn-success button-custom-tick"
+              mat-button
+              [mat-dialog-close]="true"
+            >
+              <div style="display: flex;">
+                <img
+                  class="icon-done"
+                  src="/assets/icons/web/baseline_done_black_18dp.png"
+                />
+                <p>sign up</p>
+              </div>
+            </button>
+            <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>

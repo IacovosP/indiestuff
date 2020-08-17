@@ -1,0 +1,15 @@
+.comments-list-custom {
+  list-style-type: none; /* Remove bullets */
+  font-family: sans-serif;
+}
+
+.custom-comments-container {
+  max-height: 400px;
+  margin-top: 25px;
+  border: solid;
+  border-color: #47525e;
+  width: 82%;
+  overflow: scroll;
+  overflow-x: auto;
+  word-wrap: normal;
+}

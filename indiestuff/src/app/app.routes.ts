@@ -1,0 +1,25 @@
+import { Routes } from "@angular/router";
+
+import { HomeComponent } from "@src/app/home/home.component";
+import { SignupFormComponent } from "@src/app/signup-form/signup-form.component";
+import { ArtistMusicComponent } from "@src/app/artist/artist-music/artist-music.component";
+
+export const routes: Routes = [
+  {
+    path: "",
+    redirectTo: "/home",
+    pathMatch: "full",
+  },
+  {
+    path: "home",
+    component: HomeComponent,
+  },
+  {
+    path: "signUp",
+    component: SignupFormComponent,
+  },
+  {
+    path: "artist",
+    component: ArtistMusicComponent,
+  },
+];

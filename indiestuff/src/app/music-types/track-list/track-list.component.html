@@ -1,0 +1,19 @@
+<div class="tracks-custom">
+  <ul class="track-list">
+    <li *ngFor="let track of tracks; index as i">
+      <div class="left-side-items">
+        <a style="padding-left: 10px;">{{ i + 1 }}</a>
+        <img
+          class="play-arrow"
+          src="/assets/icons/web/outline_play_arrow_black_18dp.png"
+        />
+        <a>{{ track.name }}</a>
+      </div>
+      <div class="right-side-items">
+        <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
+        <img src="/assets/icons/web/outline_comment_black_18dp.png" />
+        <a>{{ track.durationInSec }}s</a>
+      </div>
+    </li>
+  </ul>
+</div>

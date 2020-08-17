@@ -1,0 +1,63 @@
+.tracks-custom {
+  margin-top: 40px;
+  margin-left: 12%;
+  width: 71.5%;
+}
+
+.track-list {
+  list-style-type: none; /* Remove bullets */
+  font-family: sans-serif;
+}
+
+.track-list li {
+  margin-top: 15px;
+  height: 25px;
+  padding-top: 7px;
+  padding-left: 20px;
+  width: 100%;
+  display: flex;
+}
+
+.track-list li a {
+}
+
+.track-list li:hover {
+  opacity: 0.6;
+  cursor: pointer;
+  background-color: #ffb6c1;
+}
+
+.left-side-items {
+  float: right;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+
+.left-side-items a {
+  padding-left: 30px;
+}
+
+.right-side-items {
+  float: right;
+  display: flex;
+  padding-right: 10px;
+}
+
+.right-side-items img {
+  height: 30px;
+  padding-right: 30px;
+  margin-top: -5px;
+}
+
+.right-side-items li a {
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.play-arrow {
+  height: 50px;
+  padding-left: 20px;
+  margin-top: -15px;
+}
