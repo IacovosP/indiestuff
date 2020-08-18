@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
   selector: "app-page-top-image",
@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./top-image.component.css"],
 })
 export class PageTopImageComponent implements OnInit {
+  @Input() headerImageUrl: string;
   constructor() {}
 
   ngOnInit() {}

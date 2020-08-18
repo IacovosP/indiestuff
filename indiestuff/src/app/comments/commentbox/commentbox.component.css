@@ -5,7 +5,11 @@
 }
 
 .form-group textarea {
+  border-width: thin;
+  border-color: #47525e;
   width: 100%;
+  resize: none;
+  font-family: helvetica;
 }
 
 .comment-form button {

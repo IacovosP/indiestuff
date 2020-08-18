@@ -1,0 +1,58 @@
+.player-container {
+  height: 50px;
+  width: 106%;
+  margin-left: -5%;
+  background-color: #DDA9E4;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  display:flex;
+}
+
+.player-container img:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.play-button {
+  margin-top: 5px;
+  margin-left: 20%;
+  height: 40px;
+  width: 40px;
+  background-color: #F8E3FF;
+}
+
+.progress-bar {
+  margin-top: 12.5px;
+  margin-left: 25px;
+  height: 25px;
+  width: 50%;
+  background-color: #F8E3FF;
+}
+
+.progress-bar:hover {
+  cursor: pointer;
+}
+
+.progress-pin {
+  margin-top: -7.5px;
+  padding-left: 2px;
+  height: 40px;
+  width: 5px;
+  background-color: #976DD0;
+}
+
+.mat-slider {
+  margin-top: 15px;
+  margin-left: 15px;
+  height: 10px;
+  width: 50px;
+  background-color: #F8E3FF;
+}
+
+.mat-slider-thumb {
+  position:relative;
+  height: 10px;
+  width: 5px;
+  background-color: black;
+  color: black;
+}

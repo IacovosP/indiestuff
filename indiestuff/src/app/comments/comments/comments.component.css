@@ -13,3 +13,29 @@
   overflow-x: auto;
   word-wrap: normal;
 }
+.non-favourte {
+  padding-left: 20px;
+}
+.favourite {
+  background-color: #F8E3FF;
+  padding-left: 20px;
+}
+.date-style {
+  font-family: sans-serif;
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.date-style span {
+  font-size: 10px;
+  margin-bottom: 15px;
+}
+
+.date-style button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: Transparent;
+  font-weight: bold;
+  color: #dda9e4;
+}

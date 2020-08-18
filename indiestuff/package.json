@@ -10,7 +10,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "firnat": "npx prettier --write .",
+    "format": "npx prettier --write .",
     "e2e": "ng e2e",
     "android": "tns run android --no-hmr",
     "ios": "tns run ios --no-hmr",

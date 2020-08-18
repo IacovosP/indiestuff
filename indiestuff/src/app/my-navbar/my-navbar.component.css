@@ -11,7 +11,17 @@
   color: #dda9e4;
   float: left;
   text-align: center;
-  padding: 8px 16px;
+  padding: 0px 20px 0px 0px;
   text-decoration: none;
   font-size: 17px;
+}
+
+.my-navbar-items img {
+  width: 35px;
+  height: 35px;
+  opacity: 0.8;
+}
+
+.my-navbar-items img:hover {
+  opacity: 0.4;
 }

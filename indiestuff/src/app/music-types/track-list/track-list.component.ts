@@ -8,7 +8,8 @@ import { Track } from "../types";
 })
 export class TrackListComponent implements OnInit {
   constructor() {}
-
+  
+  @Input() isAlbumView: boolean = false;
   @Input() tracks: Track[];
 
   ngOnInit() {}

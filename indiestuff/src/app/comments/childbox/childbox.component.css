@@ -1,0 +1,27 @@
+.comment-form {
+  width: 70%;
+}
+
+.form-group textarea {
+  border-width: thin;
+  border-color: #47525e;
+  width: 100%;
+  resize: none;
+  font-family: helvetica;
+}
+
+.comment-form button {
+  float: right;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  color: #dda9e4;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  outline: none;
+  border-radius: 1px;
+  border-color: inherit;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}

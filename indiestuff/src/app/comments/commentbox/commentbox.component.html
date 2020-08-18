@@ -1,7 +1,7 @@
 <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <textarea
-      placeholder="Leave a comment"
+      placeholder="leave a comment..."
       formControlName="comment"
       [ngClass]="{
         'is-invalid': submitted && commentForm.controls['comment'].errors

@@ -10,9 +10,10 @@
         <a>{{ track.name }}</a>
       </div>
       <div class="right-side-items">
+        <a *ngIf="isAlbumView === false" class="album-name">{{ track.albumName}}</a>
         <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
         <img src="/assets/icons/web/outline_comment_black_18dp.png" />
-        <a>{{ track.durationInSec }}s</a>
+        <span>{{ track.durationInSec }}s</span>
       </div>
     </li>
   </ul>

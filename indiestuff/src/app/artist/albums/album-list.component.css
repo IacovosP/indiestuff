@@ -1,0 +1,11 @@
+.album-list-container {
+  margin-left: 15%;
+  font-family: sans-serif;
+  color: #47525e;
+  width: 80%;
+}
+
+.album-list {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -5,14 +5,8 @@
     "module": "esnext",
     "types": [],
     "paths": {
-      "@src/*": [
-        "src/*.web",
-        "src/*"
-      ]
+      "@src/*": ["src/*.web", "src/*"]
     }
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ]
+  "files": ["src/main.ts", "src/polyfills.ts"]
 }

@@ -10,4 +10,12 @@ export interface Album {
   durationInSec: number;
   artistName: string;
   imageUrl: string;
+  tracks: Track[];
+}
+
+export interface AlbumLite {
+  name: string;
+  durationInSec: number;
+  artistName: string;
+  imageUrl: string;
 }

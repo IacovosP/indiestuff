@@ -20,6 +20,7 @@ export class CommentboxComponent implements OnInit {
     {
       commentId: 0,
       commentTxt: "some comment already written",
+      author: "my hardcodedname",
       favourite: true,
       pinnedFavourite: true,
       replyComment: [],
@@ -27,6 +28,7 @@ export class CommentboxComponent implements OnInit {
     },
     {
       commentId: 1,
+      author: "my hardcodedname",
       commentTxt: "some other comment already written",
       favourite: false,
       replyComment: [],
@@ -34,7 +36,7 @@ export class CommentboxComponent implements OnInit {
     },
   ];
   submitted: Boolean = false;
-  public id = 0;
+  public id = 2;
   @Output() usercomment = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) {}
@@ -67,6 +69,7 @@ export class CommentboxComponent implements OnInit {
     } else {
       this.commentInfo.push({
         commentId: this.id++,
+        author: "hardcoded username",
         currentDate: new Date(),
         commentTxt: this.commentForm.controls["comment"].value,
         replyComment: [],

@@ -51,6 +51,7 @@ export class ChildboxComponent implements OnInit {
       this.replyComment.push({
         currentDate: new Date(),
         commentTxt: this.childForm.controls["comment"].value,
+        author: "some other hardcodename"
       });
       this.userReplycomment.emit(this.replyComment);
       this.deletNo.emit(this.commentNo);

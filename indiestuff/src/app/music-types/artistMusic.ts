@@ -1,10 +1,10 @@
-import { Album, Track } from "./types";
+import { AlbumLite, Track } from "./types";
 
 export class ArtistMusic {
   artistName: string;
   topTracks: Track[];
-  albums?: Album[];
-  headerImage?: string;
+  albums?: AlbumLite[];
+  headerImageUrl?: string;
   suggestedTracks?: Track[];
 
   constructor(values: Object = {}) {

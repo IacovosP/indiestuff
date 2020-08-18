@@ -11,16 +11,20 @@ import { SignupFormComponent } from "@src/app/signup-form/signup-form.component"
 import { ArtistMusicComponent } from "@src/app/artist/artist-music/artist-music.component";
 import { MyNavComponent } from "@src/app/my-navbar/my-navbar.component";
 import { ArtistMenuBar } from "@src/app/artist/page-menu-bar/artist-menu-bar.component";
+import { AlbumListComponent } from "@src/app/artist/albums/album-list.component";
+import { AlbumComponent } from "@src/app/artist/albums/album.component";
 import { PageTopImageComponent } from "@src/app/page/top-image/top-image.component";
 import { TrackListComponent } from "@src/app/music-types/track-list/track-list.component";
 import { CommentContainerComponent } from "@src/app/comments/comments-container.component";
 import { CommentboxComponent } from "@src/app/comments/commentbox/commentbox.component";
 import { ChildboxComponent } from "@src/app/comments/childbox/childbox.component";
+import { PlayerComponent } from "@src/app/player-ui/player.component";
 import {
   CommentsComponent,
   DatacontainerDirective,
 } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
+import { MatSliderModule } from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -37,11 +41,15 @@ import { MatDialogModule, MatDialog } from "@angular/material/dialog";
     CommentboxComponent,
     ChildboxComponent,
     ArtistMenuBar,
+    AlbumListComponent,
+    AlbumComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
