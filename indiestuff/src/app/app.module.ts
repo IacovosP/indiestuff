@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, HammerModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -19,12 +19,13 @@ import { CommentContainerComponent } from "@src/app/comments/comments-container.
 import { CommentboxComponent } from "@src/app/comments/commentbox/commentbox.component";
 import { ChildboxComponent } from "@src/app/comments/childbox/childbox.component";
 import { PlayerComponent } from "@src/app/player-ui/player.component";
+import { SharedService } from "@src/app/common/shared-service";
 import {
   CommentsComponent,
   DatacontainerDirective,
 } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
-import { MatSliderModule } from "@angular/material/slider";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -46,16 +47,17 @@ import { MatSliderModule } from "@angular/material/slider";
     PlayerComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatSliderModule,
+    MatProgressBarModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HammerModule
   ],
   entryComponents: [ChildboxComponent],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

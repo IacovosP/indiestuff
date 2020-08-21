@@ -19,3 +19,8 @@ export interface AlbumLite {
   artistName: string;
   imageUrl: string;
 }
+
+export interface Playlist {
+  tracks: Track[];
+  firstTrackIndex: number;
+}

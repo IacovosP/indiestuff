@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import { ArtistMusic } from "@src/app/music-types/artistMusic";
 
 @Component({
