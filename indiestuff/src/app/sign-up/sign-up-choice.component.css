@@ -1,0 +1,39 @@
+.sign-up-choice-modal-container {
+  width: 750px;
+  height: 415px;
+  position: fixed;
+  top: 0;
+  left: 30%;
+  padding: 0;
+  display: flex;
+  background-color: #c2ddde;
+  font-family: sans-serif;
+  color: #47525e;
+  border-style: solid;
+  border-width: medium;
+  border-color: #47525e;
+}
+
+.sign-up-choice-modal-container h3 {
+  color: #47525e;
+  font-weight: bolder;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+.fan-sign-up {
+  width: 375px;
+  height: 415px;
+  border-right-style: solid;
+  border-width: medium;
+  border-color: #47525e;
+  display: grid;
+}
+
+.artist-sign-up {
+  width: 375px;
+  height: 415px;
+  border-left-style: solid;
+  border-width: thin;
+  border-color: #47525e;
+}

@@ -1,3 +1,9 @@
+.sign-up-modal-container {
+  top: 0;
+  position: fixed;
+  left: 30%;
+}
+
 .custom-row {
   margin: 20px 20px 20px 10px;
   padding: 30px 20px 20px 10px;
@@ -15,6 +21,20 @@
   overflow: hidden;
 }
 
+.text-danger {
+  font-size: 10px;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.text-danger p {
+  padding: 0;
+  margin: 0;
+  margin-bottom: -20px;
+  padding-left: 220px;
+}
+
 .input-custom {
   border: none;
   outline: none;
@@ -30,6 +50,7 @@
   border-color: #89b8b9;
   margin: 0;
   padding: 0;
+  padding-top: 20px;
 }
 .signup-title-text {
   margin-left: 30px;
@@ -56,6 +77,7 @@
   font-weight: bold;
   margin-top: -30px;
 }
+
 .icon-done {
   color: #47525e;
   border: none;
@@ -66,6 +88,7 @@
   opacity: 80%;
   height: 60px;
 }
+
 .form-group {
   padding-top: 35px;
   padding-left: 30px;

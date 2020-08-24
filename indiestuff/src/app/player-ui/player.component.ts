@@ -13,6 +13,8 @@ import { Playlist, Track } from '@src/app/music-types/types';
 export class PlayerComponent implements OnInit {
   currentPlaylist: any;
   subscription: any;
+  pauseSubscription: any;
+  restartSubscription: any;
   playerSharedService: SharedService;
   durationAnimation: any;
   playerElapsedTime;
@@ -25,11 +27,11 @@ export class PlayerComponent implements OnInit {
     this.startPlayerListener();
   }
 
-  changePlaylist(tracks: Track[]) {
+  changePlaylist(tracks: Track[], indexOfSongToPlay: number) {
     this.currentPlaylist = this.createPlaylistWithTracks(tracks);
     try {
       player.setPlaylist(this.currentPlaylist);
-      player.play(0);
+      player.play(indexOfSongToPlay);
     } catch (e) {
       console.error("errored out ", e);
     }
@@ -87,7 +89,11 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.playerSharedService.getEmittedValue()
-      .subscribe(item => this.changePlaylist(item));
+      .subscribe(item => this.changePlaylist(item.tracks, item.indexOfSongToPlay));
+    this.pauseSubscription = this.playerSharedService.getEmittedPause()
+      .subscribe(item => this.pause());
+    this.restartSubscription = this.playerSharedService.getEmittedRestart()
+      .subscribe(item => this.play());
   }
 
 

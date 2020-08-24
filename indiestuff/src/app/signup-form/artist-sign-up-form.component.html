@@ -1,0 +1,167 @@
+<mat-dialog-content class="mat-typography sign-up-modal-container" style="width: 800px;padding: 0;">
+  <div class="row custom-modal">
+    <div class="col-sm-7 jumbotron">
+      <form
+        novalidate
+        (ngSubmit)="onFormSubmit(signupForm)"
+        #signupForm="ngForm"
+      >
+        <div class="signup-title">
+          <p class="signup-title-text">sign up for artist account</p>
+        </div>
+
+        <div>
+        <div class="form-group">
+          <label for="inputArtistName" class="col-lg-2 control-label"
+            >artist/band name</label
+          >
+          <div class="col-lg-7">
+            <input
+              type="text"
+              class="form-control input-custom"
+              [ngModel]="user.artistName"
+              #artistName="ngModel"
+              name="artistName"
+              id="inputArtistName"
+              required
+            />
+          </div>
+        </div>
+
+          <!-- username error block -->
+          <div
+            *ngIf="artistName.invalid && artistName.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="artistName.errors?.required">
+              artist/band name field can't be blank
+            </p>
+          </div>
+        </div>
+
+        <!-- Email input block -->
+        <div>
+          <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">email</label>
+            <div class="col-lg-7">
+              <input
+                type="text"
+                class="form-control input-custom"
+                [ngModel]="user.email"
+                name="email"
+                #email="ngModel"
+                id="inputEmail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email error block -->
+
+          <div
+            *ngIf="email.invalid && email.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="email.errors?.required">
+              email field can't be blank
+            </p>
+            <p *ngIf="email.errors?.pattern && email.touched">
+              the email id doesn't seem right
+            </p>
+          </div>
+        </div>
+
+        <!-- Password block -->
+        <div ngModelGroup="password" #userPassword="ngModelGroup">
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label"
+              >password</label
+            >
+            <div class="col-lg-7">
+              <input
+                type="password"
+                class="form-control input-custom"
+                ngModel
+                name="pwd"
+                id="inputPassword"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password error block -->
+          <div
+            *ngIf="userPassword.invalid && userPassword.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="userPassword.invalid">
+              password needs to be more than 8 characters
+            </p>
+          </div>
+        </div>
+        <div>
+        <div class="form-group">
+          <label for="inputUsername" class="col-lg-2 control-label"
+            >username</label
+          >
+          <div class="col-lg-7">
+            <input
+              type="text"
+              class="form-control input-custom"
+              [ngModel]="user.username"
+              #username="ngModel"
+              name="username"
+              id="inputUsername"
+              required
+            />
+          </div>
+        </div>
+
+          <!-- username error block -->
+          <div
+            *ngIf="username.invalid && username.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="username.errors?.required">
+              username field can't be blank
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="color: #00a6ff;"
+            >i've read the terms and conditions</label
+          >
+          <input
+            class="checkmark"
+            type="checkbox"
+            id="tac"
+            name="tac"
+            value="tac"
+          />
+
+          <!-- Buttons block -->
+          <mat-dialog-actions>
+            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+            <button
+              type="submit"
+              class="btn btn-success button-custom-tick"
+              mat-button
+              [mat-dialog-close]="true"
+            >
+              <div style="display: flex;">
+                <img
+                  class="icon-done"
+                  src="/assets/icons/web/baseline_done_black_18dp.png"
+                />
+                <p style="padding-top:30px">sign up</p>
+              </div>
+            </button>
+            <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>

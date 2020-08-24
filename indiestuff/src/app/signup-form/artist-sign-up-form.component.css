@@ -1,0 +1,104 @@
+.sign-up-modal-container {
+  top: 0;
+  position: fixed;
+  left: 30%;
+}
+
+.custom-row {
+  margin: 20px 20px 20px 10px;
+  padding: 30px 20px 20px 10px;
+  text-align: left;
+}
+
+.custom-modal {
+  background-color: #c2ddde;
+  font-family: sans-serif;
+  color: #47525e;
+  font-size: 26px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.text-danger {
+  font-size: 10px;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.text-danger p {
+  padding: 0;
+  margin: 0;
+  margin-bottom: -20px;
+  padding-left: 220px;
+}
+
+.input-custom {
+  border: none;
+  outline: none;
+  height: 40px;
+  float: left;
+  width: 520px;
+}
+
+.signup-title {
+  height: 60px;
+  border-bottom: solid;
+  border-width: medium;
+  border-color: #89b8b9;
+  margin: 0;
+  padding: 0;
+  padding-top: 20px;
+}
+.signup-title-text {
+  margin-left: 30px;
+  padding-top: 5px;
+}
+.custom-container {
+}
+.checkmark {
+  height: 22px;
+  width: 22px;
+  margin-left: 20px;
+  background-color: #eee;
+  border-color: black;
+}
+.button-custom-tick {
+  border: none;
+  background-color: inherit;
+  /* have to override because of mat-dialog-actions */
+  padding-left: 100px;
+  font-size: 26px;
+  float: right;
+  font-family: sans-serif;
+  color: #47525e;
+  font-weight: bold;
+  margin-top: -30px;
+}
+
+.icon-done {
+  color: #47525e;
+  border: none;
+  outline: none;
+  margin-left: -20px;
+  margin-top: 10px;
+  padding: 0;
+  opacity: 80%;
+  height: 60px;
+  padding-bottom: 25px;
+}
+
+.form-group {
+  padding-top: 35px;
+  padding-left: 30px;
+  display: flex;
+}
+
+.control-label {
+  padding-top: 5px;
+  width: 28%;
+}
+
+.checkbox {
+  margin-left: 5%;
+}

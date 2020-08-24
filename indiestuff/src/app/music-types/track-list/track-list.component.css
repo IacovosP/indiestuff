@@ -26,6 +26,10 @@
   background-color: #ffecf2;
 }
 
+.active-track {
+  background-color: #F8E3FF;
+}
+
 .left-side-items {
   float: right;
   margin: 0;
@@ -74,4 +78,11 @@
   height: 50px;
   padding-left: 20px;
   margin-top: -15px;
+}
+
+.pause-button {
+  padding-left: 27px;
+  padding-right: 3px;
+  margin-top: -12px;
+  height: 40px;
 }

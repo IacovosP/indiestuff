@@ -1,4 +1,4 @@
-<mat-dialog-content class="mat-typography" style="width: 750px;">
+<mat-dialog-content class="mat-typography sign-up-modal-container" style="width: 750px;padding: 0;">
   <div class="row custom-modal">
     <div class="col-sm-7 jumbotron">
       <form
@@ -11,19 +11,21 @@
         </div>
 
         <!-- Email input block -->
-        <div class="form-group">
-          <label for="inputEmail" class="col-lg-2 control-label">email</label>
-          <div class="col-lg-7">
-            <input
-              type="text"
-              class="form-control input-custom"
-              [ngModel]="user.email"
-              name="email"
-              #email="ngModel"
-              id="inputEmail"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-              required
-            />
+        <div>
+          <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">email</label>
+            <div class="col-lg-7">
+              <input
+                type="text"
+                class="form-control input-custom"
+                [ngModel]="user.email"
+                name="email"
+                #email="ngModel"
+                id="inputEmail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                required
+              />
+            </div>
           </div>
 
           <!-- Email error block -->
@@ -32,12 +34,12 @@
             *ngIf="email.invalid && email.touched"
             class="col-sm-3 text-danger"
           >
-            <div *ngIf="email.errors?.required">
-              Email field can't be blank
-            </div>
-            <div *ngIf="email.errors?.pattern && email.touched">
-              The email id doesn't seem right
-            </div>
+            <p *ngIf="email.errors?.required">
+              email field can't be blank
+            </p>
+            <p *ngIf="email.errors?.pattern && email.touched">
+              the email id doesn't seem right
+            </p>
           </div>
         </div>
 
@@ -65,23 +67,37 @@
             *ngIf="userPassword.invalid && userPassword.touched"
             class="col-sm-3 text-danger"
           >
-            <div *ngIf="userPassword.invalid">
+            <p *ngIf="userPassword.invalid">
               password needs to be more than 8 characters
-            </div>
+            </p>
           </div>
-          <div class="form-group">
-            <label for="username" class="col-lg-2 control-label"
-              >username</label
-            >
-            <div class="col-lg-7">
-              <input
-                type="text"
-                class="form-control input-custom"
-                ngModel
-                name="username"
-                id="username"
-              />
-            </div>
+        </div>
+        <div>
+        <div class="form-group">
+          <label for="inputUsername" class="col-lg-2 control-label"
+            >username</label
+          >
+          <div class="col-lg-7">
+            <input
+              type="text"
+              class="form-control input-custom"
+              [ngModel]="user.username"
+              #username="ngModel"
+              name="username"
+              id="inputUsername"
+              required
+            />
+          </div>
+        </div>
+
+          <!-- username error block -->
+          <div
+            *ngIf="username.invalid && username.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="username.errors?.required">
+              username field can't be blank
+            </p>
           </div>
         </div>
         <div class="form-group">
@@ -110,7 +126,7 @@
                   class="icon-done"
                   src="/assets/icons/web/baseline_done_black_18dp.png"
                 />
-                <p>sign up</p>
+                <p style="padding-top:30px">sign up</p>
               </div>
             </button>
             <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->

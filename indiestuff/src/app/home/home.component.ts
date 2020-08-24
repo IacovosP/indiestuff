@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { SignupFormComponent } from "@src/app/signup-form/signup-form.component";
+import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component";
 
 @Component({
   selector: "app-home",
@@ -10,18 +10,18 @@ import { SignupFormComponent } from "@src/app/signup-form/signup-form.component"
 export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   clickoutHandler: Function;
-  dialogRefClassScope: MatDialogRef<SignupFormComponent>;
+  dialogRefClassScope: MatDialogRef<SignupChoiceComponent>;
 
   title = "indiestuff";
   @HostListener("document:click", ["$event"])
-  clickout(event) {
+  click(event) {
     if (this.clickoutHandler) {
-      this.clickoutHandler(event);
+      this.clickoutHandler();
     }
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(SignupFormComponent);
+    const dialogRef = this.dialog.open(SignupChoiceComponent, {panelClass: 'app-signup-form-no-padding'});
     this.dialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -29,27 +29,14 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterOpened().subscribe(() => {
-      this.clickoutHandler = this.closeDialogFromClickout;
+      console.log("here 1");
+      this.clickoutHandler = this.closeDialogFromClick;
     });
   }
 
-  closeDialogFromClickout(event: MouseEvent) {
-    console.warn(
-      "rect: " +
-        JSON.stringify(Object.keys(this.dialogRefClassScope.componentInstance))
-    );
-    const matDialogContainerEl = this.dialogRefClassScope.componentInstance
-      .hostElement.nativeElement.parentElement;
-    const rect = matDialogContainerEl.getBoundingClientRect();
-    if (
-      event.clientX <= rect.left ||
-      event.clientX >= rect.right ||
-      event.clientY <= rect.top ||
-      event.clientY >= rect.bottom
-    ) {
-      delete this.clickoutHandler;
-      this.dialogRefClassScope.close();
-    }
+  closeDialogFromClick(event: MouseEvent) {
+    delete this.clickoutHandler;
+    this.dialogRefClassScope.close();
   }
 
   ngOnInit() {}

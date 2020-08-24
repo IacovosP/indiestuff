@@ -9,6 +9,7 @@
 //  */
  import {Howl, Howler} from 'howler';
  import { Playlist, Track } from '@src/app/music-types/types';
+import playerEventEmitter from "./playerEmitter";
 
  class Player {
    private playlist;
@@ -19,8 +20,8 @@
    private playerClock: any; // interval
 
    constructor() {
-     this.startPlayerTimerLoop()
-   };
+     this.startPlayerTimerLoop();
+   }
 
    private startPlayerTimerLoop() {
      this.playerClock = setInterval(() => {
@@ -35,7 +36,7 @@
    }
 
    public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
-     if (this.playlist && this.currentlyPlayingIndex && this.playlist[this.currentlyPlayingIndex] && this.playlist[this.currentlyPlayingIndex].howl) {
+     if (this.playlist && this.currentlyPlayingIndex >=0 && this.playlist[this.currentlyPlayingIndex] && this.playlist[this.currentlyPlayingIndex].howl) {
        this.playlist[this.currentlyPlayingIndex].howl.stop();
      }
 
@@ -88,6 +89,7 @@
         })
       }
 
+      playerEventEmitter.change(indexOfTrackToPlay);
       // Howler.volume(100);
       this.currentlyPlayingSound.play();
 
@@ -109,6 +111,7 @@
    // play after pause
    public restart() {
      this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
+     playerEventEmitter.change(this.currentlyPlayingIndex);
 
      this.currentlyPlayingSound.play();
    }
@@ -117,6 +120,7 @@
      this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
 
      this.currentlyPlayingSound.pause();
+     playerEventEmitter.change(this.currentlyPlayingIndex);
    }
 
      /**

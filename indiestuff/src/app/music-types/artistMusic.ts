@@ -8,7 +8,19 @@ export class ArtistMusic {
   suggestedTracks?: Track[];
 
   constructor(values: Object = {}) {
-    // Constructor initialization
+    Object.assign(this, values);
+  }
+}
+
+export class ArtistPageLayout {
+  artistName: string;
+  topTracks?: number[];
+  albums?: AlbumLite[];
+  headerImageUrl?: string;
+  suggestedTracks?: number[];
+  paypalEmail?: string;
+
+  constructor(values: Object = {}) {
     Object.assign(this, values);
   }
 }

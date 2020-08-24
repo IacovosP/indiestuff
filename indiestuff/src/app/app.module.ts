@@ -8,6 +8,8 @@ import { AppComponent } from "@src/app/app.component";
 import { HomeComponent } from "@src/app/home/home.component";
 
 import { SignupFormComponent } from "@src/app/signup-form/signup-form.component";
+import { ArtistSignupFormComponent } from "@src/app/signup-form/artist-sign-up-form.component";
+import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component";
 import { ArtistMusicComponent } from "@src/app/artist/artist-music/artist-music.component";
 import { MyNavComponent } from "@src/app/my-navbar/my-navbar.component";
 import { ArtistMenuBar } from "@src/app/artist/page-menu-bar/artist-menu-bar.component";
@@ -20,6 +22,8 @@ import { CommentboxComponent } from "@src/app/comments/commentbox/commentbox.com
 import { ChildboxComponent } from "@src/app/comments/childbox/childbox.component";
 import { PlayerComponent } from "@src/app/player-ui/player.component";
 import { SharedService } from "@src/app/common/shared-service";
+import { PlayerEventEmitter } from "@src/app/player-ui/playerEmitter";
+import { ArtistCreationPageComponent } from "@src/app/artist/artist-creation-page/artist-creation-page.component";
 import {
   CommentsComponent,
   DatacontainerDirective,
@@ -33,6 +37,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MyNavComponent,
     HomeComponent,
     SignupFormComponent,
+    ArtistSignupFormComponent,
+    ArtistCreationPageComponent,
     ArtistMusicComponent,
     PageTopImageComponent,
     TrackListComponent,
@@ -44,7 +50,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     ArtistMenuBar,
     AlbumListComponent,
     AlbumComponent,
-    PlayerComponent
+    PlayerComponent,
+    SignupChoiceComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,7 +64,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     HammerModule
   ],
   entryComponents: [ChildboxComponent],
-  providers: [SharedService],
+  providers: [SharedService, PlayerEventEmitter],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
