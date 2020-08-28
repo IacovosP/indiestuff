@@ -27,7 +27,7 @@
 }
 
 .active-track {
-  background-color: #F8E3FF;
+  background-color: #f8e3ff;
 }
 
 .left-side-items {
@@ -58,19 +58,18 @@
   margin-top: -5px;
 }
 
-
 .right-side-items li a {
   padding-left: 0px;
   margin-left: 0px;
 }
 
-.right-side-items a{
+.right-side-items a {
   padding-right: 30px;
 }
 .right-side-items img:hover {
   opacity: 0.7;
 }
-.right-side-items a:hover{
+.right-side-items a:hover {
   opacity: 0.7;
 }
 

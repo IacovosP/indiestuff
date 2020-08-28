@@ -1,19 +1,57 @@
 <div class="player-container">
-  <a>{{currentTrack.title}}</a>
-  <a>{{currentTime}}</a>
+  <a>{{ currentTrack.title }}</a>
+  <a>{{ currentTime }}</a>
   <div class="player-bar">
     <div class="play-button" id="playBtn">
-      <img *ngIf="!isPlaying" style="padding-top:1px;" src="/assets/icons/web/baseline_play_arrow_black_18dp.png" (click)="play()" height=40px width=40px>
-      <img *ngIf="isPlaying" style="padding-top:1px;" src="/assets/icons/web/baseline_pause_black_18dp.png" (click)="pause()" height=40px width=40px>
+      <img
+        *ngIf="!isPlaying"
+        style="padding-top: 1px"
+        src="/assets/icons/web/baseline_play_arrow_black_18dp.png"
+        (click)="play()"
+        height="40px"
+        width="40px"
+      />
+      <img
+        *ngIf="isPlaying"
+        style="padding-top: 1px"
+        src="/assets/icons/web/baseline_pause_black_18dp.png"
+        (click)="pause()"
+        height="40px"
+        width="40px"
+      />
     </div>
     <div class="progress-bar-container">
-      <mat-progress-bar mode="determinate" (click)="seekSongToLocation($event)" value={{playerElapsedTime}} class="progress-bar">
+      <mat-progress-bar
+        mode="determinate"
+        (click)="seekSongToLocation($event)"
+        value="{{ playerElapsedTime }}"
+        class="progress-bar"
+      >
       </mat-progress-bar>
     </div>
     <div class="utility-player-buttons">
-      <img id="prevBtn" style="padding-left: 15px;padding-top:5px;" (click)="previous()" src="/assets/icons/web/baseline_skip_previous_black_18dp.png"  height=40px width=40px>
-      <img id="nextBtn" style="padding-left: 5px;padding-top:5px;" (click)="skip()" src="/assets/icons/web/baseline_skip_next_black_18dp.png"  height=40px width=40px>
-      <img style="padding-left: 15px;padding-top:5px;" src="/assets/icons/web/baseline_repeat_black_18dp.png"  height=40px width=40px>
+      <img
+        id="prevBtn"
+        style="padding-left: 15px; padding-top: 5px"
+        (click)="previous()"
+        src="/assets/icons/web/baseline_skip_previous_black_18dp.png"
+        height="40px"
+        width="40px"
+      />
+      <img
+        id="nextBtn"
+        style="padding-left: 5px; padding-top: 5px"
+        (click)="skip()"
+        src="/assets/icons/web/baseline_skip_next_black_18dp.png"
+        height="40px"
+        width="40px"
+      />
+      <img
+        style="padding-left: 15px; padding-top: 5px"
+        src="/assets/icons/web/baseline_repeat_black_18dp.png"
+        height="40px"
+        width="40px"
+      />
     </div>
   </div>
 </div>

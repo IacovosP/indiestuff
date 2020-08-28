@@ -1,14 +1,23 @@
-<div
-  class="custom-comments-container"
-  *ngIf="postComment !== undefined"
->
+<div class="custom-comments-container" *ngIf="postComment !== undefined">
   <h6 *ngIf="postComment?.length < 1">no comments found</h6>
-  <ul style="padding:0;" class="comments-list-custom" *ngIf="postComment?.length > 0">
+  <ul
+    style="padding: 0"
+    class="comments-list-custom"
+    *ngIf="postComment?.length > 0"
+  >
     <li *ngFor="let post of postComment; let i = index">
-      <div [ngClass]="post.favourite === true ? 'col-12 col-sm-12 comment-container favourite': 'col-12 col-sm-12 comment-container non-favourte '">
+      <div
+        [ngClass]="
+          post.favourite === true
+            ? 'col-12 col-sm-12 comment-container favourite'
+            : 'col-12 col-sm-12 comment-container non-favourte '
+        "
+      >
         <p>{{ post.commentTxt }}</p>
         <div class="actions date-style">
-          <span style="font-weight:bold;font-size: 13px;margin-right: 5px;">{{ post.author }}</span>
+          <span style="font-weight: bold; font-size: 13px; margin-right: 5px">{{
+            post.author
+          }}</span>
           <span class="divider"></span>
           <span>{{ post.currentDate | date: "dd/MM/yyyy" }}</span>
           <span class="divider"></span>
@@ -28,9 +37,18 @@
           >
             <li *ngFor="let reply of post.replyComment">
               <div class="col-12 col-sm-12 comment-container">
-                <span style="font-size: 14px;font-style: italic;">{{ reply.commentTxt }}</span>
+                <span style="font-size: 14px; font-style: italic">{{
+                  reply.commentTxt
+                }}</span>
                 <div>
-                  <span style="font-weight:bold;font-size: 12px;font-style: italic;">{{ reply.author }}</span>
+                  <span
+                    style="
+                      font-weight: bold;
+                      font-size: 12px;
+                      font-style: italic;
+                    "
+                    >{{ reply.author }}</span
+                  >
                 </div>
               </div>
             </li>

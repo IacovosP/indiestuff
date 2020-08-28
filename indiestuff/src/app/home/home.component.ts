@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(SignupChoiceComponent, {panelClass: 'app-signup-form-no-padding'});
+    const dialogRef = this.dialog.open(SignupChoiceComponent, {
+      panelClass: "app-signup-form-no-padding",
+    });
     this.dialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {

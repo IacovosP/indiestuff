@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Track } from "../types";
-import { SharedService } from '@src/app/common/shared-service';
+import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 
 @Component({
@@ -21,8 +21,9 @@ export class TrackListComponent implements OnInit {
   @Input() tracks: Track[];
 
   ngOnInit() {
-    this.subscription = playerEventEmitter.getEmittedValue()
-      .subscribe(item => this.changeIndexOfSongPlaying(item));
+    this.subscription = playerEventEmitter
+      .getEmittedValue()
+      .subscribe((item) => this.changeIndexOfSongPlaying(item));
   }
 
   changeIndexOfSongPlaying(indexOfSongPlaying) {
@@ -41,7 +42,7 @@ export class TrackListComponent implements OnInit {
     }
     console.error("play " + indexOfSongToPlay);
     console.error("play " + JSON.stringify(this.tracks));
-    this.playerSharedService.change({tracks: this.tracks, indexOfSongToPlay});
+    this.playerSharedService.change({ tracks: this.tracks, indexOfSongToPlay });
   }
 
   restartTrack() {

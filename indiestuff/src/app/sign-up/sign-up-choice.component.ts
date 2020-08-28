@@ -22,7 +22,9 @@ export class SignupChoiceComponent implements OnInit {
   }
 
   openFanSignup() {
-    const dialogRef = this.dialog.open(SignupFormComponent, {panelClass: 'app-signup-form-no-padding'});
+    const dialogRef = this.dialog.open(SignupFormComponent, {
+      panelClass: "app-signup-form-no-padding",
+    });
     this.dialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -35,7 +37,9 @@ export class SignupChoiceComponent implements OnInit {
   }
 
   openArtistSignup() {
-    const dialogRef = this.dialog.open(ArtistSignupFormComponent, {panelClass: 'app-signup-form-no-padding'});
+    const dialogRef = this.dialog.open(ArtistSignupFormComponent, {
+      panelClass: "app-signup-form-no-padding",
+    });
     this.artistDialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {

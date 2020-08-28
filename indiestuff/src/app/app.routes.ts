@@ -26,5 +26,5 @@ export const routes: Routes = [
   {
     path: "myartistpage",
     component: ArtistCreationPageComponent,
-  }
+  },
 ];

@@ -2,7 +2,7 @@
   height: 50px;
   width: 106%;
   margin-left: -5%;
-  background-color: #DDA9E4;
+  background-color: #dda9e4;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -14,7 +14,7 @@
   margin-bottom: 1px;
   padding-bottom: 1px;
   margin-left: 30%;
-  padding:0;
+  padding: 0;
   font-family: sans-serif;
   font-size: 14px;
 }
@@ -24,14 +24,14 @@
   cursor: pointer;
 }
 .player-bar {
-  display:flex;
+  display: flex;
 }
 .play-button {
   margin-top: -12.5px;
   margin-left: 20%;
   height: 40px;
   width: 40px;
-  background-color: #F8E3FF;
+  background-color: #f8e3ff;
 }
 
 .utility-player-buttons {
@@ -42,7 +42,7 @@
   margin-left: 25px;
   height: 25px;
   width: 50%;
-  background-color: #F8E3FF;
+  background-color: #f8e3ff;
 }
 
 .progress-bar {
@@ -61,13 +61,13 @@
   padding-left: 2px;
   height: 40px;
   width: 5px;
-  background-color: #976DD0;
+  background-color: #976dd0;
 }
 
 .mat-progress-bar-buffer {
-  background-color: #976DD0;
+  background-color: #976dd0;
 }
 
 .mat-progress-bar-fill::after {
-  background-color: #976DD0;
+  background-color: #976dd0;
 }

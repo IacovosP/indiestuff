@@ -29,7 +29,7 @@ import {
   DatacontainerDirective,
 } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AlbumListComponent,
     AlbumComponent,
     PlayerComponent,
-    SignupChoiceComponent
+    SignupChoiceComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -61,7 +61,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HammerModule
+    HammerModule,
   ],
   entryComponents: [ChildboxComponent],
   providers: [SharedService, PlayerEventEmitter],

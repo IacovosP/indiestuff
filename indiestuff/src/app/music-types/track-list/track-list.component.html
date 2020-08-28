@@ -1,20 +1,31 @@
 <div class="tracks-custom">
   <ul class="track-list">
-    <li *ngFor="let track of tracks; index as i" [ngClass]="{'active-track': i === indexOfSongPlaying}">
+    <li
+      *ngFor="let track of tracks; index as i"
+      [ngClass]="{ 'active-track': i === indexOfSongPlaying }"
+    >
       <div class="left-side-items">
-        <a style="padding-left: 10px;">{{ i + 1 }}</a>
-        <img *ngIf="indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i)"
+        <a style="padding-left: 10px">{{ i + 1 }}</a>
+        <img
+          *ngIf="
+            indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i)
+          "
           class="play-arrow"
           src="/assets/icons/web/outline_play_arrow_black_18dp.png"
-        (click)="playSong(i)">
-        <img *ngIf="isPaused === false && indexOfSongPlaying === i"
+          (click)="playSong(i)"
+        />
+        <img
+          *ngIf="isPaused === false && indexOfSongPlaying === i"
           class="pause-button"
           src="/assets/icons/web/baseline_pause_black_18dp.png"
-        (click)="pauseTrack()">
+          (click)="pauseTrack()"
+        />
         <a>{{ track.name }}</a>
       </div>
       <div class="right-side-items">
-        <a *ngIf="isAlbumView === false" class="album-name">{{ track.albumName}}</a>
+        <a *ngIf="isAlbumView === false" class="album-name">{{
+          track.albumName
+        }}</a>
         <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
         <img src="/assets/icons/web/outline_comment_black_18dp.png" />
         <span>{{ track.durationInSec }}s</span>

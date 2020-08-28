@@ -7,179 +7,185 @@
 //  *
 //  *  MIT License
 //  */
- import {Howl, Howler} from 'howler';
- import { Playlist, Track } from '@src/app/music-types/types';
+import { Howl, Howler } from "howler";
+import { Playlist, Track } from "@src/app/music-types/types";
 import playerEventEmitter from "./playerEmitter";
 
- class Player {
-   private playlist;
-   private currentlyPlayingIndex: number;
-   private currentlyPlayingSound: any;
-   public elapsedTimeInPercentage: number = 0; // 0-100
-   public elapsedTimeInSeconds: number = 0;
-   private playerClock: any; // interval
+class Player {
+  private playlist;
+  private currentlyPlayingIndex: number;
+  private currentlyPlayingSound: any;
+  public elapsedTimeInPercentage: number = 0; // 0-100
+  public elapsedTimeInSeconds: number = 0;
+  private playerClock: any; // interval
 
-   constructor() {
-     this.startPlayerTimerLoop();
-   }
+  constructor() {
+    this.startPlayerTimerLoop();
+  }
 
-   private startPlayerTimerLoop() {
-     this.playerClock = setInterval(() => {
-       if (this.currentlyPlayingSound) {
-         const currentTrackTime = this.currentlyPlayingSound.seek();
-         if (typeof currentTrackTime === "number") {
-           this.elapsedTimeInPercentage = currentTrackTime / player.getDurationOfSong() * 100;
-           this.elapsedTimeInSeconds = currentTrackTime;
-         }
-       }
-     }, 10)
-   }
-
-   public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
-     if (this.playlist && this.currentlyPlayingIndex >=0 && this.playlist[this.currentlyPlayingIndex] && this.playlist[this.currentlyPlayingIndex].howl) {
-       this.playlist[this.currentlyPlayingIndex].howl.stop();
-     }
-
-     this.playlist = playlist;
-     this.currentlyPlayingIndex = indexOfTrackToPlay;
-   }
-
-   public getCurrentTrack() {
-     if (this.currentlyPlayingIndex >=0) {
-       return this.playlist[this.currentlyPlayingIndex];
-     }
-     return "";
-   }
-
-     /**
-      * Play a song in the playlist.
-      * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
-      */
-    public play(indexOfTrackToPlay: number) {
-      var data = this.playlist[indexOfTrackToPlay];
-      const self = this;
-      // If we already loaded this track, use the current one.
-      // Otherwise, setup and load a new Howl.
-      if (data.howl) {
-        this.currentlyPlayingSound = data.howl;
-      } else {
-        this.currentlyPlayingSound = data.howl = new Howl({
-          src: ['https://indie-music-test.s3.eu-west-2.amazonaws.com/Cant-Keep-Checking-My-Phone.mp3'],
-          html5: true,
-          format: 'mp3',
-          volume: 0.3,
-          onloaderror: function(error) {
-            console.log('Error!', error);
-          },
-          onplay: function() {
-          },
-          onseek: function() {
-          },
-          onload: function() {
-            console.log("loaded " + data.howl.duration());
-          },
-          onend: function() {
-            console.log('Finished!');
-            self.skip('next');
-          },
-          onpause: function() {
-          },
-          onstop: function() {
-          },
-        })
-      }
-
-      playerEventEmitter.change(indexOfTrackToPlay);
-      // Howler.volume(100);
-      this.currentlyPlayingSound.play();
-
-      // Keep track of the index we are currently playing.
-      this.currentlyPlayingIndex = indexOfTrackToPlay;
-    }
-
-   public playTrack(indexOfTrackToPlay: number = this.currentlyPlayingIndex) {
-       // Stop the current track.
-       if (this.playlist[this.currentlyPlayingIndex].howl) {
-         this.playlist[this.currentlyPlayingIndex].howl.stop();
-       }
-
-       this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
-
-       this.currentlyPlayingSound.play();
-   }
-
-   // play after pause
-   public restart() {
-     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-     playerEventEmitter.change(this.currentlyPlayingIndex);
-
-     this.currentlyPlayingSound.play();
-   }
-
-   public pause() {
-     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-
-     this.currentlyPlayingSound.pause();
-     playerEventEmitter.change(this.currentlyPlayingIndex);
-   }
-
-     /**
-      * Seek to a new position in the currently playing track.
-      * @param  {Number} per Percentage through the song to skip.
-      */
-    public seek(per : number) {
-      // Get the Howl we want to manipulate.
-      // Convert the percent into a seek position.
+  private startPlayerTimerLoop() {
+    this.playerClock = setInterval(() => {
       if (this.currentlyPlayingSound) {
-        this.currentlyPlayingSound.seek(this.currentlyPlayingSound.duration() * per);
-      }
-    }
-
-    public getDurationOfSong() {
-      return this.currentlyPlayingSound.duration();
-    }
-
-    public isPlayerPlaying() {
-      if (this.currentlyPlayingSound) {
-        return this.currentlyPlayingSound.playing();
-      }
-    }
-
-      /**
-       * Skip to the next or previous track.
-       * @param  {String} direction 'next' or 'prev'.
-       */
-    public skip(direction: 'next' | 'prev') {
-        // Get the next track based on the direction of the track.
-        var index = 0;
-        if (direction === 'prev') {
-          index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
-          if (index < 0) {
-            index = this.playlist && this.playlist.length - 1;
-          }
-        } else {
-          index = this.currentlyPlayingIndex + 1;
-          if (this.playlist && index >= this.playlist.length) {
-            index = 0;
-          }
+        const currentTrackTime = this.currentlyPlayingSound.seek();
+        if (typeof currentTrackTime === "number") {
+          this.elapsedTimeInPercentage =
+            (currentTrackTime / player.getDurationOfSong()) * 100;
+          this.elapsedTimeInSeconds = currentTrackTime;
         }
-
-        this.skipTo(index);
       }
+    }, 10);
+  }
 
-      /**
-       * Skip to a specific track based on its playlist index.
-       * @param  {Number} index Index in the playlist.
-       */
-      private skipTo(index) {
-        // Stop the current track.
-        if (this.playlist[this.currentlyPlayingIndex].howl) {
-          this.playlist[this.currentlyPlayingIndex].howl.stop();
-        }
-        // Play the new track.
-        this.play(index);
+  public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
+    if (
+      this.playlist &&
+      this.currentlyPlayingIndex >= 0 &&
+      this.playlist[this.currentlyPlayingIndex] &&
+      this.playlist[this.currentlyPlayingIndex].howl
+    ) {
+      this.playlist[this.currentlyPlayingIndex].howl.stop();
+    }
+
+    this.playlist = playlist;
+    this.currentlyPlayingIndex = indexOfTrackToPlay;
+  }
+
+  public getCurrentTrack() {
+    if (this.currentlyPlayingIndex >= 0) {
+      return this.playlist[this.currentlyPlayingIndex];
+    }
+    return "";
+  }
+
+  /**
+   * Play a song in the playlist.
+   * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
+   */
+  public play(indexOfTrackToPlay: number) {
+    var data = this.playlist[indexOfTrackToPlay];
+    const self = this;
+    // If we already loaded this track, use the current one.
+    // Otherwise, setup and load a new Howl.
+    if (data.howl) {
+      this.currentlyPlayingSound = data.howl;
+    } else {
+      this.currentlyPlayingSound = data.howl = new Howl({
+        src: [
+          "https://indie-music-test.s3.eu-west-2.amazonaws.com/Cant-Keep-Checking-My-Phone.mp3",
+        ],
+        html5: true,
+        format: "mp3",
+        volume: 0.3,
+        onloaderror: function (error) {
+          console.log("Error!", error);
+        },
+        onplay: function () {},
+        onseek: function () {},
+        onload: function () {
+          console.log("loaded " + data.howl.duration());
+        },
+        onend: function () {
+          console.log("Finished!");
+          self.skip("next");
+        },
+        onpause: function () {},
+        onstop: function () {},
+      });
+    }
+
+    playerEventEmitter.change(indexOfTrackToPlay);
+    // Howler.volume(100);
+    this.currentlyPlayingSound.play();
+
+    // Keep track of the index we are currently playing.
+    this.currentlyPlayingIndex = indexOfTrackToPlay;
+  }
+
+  public playTrack(indexOfTrackToPlay: number = this.currentlyPlayingIndex) {
+    // Stop the current track.
+    if (this.playlist[this.currentlyPlayingIndex].howl) {
+      this.playlist[this.currentlyPlayingIndex].howl.stop();
+    }
+
+    this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
+
+    this.currentlyPlayingSound.play();
+  }
+
+  // play after pause
+  public restart() {
+    this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
+    playerEventEmitter.change(this.currentlyPlayingIndex);
+
+    this.currentlyPlayingSound.play();
+  }
+
+  public pause() {
+    this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
+
+    this.currentlyPlayingSound.pause();
+    playerEventEmitter.change(this.currentlyPlayingIndex);
+  }
+
+  /**
+   * Seek to a new position in the currently playing track.
+   * @param  {Number} per Percentage through the song to skip.
+   */
+  public seek(per: number) {
+    // Get the Howl we want to manipulate.
+    // Convert the percent into a seek position.
+    if (this.currentlyPlayingSound) {
+      this.currentlyPlayingSound.seek(
+        this.currentlyPlayingSound.duration() * per
+      );
+    }
+  }
+
+  public getDurationOfSong() {
+    return this.currentlyPlayingSound.duration();
+  }
+
+  public isPlayerPlaying() {
+    if (this.currentlyPlayingSound) {
+      return this.currentlyPlayingSound.playing();
+    }
+  }
+
+  /**
+   * Skip to the next or previous track.
+   * @param  {String} direction 'next' or 'prev'.
+   */
+  public skip(direction: "next" | "prev") {
+    // Get the next track based on the direction of the track.
+    var index = 0;
+    if (direction === "prev") {
+      index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
+      if (index < 0) {
+        index = this.playlist && this.playlist.length - 1;
       }
- }
+    } else {
+      index = this.currentlyPlayingIndex + 1;
+      if (this.playlist && index >= this.playlist.length) {
+        index = 0;
+      }
+    }
+
+    this.skipTo(index);
+  }
+
+  /**
+   * Skip to a specific track based on its playlist index.
+   * @param  {Number} index Index in the playlist.
+   */
+  private skipTo(index) {
+    // Stop the current track.
+    if (this.playlist[this.currentlyPlayingIndex].howl) {
+      this.playlist[this.currentlyPlayingIndex].howl.stop();
+    }
+    // Play the new track.
+    this.play(index);
+  }
+}
 
 const player = new Player();
 export default player;

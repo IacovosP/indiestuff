@@ -1,0 +1,43 @@
+.add-album-container {
+  color: #47525e;
+  font-size: 38px;
+  font-family: sans-serif;
+  width: 40%;
+  margin-left: 11%;
+}
+.add-album-container h3 {
+  padding-bottom: 0px;
+  margin-bottom: 5px;
+}
+
+.album-creation {
+  margin-left: 3%;
+  background-color: #f8e3ff;
+  font-size: 26px;
+  font-family: sans-serif;
+  font-weight: bold;
+  height: 330px;
+  width: 740px;
+}
+
+.album-creation input {
+  background-color: #f8e3ff;
+  border: none;
+  outline: none;
+  padding-left: 150px;
+  font-size: 24px;
+  font-family: sans-serif;
+  font-weight: bold;
+  opacity: 0.5;
+  width: 425px;
+}
+
+.album-creation img {
+  margin-top: -15px;
+}
+
+.form-group {
+  padding-top: 35px;
+  padding-left: 30px;
+  display: flex;
+}

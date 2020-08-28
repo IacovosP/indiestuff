@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
-import { ArtistPageLayout } from "@src/app/music-types/artistMusic";
+import { ArtistPageLayout, AlbumNew } from "@src/app/music-types/artistMusic";
 
 @Component({
   selector: "app-artist-creation-page",
@@ -10,15 +10,16 @@ export class ArtistCreationPageComponent implements OnInit {
   constructor() {}
 
   private artistPageLayout: ArtistPageLayout;
-
+  private newAlbum: AlbumNew;
   ngOnInit() {
+    this.newAlbum = new AlbumNew({ title: "" });
     this.artistPageLayout = new ArtistPageLayout({
       artistName: "SomeArtist",
       // topTracks?: number[];
       // albums?: AlbumLite[];
-      headerImageUrl: ""
+      headerImageUrl: "",
       // suggestedTracks?: number[];
       // paypalEmail?: string;});
-    })
+    });
   }
 }

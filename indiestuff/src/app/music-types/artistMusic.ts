@@ -12,6 +12,14 @@ export class ArtistMusic {
   }
 }
 
+export class AlbumNew {
+  title: string;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
 export class ArtistPageLayout {
   artistName: string;
   topTracks?: number[];

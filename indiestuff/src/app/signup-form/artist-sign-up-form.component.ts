@@ -15,13 +15,18 @@ export class ArtistSignupFormComponent implements OnInit {
   private user: Artist;
   ngOnInit() {
     // Create a new user object
-    this.user = new Artist({ artistName: "", username: "", email: "", password: "" });
+    this.user = new Artist({
+      artistName: "",
+      username: "",
+      email: "",
+      password: "",
+    });
   }
 
   onFormSubmit({ value, valid }: { value: Artist; valid: boolean }) {
     this.user = value;
     console.log(this.user);
     console.log("valid: " + valid);
-    window.location.href = '/myartistpage';
+    window.location.href = "/myartistpage";
   }
 }
