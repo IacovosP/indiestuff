@@ -82,6 +82,7 @@ export class PlayerComponent implements OnInit {
       (track) =>
         ((track as any) = {
           title: track.name,
+          artistName: track.artistName,
           file: "Cant Keep Checking My Phone",
           howl: null,
           // html5: true, // A live stream can only be played through HTML5 Audio.

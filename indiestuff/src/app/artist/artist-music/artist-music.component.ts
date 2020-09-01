@@ -16,14 +16,14 @@ export class ArtistMusicComponent implements OnInit {
       name: "some track 1",
       albumName: "SomeAlbum",
       durationInSec: 125,
-      artistname: "SomeArtist",
+      artistName: "SomeArtist",
     };
 
     const mockTrack2 = {
       name: "some longer titled track",
       albumName: "SomeAlbum",
       durationInSec: 256,
-      artistname: "SomeArtist",
+      artistName: "SomeArtist",
     };
     this.artistMusic = new ArtistMusic({
       artistName: "THE ARTIST",

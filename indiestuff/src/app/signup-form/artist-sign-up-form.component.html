@@ -83,8 +83,9 @@
               <input
                 type="password"
                 class="form-control input-custom"
-                ngModel
-                name="pwd"
+                [ngModel]="user.password"
+                name="password"
+                #password="ngModel"
                 id="inputPassword"
                 minlength="8"
                 required

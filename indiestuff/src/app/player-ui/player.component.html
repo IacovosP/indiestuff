@@ -1,6 +1,10 @@
 <div class="player-container">
-  <a>{{ currentTrack.title }}</a>
-  <a>{{ currentTime }}</a>
+  <div class="track-details">
+    <a>{{ currentTrack.title }}</a>
+    <a> by </a>
+    <a>{{ currentTrack.artistName }}</a>
+    <a style="float:right; margin-top: -0.5px;">{{ currentTime }}</a>
+  </div>
   <div class="player-bar">
     <div class="play-button" id="playBtn">
       <img
