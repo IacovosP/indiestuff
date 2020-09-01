@@ -30,6 +30,7 @@ import {
 } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { LoginFormComponent } from "@src/app/login/login.component";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     AlbumComponent,
     PlayerComponent,
     SignupChoiceComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserAnimationsModule,

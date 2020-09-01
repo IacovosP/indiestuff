@@ -1,0 +1,100 @@
+<mat-dialog-content
+  class="mat-typography login-modal-container"
+  style="width: 750px; padding: 0"
+>
+  <div class="row custom-modal">
+    <div class="col-sm-7 jumbotron">
+      <form
+        novalidate
+        (ngSubmit)="onFormSubmit(loginForm)"
+        #loginForm="ngForm"
+      >
+        <div class="signup-title">
+          <p class="signup-title-text">login</p>
+        </div>
+
+        <!-- Email input block -->
+        <div>
+          <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">email</label>
+            <div class="col-lg-7">
+              <input
+                type="text"
+                class="form-control input-custom"
+                [ngModel]="user.email"
+                name="email"
+                #email="ngModel"
+                id="inputEmail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email error block -->
+
+          <div
+            *ngIf="email.invalid && email.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="email.errors?.required">email field can't be blank</p>
+            <p *ngIf="email.errors?.pattern && email.touched">
+              the email id doesn't seem right
+            </p>
+          </div>
+        </div>
+
+        <!-- Password block -->
+        <!-- <div ngModelGroup="password" #userPassword="ngModelGroup"> -->
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label"
+              >password</label
+            >
+            <div class="col-lg-7">
+              <input
+                type="password"
+                class="form-control input-custom"
+                [ngModel]="user.password"
+                name="password"
+                #password="ngModel"
+                id="inputPassword"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password error block -->
+          <div
+            *ngIf="password.invalid && password.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="password.invalid">
+              password needs to be more than 8 characters
+            </p>
+          </div>
+        <div class="form-group-button">
+          <!-- Buttons block -->
+          <mat-dialog-actions>
+            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+            <button
+              type="submit"
+              class="btn btn-success button-custom-tick"
+              mat-button
+              [mat-dialog-close]="true"
+            >
+              <div style="display: flex">
+                <img
+                  class="icon-done"
+                  src="/assets/icons/web/baseline_done_black_18dp.png"
+                />
+                <p style="padding-top: 30px">login</p>
+              </div>
+            </button>
+            <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -9,8 +9,9 @@ import config from "../config/config";
 class AuthController {
   static login = async (req: Request, res: Response) => {
     //Check if username and password are set
-    let { username, password } = req.body;
-    if (!(username && password)) {
+    console.log("login attempt: " + JSON.stringify(req.body.user));
+    let { email, password } = req.body.user;
+    if (!(email && password)) {
       res.status(400).send();
     }
 
@@ -18,7 +19,7 @@ class AuthController {
     const userRepository = getRepository(User);
     let user: User;
     try {
-      user = await userRepository.findOneOrFail({ where: { username } });
+      user = await userRepository.findOneOrFail({ where: { email } });
     } catch (error) {
       res.status(401).send("Loging failed");
     }
@@ -30,14 +31,16 @@ class AuthController {
     }
 
     //Sing JWT, valid for 1 hour
-    const token = jwt.sign(
-      { userId: user.id, username: user.username },
-      config.jwtSecret,
-      { expiresIn: "1h" }
-    );
+    const tokenResponse = {
+      token: jwt.sign(
+        { userId: user.id, username: user.username },
+        config.jwtSecret,
+        { expiresIn: "1h" }),
+      expiresIn: 3500
+    }
 
     //Send the jwt in the response
-    res.send(token);
+    res.send(tokenResponse);
   };
 
   static changePassword = async (req: Request, res: Response) => {

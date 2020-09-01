@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component";
+import { LoginFormComponent } from "@src/app/login/login.component";
 
 @Component({
   selector: "app-home",
@@ -10,7 +11,7 @@ import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component
 export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   clickoutHandler: Function;
-  dialogRefClassScope: MatDialogRef<SignupChoiceComponent>;
+  dialogRefClassScope: MatDialogRef<SignupChoiceComponent|LoginFormComponent>;
 
   title = "indiestuff";
   @HostListener("document:click", ["$event"])
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  openSignupDialog() {
     const dialogRef = this.dialog.open(SignupChoiceComponent, {
       panelClass: "app-signup-form-no-padding",
     });
@@ -34,6 +35,22 @@ export class HomeComponent implements OnInit {
       console.log("here 1");
       this.clickoutHandler = this.closeDialogFromClick;
     });
+  }
+
+  openLoginDialog() {
+    const dialogRef = this.dialog.open(LoginFormComponent, {
+      panelClass: "app-signup-form-no-padding",
+    });
+    this.dialogRefClassScope = dialogRef;
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+
+    // dialogRef.afterOpened().subscribe(() => {
+    //   console.log("here 1");
+    //   this.clickoutHandler = this.closeDialogFromClick;
+    // });
   }
 
   closeDialogFromClick(event: MouseEvent) {
