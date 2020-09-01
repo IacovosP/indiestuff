@@ -1,0 +1,22 @@
+{
+   "type": "postgres",
+   "host": "127.0.0.1",
+   "port": 5432,
+   "database": "test.postgresql",
+   "synchronize": false,
+   "logging": false,
+   "entities": [
+      "src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
