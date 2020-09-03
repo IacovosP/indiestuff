@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
+import { AuthStateEventEmitter } from "./loggedInEventEmitter";
 
 interface LoginUser {
     email: string;
@@ -14,7 +15,11 @@ interface LoginUser {
 
 
 export class LoginFormComponent implements OnInit {
-  constructor(public hostElement: ElementRef) {}
+  authEventEmitter: AuthStateEventEmitter;
+
+  constructor(public hostElement: ElementRef, authEventEmitter: AuthStateEventEmitter) {
+    this.authEventEmitter = authEventEmitter;
+  }
   // Property for the user
   private user: LoginUser;
   ngOnInit() {
@@ -40,6 +45,7 @@ export class LoginFormComponent implements OnInit {
     fetch(restAPIUrl, requestInit)
       .then(response => {
         console.log("got a response " + JSON.stringify(response));
+        this.authEventEmitter.change(response);
       })
       .catch(err => {
         console.error("got an error: " , err);

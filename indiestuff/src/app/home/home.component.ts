@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component";
 import { LoginFormComponent } from "@src/app/login/login.component";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 
 @Component({
   selector: "app-home",
@@ -9,7 +10,11 @@ import { LoginFormComponent } from "@src/app/login/login.component";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  authEventEmitter: AuthStateEventEmitter;
+  subscription: any;
+  constructor(public dialog: MatDialog, authEventEmitter: AuthStateEventEmitter) {
+    this.authEventEmitter = authEventEmitter;
+  }
   clickoutHandler: Function;
   dialogRefClassScope: MatDialogRef<SignupChoiceComponent|LoginFormComponent>;
 
@@ -58,5 +63,13 @@ export class HomeComponent implements OnInit {
     this.dialogRefClassScope.close();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription = this.authEventEmitter
+    .getEmittedValue()
+    .subscribe((item) => this.changeAuthState(item));
+  }
+  
+  changeAuthState(item: any) {
+    console.log("received auth state change: " + JSON.stringify(item));
+  }
 }

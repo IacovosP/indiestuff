@@ -1,0 +1,84 @@
+<mat-dialog-content
+  class="mat-typography sign-up-modal-container"
+  style="padding: 0"
+>
+  <div class="row custom-modal">
+    <div class="col-sm-7 jumbotron">
+      <form
+        novalidate
+        (ngSubmit)="onFormSubmit(trackUploadForm)"
+        #trackUploadForm="ngForm"
+      >
+        <div>
+          <div class="form-group">
+            <label for="inputTrackTitle" class="col-lg-2 control-label"
+              >track title</label
+            >
+            <div class="col-lg-7">
+              <input
+                type="text"
+                placeholder="song name something less pretentious..."
+                class="form-control input-custom"
+                [ngModel]="track.name"
+                #name="ngModel"
+                name="name"
+                id="inputTrackTitle"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- username error block -->
+          <div
+            *ngIf="name.invalid && name.touched"
+            class="col-sm-3 text-danger"
+          >
+            <p *ngIf="name.errors?.required">
+              track title field can't be blank
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label for="inputUsername" class="col-lg-2 control-label"
+              >upload</label
+            >
+            <div class="col-lg-7">
+                <mat-icon class="upload-button">cloud_upload</mat-icon>
+              <!-- <input
+                type="text"
+                class="form-control input-custom"
+                [ngModel]="user.username"
+                #username="ngModel"
+                name="username"
+                id="inputUsername"
+                required
+              /> -->
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <!-- Buttons block -->
+          <mat-dialog-actions>
+            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+            <button
+              type="submit"
+              class="btn btn-success button-custom-tick"
+              mat-button
+              [mat-dialog-close]="true"
+            >
+              <div style="display: flex">
+                <img
+                  class="icon-done"
+                  src="/assets/icons/web/baseline_done_black_18dp.png"
+                />
+                <p style="padding-top: 30px">sign up</p>
+              </div>
+            </button>
+            <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>

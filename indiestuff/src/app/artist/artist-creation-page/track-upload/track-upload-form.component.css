@@ -1,0 +1,82 @@
+.sign-up-modal-container {
+    width: 480px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border: solid;
+    border-color: #8492A6;
+    border-width: 2px;
+  }
+  
+  .custom-row {
+    margin: 20px 20px 20px 10px;
+    padding: 30px 20px 20px 10px;
+    text-align: left;
+    overflow: hidden;
+  }
+  
+  .custom-modal {
+    background-color: #F8E3FF;
+    opacity: 0.8;
+    font-family: sans-serif;
+    color: #47525e;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  
+  .text-danger {
+    font-size: 10px;
+    color: red;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .text-danger p {
+    padding: 0;
+    margin: 0;
+    margin-bottom: -20px;
+    padding-left: 220px;
+  }
+  
+  .input-custom {
+    border: none;
+    outline: none;
+    height: 40px;
+    float: left;
+    width: 220px;
+    background-color: #f8e3ff;
+    opacity: 0.5;
+    margin-top: -8px;
+    font-size: 20px;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .icon-done {
+    color: #47525e;
+    border: none;
+    outline: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding: 0;
+    opacity: 80%;
+    height: 60px;
+    padding-bottom: 25px;
+  }
+  
+  .form-group {
+    padding-top: 35px;
+    padding-left: 30px;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .control-label {
+    padding-top: 5px;
+    width: 28%;
+  }
+
+  .upload-button { 
+      font-size: 46px;
+      margin-top: -5px;
+  }

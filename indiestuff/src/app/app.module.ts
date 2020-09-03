@@ -24,6 +24,7 @@ import { PlayerComponent } from "@src/app/player-ui/player.component";
 import { SharedService } from "@src/app/common/shared-service";
 import { PlayerEventEmitter } from "@src/app/player-ui/playerEmitter";
 import { ArtistCreationPageComponent } from "@src/app/artist/artist-creation-page/artist-creation-page.component";
+import { TrackUploadFormComponent } from "@src/app/artist/artist-creation-page/track-upload/track-upload-form.component";
 import {
   CommentsComponent,
   DatacontainerDirective,
@@ -31,6 +32,10 @@ import {
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { LoginFormComponent } from "@src/app/login/login.component";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -53,7 +58,8 @@ import { LoginFormComponent } from "@src/app/login/login.component";
     AlbumComponent,
     PlayerComponent,
     SignupChoiceComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    TrackUploadFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -64,9 +70,12 @@ import { LoginFormComponent } from "@src/app/login/login.component";
     ReactiveFormsModule,
     AppRoutingModule,
     HammerModule,
+    MatMenuModule,
+    MatIconModule,
+    ColorPickerModule
   ],
   entryComponents: [ChildboxComponent],
-  providers: [SharedService, PlayerEventEmitter],
+  providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
