@@ -3,7 +3,7 @@
    "host": "127.0.0.1",
    "port": 5432,
    "database": "test.postgresql",
-   "synchronize": false,
+   "synchronize": true,
    "logging": false,
    "entities": [
       "src/entity/**/*.ts"

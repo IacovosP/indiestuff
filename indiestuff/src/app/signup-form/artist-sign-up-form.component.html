@@ -74,34 +74,32 @@
         </div>
 
         <!-- Password block -->
-        <div ngModelGroup="password" #userPassword="ngModelGroup">
-          <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label"
-              >password</label
-            >
-            <div class="col-lg-7">
-              <input
-                type="password"
-                class="form-control input-custom"
-                [ngModel]="user.password"
-                name="password"
-                #password="ngModel"
-                id="inputPassword"
-                minlength="8"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- Password error block -->
-          <div
-            *ngIf="userPassword.invalid && userPassword.touched"
-            class="col-sm-3 text-danger"
+        <div class="form-group">
+          <label for="inputPassword" class="col-lg-2 control-label"
+            >password</label
           >
-            <p *ngIf="userPassword.invalid">
-              password needs to be more than 8 characters
-            </p>
+          <div class="col-lg-7">
+            <input
+              type="password"
+              class="form-control input-custom"
+              [ngModel]="user.password"
+              name="password"
+              #password="ngModel"
+              id="inputPassword"
+              minlength="8"
+              required
+            />
           </div>
+        </div>
+
+        <!-- Password error block -->
+        <div
+          *ngIf="password.invalid && password.touched"
+          class="col-sm-3 text-danger"
+        >
+          <p *ngIf="password.invalid">
+            password needs to be more than 8 characters
+          </p>
         </div>
         <div>
           <div class="form-group">

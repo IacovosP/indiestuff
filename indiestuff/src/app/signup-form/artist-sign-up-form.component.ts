@@ -27,6 +27,29 @@ export class ArtistSignupFormComponent implements OnInit {
     this.user = value;
     console.log(this.user);
     console.log("valid: " + valid);
-    window.location.href = "/myartistpage";
+    const restAPIUrl = "http://localhost:5000/user";
+    const requestInit: RequestInit = {
+      body: JSON.stringify({
+        user: this.user
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }),
+      method: "POST"
+    };
+    fetch(restAPIUrl, requestInit)
+      .then(response => {
+        console.log("got a response " + JSON.stringify(response));
+      })
+      .catch(err => {
+        console.error("got an error: " , err);
+      });
   }
+  // onFormSubmit({ value, valid }: { value: Artist; valid: boolean }) {
+  //   this.user = value;
+  //   console.log(this.user);
+  //   console.log("valid: " + valid);
+  //   window.location.href = "/myartistpage";
+  // }
 }

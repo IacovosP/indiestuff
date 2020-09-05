@@ -4,6 +4,7 @@ import { getRepository } from "typeorm";
 import { validate } from "class-validator";
 
 import { User } from "../entity/User";
+import { Artist } from "../entity/Artist";
 
 class UserController{
 
@@ -39,7 +40,7 @@ static getOneById = async (req: Request, res: Response) => {
 static newUser = async (req: Request, res: Response) => {
   console.log("newUser " + JSON.stringify(req.body.user));
   //Get parameters from the body
-  let { username, password, email, role } = req.body.user;
+  let { username, password, email, role, artistName } = req.body.user;
   let user = new User();
   user.username = username;
   user.email = email;
@@ -58,16 +59,42 @@ static newUser = async (req: Request, res: Response) => {
 
   //Try to save. If fails, the username is already in use
   const userRepository = getRepository(User);
+  if (artistName) {
+    UserController.newArtist(artistName, user, res);
+  }
   try {
     await userRepository.save(user);
   } catch (e) {
-    res.status(409).send("username already in use");
+    res.status(409).send("username already in use " + e);
     return;
   }
 
   //If all ok, send 201 response
   res.status(201).send("User created");
 };
+
+static newArtist = async (artistName: string, user: User, res: Response) => {
+ const artist = new Artist();
+ artist.name = artistName;
+ artist.payment_email = user.email;
+ artist.user = user;
+
+ const errors = await validate(artist);
+ if (errors.length > 0) {
+   console.log("errors: " + JSON.stringify(errors));
+   res.status(400).send(errors);
+   return;
+ }
+
+ const artistRepository = getRepository(Artist);
+ try {
+  await artistRepository.save(artist);
+ } catch (e) {
+   console.log("errors: " + JSON.stringify(e));
+   res.status(400).send("failed to create artist " + e);
+   return;
+ }
+}
 
 static editUser = async (req: Request, res: Response) => {
   console.log("editUser");
