@@ -8,6 +8,7 @@
         novalidate
         (ngSubmit)="onFormSubmit(trackUploadForm)"
         #trackUploadForm="ngForm"
+        id="trackUploadForm"
       >
         <div>
           <div class="form-group">
@@ -40,11 +41,22 @@
         </div>
         <div>
           <div class="form-group">
-            <label for="inputUsername" class="col-lg-2 control-label"
+            <label for="inputTrack" class="col-lg-2 control-label"
               >upload</label
             >
             <div class="col-lg-7">
-                <mat-icon class="upload-button">cloud_upload</mat-icon>
+              <input 
+                type="file" 
+                id="file" 
+                required
+                [ngModel]="track.file"
+                #file="ngModel"
+                name="file"
+                id="inputTrackTitle"
+                class="form-control"
+                accept="audio/*"
+                (change)="handleFileInput($event.target.files)"
+              >
               <!-- <input
                 type="text"
                 class="form-control input-custom"
@@ -57,27 +69,18 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
           <!-- Buttons block -->
-          <mat-dialog-actions>
-            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+          <mat-dialog-actions style="float: right; margin-right: 50px; margin-top: -20px;">
             <button
               type="submit"
               class="btn btn-success button-custom-tick"
               mat-button
               [mat-dialog-close]="true"
+              cdkFocusInitial [disabled]="!trackUploadForm.form.valid"
             >
-              <div style="display: flex">
-                <img
-                  class="icon-done"
-                  src="/assets/icons/web/baseline_done_black_18dp.png"
-                />
-                <p style="padding-top: 30px">sign up</p>
-              </div>
+              <mat-icon>done</mat-icon>
             </button>
-            <!-- cdkFocusInitial [disabled]="!signupForm.form.valid" -->
           </mat-dialog-actions>
-        </div>
       </form>
     </div>
   </div>

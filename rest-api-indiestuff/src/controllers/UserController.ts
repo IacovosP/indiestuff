@@ -60,7 +60,10 @@ static newUser = async (req: Request, res: Response) => {
   //Try to save. If fails, the username is already in use
   const userRepository = getRepository(User);
   if (artistName) {
-    UserController.newArtist(artistName, user, res);
+    const isArtistWriteSuccessfull = await UserController.newArtist(artistName, user, res);
+    if (!isArtistWriteSuccessfull) {
+      return;
+    }
   }
   try {
     await userRepository.save(user);
@@ -73,7 +76,7 @@ static newUser = async (req: Request, res: Response) => {
   res.status(201).send("User created");
 };
 
-static newArtist = async (artistName: string, user: User, res: Response) => {
+static newArtist = async (artistName: string, user: User, res: Response): Promise<boolean> => {
  const artist = new Artist();
  artist.name = artistName;
  artist.payment_email = user.email;
@@ -83,7 +86,7 @@ static newArtist = async (artistName: string, user: User, res: Response) => {
  if (errors.length > 0) {
    console.log("errors: " + JSON.stringify(errors));
    res.status(400).send(errors);
-   return;
+   return false;
  }
 
  const artistRepository = getRepository(Artist);
@@ -92,7 +95,7 @@ static newArtist = async (artistName: string, user: User, res: Response) => {
  } catch (e) {
    console.log("errors: " + JSON.stringify(e));
    res.status(400).send("failed to create artist " + e);
-   return;
+   return false;
  }
 }
 

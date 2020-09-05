@@ -12,6 +12,8 @@ export class TrackUploadFormComponent implements OnInit {
   constructor(public hostElement: ElementRef) {}
   // Property for the user
   private track: Track;
+  fileToUpload: File;
+
   ngOnInit() {
     // Create a new user object
     this.track = {
@@ -22,9 +24,60 @@ export class TrackUploadFormComponent implements OnInit {
     }
   }
 
-  onFormSubmit({ value, valid }: { value: any; valid: boolean }) {
-    // this.user = value;
-    // console.log(this.user);
-    // console.log("valid: " + valid);
+  onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
+    this.track.name = value.name;
+    console.log(value);
+    console.log("valid: " + valid);
+    const formData = new FormData();
+    formData.append('name', this.track.name);
+    formData.append('durationInSec', String(this.track.durationInSec));
+    formData.append('myFile', this.fileToUpload);
+    const restAPIUrl = "http://localhost:5000/upload/track";
+    const requestInit: RequestInit = {
+      body: formData,
+      method: "POST"
+    };
+    fetch(restAPIUrl, requestInit)
+      .then(response => {
+        console.log("got a response " + JSON.stringify(response));
+      })
+      .catch(err => {
+        console.error("got an error: " , err);
+      });
+  }
+
+
+  handleFileInput(files: FileList) {
+    console.log("files name :" + files.item(0).name);
+    console.log("files type :" + files.item(0).type);
+    console.log("files type :" + this.getDuration(files.item(0)));
+    this.fileToUpload = files.item(0);
+  }
+
+  getDuration(file: File) {
+    const reader = new FileReader();
+  
+    // When the file has been succesfully read
+    reader.onload = event => {
+
+      // Create an instance of AudioContext
+      const audioContext = new window.AudioContext();
+
+      // Asynchronously decode audio file data contained in an ArrayBuffer.
+      audioContext.decodeAudioData(event.target.result as ArrayBuffer, buffer => {
+          // Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
+          const duration = buffer.duration;
+          this.track.durationInSec = Math.round(duration);
+          console.log("The duration of the song is of: " + this.track.durationInSec + " seconds");
+      });
+    };
+
+    // In case that the file couldn't be read
+    reader.onerror = function (event) {
+      console.error("An error ocurred reading the file: ", event);
+    };
+
+    // Read file as an ArrayBuffer, important !
+    reader.readAsArrayBuffer(file);
   }
 }

@@ -4,6 +4,7 @@
     position: relative;
     overflow: hidden;
     border: solid;
+    background-color: #F8E3FF;
     border-color: #8492A6;
     border-width: 2px;
   }
