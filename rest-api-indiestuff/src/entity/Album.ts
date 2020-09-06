@@ -3,9 +3,12 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    ManyToOne,
+    JoinColumn
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
+import { Artist } from "./Artist";
   
   @Entity()
   export class Album {
@@ -17,12 +20,12 @@ import {
     @IsNotEmpty()
     name: string;
   
-    @Column()
-    @IsNotEmpty()
-    artist_id: number;
+    @ManyToOne(type => Artist, artist => artist.id)
+    @JoinColumn({ name: 'artist' })
+    artist: Artist
   
     @Column()
-    album_image_id: number;
+    album_image_filename: string;
 
     @Column()
     colour: string;

@@ -3,9 +3,14 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    ManyToOne,
+    JoinColumn,
+    OneToOne
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
+import { Artist } from "./Artist";
+import { Album } from "./Album";
   
   @Entity()
   export class Track {
@@ -17,13 +22,14 @@ import {
     @IsNotEmpty()
     name: string;
   
-    @Column()
-    @IsNotEmpty()
-    album_id: number;
 
-    @Column()
-    @IsNotEmpty()
-    artist_id: number;
+    @OneToOne(type => Album, album => album.id)
+    @JoinColumn({ name: 'album' })
+    album: Album
+
+    @ManyToOne(type => Artist, artist => artist.id)
+    @JoinColumn({ name: 'artist' })
+    artist: Artist
 
     @Column()
     @IsNotEmpty()

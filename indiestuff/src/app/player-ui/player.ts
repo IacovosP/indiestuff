@@ -71,7 +71,7 @@ class Player {
     } else {
       this.currentlyPlayingSound = data.howl = new Howl({
         src: [
-          "https://indie-music-test.s3.eu-west-2.amazonaws.com/Cant-Keep-Checking-My-Phone.mp3",
+          `https://indie-music-test.s3.eu-west-2.amazonaws.com/${data.fileName}`,
         ],
         html5: true,
         format: "mp3",

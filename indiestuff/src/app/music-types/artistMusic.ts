@@ -14,6 +14,8 @@ export class ArtistMusic {
 
 export class AlbumNew {
   title: string;
+  tracks: Track[];
+  colour?: string = "#f8e3ff";
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

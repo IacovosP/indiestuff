@@ -1,9 +1,9 @@
 import { Router } from "express";
-import UploadController, { uploadTrack } from "../controllers/UploadController";
 import { checkJwt } from "../middlewares/checkJwt";
+import AlbumController from "../controllers/AlbumController";
 
 const router = Router();
 
-router.post("/track", UploadController.track);
+router.post("/create", AlbumController.createAlbum);
 
 export default router;

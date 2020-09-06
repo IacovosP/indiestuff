@@ -3,6 +3,7 @@ export interface Track {
   durationInSec: number;
   albumName: string;
   artistName: string;
+  fileName: string;
 }
 
 export interface Album {

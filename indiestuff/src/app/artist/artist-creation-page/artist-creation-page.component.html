@@ -53,6 +53,7 @@
                 height="60px"
                 src="/assets/icons/web/outline_color_lens_black_36dp.png"
                 [(colorPicker)]="color"
+                (colorPickerClose)="updateColor($event)"
               />
             </div>
           </div>
@@ -105,7 +106,10 @@
         </ul>
 
         <div style="float:right;">
-          <button>
+          <button 
+            type="submit"
+            cdkFocusInitial [disabled]="!albumForm.form.valid"
+          >
             <mat-icon>done_outline</mat-icon>
             <span style="padding-top: 30px">create</span>
           </button>

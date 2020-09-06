@@ -20,9 +20,6 @@ createConnection()
 
     //Set all routes from routes folder
     app.use("/", routes);
-    app.get("/movie", function(req, res, next) {
-      res.send({data: "sth"});
-    });
     app.listen(5000, () => {
       console.log("Server started on port 5000!");
     });

@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import { Component, OnInit, ElementRef, Output, EventEmitter } from "@angular/core";
 import { Track } from "@src/app/music-types/types";
+import { MatDialogRef } from "@angular/material/dialog";
 
 // Import the User model
 
@@ -9,8 +10,7 @@ import { Track } from "@src/app/music-types/types";
   styleUrls: ["./track-upload-form.component.css"],
 })
 export class TrackUploadFormComponent implements OnInit {
-  constructor(public hostElement: ElementRef) {}
-  // Property for the user
+  constructor(public hostElement: ElementRef, public dialogRef: MatDialogRef<TrackUploadFormComponent>) { }
   private track: Track;
   fileToUpload: File;
 
@@ -20,7 +20,8 @@ export class TrackUploadFormComponent implements OnInit {
         name: "",
         durationInSec: 0,
         albumName: "",
-        artistName: ""
+        artistName: "",
+        fileName: ""
     }
   }
 
@@ -37,13 +38,22 @@ export class TrackUploadFormComponent implements OnInit {
       body: formData,
       method: "POST"
     };
-    fetch(restAPIUrl, requestInit)
+    const track = this.track;
+    const uploadPromise = fetch(restAPIUrl, requestInit)
       .then(response => {
-        console.log("got a response " + JSON.stringify(response));
+        return response.json().
+        then(file => {
+          if (file.fileName) {
+            track.fileName = file.fileName;
+          }
+          console.log("got a response " + JSON.stringify(file));
+          return track;
+        })
       })
       .catch(err => {
         console.error("got an error: " , err);
       });
+    this.dialogRef.close(uploadPromise);
   }
 
 
