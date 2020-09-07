@@ -33,9 +33,10 @@ import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { LoginFormComponent } from "@src/app/login/login.component";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import { ColorPickerModule } from 'ngx-color-picker';
+import { MatMenuModule } from "@angular/material/menu";
+import { MatIconModule } from "@angular/material/icon";
+import { ColorPickerModule } from "ngx-color-picker";
+import { AlbumPageComponent } from "@src/app/album/album-page.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     PlayerComponent,
     SignupChoiceComponent,
     LoginFormComponent,
-    TrackUploadFormComponent
+    TrackUploadFormComponent,
+    AlbumPageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -72,7 +74,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     HammerModule,
     MatMenuModule,
     MatIconModule,
-    ColorPickerModule
+    ColorPickerModule,
   ],
   entryComponents: [ChildboxComponent],
   providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter],

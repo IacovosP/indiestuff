@@ -16,6 +16,7 @@ export class AlbumNew {
   title: string;
   tracks: Track[];
   colour?: string = "#f8e3ff";
+  imageFileName?: string;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

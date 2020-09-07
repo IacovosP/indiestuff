@@ -1,19 +1,28 @@
-import { Component, OnInit, ElementRef, Injectable, HostListener } from '@angular/core';
-import { ArtistPageLayout, AlbumNew } from '@src/app/music-types/artistMusic';
-import { Track } from '@src/app/music-types/types';
-import { TrackUploadFormComponent } from './track-upload/track-upload-form.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import playerEventEmitter from '@src/app/player-ui/playerEmitter';
-import { SharedService } from '@src/app/common/shared-service';
-import httpClient from '@src/app/network/HttpClient';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Injectable,
+  HostListener,
+} from "@angular/core";
+import { ArtistPageLayout, AlbumNew } from "@src/app/music-types/artistMusic";
+import { Track } from "@src/app/music-types/types";
+import { TrackUploadFormComponent } from "./track-upload/track-upload-form.component";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import playerEventEmitter from "@src/app/player-ui/playerEmitter";
+import { SharedService } from "@src/app/common/shared-service";
+import httpClient from "@src/app/network/HttpClient";
 
 @Component({
-  selector: 'app-artist-creation-page',
-  templateUrl: './artist-creation-page.component.html',
-  styleUrls: ['./artist-creation-page.component.css'],
+  selector: "app-artist-creation-page",
+  templateUrl: "./artist-creation-page.component.html",
+  styleUrls: ["./artist-creation-page.component.css"],
 })
 export class ArtistCreationPageComponent implements OnInit {
-  constructor(public dialog: MatDialog, private playerSharedService: SharedService) {
+  constructor(
+    public dialog: MatDialog,
+    private playerSharedService: SharedService
+  ) {
     this.playerSharedService = playerSharedService;
   }
 
@@ -59,14 +68,14 @@ export class ArtistCreationPageComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = playerEventEmitter
-    .getEmittedValue()
-    .subscribe((item) => this.changeIndexOfSongPlaying(item));
-    this.newAlbum = new AlbumNew({ title: '', tracks: [] });
+      .getEmittedValue()
+      .subscribe((item) => this.changeIndexOfSongPlaying(item));
+    this.newAlbum = new AlbumNew({ title: "", tracks: [] });
     this.artistPageLayout = new ArtistPageLayout({
-      artistName: 'SomeArtist',
+      artistName: "SomeArtist",
       // topTracks?: number[];
       // albums?: AlbumLite[];
-      headerImageUrl: '',
+      headerImageUrl: "",
       // suggestedTracks?: number[];
       // paypalEmail?: string;});
     });
@@ -90,11 +99,49 @@ export class ArtistCreationPageComponent implements OnInit {
     console.log("colour: " + colour);
     this.newAlbum.colour = colour;
   }
+  loadFile(files: FileList) {
+    // FileReader support
+    if (FileReader && files && files.length) {
+      var fr = new FileReader();
+      fr.onload = () => {
+        (document.getElementById("file_id") as any).src = fr.result;
+      };
+      fr.readAsDataURL(files[0]);
+    }
+  }
+
+  imageUpload(event: any) {
+    console.log("event: " + JSON.stringify(event.target.files));
+    const files = event.target.files;
+    this.loadFile(files);
+    const formData = new FormData();
+    formData.append("myFile", files.item(0));
+    const restAPIUrl = "http://localhost:5000/upload/image";
+    const requestInit: RequestInit = {
+      body: formData,
+      method: "POST",
+    };
+    fetch(restAPIUrl, requestInit)
+      .then((response) => {
+        return response.json().then((file) => {
+          if (file.fileName) {
+            this.newAlbum.imageFileName = file.fileName;
+          }
+          console.log("got a response " + JSON.stringify(file));
+        });
+      })
+      .catch((err) => {
+        console.error("got an error: ", err);
+      });
+  }
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
     this.newAlbum.title = value.title;
     console.log("album form submitted: value: " + JSON.stringify(value));
-    httpClient.fetch("album/create", JSON.stringify({newAlbum: this.newAlbum}), "POST");
+    httpClient.fetch(
+      "album/create",
+      JSON.stringify({ newAlbum: this.newAlbum }),
+      "POST"
+    );
   }
 }
-

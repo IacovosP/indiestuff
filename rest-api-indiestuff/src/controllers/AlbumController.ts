@@ -7,17 +7,31 @@ import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
 
 export default class AlbumController {
+    
+static getAlbum = async (req: Request, res: Response) => {
+    const { albumId } = req.params;
+    const albumRepository = getRepository(Album);
+    const album = await albumRepository.findOne(albumId);
+
+    const trackRepository = getRepository(Track);
+    const tracks = await trackRepository.find({ album: albumId, relations: ['album'] })
+    const albumResponse = {
+        ...album,
+        tracks
+    }
+    res.status(200).send(albumResponse);
+}
 
 static createAlbum = async (req: Request, res: Response): Promise<boolean> => {
     console.log("newUser " + JSON.stringify(req.body));
     //Get parameters from the body
-    let { artist_id, colour, image_filename, title } = req.body.newAlbum;
+    let { colour, imageFileName, title } = req.body.newAlbum;
     const album = new Album();
     const artistRepository = getRepository(Artist);
-    const artist = await artistRepository.findOne(artist_id || 1);
+    const artist = await artistRepository.findOne({ user: res.locals.jwtPayload.userId, relations: ['user'] });
     album.artist = artist;
     album.colour = colour;
-    album.album_image_filename = image_filename || "";
+    album.album_image_filename = imageFileName || "";
     album.name = title;
     
     const errors = await validate(album);

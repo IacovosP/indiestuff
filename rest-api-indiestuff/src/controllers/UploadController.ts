@@ -32,18 +32,51 @@ export const uploadTrack = multer({
   })
 });
 
+export const uploadImage = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: config.awsS3ImageBucketName,
+      acl: 'public-read',
+      metadata: function (req, file, cb) {
+        console.log(file);
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+        cb(null, getNewS3FileName(file.originalname));
+      }
+  })
+});
+
 const getNewS3FileName = (name: string) => {
   newS3FileName = Date.now().toString() + '_' + name;
 
   return newS3FileName;
 }
 
-const singleUpload = uploadTrack.single("myFile");
+const singleTrackUpload = uploadTrack.single("myFile");
+const singleImageUpload = uploadImage.single("myFile");
 
 export default class UploadController {
 
+static image = async (req: Request, res: Response) => {
+  singleImageUpload(req, res, err => {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    } 
+    res.status(200).send({fileName: res.req.file.key});
+    return;
+  });
+}
+
 static track = async (req: Request, res: Response) => {
-  singleUpload(req, res, err => {
+  singleTrackUpload(req, res, err => {
     if (err) {
       return res.json({
         success: false,

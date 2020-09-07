@@ -12,11 +12,14 @@ import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 export class HomeComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
   subscription: any;
-  constructor(public dialog: MatDialog, authEventEmitter: AuthStateEventEmitter) {
+  constructor(
+    public dialog: MatDialog,
+    authEventEmitter: AuthStateEventEmitter
+  ) {
     this.authEventEmitter = authEventEmitter;
   }
   clickoutHandler: Function;
-  dialogRefClassScope: MatDialogRef<SignupChoiceComponent|LoginFormComponent>;
+  dialogRefClassScope: MatDialogRef<SignupChoiceComponent | LoginFormComponent>;
 
   title = "indiestuff";
   @HostListener("document:click", ["$event"])
@@ -65,10 +68,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.authEventEmitter
-    .getEmittedValue()
-    .subscribe((item) => this.changeAuthState(item));
+      .getEmittedValue()
+      .subscribe((item) => this.changeAuthState(item));
   }
-  
+
   changeAuthState(item: any) {
     console.log("received auth state change: " + JSON.stringify(item));
   }

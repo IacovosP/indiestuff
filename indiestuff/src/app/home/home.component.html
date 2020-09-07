@@ -17,10 +17,16 @@
     <button class="auth-button" mat-button (click)="openSignupDialog()">
       sign up
     </button>
-    <button class="auth-button" mat-button (click)="openLoginDialog()">log in</button>
+    <button class="auth-button" mat-button (click)="openLoginDialog()">
+      log in
+    </button>
   </div>
   <div class="profile">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

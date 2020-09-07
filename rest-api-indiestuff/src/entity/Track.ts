@@ -22,7 +22,6 @@ import { Album } from "./Album";
     @IsNotEmpty()
     name: string;
   
-
     @OneToOne(type => Album, album => album.id)
     @JoinColumn({ name: 'album' })
     album: Album

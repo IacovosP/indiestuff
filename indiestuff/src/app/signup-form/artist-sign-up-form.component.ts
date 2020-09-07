@@ -30,20 +30,20 @@ export class ArtistSignupFormComponent implements OnInit {
     const restAPIUrl = "http://localhost:5000/user";
     const requestInit: RequestInit = {
       body: JSON.stringify({
-        user: this.user
+        user: this.user,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
       }),
-      method: "POST"
+      method: "POST",
     };
     fetch(restAPIUrl, requestInit)
-      .then(response => {
+      .then((response) => {
         console.log("got a response " + JSON.stringify(response));
       })
-      .catch(err => {
-        console.error("got an error: " , err);
+      .catch((err) => {
+        console.error("got an error: ", err);
       });
   }
   // onFormSubmit({ value, valid }: { value: Artist; valid: boolean }) {

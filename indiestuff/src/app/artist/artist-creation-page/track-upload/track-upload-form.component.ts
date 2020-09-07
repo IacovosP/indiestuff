@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 import { Track } from "@src/app/music-types/types";
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -10,19 +16,22 @@ import { MatDialogRef } from "@angular/material/dialog";
   styleUrls: ["./track-upload-form.component.css"],
 })
 export class TrackUploadFormComponent implements OnInit {
-  constructor(public hostElement: ElementRef, public dialogRef: MatDialogRef<TrackUploadFormComponent>) { }
+  constructor(
+    public hostElement: ElementRef,
+    public dialogRef: MatDialogRef<TrackUploadFormComponent>
+  ) {}
   private track: Track;
   fileToUpload: File;
 
   ngOnInit() {
     // Create a new user object
     this.track = {
-        name: "",
-        durationInSec: 0,
-        albumName: "",
-        artistName: "",
-        fileName: ""
-    }
+      name: "",
+      durationInSec: 0,
+      albumName: "",
+      artistName: "",
+      fileName: "",
+    };
   }
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
@@ -30,32 +39,30 @@ export class TrackUploadFormComponent implements OnInit {
     console.log(value);
     console.log("valid: " + valid);
     const formData = new FormData();
-    formData.append('name', this.track.name);
-    formData.append('durationInSec', String(this.track.durationInSec));
-    formData.append('myFile', this.fileToUpload);
+    formData.append("name", this.track.name);
+    formData.append("durationInSec", String(this.track.durationInSec));
+    formData.append("myFile", this.fileToUpload);
     const restAPIUrl = "http://localhost:5000/upload/track";
     const requestInit: RequestInit = {
       body: formData,
-      method: "POST"
+      method: "POST",
     };
     const track = this.track;
     const uploadPromise = fetch(restAPIUrl, requestInit)
-      .then(response => {
-        return response.json().
-        then(file => {
+      .then((response) => {
+        return response.json().then((file) => {
           if (file.fileName) {
             track.fileName = file.fileName;
           }
           console.log("got a response " + JSON.stringify(file));
           return track;
-        })
+        });
       })
-      .catch(err => {
-        console.error("got an error: " , err);
+      .catch((err) => {
+        console.error("got an error: ", err);
       });
     this.dialogRef.close(uploadPromise);
   }
-
 
   handleFileInput(files: FileList) {
     console.log("files name :" + files.item(0).name);
@@ -66,20 +73,26 @@ export class TrackUploadFormComponent implements OnInit {
 
   getDuration(file: File) {
     const reader = new FileReader();
-  
-    // When the file has been succesfully read
-    reader.onload = event => {
 
+    // When the file has been succesfully read
+    reader.onload = (event) => {
       // Create an instance of AudioContext
       const audioContext = new window.AudioContext();
 
       // Asynchronously decode audio file data contained in an ArrayBuffer.
-      audioContext.decodeAudioData(event.target.result as ArrayBuffer, buffer => {
+      audioContext.decodeAudioData(
+        event.target.result as ArrayBuffer,
+        (buffer) => {
           // Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
           const duration = buffer.duration;
           this.track.durationInSec = Math.round(duration);
-          console.log("The duration of the song is of: " + this.track.durationInSec + " seconds");
-      });
+          console.log(
+            "The duration of the song is of: " +
+              this.track.durationInSec +
+              " seconds"
+          );
+        }
+      );
     };
 
     // In case that the file couldn't be read

@@ -5,5 +5,6 @@ import { checkJwt } from "../middlewares/checkJwt";
 const router = Router();
 
 router.post("/track", UploadController.track);
+router.post("/image", UploadController.image);
 
 export default router;

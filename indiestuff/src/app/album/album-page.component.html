@@ -1,0 +1,10 @@
+<app-home></app-home>
+<app-my-navbar></app-my-navbar>
+<app-page-top-image
+  *ngIf="album.imageUrl"
+  [headerImageUrl]="album.imageUrl"
+></app-page-top-image>
+<app-artist-menu-bar></app-artist-menu-bar>
+<app-track-list [tracks]="album.tracks"></app-track-list>
+<app-comments-container></app-comments-container>
+<div style="height: 300px"></div>
