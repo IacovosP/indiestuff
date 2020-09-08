@@ -14,7 +14,7 @@ static getAlbum = async (req: Request, res: Response) => {
     const album = await albumRepository.findOne(albumId);
 
     const trackRepository = getRepository(Track);
-    const tracks = await trackRepository.find({ album: albumId, relations: ['album'] })
+    const tracks = await trackRepository.find({ where: { album: albumId}})
     const albumResponse = {
         ...album,
         tracks

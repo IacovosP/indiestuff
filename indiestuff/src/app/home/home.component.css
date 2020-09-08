@@ -31,13 +31,30 @@
 }
 
 .search-form {
-  color: #d5dbd8;
+  /* color: #d5dbd8; */
   height: 20px;
   width: 300px;
   margin-left: 100px;
   background-color: #d5dbd8;
   padding: 8px 20px;
   display: inherit;
+  max-height: 200px;
+  display: flex;
+}
+
+.search-form input{
+  padding-left: 20px;
+  font-size: 16px;
+  font-family: sans-serif;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.search-form mat-icon {
+  font-size: 36px;
+  margin-top: -8px;
+  margin-left: -15px;
 }
 
 .search-icon {

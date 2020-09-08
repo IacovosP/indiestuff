@@ -3,6 +3,7 @@ import auth from "./auth";
 import user from "./user";
 import upload from "./upload";
 import album from "./album";
+import search from "./search";
 
 const routes = Router();
 
@@ -10,4 +11,6 @@ routes.use("/auth", auth);
 routes.use("/user", user);
 routes.use("/upload", upload);
 routes.use("/album", album);
+routes.use("/search", search);
+
 export default routes;

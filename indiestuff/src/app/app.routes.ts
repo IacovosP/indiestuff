@@ -29,7 +29,7 @@ export const routes: Routes = [
     component: ArtistCreationPageComponent,
   },
   {
-    path: "album",
+    path: "album/:id",
     component: AlbumPageComponent,
   },
 ];
