@@ -1,11 +1,11 @@
-import { Component, OnInit, HostListener } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { SignupChoiceComponent } from "@src/app/sign-up/sign-up-choice.component";
 import { LoginFormComponent } from "@src/app/login/login.component";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
-import { Observable } from "rxjs";
-import {startWith, map} from 'rxjs/operators';
+import { FormGroup, FormControl } from "@angular/forms";
+import { Observable, of } from "rxjs";
+import {map, catchError, debounceTime, switchMap} from 'rxjs/operators';
 import { Router } from "@angular/router";
 import httpClient from "../network/HttpClient";
 
@@ -37,12 +37,6 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
 
   title = "indiestuff";
-  @HostListener("document:click", ["$event"])
-  click(event) {
-    if (this.clickoutHandler) {
-      this.clickoutHandler();
-    }
-  }
 
   openSignupDialog() {
     const dialogRef = this.dialog.open(SignupChoiceComponent, {
@@ -55,7 +49,6 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterOpened().subscribe(() => {
-      console.log("here 1");
       this.clickoutHandler = this.closeDialogFromClick;
     });
   }
@@ -69,11 +62,6 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-
-    // dialogRef.afterOpened().subscribe(() => {
-    //   console.log("here 1");
-    //   this.clickoutHandler = this.closeDialogFromClick;
-    // });
   }
 
   closeDialogFromClick(event: MouseEvent) {
@@ -84,9 +72,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.searchControl = new FormControl();
     this.filteredOptions = this.searchControl.valueChanges.pipe(
-      map(value => {
-        console.log("value: " + value);
-        return this._filter(value);
+      // delay emits
+      debounceTime(300),
+      // use switch map so as to cancel previous subscribed events, before creating new once
+      switchMap(value => {
+        if (value !== '') {
+          return this.lookup(value);
+        } else {
+          return of(null);
+        }
       })
     );
     this.subscription = this.authEventEmitter
@@ -94,41 +88,38 @@ export class HomeComponent implements OnInit {
       .subscribe((item) => this.changeAuthState(item));
   }
 
-  private _filter(value: string): SearchOptions[] {
-    const filterValue = this._normalizeValue(value);
-    try {
-      this.search(value);
-      return this.options.filter(option => this._normalizeValue(option.name).includes(filterValue));
-    } catch (err) {
-      console.log("no findings: " + err);
-    }
-  }
-
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
-  }
-
   loadOption(selected: SearchOptions) {
     console.log("selected:" + JSON.stringify(selected));
+    this.searchControl.setValue("");
     if (selected.type === "ALBUM") {
-      this.router.navigate(['/album', selected.id]); 
+      this.router.navigate(['/album', selected.id]);
     }
   }
 
-  search(text: string) {
-    return httpClient.fetch("search", JSON.stringify({text}), "POST")
-    .then(response => {
-      const values = response[0];
-      console.log("values ads: " + JSON.stringify(values.albums));
-      this.options = values.albums.map(value => ({
-        name: value.name,
-        id: value.id,
-        type: "ALBUM"
+  lookup(value: string): Observable<any> {
+    return this.search(value.toLowerCase()).pipe(
+      // map the item property of the github results as our return object
+      map(results => {
+        const values = results[0];
+        console.log("values ads: " + JSON.stringify(values.albums));
+        return values.albums.map(value => ({
+          name: value.name,
+          id: value.id,
+          type: "ALBUM"
+        }));
+      }),
+      // catch errors
+      catchError(_ => {
+        return of(null);
+      })
+    );
+}
+  search(text: string): Observable<Response> {
+    return httpClient.fromFetch("search", JSON.stringify({text}), "POST").pipe(
+      map((res: Response) => {
+        console.log("response: " + JSON.stringify(res.body));
+        return res;
       }));
-    })
-    .catch(err => {
-      console.error("error in searching: " + err);
-    })
   }
   changeAuthState(item: any) {
     console.log("received auth state change: " + JSON.stringify(item));

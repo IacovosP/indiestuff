@@ -18,7 +18,7 @@ export class AlbumPageComponent implements OnInit {
     this.route.params.subscribe(param => {
       console.log("params : " + JSON.stringify(param));
       this.loadPage(param.id);
-    })
+    });
     const albumId = String(this.route.snapshot.params.id);
     this.loadPage(albumId);
 

@@ -11,59 +11,83 @@ export default class SearchController {
         const { text } = req.body;
         console.log("text :" + text);
 
-        const result = await Promise.all([SearchController.findFromAlbum(text), SearchController.findFromArist(text), SearchController.findFromTrack(text)])
-        res.status(200).send(result);
+        try {
+            const result = await Promise.all([SearchController.findFromAlbum(text), SearchController.findFromArist(text), SearchController.findFromTrack(text)])
+            res.status(200).send(result);
+        } catch (err) {
+            console.error("Something went wrong in query: " + err);
+            res.status(201).send({});
+        }
+
     }
 
     static findFromAlbum = async (text: string) => {
-        const result = {
-            albums: await getRepository(Album)
-            .createQueryBuilder("album")
-            .select()
-            .where("name @@ to_tsquery(:query)", {
-              query: `${text}:*`
-            })
-            // .orderBy(
-            //   "ts_rank(document_with_weights, plainto_tsquery(:query))",
-            //   "DESC"
-            // )
-            .getMany()
-        } 
-    
-        return result;
+        const textArray = text.split(" ");
+        let query = `${text}:*`;
+        if (textArray && textArray[1]) {
+            query = `${textArray[0]}:* <-> ${textArray[1]}:*`
+        }
+        try {
+            const result = {
+                albums: await getRepository(Album)
+                .createQueryBuilder("album")
+                .select()
+                .where("name @@ to_tsquery(:query)", {
+                  query
+                })
+                .getMany()
+            } 
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 
     static findFromArist = async (text: string) => {
-        const result = {
-           artists: await getRepository(Artist)
-            .createQueryBuilder("artist")
-            .select()
-            .where("name @@ to_tsquery(:query)", {
-            query: `${text}:*`
-            })
-            // .orderBy(
-            //   "ts_rank(document_with_weights, plainto_tsquery(:query))",
-            //   "DESC"
-            // )
-            .getMany()
+        const textArray = text.split(" ");
+        let query = `${text}:*`;
+        if (textArray && textArray[1]) {
+            query = `${textArray[0]}:* <-> ${textArray[1]}:*`
         }
-        return result;
+        try {
+            const result = {
+            artists: await getRepository(Artist)
+                .createQueryBuilder("artist")
+                .select()
+                .where("name @@ to_tsquery(:query)", {
+                query
+                })
+                .getMany()
+            }
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 
     static findFromTrack = async (text: string) => {
-        const result = {
-            tracks: await getRepository(Track)
-                .createQueryBuilder("track")
-                .select()
-                .where("name @@ to_tsquery(:query)", {
-                query: `${text}:*`
-                })
-                // .orderBy(
-                //   "ts_rank(document_with_weights, plainto_tsquery(:query))",
-                //   "DESC"
-                // )
-                .getMany()
+        const textArray = text.split(" ");
+        let query = `${text}:*`;
+        if (textArray && textArray[1]) {
+            query = `${textArray[0]}:* <-> ${textArray[1]}:*`
         }
-        return result;
+        try {
+            const result = {
+                tracks: await getRepository(Track)
+                    .createQueryBuilder("track")
+                    .select()
+                    .where("name @@ to_tsquery(:query)", {
+                    query
+                    })
+                    // .orderBy(
+                    //   "ts_rank(document_with_weights, plainto_tsquery(:query))",
+                    //   "DESC"
+                    // )
+                    .getMany()
+            }
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 }

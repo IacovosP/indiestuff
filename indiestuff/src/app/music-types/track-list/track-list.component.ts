@@ -10,7 +10,7 @@ import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 })
 export class TrackListComponent implements OnInit {
   subscription: any;
-  indexOfSongPlaying: number;
+  indexOfSongPlaying: number | undefined;
   isPaused: boolean = false;
 
   constructor(private playerSharedService: SharedService) {
@@ -18,7 +18,16 @@ export class TrackListComponent implements OnInit {
   }
 
   @Input() isAlbumView: boolean = false;
-  @Input() tracks: Track[];
+  
+  private trackList: Track[];
+  @Input() set tracks(value: Track[]) {
+    this.trackList = value;
+    this.indexOfSongPlaying = undefined;
+ }
+
+  get tracks(): Track[] {
+    return this.trackList;
+  }
 
   ngOnInit() {
     this.subscription = playerEventEmitter
@@ -41,8 +50,8 @@ export class TrackListComponent implements OnInit {
       return;
     }
     console.error("play " + indexOfSongToPlay);
-    console.error("play " + JSON.stringify(this.tracks));
-    this.playerSharedService.change({ tracks: this.tracks, indexOfSongToPlay });
+    console.error("play " + JSON.stringify(this.trackList));
+    this.playerSharedService.change({ tracks: this.trackList, indexOfSongToPlay });
   }
 
   restartTrack() {
