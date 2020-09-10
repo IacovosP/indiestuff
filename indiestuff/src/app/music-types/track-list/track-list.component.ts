@@ -18,12 +18,12 @@ export class TrackListComponent implements OnInit {
   }
 
   @Input() isAlbumView: boolean = false;
-  
+
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
     this.trackList = value;
     this.indexOfSongPlaying = undefined;
- }
+  }
 
   get tracks(): Track[] {
     return this.trackList;
@@ -51,7 +51,10 @@ export class TrackListComponent implements OnInit {
     }
     console.error("play " + indexOfSongToPlay);
     console.error("play " + JSON.stringify(this.trackList));
-    this.playerSharedService.change({ tracks: this.trackList, indexOfSongToPlay });
+    this.playerSharedService.change({
+      tracks: this.trackList,
+      indexOfSongToPlay,
+    });
   }
 
   restartTrack() {

@@ -5,7 +5,7 @@ import { LoginFormComponent } from "@src/app/login/login.component";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Observable, of } from "rxjs";
-import {map, catchError, debounceTime, switchMap} from 'rxjs/operators';
+import { map, catchError, debounceTime, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import httpClient from "../network/HttpClient";
 
@@ -75,8 +75,8 @@ export class HomeComponent implements OnInit {
       // delay emits
       debounceTime(300),
       // use switch map so as to cancel previous subscribed events, before creating new once
-      switchMap(value => {
-        if (value !== '') {
+      switchMap((value) => {
+        if (value !== "") {
           return this.lookup(value);
         } else {
           return of(null);
@@ -92,34 +92,37 @@ export class HomeComponent implements OnInit {
     console.log("selected:" + JSON.stringify(selected));
     this.searchControl.setValue("");
     if (selected.type === "ALBUM") {
-      this.router.navigate(['/album', selected.id]);
+      this.router.navigate(["/album", selected.id]);
     }
   }
 
   lookup(value: string): Observable<any> {
     return this.search(value.toLowerCase()).pipe(
       // map the item property of the github results as our return object
-      map(results => {
+      map((results) => {
         const values = results[0];
         console.log("values ads: " + JSON.stringify(values.albums));
-        return values.albums.map(value => ({
+        return values.albums.map((value) => ({
           name: value.name,
           id: value.id,
-          type: "ALBUM"
+          type: "ALBUM",
         }));
       }),
       // catch errors
-      catchError(_ => {
+      catchError((_) => {
         return of(null);
       })
     );
-}
+  }
   search(text: string): Observable<Response> {
-    return httpClient.fromFetch("search", JSON.stringify({text}), "POST").pipe(
-      map((res: Response) => {
-        console.log("response: " + JSON.stringify(res.body));
-        return res;
-      }));
+    return httpClient
+      .fromFetch("search", JSON.stringify({ text }), "POST")
+      .pipe(
+        map((res: Response) => {
+          console.log("response: " + JSON.stringify(res.body));
+          return res;
+        })
+      );
   }
   changeAuthState(item: any) {
     console.log("received auth state change: " + JSON.stringify(item));

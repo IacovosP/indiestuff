@@ -27,7 +27,7 @@ export class ArtistCreationPageComponent implements OnInit {
   }
 
   private artistPageLayout: ArtistPageLayout;
-  private newAlbum: AlbumNew;
+  newAlbum: AlbumNew;
   private tracks: Track[] = [];
 
   subscription: any;
@@ -96,9 +96,9 @@ export class ArtistCreationPageComponent implements OnInit {
   }
 
   updateColor(colour: string) {
-    console.log("colour: " + colour);
     this.newAlbum.colour = colour;
   }
+
   loadFile(files: FileList) {
     // FileReader support
     if (FileReader && files && files.length) {
@@ -111,7 +111,6 @@ export class ArtistCreationPageComponent implements OnInit {
   }
 
   imageUpload(event: any) {
-    console.log("event: " + JSON.stringify(event.target.files));
     const files = event.target.files;
     this.loadFile(files);
     const formData = new FormData();

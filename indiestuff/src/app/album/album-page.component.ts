@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import httpClient from "../network/HttpClient";
 import { Album } from "../music-types/types";
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { promises } from "dns";
 
 @Component({
@@ -11,22 +11,17 @@ import { promises } from "dns";
 })
 export class AlbumPageComponent implements OnInit {
   album: Album;
-  constructor(private route: ActivatedRoute) {
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    console.log("route: " + JSON.stringify(this.route));
-    this.route.params.subscribe(param => {
-      console.log("params : " + JSON.stringify(param));
+    this.route.params.subscribe((param) => {
       this.loadPage(param.id);
     });
-    console.log("here 2 " + JSON.stringify(this.route));
     const albumId = String(this.route.snapshot.params.id);
     this.loadPage(albumId);
   }
 
   loadPage(albumId: string) {
-    console.log("here calling");
     httpClient
       .fetch("album/" + albumId)
       .then((response) => {
@@ -39,7 +34,7 @@ export class AlbumPageComponent implements OnInit {
             durationInSec: track.durationInSeconds,
           };
         });
-        this.album = {...response, tracks};
+        this.album = { ...response, tracks };
         this.album.imageUrl =
           "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
           response.album_image_filename;

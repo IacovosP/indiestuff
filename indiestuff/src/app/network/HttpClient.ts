@@ -1,5 +1,5 @@
 import auth from "../auth/Auth";
-import { fromFetch } from 'rxjs/fetch';
+import { fromFetch } from "rxjs/fetch";
 import { Observable } from "@nativescript/core";
 import { switchMap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
@@ -35,7 +35,7 @@ class HttpClient {
   ) {
     const requestUrl = `http://localhost:5000/${url}`;
     const requestInit = {
-      observe: 'response',
+      observe: "response",
       body,
       headers: auth.getAccessToken()
         ? new Headers({
@@ -50,7 +50,7 @@ class HttpClient {
       method,
     };
     return fromFetch(requestUrl, requestInit).pipe(
-      switchMap(response => {
+      switchMap((response) => {
         if (response.ok) {
           // OK return data
           return response.json();
@@ -59,12 +59,12 @@ class HttpClient {
           return of({ error: true, message: `Error ${response.status}` });
         }
       }),
-      catchError(err => {
+      catchError((err) => {
         // Network or other error, handle appropriately
         console.error(err);
         return of({ error: true, message: err.message });
       })
-     );
+    );
   }
 }
 
