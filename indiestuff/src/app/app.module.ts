@@ -40,6 +40,7 @@ import { AlbumPageComponent } from "@src/app/album/album-page.component";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MatInputModule } from "@angular/material/input";
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    DragDropModule
   ],
   entryComponents: [ChildboxComponent],
   providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter],

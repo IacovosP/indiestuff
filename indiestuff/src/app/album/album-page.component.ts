@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import httpClient from "../network/HttpClient";
 import { Album } from "../music-types/types";
 import { ActivatedRoute } from "@angular/router";
-import { promises } from "dns";
 
 @Component({
   selector: "app-album-page",

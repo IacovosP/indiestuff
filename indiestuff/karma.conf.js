@@ -19,8 +19,19 @@ module.exports = function (config) {
       dir: require("path").join(__dirname, "../coverage"),
       reports: ["html", "lcovonly"],
       fixWebpackSourcePaths: true,
+      preprocessors: {
+        'tests/**/*.js': [
+            'browserify'
+        ],
+        '*/*.ts': [
+            'coverage'
+        ]
+      },
+      htmlReporter: {
+        outputFile: 'karma.report.html'
+      }
     },
-    reporters: ["progress", "kjhtml"],
+    reporters: ["progress", "kjhtml", 'coverage-istanbul'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

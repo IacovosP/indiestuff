@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
 import httpClient from "@src/app/network/HttpClient";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "app-artist-creation-page",
@@ -64,6 +65,10 @@ export class ArtistCreationPageComponent implements OnInit {
 
   pauseTrack() {
     this.playerSharedService.pause();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tracks, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit() {

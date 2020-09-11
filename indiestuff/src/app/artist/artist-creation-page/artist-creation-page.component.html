@@ -93,8 +93,8 @@
       </div>
     </div>
     <div class="right-side">
-      <ul class="track-list">
-        <li *ngFor="let track of tracks; index as i">
+      <div cdkDropList class="track-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let track of tracks; index as i" class="track-box" cdkDrag>
           <div class="left-side-items">
             <a>{{ i + 1 }}</a>
             <img
@@ -118,8 +118,8 @@
             <a>{{ track.durationInSec }}s</a>
             <img src="/assets/icons/web/outline_comment_black_18dp.png" />
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
 
       <div style="float: right">
         <button
