@@ -7,6 +7,9 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@apistuff": [
+        "../ApiTypes"
+      ],
       "@src/*": ["src/*.tns.ts", "src/*.ts"]
     }
   },

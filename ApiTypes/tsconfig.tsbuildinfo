@@ -1,0 +1,72 @@
+{
+  "program": {
+    "fileInfos": {
+      "../indiestuff/node_modules/typescript/lib/lib.d.ts": {
+        "version": "2dc8c927c9c162a773c6bb3cdc4f3286c23f10eedc67414028f9cb5951610f60",
+        "signature": "2dc8c927c9c162a773c6bb3cdc4f3286c23f10eedc67414028f9cb5951610f60",
+        "affectsGlobalScope": false
+      },
+      "../indiestuff/node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "70ae6416528e68c2ee7b62892200d2ca631759943d4429f8b779b947ff1e124d",
+        "signature": "70ae6416528e68c2ee7b62892200d2ca631759943d4429f8b779b947ff1e124d",
+        "affectsGlobalScope": true
+      },
+      "../indiestuff/node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "9affb0a2ddc57df5b8174c0af96c288d697a262e5bc9ca1f544c999dc64a91e6",
+        "signature": "9affb0a2ddc57df5b8174c0af96c288d697a262e5bc9ca1f544c999dc64a91e6",
+        "affectsGlobalScope": true
+      },
+      "../indiestuff/node_modules/typescript/lib/lib.webworker.importscripts.d.ts": {
+        "version": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
+        "signature": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
+        "affectsGlobalScope": true
+      },
+      "../indiestuff/node_modules/typescript/lib/lib.scripthost.d.ts": {
+        "version": "097a57355ded99c68e6df1b738990448e0bf170e606707df5a7c0481ff2427cd",
+        "signature": "097a57355ded99c68e6df1b738990448e0bf170e606707df5a7c0481ff2427cd",
+        "affectsGlobalScope": true
+      },
+      "./lib.ts": {
+        "version": "a97a74aaf6227510aaaa0ee0eac8780230023db76596e68de17ec423da929871",
+        "signature": "0450777f2f67f30e69ef1ee2077f22e962a1ec763dd9cec92f7c5b7a80d753c4",
+        "affectsGlobalScope": false
+      },
+      "./index.ts": {
+        "version": "ed87450a912b6a377f3c6a32f5c2b2e14c4f772a85dff4119c36ff1f4a3f17bf",
+        "signature": "9d36e8a5014a7edb577a9d0926e92fbd99779708ab196e852b4931f35b5d3fe6",
+        "affectsGlobalScope": false
+      }
+    },
+    "options": {
+      "target": 1,
+      "module": 5,
+      "declaration": true,
+      "declarationMap": true,
+      "rootDir": "./",
+      "composite": true,
+      "strict": true,
+      "moduleResolution": 2,
+      "configFilePath": "./tsconfig.json"
+    },
+    "referencedMap": {
+      "./index.ts": [
+        "./lib.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "./index.ts": [
+        "./lib.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": [
+      "./index.ts",
+      "./lib.ts",
+      "../indiestuff/node_modules/typescript/lib/lib.d.ts",
+      "../indiestuff/node_modules/typescript/lib/lib.dom.d.ts",
+      "../indiestuff/node_modules/typescript/lib/lib.es5.d.ts",
+      "../indiestuff/node_modules/typescript/lib/lib.scripthost.d.ts",
+      "../indiestuff/node_modules/typescript/lib/lib.webworker.importscripts.d.ts"
+    ]
+  },
+  "version": "3.9.7"
+}

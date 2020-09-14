@@ -1,7 +1,10 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import httpClient from "../network/HttpClient";
-import { Album } from "../music-types/types";
+import { Album, AlbumDescription, Track } from "../music-types/types";
 import { ActivatedRoute } from "@angular/router";
+import { pSBC, getBrightness } from "@src/app/utils/colourChange";
+import { AlbumPageInterface } from "@apistuff";
+import { getMonthName } from "../utils/timeConverter";
 
 @Component({
   selector: "app-album-page",
@@ -9,7 +12,12 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./album-page.component.css"],
 })
 export class AlbumPageComponent implements OnInit {
-  album: Album;
+  album: AlbumPageInterface;
+  darkColour: string;
+  lightColour: string;
+  textColour: string = "black";
+  trackList: Track[];
+  albumDescription: AlbumDescription;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -23,23 +31,37 @@ export class AlbumPageComponent implements OnInit {
   loadPage(albumId: string) {
     httpClient
       .fetch("album/" + albumId)
-      .then((response) => {
-        console.log("response for album: " + JSON.stringify(response));
-        const tracks = response.tracks.map((track) => {
-          return {
-            ...track,
-            fileName: track.filename,
-            albumName: response.title,
-            durationInSec: track.durationInSeconds,
-          };
-        });
-        this.album = { ...response, tracks };
-        this.album.imageUrl =
-          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
-          response.album_image_filename;
+      .then((response: AlbumPageInterface) => {
+        this.album = response;
+        this.album.album_image_filename = "https://indie-image-test.s3.eu-west-2.amazonaws.com/" + response.album_image_filename;
+        this.setAlbumDescription(this.album);
+        this.setTrackList(this.album);
+        this.darkColour = pSBC(-0.5, response.colour);
+        if (getBrightness(this.darkColour) < 25) {
+          this.textColour = "white";
+        }
       })
       .catch((err) => {
         console.error("error in getting album: " + err);
       });
+  }
+
+  private setTrackList(album: AlbumPageInterface) {
+    this.trackList = album.tracks.map(track => {
+      return {
+        ...track,
+        albumName: album.title,
+        artistName: album.artist.name
+      };
+    });
+  }
+  private setAlbumDescription(album: AlbumPageInterface) {
+    const releaseDate = new Date(album.releaseDate);
+    this.albumDescription = {
+      title: album.title,
+      artistName: album.artist.name,
+      durationInSec: album.durationInSec,
+      releaseDate: `${getMonthName(releaseDate.getMonth())} ${releaseDate.getDay()}`
+    };
   }
 }

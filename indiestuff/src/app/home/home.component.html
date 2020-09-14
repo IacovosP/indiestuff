@@ -15,14 +15,14 @@
       <mat-option
         #matOption
         *ngFor="let option of filteredOptions | async"
-        [value]="option.name"
+        [value]="option.title"
         (click)="loadOption(option)"
       >
-        {{ option.name }}
+        {{ option.title }}
       </mat-option>
     </mat-autocomplete>
   </form>
-  <div class="auth">
+  <div *ngIf="!isRegistered" class="auth">
     <button class="auth-button" mat-button (click)="openSignupDialog()">
       sign up
     </button>
@@ -30,7 +30,7 @@
       log in
     </button>
   </div>
-  <div class="profile">
+  <div *ngIf="isRegistered" class="profile">
     <button
       mat-icon-button
       [matMenuTriggerFor]="menu"

@@ -20,15 +20,15 @@
           src="/assets/icons/web/baseline_pause_black_18dp.png"
           (click)="pauseTrack()"
         />
-        <a>{{ track.name }}</a>
+        <a>{{ track.title }}</a>
       </div>
       <div class="right-side-items">
-        <a *ngIf="isAlbumView === false" class="album-name">{{
+        <a *ngIf="isAlbumView === false" class="album-name" style="width: 200px; text-align: right;">{{
           track.albumName
         }}</a>
         <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
         <img src="/assets/icons/web/outline_comment_black_18dp.png" />
-        <span>{{ track.durationInSec }}s</span>
+        <span>{{ track.duration }}</span>
       </div>
     </li>
   </ul>

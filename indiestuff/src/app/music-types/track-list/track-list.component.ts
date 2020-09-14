@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Track } from "../types";
 import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
+import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 
 @Component({
   selector: "app-track-list",
@@ -22,6 +23,9 @@ export class TrackListComponent implements OnInit {
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
     this.trackList = value;
+    this.trackList = this.trackList.map(track => {
+      return {...track, duration: getFormattedDurationFromSeconds(track.durationInSec)};
+    });
     this.indexOfSongPlaying = undefined;
   }
 

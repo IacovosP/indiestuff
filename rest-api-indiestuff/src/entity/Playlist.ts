@@ -12,8 +12,8 @@ import { User } from "./User";
   
   @Entity()
   export class Playlist {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
   
     @Column()
     @Length(2, 150)
@@ -21,12 +21,8 @@ import { User } from "./User";
     name: string;
   
     @ManyToOne(type => User, user => user.id)
-    @JoinColumn({ name: 'user_id' })
+    @JoinColumn({ name: 'user' })
     user: User
-  
-    @Column()
-    @IsNotEmpty()
-    role: string;
   
     @Column()
     @CreateDateColumn()

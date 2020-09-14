@@ -71,7 +71,7 @@ class Player {
     } else {
       this.currentlyPlayingSound = data.howl = new Howl({
         src: [
-          `https://indie-music-test.s3.eu-west-2.amazonaws.com/${data.fileName}`,
+          `https://indie-music-test.s3.eu-west-2.amazonaws.com/${data.filename}`,
         ],
         html5: true,
         format: "mp3",

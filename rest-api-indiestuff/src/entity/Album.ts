@@ -9,18 +9,19 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
 import { Artist } from "./Artist";
+import { AlbumInterface } from "@apistuff";
   
   @Entity()
-  export class Album {
-    @PrimaryGeneratedColumn()
-    id: number;
+  export class Album implements AlbumInterface{
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
   
     @Column()
-    @Length(4, 50)
+    @Length(2, 50)
     @IsNotEmpty()
-    name: string;
+    title: string;
   
-    @ManyToOne(type => Artist, artist => artist.id)
+    @ManyToOne(type => Artist, artist => artist.id, { eager: true })
     @JoinColumn({ name: 'artist' })
     artist: Artist
   
@@ -30,6 +31,12 @@ import { Artist } from "./Artist";
     @Column()
     colour: string;
   
+    @Column()
+    releaseDate: Date;
+
+    @Column()
+    durationInSec: number;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;

@@ -32,7 +32,7 @@ export default class SearchController {
                 albums: await getRepository(Album)
                 .createQueryBuilder("album")
                 .select()
-                .where("name @@ to_tsquery(:query)", {
+                .where("title @@ to_tsquery(:query)", {
                   query
                 })
                 .getMany()
@@ -76,7 +76,7 @@ export default class SearchController {
                 tracks: await getRepository(Track)
                     .createQueryBuilder("track")
                     .select()
-                    .where("name @@ to_tsquery(:query)", {
+                    .where("title @@ to_tsquery(:query)", {
                     query
                     })
                     // .orderBy(

@@ -1,10 +1,16 @@
-<app-home></app-home>
-<app-my-navbar></app-my-navbar>
-<app-page-top-image
-  *ngIf="album.imageUrl"
-  [headerImageUrl]="album.imageUrl"
-></app-page-top-image>
-<app-artist-menu-bar></app-artist-menu-bar>
-<app-track-list [tracks]="album.tracks"></app-track-list>
-<app-comments-container></app-comments-container>
-<div style="height: 300px"></div>
+<div [ngStyle]="{'background-color': album.colour}">
+  <app-home></app-home>
+  <app-my-navbar></app-my-navbar>
+  <app-page-top-image
+    *ngIf="album.album_image_filename"
+    [albumImageUrl]="album.album_image_filename"
+    [darkColour]="darkColour"
+    [albumDescription]="albumDescription"
+    [textColour]="textColour"
+  ></app-page-top-image>
+  <app-artist-menu-bar></app-artist-menu-bar>
+  <app-track-list [tracks]="trackList"></app-track-list>
+  <app-comments-container></app-comments-container>
+  <div style="height: 300px"></div>
+</div>
+

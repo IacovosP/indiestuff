@@ -30,6 +30,7 @@
       "typeorm": "0.2.25"
    },
    "scripts": {
+      "tscb": "tsc -b",
       "tsc": "tsc",
       "start-debug": "ts-node-dev --respawn --transpile-only src/index.ts",
       "start": "ts-node src/index.ts",

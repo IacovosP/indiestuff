@@ -6,6 +6,7 @@ import { SharedService } from "@src/app/common/shared-service";
 import { Track } from "@src/app/music-types/types";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import httpClient from "@src/app/network/HttpClient";
+import { TrackInterface } from "@apistuff";
 
 describe("artist-creation-page", () => {
   let artistCreationPage: ArtistCreationPageComponent;
@@ -17,13 +18,13 @@ describe("artist-creation-page", () => {
   });
   dialogRefSpyObj.componentInstance = { body: "" }; // attach componentInstance to the spy object...
 
-  const mockTracks: Track[] = [
+  const mockTracks: TrackInterface[] = [
     {
-      name: "someTrack",
+      title: "someTrack",
       durationInSec: 20,
-      albumName: "someAlbum",
-      artistName: "someArtist",
-      fileName: "someFileName",
+      filename: "someFileName",
+      id: "someUid",
+      positionInAlbum: 2
     },
   ];
   beforeEach(() => {
@@ -165,12 +166,14 @@ describe("artist-creation-page", () => {
 
     it("should call fetch with album value", () => {
       artistCreationPage.ngOnInit();
-
+      const mockDate = new Date();
       artistCreationPage.newAlbum = {
         title: "someTitle",
         tracks: mockTracks,
         colour: "someColour",
-        imageFileName: "someFileName",
+        album_image_filename: "someFileName",
+        releaseDate: mockDate,
+        durationInSec: 100
       };
 
       artistCreationPage.updateColor("newColour");
@@ -186,7 +189,9 @@ describe("artist-creation-page", () => {
             title: "newTitle",
             tracks: mockTracks,
             colour: "newColour",
-            imageFileName: "someFileName",
+            album_image_filename: "someFileName",
+            releaseDate: mockDate,
+            durationInSec: 100
           },
         }),
         "POST"

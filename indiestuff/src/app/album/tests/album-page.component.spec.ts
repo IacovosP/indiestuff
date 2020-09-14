@@ -40,7 +40,7 @@ describe("AlbumPageComponent", () => {
       tracks: [
         {
           name: "someTrack",
-          fileName: undefined,
+          filename: undefined,
           albumName: "someAlbum",
           durationInSec: undefined,
         },

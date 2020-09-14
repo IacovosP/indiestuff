@@ -13,6 +13,9 @@ import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
 import httpClient from "@src/app/network/HttpClient";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { getBrightness } from "@src/app/utils/colourChange";
+import { TrackInterface } from "@apistuff";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-artist-creation-page",
@@ -22,14 +25,15 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 export class ArtistCreationPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private playerSharedService: SharedService
+    private playerSharedService: SharedService,
+    private router: Router
   ) {
     this.playerSharedService = playerSharedService;
   }
 
   private artistPageLayout: ArtistPageLayout;
   newAlbum: AlbumNew;
-  private tracks: Track[] = [];
+  private tracks: TrackInterface[] = [];
 
   subscription: any;
   indexOfSongPlaying: number;
@@ -37,7 +41,6 @@ export class ArtistCreationPageComponent implements OnInit {
   isAlbumView = false;
   clickoutHandler: Function;
   dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
-
   title = "indiestuff";
 
   changeIndexOfSongPlaying(indexOfSongPlaying) {
@@ -75,7 +78,7 @@ export class ArtistCreationPageComponent implements OnInit {
     this.subscription = playerEventEmitter
       .getEmittedValue()
       .subscribe((item) => this.changeIndexOfSongPlaying(item));
-    this.newAlbum = new AlbumNew({ title: "", tracks: [] });
+    this.newAlbum = new AlbumNew({ title: "", tracks: [], durationInSec: 0 });
     this.artistPageLayout = new ArtistPageLayout({
       artistName: "SomeArtist",
       // topTracks?: number[];
@@ -93,21 +96,25 @@ export class ArtistCreationPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (result) => {
       const track = await result;
       console.log(`Dialog result: ${track}`);
-      if (track && track.name && track.fileName) {
+      if (track && track.title && track.filename) {
+        track.positionInAlbum = 1;
         this.tracks.push(track);
         this.newAlbum.tracks.push(track);
+        this.newAlbum.durationInSec += track.durationInSec;
       }
     });
   }
 
   updateColor(colour: string) {
+    console.log("sth" + colour);
+    console.log("luma : " + getBrightness(colour));
     this.newAlbum.colour = colour;
   }
 
   loadFile(files: FileList) {
     // FileReader support
     if (FileReader && files && files.length) {
-      var fr = new FileReader();
+      const fr = new FileReader();
       fr.onload = () => {
         (document.getElementById("file_id") as any).src = fr.result;
       };
@@ -120,19 +127,13 @@ export class ArtistCreationPageComponent implements OnInit {
     this.loadFile(files);
     const formData = new FormData();
     formData.append("myFile", files.item(0));
-    const restAPIUrl = "http://localhost:5000/upload/image";
-    const requestInit: RequestInit = {
-      body: formData,
-      method: "POST",
-    };
-    fetch(restAPIUrl, requestInit)
+    const restAPIUrl = "upload/image";
+    httpClient.fetch(restAPIUrl, formData, "POST")
       .then((response) => {
-        return response.json().then((file) => {
-          if (file.fileName) {
-            this.newAlbum.imageFileName = file.fileName;
-          }
-          console.log("got a response " + JSON.stringify(file));
-        });
+        if (response.filename) {
+          this.newAlbum.album_image_filename = response.filename;
+        }
+        console.log("got a response " + JSON.stringify(response));
       })
       .catch((err) => {
         console.error("got an error: ", err);
@@ -141,11 +142,22 @@ export class ArtistCreationPageComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
     this.newAlbum.title = value.title;
+    this.newAlbum.tracks = this.newAlbum.tracks.map(track => {
+      return {
+        ...track,
+        positionInAlbum: this.newAlbum.tracks.indexOf(track)
+      };
+    });
     console.log("album form submitted: value: " + JSON.stringify(value));
     httpClient.fetch(
       "album/create",
       JSON.stringify({ newAlbum: this.newAlbum }),
       "POST"
-    );
+    ).then(response => {
+      this.router.navigate(["/album", response.albumId]);
+    })
+    .catch(err => {
+      console.error("error creating album: " + err);
+    });
   }
 }

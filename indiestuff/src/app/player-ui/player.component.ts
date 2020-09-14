@@ -81,10 +81,10 @@ export class PlayerComponent implements OnInit {
     const playlist = tracks.map(
       (track) =>
         ((track as any) = {
-          title: track.name,
+          title: track.title,
           artistName: track.artistName,
           file: "Cant Keep Checking My Phone",
-          fileName: track.fileName,
+          filename: track.filename,
           howl: null,
           // html5: true, // A live stream can only be played through HTML5 Audio.
           //   format: ['mp3', 'aac']

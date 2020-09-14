@@ -9,11 +9,12 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty, IsEmail } from "class-validator";
 import { User } from "./User";
-  
+import { ArtistInterface } from "@apistuff";
+
   @Entity()
-  export class Artist {
-    @PrimaryGeneratedColumn()
-    id: number;
+  export class Artist implements ArtistInterface {
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
   
     @Column()
     @Length(2, 80)
@@ -31,6 +32,9 @@ import { User } from "./User";
     
     @Column({ nullable: true })
     artist_image_filename: string | null;
+    
+    @Column({ nullable: true })
+    artist_top_image_filename: string | null;
 
     @Column()
     @CreateDateColumn()

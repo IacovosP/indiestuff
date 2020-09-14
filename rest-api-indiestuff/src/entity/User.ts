@@ -13,8 +13,8 @@ import { UniqueOnDatabase } from "./uniqueValidation";
 @Entity()
 @Unique(["username"])
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column()
   @Length(4, 20)

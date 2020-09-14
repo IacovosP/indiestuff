@@ -5,6 +5,8 @@
   },
   "version": "0.0.0",
   "scripts": {
+    "tsc": "tsc",
+    "tscb": "tsc -b",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

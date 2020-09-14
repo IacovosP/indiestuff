@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
       .then((response) => {
         console.log("got a response " + JSON.stringify(response));
         auth.setAccessToken(response);
-        this.authEventEmitter.change(response);
+        this.authEventEmitter.change({isRegistered: true});
       })
       .catch((err) => {
         console.error("got an error: ", err);

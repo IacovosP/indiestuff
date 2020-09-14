@@ -6,5 +6,6 @@ const router = Router();
 
 router.post("/track", UploadController.track);
 router.post("/image", UploadController.image);
+router.post("/artistImage", checkJwt, UploadController.artistImage);
 
 export default router;

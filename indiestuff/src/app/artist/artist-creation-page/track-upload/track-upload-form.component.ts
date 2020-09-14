@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { Track } from "@src/app/music-types/types";
 import { MatDialogRef } from "@angular/material/dialog";
+import { TrackInterface } from "@apistuff";
 
 // Import the User model
 
@@ -20,26 +20,26 @@ export class TrackUploadFormComponent implements OnInit {
     public hostElement: ElementRef,
     public dialogRef: MatDialogRef<TrackUploadFormComponent>
   ) {}
-  private track: Track;
+  private track: TrackInterface;
   fileToUpload: File;
 
   ngOnInit() {
     // Create a new user object
     this.track = {
-      name: "",
+      title: "",
       durationInSec: 0,
-      albumName: "",
-      artistName: "",
-      fileName: "",
+      filename: "",
+      id: "",
+      positionInAlbum: 0
     };
   }
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
-    this.track.name = value.name;
+    this.track.title = value.name;
     console.log(value);
     console.log("valid: " + valid);
     const formData = new FormData();
-    formData.append("name", this.track.name);
+    formData.append("name", this.track.title);
     formData.append("durationInSec", String(this.track.durationInSec));
     formData.append("myFile", this.fileToUpload);
     const restAPIUrl = "http://localhost:5000/upload/track";
@@ -51,8 +51,8 @@ export class TrackUploadFormComponent implements OnInit {
     const uploadPromise = fetch(restAPIUrl, requestInit)
       .then((response) => {
         return response.json().then((file) => {
-          if (file.fileName) {
-            track.fileName = file.fileName;
+          if (file.filename) {
+            track.filename = file.filename;
           }
           console.log("got a response " + JSON.stringify(file));
           return track;

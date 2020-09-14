@@ -92,6 +92,7 @@ static newArtist = async (artistName: string, user: User, res: Response): Promis
  const artistRepository = getRepository(Artist);
  try {
   await artistRepository.save(artist);
+  return true;
  } catch (e) {
    console.log("errors: " + JSON.stringify(e));
    res.status(400).send("failed to create artist " + e);

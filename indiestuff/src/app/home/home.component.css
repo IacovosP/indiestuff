@@ -97,6 +97,9 @@
   outline: none;
 }
 
+.profile {
+  margin-left: 30%;
+}
 .profile button {
   border: none;
   background-color: transparent;

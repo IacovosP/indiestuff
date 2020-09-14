@@ -3,23 +3,31 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    ManyToOne,
+    JoinColumn
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
+import { Track } from "./Track";
+import { Playlist } from "./Playlist";
   
   @Entity()
-  export class Playlist {
-    @PrimaryGeneratedColumn()
-    id: number;
+  export class PlaylistTrack {
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
   
-    @Column()
-    @IsNotEmpty()
-    playlist_id: number;
+    @ManyToOne(type => Playlist, playlist => playlist.id)
+    @JoinColumn({ name: 'playlist' })
+    playlist: number;
   
-    @Column()
-    @IsNotEmpty()
-    track_id: number;
+    @ManyToOne(type => Track, track => track.id)
+    @JoinColumn({ name: 'track' })
+    track: Track;
     
+    @Column()
+    @IsNotEmpty()
+    positionInPlaylist: number;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;

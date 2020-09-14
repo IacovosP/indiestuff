@@ -10,6 +10,15 @@
       "outDir": "./build",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
-   }
+      "sourceMap": true,
+      "baseUrl": "./",
+      "paths": {
+         "@apistuff": [
+            "../ApiTypes"
+          ]
+      }
+   },
+  "references": [
+      { "path": "../apitypes" }
+   ]
 }

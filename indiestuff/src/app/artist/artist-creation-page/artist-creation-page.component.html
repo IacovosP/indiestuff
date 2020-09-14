@@ -61,7 +61,8 @@
         <!-- colour choice block -->
         <div>
           <div class="form-group">
-            <label for="inputColour" class="col-lg-2 control-label"
+            <label for="inputColour"
+             class="col-lg-2 control-label"
               >colour</label
             >
             <img
@@ -70,6 +71,8 @@
               height="60px"
               src="/assets/icons/web/outline_color_lens_black_36dp.png"
               [(colorPicker)]="color"
+              [cpColorMode]="'color'"
+              [cpPresetColors]="['rgba(71, 82, 94, 0.85)', '#00008B', '#2889e9', '#431c53', '#e920e9', 'rgb(178, 32, 101)', '#FF8C00', '#fff500', '#8b0000', 'rgb(236,64,64)', '#228B22', '#20B2AA', '#808000']"
               (colorPickerClose)="updateColor($event)"
             />
           </div>
@@ -112,7 +115,7 @@
               src="/assets/icons/web/baseline_pause_black_18dp.png"
               (click)="pauseTrack()"
             />
-            <a>{{ track.name }}</a>
+            <a>{{ track.title }}</a>
           </div>
           <div class="right-side-items">
             <a>{{ track.durationInSec }}s</a>

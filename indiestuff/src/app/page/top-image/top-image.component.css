@@ -10,10 +10,47 @@
   margin-right: auto;
 }
 
+.album-image-container { 
+  height: auto;
+  max-width: 80%;
+  height: 320px;  
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.album-image-container div {
+  text-align: right;
+  padding-top: 120px;
+  float: right; 
+}
+
+.album-image-container div p {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+  font-family: sans-serif;
+  padding-right: 35px;
+}
+
+.album-image-container div span {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+  font-family: sans-serif;
+}
+
+.album-image-container img{ 
+  max-height: 310px;
+  float: right;
+  border: solid;
+  border-width: 4px;
+  border-color: white;
+}
+
 .no-image {
+  width: 80%;
   height: 320px;
   background-color: #c1c5ca;
-  max-width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -26,4 +63,49 @@
   margin-right: auto;
   padding-top: 100px;
   display: block;
+}
+
+.uploaded-top-image:hover {
+  opacity: 0.8;
+}
+
+.form-group {
+  position: relative;
+  width: auto;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.form-group:hover .image {
+  opacity: 0.3;
+}
+
+.form-group:hover .middle {
+  opacity: 1;
+}
+
+.hoverText {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #47525e;
+  font-size: 16px;
+  font-family: sans-serif;
+  padding: 16px 32px;
 }

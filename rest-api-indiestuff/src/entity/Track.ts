@@ -5,24 +5,24 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     ManyToOne,
-    JoinColumn,
-    OneToOne
+    JoinColumn
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
 import { Artist } from "./Artist";
 import { Album } from "./Album";
+import { TrackInterface } from "@apistuff";
   
   @Entity()
-  export class Track {
-    @PrimaryGeneratedColumn()
-    id: number;
+  export class Track implements TrackInterface {
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
   
     @Column()
     @Length(2, 150)
     @IsNotEmpty()
-    name: string;
+    title: string;
   
-    @OneToOne(type => Album, album => album.id)
+    @ManyToOne(type => Album, album => album.id)
     @JoinColumn({ name: 'album' })
     album: Album
 
@@ -36,7 +36,11 @@ import { Album } from "./Album";
 
     @Column()
     @IsNotEmpty()
-    durationInSeconds: number;
+    positionInAlbum: number;
+
+    @Column()
+    @IsNotEmpty()
+    durationInSec: number;
 
     @Column()
     @CreateDateColumn()

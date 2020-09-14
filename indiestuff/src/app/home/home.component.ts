@@ -10,8 +10,8 @@ import { Router } from "@angular/router";
 import httpClient from "../network/HttpClient";
 
 interface SearchOptions {
-  name: string;
-  id: number;
+  title: string;
+  id: string;
   type: "ALBUM" | "ARTIST" | "TRACK";
 }
 @Component({
@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
   subscription: any;
   searchControl: FormControl;
+  isRegistered: boolean = false;
+
   constructor(
     public dialog: MatDialog,
     authEventEmitter: AuthStateEventEmitter,
@@ -103,7 +105,7 @@ export class HomeComponent implements OnInit {
         const values = results[0];
         console.log("values ads: " + JSON.stringify(values.albums));
         return values.albums.map((value) => ({
-          name: value.name,
+          title: value.title,
           id: value.id,
           type: "ALBUM",
         }));
@@ -126,5 +128,6 @@ export class HomeComponent implements OnInit {
   }
   changeAuthState(item: any) {
     console.log("received auth state change: " + JSON.stringify(item));
+    this.isRegistered = item && item.isRegistered ? true : false;
   }
 }
