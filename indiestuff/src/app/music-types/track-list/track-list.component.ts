@@ -23,8 +23,11 @@ export class TrackListComponent implements OnInit {
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
     this.trackList = value;
-    this.trackList = this.trackList.map(track => {
-      return {...track, duration: getFormattedDurationFromSeconds(track.durationInSec)};
+    this.trackList = this.trackList.map((track) => {
+      return {
+        ...track,
+        duration: getFormattedDurationFromSeconds(track.durationInSec),
+      };
     });
     this.indexOfSongPlaying = undefined;
   }

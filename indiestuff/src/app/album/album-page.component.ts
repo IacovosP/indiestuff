@@ -33,7 +33,9 @@ export class AlbumPageComponent implements OnInit {
       .fetch("album/" + albumId)
       .then((response: AlbumPageInterface) => {
         this.album = response;
-        this.album.album_image_filename = "https://indie-image-test.s3.eu-west-2.amazonaws.com/" + response.album_image_filename;
+        this.album.album_image_filename =
+          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
+          response.album_image_filename;
         this.setAlbumDescription(this.album);
         this.setTrackList(this.album);
         this.darkColour = pSBC(-0.5, response.colour);
@@ -47,11 +49,11 @@ export class AlbumPageComponent implements OnInit {
   }
 
   private setTrackList(album: AlbumPageInterface) {
-    this.trackList = album.tracks.map(track => {
+    this.trackList = album.tracks.map((track) => {
       return {
         ...track,
         albumName: album.title,
-        artistName: album.artist.name
+        artistName: album.artist.name,
       };
     });
   }
@@ -61,7 +63,9 @@ export class AlbumPageComponent implements OnInit {
       title: album.title,
       artistName: album.artist.name,
       durationInSec: album.durationInSec,
-      releaseDate: `${getMonthName(releaseDate.getMonth())} ${releaseDate.getDay()}`
+      releaseDate: `${getMonthName(
+        releaseDate.getMonth()
+      )} ${releaseDate.getDay()}`,
     };
   }
 }

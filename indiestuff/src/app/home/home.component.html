@@ -18,7 +18,9 @@
         [value]="option.title"
         (click)="loadOption(option)"
       >
-        {{ option.title }}
+        <div>
+          <p>{{ option.title }}</p>
+        </div>
       </mat-option>
     </mat-autocomplete>
   </form>

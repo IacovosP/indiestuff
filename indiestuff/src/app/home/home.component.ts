@@ -95,6 +95,8 @@ export class HomeComponent implements OnInit {
     this.searchControl.setValue("");
     if (selected.type === "ALBUM") {
       this.router.navigate(["/album", selected.id]);
+    } else if (selected.type === "ARTIST") {
+      this.router.navigate(["/artist", selected.id]);
     }
   }
 
@@ -102,13 +104,39 @@ export class HomeComponent implements OnInit {
     return this.search(value.toLowerCase()).pipe(
       // map the item property of the github results as our return object
       map((results) => {
-        const values = results[0];
-        console.log("values ads: " + JSON.stringify(values.albums));
-        return values.albums.map((value) => ({
-          title: value.title,
-          id: value.id,
-          type: "ALBUM",
-        }));
+        const albumValues = results[0];
+        const artistValues = results[1];
+        console.log("values ads: " + JSON.stringify(albumValues));
+        console.log("values arts: " + JSON.stringify(artistValues.artists));
+        const albums =
+          albumValues.albums &&
+          albumValues.albums.length > 0 &&
+          albumValues.albums.map((value) => ({
+            title: value.title,
+            id: value.id,
+            type: "ALBUM",
+          }));
+        const artists =
+          artistValues.artists &&
+          artistValues.artists.length > 0 &&
+          artistValues.artists.map((value) => ({
+            title: value.name,
+            id: value.id,
+            type: "ARTIST",
+          }));
+        console.log("artists: " + JSON.stringify(artists));
+        let options = [];
+        if (artists && artists.length > 0) {
+          options = [...artists];
+        }
+        console.log("artists: " + JSON.stringify(options));
+        if (albums && albums.length > 0) {
+          console.log("Options: " + JSON.stringify(options));
+          console.log("albums: " + JSON.stringify(albums));
+          options = [...options, ...albums];
+        }
+        console.log("Options: " + JSON.stringify(options));
+        return options;
       }),
       // catch errors
       catchError((_) => {

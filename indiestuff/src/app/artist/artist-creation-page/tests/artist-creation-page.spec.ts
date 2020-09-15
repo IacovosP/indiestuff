@@ -24,7 +24,7 @@ describe("artist-creation-page", () => {
       durationInSec: 20,
       filename: "someFileName",
       id: "someUid",
-      positionInAlbum: 2
+      positionInAlbum: 2,
     },
   ];
   beforeEach(() => {
@@ -173,7 +173,7 @@ describe("artist-creation-page", () => {
         colour: "someColour",
         album_image_filename: "someFileName",
         releaseDate: mockDate,
-        durationInSec: 100
+        durationInSec: 100,
       };
 
       artistCreationPage.updateColor("newColour");
@@ -191,7 +191,7 @@ describe("artist-creation-page", () => {
             colour: "newColour",
             album_image_filename: "someFileName",
             releaseDate: mockDate,
-            durationInSec: 100
+            durationInSec: 100,
           },
         }),
         "POST"

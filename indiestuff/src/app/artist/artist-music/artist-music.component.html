@@ -1,11 +1,11 @@
 <app-home></app-home>
 <app-my-navbar></app-my-navbar>
 <app-page-top-image
-  *ngIf="artistMusic.headerImageUrl"
-  [headerImageUrl]="artistMusic.headerImageUrl"
+  *ngIf="artistMusic.artist_image_filename"
+  [headerImageUrl]="artistMusic.artist_image_filename"
 ></app-page-top-image>
 <app-artist-menu-bar></app-artist-menu-bar>
 <app-track-list [tracks]="artistMusic.topTracks"></app-track-list>
 <app-comments-container></app-comments-container>
-<app-artist-albums [albums]="artistMusic.albums"></app-artist-albums>
+<app-artist-albums [albums]="albumsLite"></app-artist-albums>
 <div style="height: 300px"></div>

@@ -5,9 +5,7 @@
     "module": "esnext",
     "types": [],
     "paths": {
-      "@apistuff": [
-        "../ApiTypes"
-      ],
+      "@apistuff": ["../ApiTypes"],
       "@src/*": ["src/*.web", "src/*"]
     }
   },

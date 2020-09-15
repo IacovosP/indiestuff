@@ -19,7 +19,9 @@ export class PageTopImageComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.albumDuration = getFormattedDurationFromSeconds(this.albumDescription.durationInSec);
+    this.albumDuration = getFormattedDurationFromSeconds(
+      this.albumDescription.durationInSec
+    );
   }
 
   loadFile(files: FileList) {
@@ -40,7 +42,8 @@ export class PageTopImageComponent implements OnInit {
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/artistImage";
-    httpClient.fetch(restAPIUrl, formData, "POST")
+    httpClient
+      .fetch(restAPIUrl, formData, "POST")
       .then((response) => {
         return response.json().then((file) => {
           if (file.filename) {

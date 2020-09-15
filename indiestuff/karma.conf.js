@@ -20,18 +20,14 @@ module.exports = function (config) {
       reports: ["html", "lcovonly"],
       fixWebpackSourcePaths: true,
       preprocessors: {
-        'tests/**/*.js': [
-            'browserify'
-        ],
-        '*/*.ts': [
-            'coverage'
-        ]
+        "tests/**/*.js": ["browserify"],
+        "*/*.ts": ["coverage"],
       },
       htmlReporter: {
-        outputFile: 'karma.report.html'
-      }
+        outputFile: "karma.report.html",
+      },
     },
-    reporters: ["progress", "kjhtml", 'coverage-istanbul'],
+    reporters: ["progress", "kjhtml", "coverage-istanbul"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

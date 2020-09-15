@@ -21,7 +21,7 @@ export const routes: Routes = [
     component: SignupFormComponent,
   },
   {
-    path: "artist",
+    path: "artist/:id",
     component: ArtistMusicComponent,
   },
   {

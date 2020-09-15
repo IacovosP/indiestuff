@@ -3,6 +3,7 @@
 .album-container span {
   font-size: 16px;
   font-weight: bold;
+  font-family: sans-serif;
 }
 
 .album-container p {
@@ -15,6 +16,7 @@
   height: 240px;
   width: 240px;
   padding-right: 35px;
+  outline: none;
 }
 
 .album-container span:hover {

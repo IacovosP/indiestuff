@@ -15,8 +15,8 @@ export interface Album {
 }
 
 export interface AlbumLite {
-  name: string;
-  durationInSec: number;
+  title: string;
+  duration: string;
   artistName: string;
   imageUrl: string;
 }

@@ -12,7 +12,8 @@ export default class SearchController {
         console.log("text :" + text);
 
         try {
-            const result = await Promise.all([SearchController.findFromAlbum(text), SearchController.findFromArist(text), SearchController.findFromTrack(text)])
+            const result = await Promise.all([SearchController.findFromAlbum(text), SearchController.findFromArtist(text), SearchController.findFromTrack(text)])
+            console.log("we are responding with: " + JSON.stringify(result));
             res.status(200).send(result);
         } catch (err) {
             console.error("Something went wrong in query: " + err);
@@ -31,7 +32,7 @@ export default class SearchController {
             const result = {
                 albums: await getRepository(Album)
                 .createQueryBuilder("album")
-                .select()
+                // .select("album.id", "album.title")
                 .where("title @@ to_tsquery(:query)", {
                   query
                 })
@@ -39,11 +40,12 @@ export default class SearchController {
             } 
             return result;
         } catch (err) {
+            console.error("error finding from album");
             throw err;
         }
     }
 
-    static findFromArist = async (text: string) => {
+    static findFromArtist = async (text: string) => {
         const textArray = text.split(" ");
         let query = `${text}:*`;
         if (textArray && textArray[1]) {
@@ -51,16 +53,17 @@ export default class SearchController {
         }
         try {
             const result = {
-            artists: await getRepository(Artist)
-                .createQueryBuilder("artist")
-                .select()
-                .where("name @@ to_tsquery(:query)", {
-                query
-                })
-                .getMany()
-            }
+                artists: await getRepository(Artist)
+                    .createQueryBuilder("artist")
+                    // .select("artist.id", "artist.name")
+                    .where("name @@ to_tsquery(:query)", {
+                        query
+                    })
+                    .getMany()
+                }
             return result;
         } catch (err) {
+            console.error("error finding from artist");
             throw err;
         }
     }

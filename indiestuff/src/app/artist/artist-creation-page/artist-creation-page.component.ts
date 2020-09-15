@@ -12,7 +12,7 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
 import httpClient from "@src/app/network/HttpClient";
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
 import { TrackInterface } from "@apistuff";
 import { Router } from "@angular/router";
@@ -128,7 +128,8 @@ export class ArtistCreationPageComponent implements OnInit {
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/image";
-    httpClient.fetch(restAPIUrl, formData, "POST")
+    httpClient
+      .fetch(restAPIUrl, formData, "POST")
       .then((response) => {
         if (response.filename) {
           this.newAlbum.album_image_filename = response.filename;
@@ -142,22 +143,24 @@ export class ArtistCreationPageComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
     this.newAlbum.title = value.title;
-    this.newAlbum.tracks = this.newAlbum.tracks.map(track => {
+    this.newAlbum.tracks = this.newAlbum.tracks.map((track) => {
       return {
         ...track,
-        positionInAlbum: this.newAlbum.tracks.indexOf(track)
+        positionInAlbum: this.newAlbum.tracks.indexOf(track),
       };
     });
     console.log("album form submitted: value: " + JSON.stringify(value));
-    httpClient.fetch(
-      "album/create",
-      JSON.stringify({ newAlbum: this.newAlbum }),
-      "POST"
-    ).then(response => {
-      this.router.navigate(["/album", response.albumId]);
-    })
-    .catch(err => {
-      console.error("error creating album: " + err);
-    });
+    httpClient
+      .fetch(
+        "album/create",
+        JSON.stringify({ newAlbum: this.newAlbum }),
+        "POST"
+      )
+      .then((response) => {
+        this.router.navigate(["/album", response.albumId]);
+      })
+      .catch((err) => {
+        console.error("error creating album: " + err);
+      });
   }
 }

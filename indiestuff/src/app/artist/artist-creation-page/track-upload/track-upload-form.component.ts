@@ -30,7 +30,7 @@ export class TrackUploadFormComponent implements OnInit {
       durationInSec: 0,
       filename: "",
       id: "",
-      positionInAlbum: 0
+      positionInAlbum: 0,
     };
   }
 

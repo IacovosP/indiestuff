@@ -1,5 +1,9 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
-import { ArtistMusic } from "@src/app/music-types/artistMusic";
+import { ActivatedRoute } from "@angular/router";
+import httpClient from "@src/app/network/HttpClient";
+import { ArtistPageInterface, AlbumInterface } from "@apistuff";
+import { AlbumLite } from "@src/app/music-types/types";
+import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 
 @Component({
   selector: "app-artist-music",
@@ -7,87 +11,48 @@ import { ArtistMusic } from "@src/app/music-types/artistMusic";
   styleUrls: ["./artist-music.component.css"],
 })
 export class ArtistMusicComponent implements OnInit {
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
-  private artistMusic: ArtistMusic;
+  private artistMusic: ArtistPageInterface;
+  private albumsLite: AlbumLite[];
 
   ngOnInit() {
-    const mockTrack = {
-      name: "some track 1",
-      albumName: "SomeAlbum",
-      durationInSec: 125,
-      artistName: "SomeArtist",
-    };
+    this.route.params.subscribe((param) => {
+      this.loadPage(param.id);
+    });
+    const artistId = String(this.route.snapshot.params.id);
+    this.loadPage(artistId);
+  }
 
-    const mockTrack2 = {
-      name: "some longer titled track",
-      albumName: "SomeAlbum",
-      durationInSec: 256,
-      artistName: "SomeArtist",
-    };
-    this.artistMusic = new ArtistMusic({
-      artistName: "THE ARTIST",
-      headerImageUrl:
-        "https://crypticrock.com/wp-content/uploads/2020/02/the-slow-rush-slide.jpg",
-      topTracks: [mockTrack, mockTrack2],
-      albums: [
-        {
-          name: "SomeAlbum",
-          durationInSec: 12000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png",
-        },
-        {
-          name: "SomeAlbum part 2",
-          durationInSec: 11000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://centaur-wp.s3.eu-central-1.amazonaws.com/creativereview/prod/content/uploads/2020/02/1-Tame-Impala-TSR-%E2%80%93-Neil-Krug.jpg",
-        },
-        {
-          name: "SomeAlbum",
-          durationInSec: 12000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png",
-        },
-        {
-          name: "SomeAlbum part 2",
-          durationInSec: 11000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://centaur-wp.s3.eu-central-1.amazonaws.com/creativereview/prod/content/uploads/2020/02/1-Tame-Impala-TSR-%E2%80%93-Neil-Krug.jpg",
-        },
-        {
-          name: "SomeAlbum",
-          durationInSec: 12000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png",
-        },
-        {
-          name: "SomeAlbum part 2",
-          durationInSec: 11000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://centaur-wp.s3.eu-central-1.amazonaws.com/creativereview/prod/content/uploads/2020/02/1-Tame-Impala-TSR-%E2%80%93-Neil-Krug.jpg",
-        },
-        {
-          name: "SomeAlbum",
-          durationInSec: 12000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png",
-        },
-        {
-          name: "SomeAlbum part 2",
-          durationInSec: 11000,
-          artistName: "SomeArtist",
-          imageUrl:
-            "https://centaur-wp.s3.eu-central-1.amazonaws.com/creativereview/prod/content/uploads/2020/02/1-Tame-Impala-TSR-%E2%80%93-Neil-Krug.jpg",
-        },
-      ],
+  loadPage(artistId: string) {
+    httpClient
+      .fetch("artist/" + artistId)
+      .then((response: ArtistPageInterface) => {
+        this.artistMusic = response;
+        this.artistMusic.artist_top_image_filename =
+          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
+          response.artist_top_image_filename;
+        this.artistMusic.artist_image_filename =
+          "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +
+          response.artist_image_filename;
+        this.setAlbumLite(response.albums);
+      })
+      .catch((err) => {
+        console.error("error in getting artist: " + err);
+      });
+  }
+
+  setAlbumLite(albums: AlbumInterface[]) {
+    this.albumsLite = albums.map((album) => {
+      return {
+        artistName: this.artistMusic.name,
+        duration: getFormattedDurationFromSeconds(album.durationInSec),
+        title: album.title,
+        id: album.id,
+        imageUrl:
+          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
+          album.album_image_filename,
+      };
     });
   }
 }

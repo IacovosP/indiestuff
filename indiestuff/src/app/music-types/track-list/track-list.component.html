@@ -23,9 +23,12 @@
         <a>{{ track.title }}</a>
       </div>
       <div class="right-side-items">
-        <a *ngIf="isAlbumView === false" class="album-name" style="width: 200px; text-align: right;">{{
-          track.albumName
-        }}</a>
+        <a
+          *ngIf="isAlbumView === false"
+          class="album-name"
+          style="width: 200px; text-align: right"
+          >{{ track.albumName }}</a
+        >
         <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
         <img src="/assets/icons/web/outline_comment_black_18dp.png" />
         <span>{{ track.duration }}</span>
