@@ -25,6 +25,9 @@ import { User } from "./User";
     user: User
   
     @Column()
+    colour: string;
+    
+    @Column()
     @CreateDateColumn()
     createdAt: Date;
   

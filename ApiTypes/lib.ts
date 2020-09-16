@@ -25,6 +25,7 @@ export interface TrackInterface {
 export interface PlaylistInterface {
     id: string;
     name: string;
+    colour: string;
 }
 
 export interface PlaylistTrackInterface {

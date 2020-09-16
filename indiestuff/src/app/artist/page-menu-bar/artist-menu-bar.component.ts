@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
   selector: "app-artist-menu-bar",
@@ -6,6 +6,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./artist-menu-bar.component.css"],
 })
 export class ArtistMenuBar implements OnInit {
+  @Input() artistId: string;
+  
   constructor() {}
 
   ngOnInit() {}

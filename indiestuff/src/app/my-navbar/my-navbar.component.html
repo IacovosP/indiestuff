@@ -3,11 +3,15 @@
     <a href="" [routerLink]="['/home']"
       ><img src="/assets/icons/web/baseline_home_black_18dp.png"
     /></a>
-    <a href="music-library"
+    <a *ngIf="isRegistered" href="music-library"
       ><img src="/assets/icons/web/baseline_library_music_black_18dp.png"
     /></a>
-    <a href="create-playlist"
+    <a *ngIf="isRegistered" (click)="openPlaylistCreationDialog()"
       ><img src="/assets/icons/web/baseline_playlist_add_black_18dp.png"
     /></a>
+    <ul class="playlist-list-container">
+      <li *ngFor="let playlist of playlists">{{playlist.name}}</li>
+    </ul>
+    
   </div>
 </div>

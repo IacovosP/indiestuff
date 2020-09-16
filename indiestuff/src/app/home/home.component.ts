@@ -8,6 +8,7 @@ import { Observable, of } from "rxjs";
 import { map, catchError, debounceTime, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import httpClient from "../network/HttpClient";
+import { CreatePlaylistFormComponent } from "../playlist/create-playlist.component";
 
 interface SearchOptions {
   title: string;

@@ -8,7 +8,7 @@
     [albumDescription]="albumDescription"
     [textColour]="textColour"
   ></app-page-top-image>
-  <app-artist-menu-bar></app-artist-menu-bar>
+  <app-artist-menu-bar [artistId]="album.artist.id"></app-artist-menu-bar>
   <app-track-list [tracks]="trackList"></app-track-list>
   <app-comments-container></app-comments-container>
   <div style="height: 300px"></div>
