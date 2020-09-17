@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Howl, Howler } from "howler";
-import player from "./player";
+import player, { LoopState } from "./player";
 import { SharedService } from "@src/app/common/shared-service";
-import { ArtistMusicComponent } from "@src/app/artist/artist-music/artist-music.component";
-import { Playlist, Track } from "@src/app/music-types/types";
+import { Track } from "@src/app/music-types/types";
+
+const loopStateToRepeatIconMap = {
+  [LoopState.DEFAULT]: "repeat",
+  [LoopState.LOOP_PLAYLIST]: "repeat",
+  [LoopState.LOOP_TRACK]: "repeat_one"
+};
 
 @Component({
   selector: "app-player",
@@ -21,6 +25,9 @@ export class PlayerComponent implements OnInit {
   isPlaying: boolean = false;
   currentTrack = {};
   currentTime: any;
+  loopState: LoopState = LoopState.DEFAULT;
+  repeatIcon = loopStateToRepeatIconMap[this.loopState];
+  volumeValue = 50;
 
   constructor(playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
@@ -46,9 +53,13 @@ export class PlayerComponent implements OnInit {
     }, 20);
   }
 
+  updateVolume(event: {value: number}) {
+    player.volume(event.value / 100);
+  }
+
   formatTime(secs: number) {
-    var minutes = Math.floor(secs / 60) || 0;
-    var seconds = secs - minutes * 60 || 0;
+    const minutes = Math.floor(secs / 60) || 0;
+    const seconds = secs - minutes * 60 || 0;
 
     this.currentTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
@@ -69,8 +80,13 @@ export class PlayerComponent implements OnInit {
     player.skip("prev");
   }
 
+  toggleLoop() {
+    this.loopState = player.toggleLoop();
+    this.repeatIcon = loopStateToRepeatIconMap[this.loopState];
+  }
+
   seekSongToLocation(event: any) {
-    let percentageOfTrackProgress: number = Math.floor(
+    const percentageOfTrackProgress: number = Math.floor(
       (event.layerX / (event.target.offsetWidth - 3)) * 100
     );
     console.log("% " + percentageOfTrackProgress);

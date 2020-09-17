@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, Output } from "@angular/core";
 import httpClient from "@src/app/network/HttpClient";
 import { PlaylistInterface } from "@apistuff";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-create-playlist-form",
@@ -9,7 +10,7 @@ import { PlaylistInterface } from "@apistuff";
 })
 export class CreatePlaylistFormComponent implements OnInit {
 
-  constructor() {}
+  constructor(public dialogRef: MatDialogRef<CreatePlaylistFormComponent>) {}
 
   @Output() playlist: PlaylistInterface = {name: "" , id: "", colour: ""};
 
@@ -25,7 +26,7 @@ export class CreatePlaylistFormComponent implements OnInit {
     console.log(this.playlist);
     console.log("valid: " + valid);
 
-    httpClient
+    const playlistCreationPromise = httpClient
       .fetch("playlist/create", JSON.stringify({ playlist: this.playlist }), "POST")
       .then((response) => {
         console.log("got a response " + JSON.stringify(response));
@@ -33,5 +34,6 @@ export class CreatePlaylistFormComponent implements OnInit {
       .catch((err) => {
         console.error("got an error: ", err);
       });
+    this.dialogRef.close(playlistCreationPromise)
   }
 }

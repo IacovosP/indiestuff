@@ -42,6 +42,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CreatePlaylistFormComponent } from "./playlist/create-playlist.component";
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { CreatePlaylistFormComponent } from "./playlist/create-playlist.componen
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
+    MatSliderModule
   ],
   entryComponents: [ChildboxComponent],
   providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter],

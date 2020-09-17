@@ -49,8 +49,9 @@ export class MyNavComponent implements OnInit {
     });
     this.dialogRefClassScope = dialogRef;
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe(async (result) => {
+      const playlist = await result;
+      this.playlists.push(playlist);
     });
   }
 

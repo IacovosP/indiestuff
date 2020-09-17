@@ -11,6 +11,11 @@ import { Howl, Howler } from "howler";
 import { Playlist, Track } from "@src/app/music-types/types";
 import playerEventEmitter from "./playerEmitter";
 
+export enum LoopState {
+  "DEFAULT",
+  "LOOP_PLAYLIST",
+  "LOOP_TRACK"
+}
 class Player {
   private playlist;
   private currentlyPlayingIndex: number;
@@ -18,8 +23,11 @@ class Player {
   public elapsedTimeInPercentage: number = 0; // 0-100
   public elapsedTimeInSeconds: number = 0;
   private playerClock: any; // interval
+  private loopState: LoopState = LoopState.DEFAULT;
+  private currentVolume: number = 0.5;
 
   constructor() {
+    Howler.volume(this.currentVolume);
     this.startPlayerTimerLoop();
   }
 
@@ -62,7 +70,7 @@ class Player {
    * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
    */
   public play(indexOfTrackToPlay: number) {
-    var data = this.playlist[indexOfTrackToPlay];
+    const data = this.playlist[indexOfTrackToPlay];
     const self = this;
     // If we already loaded this track, use the current one.
     // Otherwise, setup and load a new Howl.
@@ -75,18 +83,25 @@ class Player {
         ],
         html5: true,
         format: "mp3",
-        volume: 0.3,
+        volume: 0.5,
         onloaderror: function (error) {
           console.log("Error!", error);
         },
         onplay: function () {},
         onseek: function () {},
         onload: function () {
+          data.howl.volume(self.currentVolume);
           console.log("loaded " + data.howl.duration());
         },
         onend: function () {
           console.log("Finished!");
-          self.skip("next");
+          if (self.currentlyPlayingIndex === self.playlist.length - 1) {
+            self.pause();
+          } else if (self.loopState === LoopState.DEFAULT || self.loopState === LoopState.LOOP_PLAYLIST) {
+            self.skip("next");
+          } else if (self.loopState === LoopState.LOOP_TRACK) {
+            self.playTrack();
+          }
         },
         onpause: function () {},
         onstop: function () {},
@@ -94,7 +109,6 @@ class Player {
     }
 
     playerEventEmitter.change(indexOfTrackToPlay);
-    // Howler.volume(100);
     this.currentlyPlayingSound.play();
 
     // Keep track of the index we are currently playing.
@@ -151,13 +165,18 @@ class Player {
     }
   }
 
+  public toggleLoop(): LoopState {
+    this.loopState = this.loopState < 2 ? this.loopState + 1 : 0;
+    return this.loopState;
+  }
+
   /**
    * Skip to the next or previous track.
    * @param  {String} direction 'next' or 'prev'.
    */
   public skip(direction: "next" | "prev") {
     // Get the next track based on the direction of the track.
-    var index = 0;
+    let index = 0;
     if (direction === "prev") {
       index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
       if (index < 0) {
@@ -184,6 +203,16 @@ class Player {
     }
     // Play the new track.
     this.play(index);
+  }
+    /**
+   * Set the volume and update the volume slider display.
+   * @param  {Number} val Volume between 0 and 1.
+   */
+  public volume(value: number) {
+    console.log("value: " + value);
+    this.currentVolume = value;
+    // Update the global volume (affecting all Howls).
+    Howler.volume(value);
   }
 }
 
@@ -215,21 +244,6 @@ export default player;
 //    * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
 //    */
 //
-//   /**
-//    * Set the volume and update the volume slider display.
-//    * @param  {Number} val Volume between 0 and 1.
-//    */
-//   volume: function(val) {
-//     var self = this;
-//
-//     // Update the global volume (affecting all Howls).
-//     Howler.volume(val);
-//
-//     // Update the display on the slider.
-//     var barWidth = (val * 90) / 100;
-//     barFull.style.width = (barWidth * 100) + '%';
-//     sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
-//   },
 //
 //
 //   /**

@@ -34,28 +34,23 @@
       </mat-progress-bar>
     </div>
     <div class="utility-player-buttons">
-      <img
-        id="prevBtn"
-        style="padding-left: 15px; padding-top: 5px"
-        (click)="previous()"
-        src="/assets/icons/web/baseline_skip_previous_black_18dp.png"
-        height="40px"
-        width="40px"
-      />
-      <img
-        id="nextBtn"
-        style="padding-left: 5px; padding-top: 5px"
-        (click)="skip()"
-        src="/assets/icons/web/baseline_skip_next_black_18dp.png"
-        height="40px"
-        width="40px"
-      />
-      <img
-        style="padding-left: 15px; padding-top: 5px"
-        src="/assets/icons/web/baseline_repeat_black_18dp.png"
-        height="40px"
-        width="40px"
-      />
+      <button (click)="previous()" class="player-utility-button">
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button (click)="skip()" class="player-utility-button">
+        <mat-icon>skip_next</mat-icon>
+      </button>
+      <button (click)="toggleLoop()" class="player-utility-button">
+        <mat-icon [ngClass]="{ 'loop-playlist': loopState === 1 || loopState === 2}">{{repeatIcon}}</mat-icon>
+      </button>
+
+      <mat-slider
+        class="volume-slider"
+        (change)="updateVolume($event)"
+        [value]="volumeValue"
+        min="1"
+        max="100">
+      </mat-slider>
     </div>
   </div>
 </div>
