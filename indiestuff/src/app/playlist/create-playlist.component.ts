@@ -34,6 +34,6 @@ export class CreatePlaylistFormComponent implements OnInit {
       .catch((err) => {
         console.error("got an error: ", err);
       });
-    this.dialogRef.close(playlistCreationPromise)
+    this.dialogRef.close(playlistCreationPromise);
   }
 }

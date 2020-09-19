@@ -18,9 +18,9 @@ import { Playlist } from "./Playlist";
   
     @ManyToOne(type => Playlist, playlist => playlist.id)
     @JoinColumn({ name: 'playlist' })
-    playlist: number;
+    playlist: Playlist;
   
-    @ManyToOne(type => Track, track => track.id)
+    @ManyToOne(type => Track, track => track.id, { eager: true })
     @JoinColumn({ name: 'track' })
     track: Track;
     

@@ -35,6 +35,10 @@
   font-family: sans-serif;
 }
 
+.playlist-list-container li {
+  padding-right: 10px;
+}
+
 .playlist-list-container li:hover {
   cursor: pointer;
   opacity: 0.7;
