@@ -28,17 +28,22 @@ export class MyNavComponent implements OnInit {
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
+      this.changeAuthState({isRegistered: true});
       this.getPlaylists();
     }
   }
 
   getPlaylists() {
     httpClient
-      .fetch("playlist")
+      .fetch("playlist/list")
         .then((response: PlaylistInterface[]) => {
           console.log("playlists: " + JSON.stringify(response));
          this.playlists = response;
          playlistState.setPlaylists(this.playlists);
+         if (this.isRegistered) {
+           // to re-render the playlist part of the navbar
+           this.isRegistered = true;
+         }
       })
       .catch((err) => {
         console.error("error in getting artist: " + err);
@@ -64,9 +69,6 @@ export class MyNavComponent implements OnInit {
   }
 
   changeAuthState(item: any) {
-    if (item && item.isRegistered) {
-      this.isRegistered = true;
-      this.getPlaylists();
-    }
+    this.isRegistered = item && item.isRegistered ? true : false;
   }
 }

@@ -26,6 +26,7 @@ export class TrackListComponent implements OnInit {
   }
 
   @Input() isAlbumView: boolean = false;
+  @Input() isArtistView: boolean = false;
 
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
@@ -78,15 +79,7 @@ export class TrackListComponent implements OnInit {
 
   addToPlaylist(playlist: PlaylistInterface, indexOfSongInTrackList: number) {
     console.log("song to add to playlist: " + JSON.stringify(this.trackList[indexOfSongInTrackList]));
-    // httpClient.fetch("playlist/add", JSON.stringify({ trackId: this.trackList[indexOfSongInTrackList].id, playlistId: playlist.id }), "POST")
-    //   .then(response => {
-    //     console.log("successfully added song to playlist " + JSON.stringify(response));
-    //   })
-    //   .catch(err => {
-    //     console.error("Failed to add song to playlist " + err);
-    //   });
-
-      httpClient.fetch("playlist/get", JSON.stringify({ playlistId: playlist.id }), "POST")
+    httpClient.fetch("playlist/add", JSON.stringify({ trackId: this.trackList[indexOfSongInTrackList].id, playlistId: playlist.id }), "POST")
       .then(response => {
         console.log("successfully added song to playlist " + JSON.stringify(response));
       })

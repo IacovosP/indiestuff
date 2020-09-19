@@ -18,6 +18,54 @@
   margin-right: auto;
 }
 
+.playlist-image-container {
+  height: auto;
+  max-width: 80%;
+  height: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  font-family: sans-serif;
+}
+
+.playlist-image-container div {
+  text-align: left;
+  float: left;
+  display: block;
+}
+
+.playlist-image-container p {
+  margin-top: 0px;
+  padding-top: 5px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-left: 35px;
+  font-family: sans-serif;
+}
+
+.playlist-image-container span {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+  font-family: sans-serif;
+}
+
+.playlist-image-container ul {
+  display: flex;
+  float: left;
+}
+
+.playlist-image-container ul li{
+
+}
+
+.playlist-image-container ul li img{
+  max-height: 250px;
+  border: solid;
+  border-width: 2px;
+  border-color: white;
+}
+
 .album-image-container div {
   text-align: right;
   padding-top: 120px;

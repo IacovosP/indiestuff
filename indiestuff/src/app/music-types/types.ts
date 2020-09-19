@@ -1,8 +1,14 @@
 import { TrackInterface } from "@apistuff";
 
 export interface Track extends TrackInterface {
-  albumName: string;
-  artistName: string;
+  album: {
+    id: string;
+    title: string;
+  };
+  artist: {
+      id: string;
+      name: string;
+  };
   duration?: string;
 }
 
@@ -28,7 +34,16 @@ export interface Playlist {
 
 export interface AlbumDescription {
   title: string;
-  durationInSec: number;
-  artistName: string;
+  durationInSec: string;
+  artist: {
+    name: string;
+    id: string;
+  };
   releaseDate: string;
+}
+
+export interface PlaylistDescription {
+  name: string;
+  durationInSec: string;
+  creationDate: string;
 }

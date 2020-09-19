@@ -4,7 +4,7 @@ import { Album, AlbumDescription, Track } from "../music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
 import { AlbumPageInterface } from "@apistuff";
-import { getMonthName } from "../utils/timeConverter";
+import { getMonthName, getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 
 @Component({
   selector: "app-album-page",
@@ -52,17 +52,31 @@ export class AlbumPageComponent implements OnInit {
     this.trackList = album.tracks.map((track) => {
       return {
         ...track,
-        albumName: album.title,
-        artistName: album.artist.name,
+        album: {
+          id: album.id,
+          title: album.title
+        },
+        artist: {
+          name: album.artist.name,
+          id: album.artist.id
+        }
       };
     });
   }
   private setAlbumDescription(album: AlbumPageInterface) {
+    console.log("album duration :" + album.durationInSec);
+    const durationInSec = getFormattedDurationFromSeconds(
+      album.durationInSec
+    );
+    console.log("album durationInSec :" + durationInSec);
     const releaseDate = new Date(album.releaseDate);
     this.albumDescription = {
       title: album.title,
-      artistName: album.artist.name,
-      durationInSec: album.durationInSec,
+      artist: {
+        name:  album.artist.name,
+        id: album.artist.id
+      },
+      durationInSec,
       releaseDate: `${getMonthName(
         releaseDate.getMonth()
       )} ${releaseDate.getDay()}`,

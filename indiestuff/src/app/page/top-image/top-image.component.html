@@ -13,12 +13,13 @@
       <span
         style="font-size: 22px; padding-right: 8px"
         [ngStyle]="{ color: textColour }"
-        >{{ albumDuration }} by</span
+        >{{ albumDescription.durationInSec }} by</span
       >
       <span
-        style="font-size: 36px; padding-right: 35px"
+        style="font-size: 36px; padding-right: 35px; cursor: pointer; outline:none;"
         [ngStyle]="{ color: textColour }"
-        >{{ albumDescription.artistName }}</span
+        [routerLink]="['/artist', albumDescription.artist.id]"
+        >{{ albumDescription.artist.name }}</span
       >
       <p
         style="font-size: 22px; margin-top: 20px"
@@ -28,6 +29,35 @@
       </p>
     </div>
   </div>
+  <div
+  *ngIf="albumImages"
+    class="playlist-image-container"
+    [ngStyle]="{ 'background-color': darkColour }"
+  >
+    <div>
+      <p>
+        <span style="font-size: 40px" [ngStyle]="{ color: textColour }">
+          {{ playlistDescription.name }}
+        </span>
+        <span
+          style="font-size: 22px; padding-right: 8px"
+          [ngStyle]="{ color: textColour }"
+        >{{ playlistDescription.durationInSec }}</span
+        >
+      </p>
+      <ul>
+        <li style="list-style: none;" *ngFor="let image of albumImages">
+          <img src="{{ image }}" />
+        </li>
+      </ul>
+    </div>
+    <p
+      style="font-size: 22px; margin-top: 20px"
+      [ngStyle]="{ color: textColour }"
+    >
+      {{ playlistDescription.createdAt }}
+    </p>
+</div>
   <div *ngIf="!!uploadedImageUrl">
     <div>
       <div class="form-group">
@@ -47,7 +77,7 @@
     </div>
   </div>
   <div
-    *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl"
+    *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages"
     class="no-image"
   >
     <div>

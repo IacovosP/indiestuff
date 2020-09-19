@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { getRepository, In } from "typeorm";
 import { validate } from "class-validator";
-import {  PlaylistInterface } from "@apistuff";
+import {  PlaylistInterface, PlaylistPageInterface } from "@apistuff";
 import { Playlist } from "../entity/Playlist";
 import { PlaylistTrack } from "../entity/PlaylistTrack";
 import { Track } from "../entity/Track";
@@ -26,9 +26,6 @@ export default class PlaylistController {
     }
 
     static createPlaylist = async (req: Request, res: Response) => {
-        console.log("playlist " + JSON.stringify(req.body));
-        //Get parameters from the body
-
         const { colour, name } = req.body.playlist as PlaylistInterface;
         const playlist = new Playlist();
         playlist.name = name;
@@ -52,20 +49,61 @@ export default class PlaylistController {
     }
 
     static getPlaylist = async (req: Request, res: Response) => {
-        console.log("getPlaylist body:" + JSON.stringify(req.body));
+        const { playlistId } = req.params;
 
-        const { playlistId } = req.body;
-
+        const playlistRepository = getRepository(Playlist);
         const playlistTrackRepository = getRepository(PlaylistTrack);
-        let playlistTracks = await playlistTrackRepository.find({ where: { playlist: playlistId}} );
-        playlistTracks = playlistTracks.sort((track1, track2) => {
-            return track1.positionInPlaylist - track2.positionInPlaylist
-        })
-        const trackRepository = getRepository(Track);
-        const tracks = await trackRepository.find({
-                where: { id: In(playlistTracks.map(playlistTrack => playlistTrack.track.id)) },
-            });
-        res.status(200).send(tracks);
+        try {
+            let [playlist, playlistTracks] = await Promise.all([playlistRepository.findOne({ where: { id: playlistId}} ), playlistTrackRepository.find({ where: { playlist: playlistId}} )])
+            playlistTracks = playlistTracks.sort((track1, track2) => {
+                return track1.positionInPlaylist - track2.positionInPlaylist
+            })
+    
+            const trackRepository = getRepository(Track);
+            try {
+                const tracks = await trackRepository.find({
+                    where: { id: In(playlistTracks.map(playlistTrack => playlistTrack.track.id)) },
+                });
+                const trackList = tracks.map(track => {
+                    return {
+                        ...track,
+                        artist: {
+                            id: track.artist.id,
+                            name: track.artist.name
+                        },
+                        album: {
+                            id: track.album.id,
+                            title: track.album.title
+                        }
+                    }
+                });
+        
+                let albumImages = [];
+                for(let i = 0; i < 3; i++) {
+                    if (tracks[i] && tracks[i].album && tracks[i].album.album_image_filename) {
+                        albumImages.push(tracks[i].album.album_image_filename);
+                    } else {
+                        break;
+                    }
+                }
+                const result: PlaylistPageInterface = {
+                    id: playlistId,
+                    albumImages,
+                    colour: playlist.colour,
+                    name: playlist.name,
+                    tracks: trackList,
+                    createdAt: playlist.createdAt
+                }
+                res.status(200).send(result);
+            } catch (err) {
+                console.error("failed to get tracks and build response: " + err)
+                res.status(400).send("Couldn't get playlist tracks");
+            }
+
+        } catch (error) {
+            console.error("failed to get playlist and playlist tracks: " + error);
+            res.status(400).send("Bad Request");
+        }
     }
 
     static addTrackToPlaylist = async (req: Request, res: Response) => {

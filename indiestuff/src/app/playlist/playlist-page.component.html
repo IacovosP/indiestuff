@@ -1,0 +1,16 @@
+<div [ngStyle]="{ 'background-color': playlist && playlist.colour }">
+    <app-top-nav></app-top-nav>
+    <app-my-navbar></app-my-navbar>
+    <app-page-top-image
+      *ngIf="playlist && playlist.albumImages"
+      [darkColour]="darkColour"
+      [playlistDescription]="playlist && playlistDescription"
+      [albumImages]="playlist.albumImages"
+      [textColour]="textColour"
+    ></app-page-top-image>
+    <app-track-list *ngIf="playlist" [tracks]="trackList"       [isAlbumView]="false"
+    [isArtistView]="false"></app-track-list>
+    <app-comments-container></app-comments-container>
+    <div style="height: 300px"></div>
+  </div>
+  

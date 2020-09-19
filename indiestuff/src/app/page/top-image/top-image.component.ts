@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import httpClient from "@src/app/network/HttpClient";
-import { AlbumDescription } from "@src/app/music-types/types";
+import { AlbumDescription, PlaylistDescription } from "@src/app/music-types/types";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 
 @Component({
@@ -14,14 +14,14 @@ export class PageTopImageComponent implements OnInit {
   @Input() darkColour = "#c1c5ca";
   @Input() albumDescription: AlbumDescription;
   @Input() textColour: string;
+  @Input() albumImages: string[];
+  @Input() playlistDescription: PlaylistDescription;
+
   uploadedImageUrl: string;
   albumDuration: string;
   constructor() {}
 
   ngOnInit() {
-    this.albumDuration = getFormattedDurationFromSeconds(
-      this.albumDescription.durationInSec
-    );
   }
 
   loadFile(files: FileList) {

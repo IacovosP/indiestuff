@@ -8,7 +8,7 @@ import { Observable, of } from "rxjs";
 import { map, catchError, debounceTime, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import httpClient from "../network/HttpClient";
-import { CreatePlaylistFormComponent } from "../playlist/create-playlist.component";
+import auth, { Auth } from "../auth/Auth";
 
 interface SearchOptions {
   title: string;
@@ -16,11 +16,11 @@ interface SearchOptions {
   type: "ALBUM" | "ARTIST" | "TRACK";
 }
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  selector: "app-top-nav",
+  templateUrl: "./top-nav.component.html",
+  styleUrls: ["./top-nav.component.css"],
 })
-export class HomeComponent implements OnInit {
+export class TopNavComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
   subscription: any;
   searchControl: FormControl;
@@ -40,6 +40,11 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
 
   title = "indiestuff";
+
+  logout() {
+    auth.deregister();
+    this.authEventEmitter.change({ isRegistered: false });
+  }
 
   openSignupDialog() {
     const dialogRef = this.dialog.open(SignupChoiceComponent, {
@@ -86,6 +91,9 @@ export class HomeComponent implements OnInit {
         }
       })
     );
+    if (auth.getAccessToken()) {
+      this.changeAuthState({isRegistered: true});
+    }
     this.subscription = this.authEventEmitter
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
@@ -155,8 +163,7 @@ export class HomeComponent implements OnInit {
         })
       );
   }
-  changeAuthState(item: any) {
-    console.log("received auth state change: " + JSON.stringify(item));
+  changeAuthState(item: {isRegistered: boolean}) {
     this.isRegistered = item && item.isRegistered ? true : false;
   }
 }

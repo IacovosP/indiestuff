@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "@src/app/app-routing.module";
 import { AppComponent } from "@src/app/app.component";
-import { HomeComponent } from "@src/app/home/home.component";
+import { TopNavComponent } from "@src/app/home/top-nav.component";
 
 import { SignupFormComponent } from "@src/app/signup-form/signup-form.component";
 import { ArtistSignupFormComponent } from "@src/app/signup-form/artist-sign-up-form.component";
@@ -43,12 +43,13 @@ import { MatInputModule } from "@angular/material/input";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CreatePlaylistFormComponent } from "./playlist/create-playlist.component";
 import {MatSliderModule} from '@angular/material/slider';
+import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MyNavComponent,
-    HomeComponent,
+    TopNavComponent,
     SignupFormComponent,
     ArtistSignupFormComponent,
     ArtistCreationPageComponent,
@@ -68,7 +69,8 @@ import {MatSliderModule} from '@angular/material/slider';
     LoginFormComponent,
     TrackUploadFormComponent,
     AlbumPageComponent,
-    CreatePlaylistFormComponent
+    CreatePlaylistFormComponent,
+    PlaylistPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

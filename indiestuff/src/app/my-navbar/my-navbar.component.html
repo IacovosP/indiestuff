@@ -9,8 +9,8 @@
     <a *ngIf="isRegistered" (click)="openPlaylistCreationDialog()"
       ><img src="/assets/icons/web/baseline_playlist_add_black_18dp.png"
     /></a>
-    <ul class="playlist-list-container">
-      <li *ngFor="let playlist of playlists">{{playlist.name}}</li>
+    <ul *ngIf="isRegistered" class="playlist-list-container">
+      <li *ngFor="let playlist of playlists" [routerLink]="['/playlist', playlist.id]">{{playlist.name}}</li>
     </ul>
     
   </div>

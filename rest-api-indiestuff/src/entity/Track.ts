@@ -22,11 +22,11 @@ import { TrackInterface } from "@apistuff";
     @IsNotEmpty()
     title: string;
   
-    @ManyToOne(type => Album, album => album.id)
+    @ManyToOne(type => Album, album => album.id, { eager: true })
     @JoinColumn({ name: 'album' })
     album: Album
 
-    @ManyToOne(type => Artist, artist => artist.id)
+    @ManyToOne(type => Artist, artist => artist.id, { eager: true })
     @JoinColumn({ name: 'artist' })
     artist: Artist
 

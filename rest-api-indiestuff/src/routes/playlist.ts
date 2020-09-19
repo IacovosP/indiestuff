@@ -6,7 +6,7 @@ const router = Router();
 
 router.post("/create", checkJwt, PlaylistController.createPlaylist);
 router.post("/add", checkJwt, PlaylistController.addTrackToPlaylist);
-router.get("/", checkJwt, PlaylistController.getPlaylists);
-router.post("/get", checkJwt, PlaylistController.getPlaylist);
+router.get("/list", checkJwt, PlaylistController.getPlaylists);
+router.get("/:playlistId", PlaylistController.getPlaylist);
 
 export default router;

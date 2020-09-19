@@ -98,7 +98,8 @@ export class PlayerComponent implements OnInit {
       (track) =>
         ((track as any) = {
           title: track.title,
-          artistName: track.artistName,
+          artistName: track.artist.name,
+          artistId: track.artist.id,
           file: "Cant Keep Checking My Phone",
           filename: track.filename,
           howl: null,

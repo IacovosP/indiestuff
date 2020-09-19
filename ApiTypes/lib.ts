@@ -22,10 +22,27 @@ export interface TrackInterface {
     positionInAlbum: number;
 }
 
+export interface TrackInterfaceForPlaylist {
+    id: string;
+    title: string;
+    filename: string;
+    durationInSec: number;
+    album: {
+        id: string;
+        title: string;
+    };
+    artist: {
+        id: string;
+        name: string;
+    };
+    positionInAlbum?: number;
+}
+
 export interface PlaylistInterface {
     id: string;
     name: string;
     colour: string;
+    createdAt?: Date;
 }
 
 export interface PlaylistTrackInterface {
@@ -40,6 +57,13 @@ export interface CommentInterface {
     text: string;
     username: string;
     parentId?: string;
+}
+
+export interface PlaylistPageInterface extends PlaylistInterface {
+    durationInSec?: number;
+    albumImages: string[];
+    tracks: TrackInterfaceForPlaylist[];
+    comments?: CommentInterface[];
 }
 
 export interface ArtistPageInterface extends ArtistInterface {

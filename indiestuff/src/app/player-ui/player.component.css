@@ -12,6 +12,7 @@
   width: 45%;
   margin-left: 25%;
 }
+
 .player-container a {
   height: 10px;
   margin-top: 5px;
@@ -103,7 +104,7 @@
   margin-left: 30px;
   padding: 0;
   cursor: pointer;
-  width: 250px;
+  width: 200px;
 }
 
 ::ng-deep .mat-accent .mat-slider-thumb {

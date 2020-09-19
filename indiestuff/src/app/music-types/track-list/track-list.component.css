@@ -112,3 +112,8 @@
   border: none;
   background-color: transparent;
 }
+
+.album-name {
+  text-decoration: none;
+  color: black;
+}

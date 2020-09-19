@@ -2,7 +2,7 @@
   <div class="track-details">
     <a>{{ currentTrack.title }}</a>
     <a> by </a>
-    <a>{{ currentTrack.artistName }}</a>
+    <a style="text-decoration: none; color:black" [routerLink]="['/artist', currentTrack.artistId]">{{ currentTrack.artistName }}</a>
     <a style="float: right; margin-top: -0.5px">{{ currentTime }}</a>
   </div>
   <div class="player-bar">

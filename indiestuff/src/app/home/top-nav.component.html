@@ -41,7 +41,11 @@
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink]="['/mypage']">
+        <mat-icon>person</mat-icon>
+        <span>me</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>dialpad</mat-icon>
         <span>logout</span>
       </button>

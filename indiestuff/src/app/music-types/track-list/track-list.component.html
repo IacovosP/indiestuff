@@ -25,10 +25,18 @@
       <div class="right-side-items">
         <a
           *ngIf="isAlbumView === false"
+          [routerLink]="['/album', track.album.id]"
           class="album-name"
           style="width: 200px; text-align: right"
-          >{{ track.albumName }}</a
+          >{{ track.album.title }}</a
         >
+        <a
+        *ngIf="isAlbumView === false && isArtistView === false && track.artist"
+        [routerLink]="['/artist', track.artist.id]"
+        class="album-name"
+        style="max-width: 200px; text-align: right"
+        >{{ track.artist.name }}</a
+      >
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>

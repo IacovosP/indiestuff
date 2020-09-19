@@ -3,6 +3,8 @@ interface TokenResponse {
   expiresInSec: number;
 }
 
+const AuthStorageKey = "AuthToken";
+
 export class Auth {
   tokenResponse: TokenResponse;
 
@@ -11,10 +13,21 @@ export class Auth {
       accessToken: tokenResponse.token,
       expiresInSec: tokenResponse.expiresIn,
     };
+
+    window.localStorage.setItem("AuthToken", JSON.stringify(this.tokenResponse));
   }
 
   getAccessToken() {
+    const storedTokenResponse = window.localStorage.getItem(AuthStorageKey);
+    if (storedTokenResponse) {
+      const parsedAccessToken = JSON.parse(storedTokenResponse).accessToken;
+      return parsedAccessToken;
+    }
     return this.tokenResponse ? this.tokenResponse.accessToken : null;
+  }
+
+  deregister() {
+    window.localStorage.removeItem(AuthStorageKey);
   }
 
   refreshToken() {
