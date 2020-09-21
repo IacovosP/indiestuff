@@ -13,6 +13,13 @@
   overflow-x: auto;
   word-wrap: normal;
 }
+
+.custom-modal-comments-container {
+  width: 95%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
 .non-favourte {
   padding-left: 20px;
 }

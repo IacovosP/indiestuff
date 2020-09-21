@@ -83,7 +83,7 @@ describe("artist-creation-page", () => {
     it("should change isPaused when song to play is already playing", () => {
       expect(artistCreationPage.isPaused).toBe(true);
 
-      playerEventEmitter.change(2);
+      playerEventEmitter.change({ indexOfTrackToPlay: 2, trackListId: "someId" });
 
       expect(artistCreationPage.isPaused).toBe(false);
     });
@@ -92,7 +92,7 @@ describe("artist-creation-page", () => {
       (artistCreationPage as any).isPaused = false;
       expect(artistCreationPage.isPaused).toBe(false);
 
-      playerEventEmitter.change(2);
+      playerEventEmitter.change({ indexOfTrackToPlay: 2, trackListId: "someId" });
 
       expect(artistCreationPage.isPaused).toBe(true);
     });
@@ -101,7 +101,7 @@ describe("artist-creation-page", () => {
       (artistCreationPage as any).isPaused = true;
       expect(artistCreationPage.isPaused).toBe(true);
 
-      playerEventEmitter.change(3);
+      playerEventEmitter.change({ indexOfTrackToPlay: 3, trackListId: "someId" });
 
       expect(artistCreationPage.isPaused).toBe(false);
     });
@@ -110,7 +110,7 @@ describe("artist-creation-page", () => {
       (artistCreationPage as any).isPaused = false;
       expect(artistCreationPage.isPaused).toBe(false);
 
-      playerEventEmitter.change(3);
+      playerEventEmitter.change({ indexOfTrackToPlay: 3, trackListId: "someId" });
 
       expect(artistCreationPage.isPaused).toBe(false);
     });

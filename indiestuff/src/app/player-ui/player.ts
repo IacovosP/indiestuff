@@ -25,10 +25,15 @@ class Player {
   private playerClock: any; // interval
   private loopState: LoopState = LoopState.DEFAULT;
   private currentVolume: number = 0.5;
+  private trackListId: string;
 
   constructor() {
     Howler.volume(this.currentVolume);
     this.startPlayerTimerLoop();
+  }
+
+  public setTrackListId(trackListId: string) {
+    this.trackListId = trackListId;
   }
 
   private startPlayerTimerLoop() {
@@ -108,7 +113,7 @@ class Player {
       });
     }
 
-    playerEventEmitter.change(indexOfTrackToPlay);
+    playerEventEmitter.change({ indexOfTrackToPlay, trackListId: this.trackListId });
     this.currentlyPlayingSound.play();
 
     // Keep track of the index we are currently playing.
@@ -129,7 +134,7 @@ class Player {
   // play after pause
   public restart() {
     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-    playerEventEmitter.change(this.currentlyPlayingIndex);
+    playerEventEmitter.change({ indexOfTrackToPlay: this.currentlyPlayingIndex, trackListId: this.trackListId });
 
     this.currentlyPlayingSound.play();
   }
@@ -138,7 +143,7 @@ class Player {
     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
 
     this.currentlyPlayingSound.pause();
-    playerEventEmitter.change(this.currentlyPlayingIndex);
+    playerEventEmitter.change({ indexOfTrackToPlay: this.currentlyPlayingIndex, trackListId: this.trackListId });
   }
 
   /**

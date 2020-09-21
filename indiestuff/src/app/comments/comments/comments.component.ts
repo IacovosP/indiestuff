@@ -28,6 +28,7 @@ export class DatacontainerDirective {
   styleUrls: ["./comments.component.css"],
 })
 export class CommentsComponent implements OnInit, OnChanges {
+  @Input() isModal = false;
   @Input() postComment: Array<object> = [];
   @Output() countComments = new EventEmitter();
   public loadComponent = false;
@@ -68,6 +69,7 @@ export class CommentsComponent implements OnInit, OnChanges {
         .toArray()
         [index].viewContainerRef.createComponent(myFactory);
       myRef.instance["commentNo"] = index;
+      myRef.instance["isModal"] = this.isModal
       myRef.changeDetectorRef.detectChanges();
       myRef.instance.userReplycomment.subscribe((data) => {
         console.log("Piyali=>", data);

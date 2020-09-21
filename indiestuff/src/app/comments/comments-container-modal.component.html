@@ -1,0 +1,32 @@
+<mat-dialog-content
+  class="mat-typography comments-modal-container"
+>
+    <div class="container">
+        <div class="card">
+        <div class="commentbox">
+            <div class="col-12 col-sm-12 header"></div>
+            <div class="col-12 col-sm-12 body">
+            <div class="comment-container">
+                <div class="comment-form">
+                <app-commentbox
+                    [isModal]="true"
+                    (usercomment)="receiveComment($event)"
+                ></app-commentbox>
+                </div>
+            </div>
+            </div>
+        </div>
+        <app-comments
+            [isModal]="true"
+            [postComment]="comments"
+            (alreadyExistingComments)="receiveComment($event)"
+            (countComments)="receiveCount($event)"
+        ></app-comments>
+        </div>
+        <div>
+        <!-- <button class="custom-toggle-button" (click)="toggleShowComments()">
+            {{ commentMessage }} {{ count }} comments
+        </button> -->
+        </div>
+    </div>
+</mat-dialog-content>

@@ -8,8 +8,13 @@
       [albumImages]="playlist.albumImages"
       [textColour]="textColour"
     ></app-page-top-image>
-    <app-track-list *ngIf="playlist" [tracks]="trackList"       [isAlbumView]="false"
-    [isArtistView]="false"></app-track-list>
+    <app-track-list 
+      *ngIf="playlist" 
+      [tracks]="trackList"
+      [isAlbumView]="false"
+      [isArtistView]="false"
+      [trackListId]="playlist.id"
+    ></app-track-list>
     <app-comments-container></app-comments-container>
     <div style="height: 300px"></div>
   </div>

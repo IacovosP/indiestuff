@@ -9,7 +9,7 @@ import { ArtistPageLayout, AlbumNew } from "@src/app/music-types/artistMusic";
 import { Track } from "@src/app/music-types/types";
 import { TrackUploadFormComponent } from "./track-upload/track-upload-form.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import playerEventEmitter from "@src/app/player-ui/playerEmitter";
+import playerEventEmitter, { PlayerChangeEvent } from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
 import httpClient from "@src/app/network/HttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
@@ -43,12 +43,12 @@ export class ArtistCreationPageComponent implements OnInit {
   dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
   title = "indiestuff";
 
-  changeIndexOfSongPlaying(indexOfSongPlaying) {
-    if (this.indexOfSongPlaying === indexOfSongPlaying) {
+  changeIndexOfSongPlaying(item: PlayerChangeEvent) {
+    if (this.indexOfSongPlaying === item.indexOfTrackToPlay) {
       this.isPaused = !this.isPaused;
     } else {
       this.isPaused = false;
-      this.indexOfSongPlaying = indexOfSongPlaying;
+      this.indexOfSongPlaying = item.indexOfTrackToPlay;
     }
   }
 
@@ -59,7 +59,7 @@ export class ArtistCreationPageComponent implements OnInit {
     }
     console.error("play " + indexOfSongToPlay);
     console.error("play " + JSON.stringify(this.tracks));
-    this.playerSharedService.change({ tracks: this.tracks, indexOfSongToPlay });
+    this.playerSharedService.change({ tracks: this.tracks, indexOfSongToPlay, trackListId: "creatingAlbumId" });
   }
 
   restartTrack() {
@@ -77,7 +77,7 @@ export class ArtistCreationPageComponent implements OnInit {
   ngOnInit() {
     this.subscription = playerEventEmitter
       .getEmittedValue()
-      .subscribe((item) => this.changeIndexOfSongPlaying(item));
+      .subscribe((item: PlayerChangeEvent) => this.changeIndexOfSongPlaying(item));
     this.newAlbum = new AlbumNew({ title: "", tracks: [], durationInSec: 0 });
     this.artistPageLayout = new ArtistPageLayout({
       artistName: "SomeArtist",

@@ -2,20 +2,20 @@
   <ul class="track-list">
     <li
       *ngFor="let track of tracks; index as i"
-      [ngClass]="{ 'active-track': i === indexOfSongPlaying }"
+      [ngClass]="{ 'active-track': i === indexOfSongPlaying && trackListId === currentPlayingTrackListId }"
     >
       <div class="left-side-items">
         <a style="padding-left: 10px">{{ i + 1 }}</a>
         <img
           *ngIf="
-            indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i)
+            indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i) || trackListId !== currentPlayingTrackListId
           "
           class="play-arrow"
           src="/assets/icons/web/outline_play_arrow_black_18dp.png"
           (click)="playSong(i)"
         />
         <img
-          *ngIf="isPaused === false && indexOfSongPlaying === i"
+          *ngIf="isPaused === false && indexOfSongPlaying === i && trackListId === currentPlayingTrackListId"
           class="pause-button"
           src="/assets/icons/web/baseline_pause_black_18dp.png"
           (click)="pauseTrack()"
@@ -56,7 +56,7 @@
           </mat-menu>
         </mat-menu>
         <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
-        <img src="/assets/icons/web/outline_comment_black_18dp.png" />
+        <img (click)="openCommentModal()" src="/assets/icons/web/outline_comment_black_18dp.png" />
         <span>{{ track.duration }}</span>
       </div>
     </li>

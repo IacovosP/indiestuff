@@ -22,6 +22,7 @@ export class ChildboxComponent implements OnInit {
   @Output() userReplycomment = new EventEmitter();
   @Output() deletNo = new EventEmitter();
   @Input() commentNo: any;
+  @Input() isModal = false;
 
   constructor(private formBuilder: FormBuilder) {}
 

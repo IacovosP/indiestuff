@@ -34,9 +34,10 @@ export class PlayerComponent implements OnInit {
     this.startPlayerListener();
   }
 
-  changePlaylist(tracks: Track[], indexOfSongToPlay: number) {
+  changePlaylist(tracks: Track[], indexOfSongToPlay: number, trackListId: string) {
     this.currentPlaylist = this.createPlaylistWithTracks(tracks);
     try {
+      player.setTrackListId(trackListId);
       player.setPlaylist(this.currentPlaylist);
       player.play(indexOfSongToPlay);
     } catch (e) {
@@ -114,7 +115,7 @@ export class PlayerComponent implements OnInit {
     this.subscription = this.playerSharedService
       .getEmittedValue()
       .subscribe((item) =>
-        this.changePlaylist(item.tracks, item.indexOfSongToPlay)
+        this.changePlaylist(item.tracks, item.indexOfSongToPlay, item.trackListId)
       );
     this.pauseSubscription = this.playerSharedService
       .getEmittedPause()

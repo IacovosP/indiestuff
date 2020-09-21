@@ -44,6 +44,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CreatePlaylistFormComponent } from "./playlist/create-playlist.component";
 import {MatSliderModule} from '@angular/material/slider';
 import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
+import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component
     ArtistMusicComponent,
     PageTopImageComponent,
     TrackListComponent,
+    CommentModalContainerComponent,
     CommentContainerComponent,
     CommentsComponent,
     DatacontainerDirective,

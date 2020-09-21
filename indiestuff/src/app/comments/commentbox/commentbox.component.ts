@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
   EventEmitter,
+  Input,
 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -15,6 +16,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   styleUrls: ["./commentbox.component.css"],
 })
 export class CommentboxComponent implements OnInit {
+  @Input() isModal = false;
+  
   commentForm: FormGroup;
   commentInfo: Array<object> = [
     {

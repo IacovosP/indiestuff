@@ -2,12 +2,22 @@
   width: 70%;
 }
 
+.childbox-modal-container {
+  margin: auto;
+  display: flex;
+  width: 95%;
+}
+
 .form-group textarea {
   border-width: thin;
   border-color: #47525e;
   width: 100%;
   resize: none;
   font-family: helvetica;
+}
+
+.childbox-modal-container textarea{
+  width: 230px;
 }
 
 .comment-form button {
@@ -24,4 +34,17 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
+}
+
+.childbox-modal-container button {
+  float: right;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #dda9e4;
+  border: solid;
+  border-color: #47525e;
+  height: 36.67px;
+  margin-left: 5px;
+  border-width: 1px;
 }

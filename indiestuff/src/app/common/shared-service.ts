@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
+import { Track } from "@src/app/music-types/types";
 
 @Injectable()
 export class SharedService {
@@ -16,7 +17,7 @@ export class SharedService {
     console.log("shared service started");
   }
 
-  change(value: any) {
+  change(value: {tracks: any[]; indexOfSongToPlay: number; trackListId: string; }) {
     console.log("change started");
     this.fire.emit(value);
   }

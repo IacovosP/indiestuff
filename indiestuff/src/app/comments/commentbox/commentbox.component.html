@@ -1,4 +1,6 @@
-<form class="comment-form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+<form 
+  [ngClass]="isModal ? 'comment-modal': 'comment-form'"
+  [formGroup]="commentForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <textarea
       placeholder="leave a comment..."

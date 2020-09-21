@@ -4,12 +4,30 @@
   width: 74%;
 }
 
+.comment-modal {
+  padding-top: 15px;
+  padding-left: 3%;
+  padding-right: 5%;
+}
+
 .form-group textarea {
   border-width: thin;
   border-color: #47525e;
   width: 100%;
   resize: none;
   font-family: helvetica;
+}
+
+.comment-modal button {
+  float: right;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  color: #dda9e4;
+  font-family: sans-serif;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
 
 .comment-form button {

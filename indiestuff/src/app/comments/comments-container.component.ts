@@ -24,7 +24,7 @@ export class CommentContainerComponent implements OnInit {
     console.log(this.comments.length);
   }
 
-  recieveCount($event) {
+  receiveCount($event) {
     console.error("what is even: " + $event);
     this.comments = $event;
     this.count = this.comments.length;

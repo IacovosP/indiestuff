@@ -6,7 +6,11 @@
 ></app-page-top-image>
 <app-artist-menu-bar [artistId]="artistMusic.id"></app-artist-menu-bar>
 <app-track-list
-  [tracks]="artistMusic.topTracks" [isArtistView]="true" [isAlbumView]="false"></app-track-list>
+  [tracks]="artistMusic.topTracks"
+  [isArtistView]="true"
+  [isAlbumView]="false"
+  [trackListId]="artistMusic.id"
+></app-track-list>
 <app-comments-container></app-comments-container>
 <app-artist-albums [albums]="albumsLite"></app-artist-albums>
 <div style="height: 300px"></div>

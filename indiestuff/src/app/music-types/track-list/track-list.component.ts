@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Track } from "../types";
 import { SharedService } from "@src/app/common/shared-service";
-import playerEventEmitter from "@src/app/player-ui/playerEmitter";
+import playerEventEmitter, { PlayerChangeEvent } from "@src/app/player-ui/playerEmitter";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 import { PlaylistInterface } from "../../../../../ApiTypes/lib";
 import playlistState from "@src/app/playlist/playlistState";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import httpClient from "@src/app/network/HttpClient";
+import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 
 @Component({
   selector: "app-track-list",
@@ -19,14 +20,15 @@ export class TrackListComponent implements OnInit {
   indexOfSongPlaying: number | undefined;
   isPaused: boolean = false;
   playlists: PlaylistInterface[];
-  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent>;
+  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent | CommentModalContainerComponent>;
 
   constructor(public dialog: MatDialog, private playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
   }
-
+  @Input() trackListId: string;
   @Input() isAlbumView: boolean = false;
   @Input() isArtistView: boolean = false;
+  currentPlayingTrackListId: string;
 
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
@@ -37,6 +39,7 @@ export class TrackListComponent implements OnInit {
         duration: getFormattedDurationFromSeconds(track.durationInSec),
       };
     });
+    console.log("here 0 " + this.indexOfSongPlaying);
     this.indexOfSongPlaying = undefined;
   }
 
@@ -49,18 +52,25 @@ export class TrackListComponent implements OnInit {
     this.playlists = playlistState.getPlaylists();
   }
 
+  ngOnChanges() {
+    console.log("here " + this.indexOfSongPlaying);
+    console.log("tracklistid: " + this.trackListId);
+    this.trackListId = this.trackListId;
+  }
+
   ngOnInit() {
     this.subscription = playerEventEmitter
       .getEmittedValue()
-      .subscribe((item) => this.changeIndexOfSongPlaying(item));
+      .subscribe((item: PlayerChangeEvent) => this.changeIndexOfSongPlaying(item));
   }
 
-  changeIndexOfSongPlaying(indexOfSongPlaying) {
-    if (this.indexOfSongPlaying === indexOfSongPlaying) {
+  changeIndexOfSongPlaying(item: PlayerChangeEvent) {
+    this.currentPlayingTrackListId = item.trackListId;
+    if (this.indexOfSongPlaying === item.indexOfTrackToPlay) {
       this.isPaused = !this.isPaused;
     } else {
       this.isPaused = false;
-      this.indexOfSongPlaying = indexOfSongPlaying;
+      this.indexOfSongPlaying = item.indexOfTrackToPlay;
     }
   }
 
@@ -74,6 +84,7 @@ export class TrackListComponent implements OnInit {
     this.playerSharedService.change({
       tracks: this.trackList,
       indexOfSongToPlay,
+      trackListId: this.trackListId
     });
   }
 
@@ -88,6 +99,19 @@ export class TrackListComponent implements OnInit {
       });
   }
 
+  openCommentModal() {
+    const dialogRef = this.dialog.open(CommentModalContainerComponent, {
+      panelClass: "app-signup-form-no-padding",
+      position: {
+        left: '60%'
+      }
+    });
+    this.dialogRefClassScope = dialogRef;
+
+    dialogRef.afterClosed().subscribe(result => {
+      // do nothing
+    });
+  }
   openPlaylistCreationDialog() {
     const dialogRef = this.dialog.open(CreatePlaylistFormComponent, {
       panelClass: "app-signup-form-no-padding",

@@ -6,6 +6,10 @@ import {
   EventEmitter,
 } from "@angular/core";
 
+export interface PlayerChangeEvent {
+  indexOfTrackToPlay: number;
+  trackListId: string;
+}
 export class PlayerEventEmitter {
   @Output() fire: EventEmitter<any> = new EventEmitter();
 
@@ -13,7 +17,7 @@ export class PlayerEventEmitter {
     console.log("player shared service started");
   }
 
-  change(value: any) {
+  change(value: PlayerChangeEvent) {
     console.log("player change started " + value);
     this.fire.emit(value);
   }

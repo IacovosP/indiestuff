@@ -9,8 +9,13 @@
     [textColour]="textColour"
   ></app-page-top-image>
   <app-artist-menu-bar [artistId]="album && album.artist.id"></app-artist-menu-bar>
-  <app-track-list *ngIf="album" [tracks]="trackList"     [isAlbumView]="true"
-  [isArtistView]="false"></app-track-list>
+  <app-track-list 
+    *ngIf="album" 
+    [tracks]="trackList"
+    [isAlbumView]="true"
+    [isArtistView]="false"
+    [trackListId]="album.id"
+  ></app-track-list>
   <app-comments-container></app-comments-container>
   <div style="height: 300px"></div>
 </div>

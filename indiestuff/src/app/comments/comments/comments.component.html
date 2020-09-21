@@ -1,4 +1,7 @@
-<div class="custom-comments-container" *ngIf="postComment !== undefined">
+<div 
+  class="custom-comments-container"   
+  [ngClass]="{'custom-modal-comments-container': isModal}"
+  *ngIf="postComment !== undefined">
   <h6 *ngIf="postComment?.length < 1">no comments found</h6>
   <ul
     style="padding: 0"
