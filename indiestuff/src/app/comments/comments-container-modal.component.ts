@@ -1,4 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, Inject } from "@angular/core";
+import { ThreadTypes } from "@src/app/music-types/types";
+import httpClient from "../network/HttpClient";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-comments-container-modal",
@@ -6,21 +9,41 @@ import { Component, Input, OnChanges, OnInit } from "@angular/core";
   styleUrls: ["./comments-container-modal.component.css"],
 })
 export class CommentModalContainerComponent implements OnInit {
-  comments: string;
+  comments: Array<object>;
   count: number;
   shouldShowComments: boolean;
   commentMessage = "show";
+  threadId: string;
+  threadType: ThreadTypes = ThreadTypes.Track;
+  commentThreadId: string;
 
-  constructor() {}
+  constructor(
+    private dialogRef: MatDialogRef<CommentModalContainerComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: {threadId: string}) {}
 
   ngOnInit() {
-    console.log("opened modal");
     this.count = 0;
     this.shouldShowComments = false;
+    this.loadCommentThread();
+  }
+
+  loadCommentThread() {
+    httpClient.fetch("comment/track/" + this.data.threadId)
+      .then(response => {
+        this.comments = response.comments;
+        this.commentThreadId = response.commentThreadId;
+      })
+      .catch(error => {
+        console.error("error in loading track comment thread: " + error);
+      });
   }
 
   receiveComment($event) {
-    this.comments = $event;
+    if (!this.comments) {
+      this.comments = $event;
+    }
+    console.log("comment added " + JSON.stringify($event));
+    this.comments.push($event);
     this.count = this.comments.length;
     console.log(this.comments.length);
   }

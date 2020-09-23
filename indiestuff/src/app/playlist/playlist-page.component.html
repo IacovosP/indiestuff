@@ -15,7 +15,9 @@
       [isArtistView]="false"
       [trackListId]="playlist.id"
     ></app-track-list>
-    <app-comments-container></app-comments-container>
+    <app-comments-container
+      [commentThreadId]="playlist.commentThreadId"
+    ></app-comments-container>
     <div style="height: 300px"></div>
   </div>
   

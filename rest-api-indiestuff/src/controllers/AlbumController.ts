@@ -6,6 +6,7 @@ import { Album } from "../entity/Album";
 import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
 import { AlbumPageInterface, ArtistInterface, AlbumInterface, TrackInterface } from "@apistuff";
+import { CommentThread } from "../entity/CommentThread";
 
 export default class AlbumController {
     
@@ -27,6 +28,9 @@ static getAlbum = async (req: Request, res: Response) => {
         artist_top_image_filename: artist.artist_top_image_filename,
         artist_image_filename: artist.artist_image_filename
     }
+    const commentThreadRepository = getRepository(CommentThread);
+    const commentThread = await commentThreadRepository.findOne({ where: { album: albumId}});
+    console.log("comment thread: " + JSON.stringify(commentThread, null , 4));
     const albumResponse: AlbumPageInterface = {
         id: album.id,
         title: album.title,
@@ -35,7 +39,8 @@ static getAlbum = async (req: Request, res: Response) => {
         durationInSec: album.durationInSec,
         colour: album.colour,
         artist: artistDetails,
-        tracks
+        tracks,
+        commentThreadId: commentThread? commentThread.id : null
     }
     res.status(200).send(albumResponse);
 }

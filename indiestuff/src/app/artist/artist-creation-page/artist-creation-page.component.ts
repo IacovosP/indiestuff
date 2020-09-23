@@ -149,6 +149,8 @@ export class ArtistCreationPageComponent implements OnInit {
         positionInAlbum: this.newAlbum.tracks.indexOf(track),
       };
     });
+    this.newAlbum.colour = !this.newAlbum.colour ? "#c2ddde" : this.newAlbum.colour;
+
     console.log("album form submitted: value: " + JSON.stringify(value));
     httpClient
       .fetch(

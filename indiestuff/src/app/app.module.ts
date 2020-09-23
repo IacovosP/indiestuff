@@ -27,7 +27,6 @@ import { ArtistCreationPageComponent } from "@src/app/artist/artist-creation-pag
 import { TrackUploadFormComponent } from "@src/app/artist/artist-creation-page/track-upload/track-upload-form.component";
 import {
   CommentsComponent,
-  DatacontainerDirective,
 } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -60,7 +59,6 @@ import { CommentModalContainerComponent } from "@src/app/comments/comments-conta
     CommentModalContainerComponent,
     CommentContainerComponent,
     CommentsComponent,
-    DatacontainerDirective,
     CommentboxComponent,
     ChildboxComponent,
     ArtistMenuBar,

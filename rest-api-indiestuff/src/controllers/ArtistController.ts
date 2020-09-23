@@ -5,7 +5,8 @@ import { validate } from "class-validator";
 import { Album } from "../entity/Album";
 import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
-import { ArtistInterface, TrackInterface, ArtistPageInterface, AlbumInterface } from "@apistuff";
+import { ArtistInterface, ArtistPageInterface, AlbumInterface } from "@apistuff";
+import { CommentThread } from "../entity/CommentThread";
 
 export default class ArtistController {
     
@@ -20,7 +21,9 @@ export default class ArtistController {
 
         const albums = await albumRepository.find({ where: { artist: artistId}})
         const tracks = await trackRepository.find({ take: 5, where: { artist: artistId}});
-
+        const commentThreadRepository = getRepository(CommentThread);
+        const commentThread = await commentThreadRepository.findOne({ where: { artist: artistId}});
+        
         const artistDetails: ArtistInterface = {
             id: artist.id,
             name: artist.name,
@@ -41,7 +44,8 @@ export default class ArtistController {
         const artistResponse: ArtistPageInterface = {
             ...artistDetails,
             albums: albumsDetails,
-            topTracks: tracks
+            topTracks: tracks,
+            commentThreadId: commentThread.id
         }
         res.status(200).send(artistResponse);
     }

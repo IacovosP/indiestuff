@@ -16,6 +16,10 @@
     [isArtistView]="false"
     [trackListId]="album.id"
   ></app-track-list>
-  <app-comments-container></app-comments-container>
+  <app-comments-container
+    [threadId]="album.id"
+    [threadType]="threadType"
+    [commentThreadId]="album.commentThreadId"
+  ></app-comments-container>
   <div style="height: 300px"></div>
 </div>

@@ -11,6 +11,10 @@
   [isAlbumView]="false"
   [trackListId]="artistMusic.id"
 ></app-track-list>
-<app-comments-container></app-comments-container>
+<app-comments-container
+  [threadId]="artistMusic.id"
+  [threadType]="threadType"
+  [commentThreadId]="artistMusic.commentThreadId"
+></app-comments-container>
 <app-artist-albums [albums]="albumsLite"></app-artist-albums>
 <div style="height: 300px"></div>

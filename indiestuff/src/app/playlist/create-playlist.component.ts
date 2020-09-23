@@ -23,6 +23,7 @@ export class CreatePlaylistFormComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: PlaylistInterface; valid: boolean }) {
     this.playlist.name = value.name;
+    this.playlist.colour = !this.playlist.colour ? "#c2ddde" : this.playlist.colour;
     console.log(this.playlist);
     console.log("valid: " + valid);
 

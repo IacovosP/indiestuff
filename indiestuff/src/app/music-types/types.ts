@@ -47,3 +47,9 @@ export interface PlaylistDescription {
   durationInSec: string;
   creationDate: string;
 }
+
+export enum ThreadTypes {
+  "Artist",
+  "Album",
+  "Track"
+}

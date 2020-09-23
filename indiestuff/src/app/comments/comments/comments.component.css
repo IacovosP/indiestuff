@@ -30,7 +30,7 @@
 .date-style {
   font-family: sans-serif;
   font-size: 15px;
-  margin-top: -10px;
+  margin-top: -15px;
 }
 
 .date-style span {
@@ -45,4 +45,13 @@
   background-color: Transparent;
   font-weight: bold;
   color: #dda9e4;
+}
+
+.reply-metadata {
+  margin-top: -5px;
+}
+
+.reply-metadata span {
+  font-size: 9px;
+  font-style: italic;
 }

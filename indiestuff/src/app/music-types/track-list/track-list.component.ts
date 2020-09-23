@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Track } from "../types";
+import { Track, ThreadTypes } from "../types";
 import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter, { PlayerChangeEvent } from "@src/app/player-ui/playerEmitter";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
-import { PlaylistInterface } from "../../../../../ApiTypes/lib";
+import { PlaylistInterface, TrackInterface } from "@apistuff";
 import playlistState from "@src/app/playlist/playlistState";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -99,11 +99,14 @@ export class TrackListComponent implements OnInit {
       });
   }
 
-  openCommentModal() {
+  openCommentModal(trackId: string) {
     const dialogRef = this.dialog.open(CommentModalContainerComponent, {
       panelClass: "app-signup-form-no-padding",
       position: {
         left: '60%'
+      },
+      data: {
+        threadId: trackId
       }
     });
     this.dialogRefClassScope = dialogRef;
@@ -119,6 +122,7 @@ export class TrackListComponent implements OnInit {
         left: '50%'
       }
     });
+
     this.dialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe(async (result) => {

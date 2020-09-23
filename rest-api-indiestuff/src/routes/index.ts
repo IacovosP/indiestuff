@@ -6,6 +6,7 @@ import album from "./album";
 import search from "./search";
 import artist from "./artist";
 import playlist from "./playlist";
+import comment from "./comment";
 
 const routes = Router();
 
@@ -16,5 +17,6 @@ routes.use("/album", album);
 routes.use("/search", search);
 routes.use("/artist", artist);
 routes.use("/playlist", playlist);
+routes.use("/comment", comment);
 
 export default routes;

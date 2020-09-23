@@ -20,6 +20,15 @@ export interface TrackInterface {
     filename: string;
     durationInSec: number;
     positionInAlbum: number;
+    commentThreadId?: string;
+}
+
+export interface CommentThreadInterface {
+    id: string;
+    comments?: CommentInterface[];
+    artistId?: string;
+    albumId?: string;
+    trackId?: string;
 }
 
 export interface TrackInterfaceForPlaylist {
@@ -53,9 +62,10 @@ export interface PlaylistTrackInterface {
 }
 
 export interface CommentInterface {
-    id: string;
+    id?: string;
     text: string;
-    username: string;
+    username?: string;
+    createdAt?: Date;
     parentId?: string;
 }
 
@@ -63,17 +73,20 @@ export interface PlaylistPageInterface extends PlaylistInterface {
     durationInSec?: number;
     albumImages: string[];
     tracks: TrackInterfaceForPlaylist[];
+    commentThreadId: string;
     comments?: CommentInterface[];
 }
 
 export interface ArtistPageInterface extends ArtistInterface {
     topTracks: TrackInterface[];
     albums: AlbumInterface[];
+    commentThreadId: string;
     comments?: CommentInterface[];
 }
 
 export interface AlbumPageInterface extends AlbumInterface {
     tracks: TrackInterface[];
     artist: ArtistInterface;
+    commentThreadId: string;
     comments?: CommentInterface[];
 }

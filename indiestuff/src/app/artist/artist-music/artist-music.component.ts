@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import httpClient from "@src/app/network/HttpClient";
 import { ArtistPageInterface, AlbumInterface } from "@apistuff";
-import { AlbumLite } from "@src/app/music-types/types";
+import { AlbumLite, ThreadTypes } from "@src/app/music-types/types";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 
 @Component({
@@ -15,6 +15,7 @@ export class ArtistMusicComponent implements OnInit {
 
   private artistMusic: ArtistPageInterface;
   private albumsLite: AlbumLite[];
+  threadType = ThreadTypes.Artist;
 
   ngOnInit() {
     this.route.params.subscribe((param) => {

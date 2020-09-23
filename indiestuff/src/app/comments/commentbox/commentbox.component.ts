@@ -9,6 +9,9 @@ import {
   Input,
 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import httpClient from "@src/app/network/HttpClient";
+import { CommentInterface, CommentThreadInterface } from "@apistuff";
+import { ThreadTypes } from "@src/app/music-types/types";
 
 @Component({
   selector: "app-commentbox",
@@ -17,40 +20,43 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class CommentboxComponent implements OnInit {
   @Input() isModal = false;
-  
+  @Input() threadId: string;
+  @Input() threadType: ThreadTypes;
+  @Input() commentThreadId: string;
+
   commentForm: FormGroup;
-  commentInfo: Array<object> = [
-    {
-      commentId: 0,
-      commentTxt: "some comment already written",
-      author: "my hardcodedname",
-      favourite: true,
-      pinnedFavourite: true,
-      replyComment: [],
-      currentDate: new Date(),
-    },
-    {
-      commentId: 1,
-      author: "my hardcodedname",
-      commentTxt: "some other comment already written",
-      favourite: false,
-      replyComment: [],
-      currentDate: new Date(),
-    },
-  ];
   submitted: Boolean = false;
-  public id = 2;
+  public id = 0;
   @Output() usercomment = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.usercomment.emit(this.commentInfo);
+    console.log("this.commentThreadId: " + this.commentThreadId);
+    if (this.commentThreadId) {
+      this.getComments().then(comments => {
+        this.usercomment.emit(comments);
+      });
+    }
     this.createForm();
+    console.log(`threadId: ${this.threadId} and commentThreadId: ${this.threadType}`);
   }
+
   // ngOnChanges  () {
   //   this.usercomment.emit(this.commentInfo);
   // }
+
+  getComments(): Promise<CommentInterface[]> {
+    return httpClient.fetch("comment/" + this.commentThreadId)
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        console.error("error in getting comments: " + error);
+        Promise.reject(error);
+      });
+  }
+
   createForm() {
     this.commentForm = this.formBuilder.group({
       comment: [
@@ -70,14 +76,33 @@ export class CommentboxComponent implements OnInit {
     if (this.commentForm.invalid) {
       return false;
     } else {
-      this.commentInfo.push({
-        commentId: this.id++,
-        author: "hardcoded username",
-        currentDate: new Date(),
-        commentTxt: this.commentForm.controls["comment"].value,
-        replyComment: [],
+      const comment: CommentInterface = {
+        username: "hardcoded username",
+        text: this.commentForm.controls["comment"].value
+      };
+      const commentThread = {
+        artistId: this.threadType === ThreadTypes.Artist ? this.threadId : undefined,
+        albumId: this.threadType === ThreadTypes.Album ? this.threadId : undefined,
+        trackId: this.threadType === ThreadTypes.Track ? this.threadId : undefined,
+        commentThreadId: this.commentThreadId
+      };
+      httpClient.fetch(
+        "comment/add",
+        JSON.stringify({newComment: comment, commentThread}),
+        "POST"
+      ).then(response => {
+        console.log("succeeded in adding comment");
+        const commentVis = {
+          id: this.id++,
+          username: "hardcoded username",
+          currentDate: new Date(),
+          text: this.commentForm.controls["comment"].value,
+          replies: [],
+        };
+        this.usercomment.emit(comment);
+      }).catch(error => {
+        console.error("failed to add comment: " + error);
       });
-      this.usercomment.emit(this.commentInfo);
     }
   }
 }

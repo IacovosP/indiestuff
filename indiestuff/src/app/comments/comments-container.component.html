@@ -6,6 +6,9 @@
         <div class="comment-container">
           <div class="comment-form">
             <app-commentbox 
+              [threadId]="threadId"
+              [threadType]="threadType"
+              [commentThreadId]="commentThreadId"
               (usercomment)="receiveComment($event)"
             ></app-commentbox>
           </div>

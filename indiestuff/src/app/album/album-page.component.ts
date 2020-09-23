@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import httpClient from "../network/HttpClient";
-import { Album, AlbumDescription, Track } from "../music-types/types";
+import { AlbumDescription, Track, ThreadTypes } from "@src/app/music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
 import { AlbumPageInterface } from "@apistuff";
@@ -18,6 +18,8 @@ export class AlbumPageComponent implements OnInit {
   textColour: string = "black";
   trackList: Track[];
   albumDescription: AlbumDescription;
+  threadType = ThreadTypes.Album;
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {

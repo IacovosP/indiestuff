@@ -16,15 +16,15 @@
             : 'col-12 col-sm-12 comment-container non-favourte '
         "
       >
-        <p>{{ post.commentTxt }}</p>
+        <p>{{ post.text }}</p>
         <div class="actions date-style">
-          <span style="font-weight: bold; font-size: 13px; margin-right: 5px">{{
-            post.author
+          <span style="font-weight: bold; margin-right: 5px">{{
+            post.username
           }}</span>
           <span class="divider"></span>
           <span>{{ post.currentDate | date: "dd/MM/yyyy" }}</span>
           <span class="divider"></span>
-          <button class="btn btn-sm btn-info" (click)="replyComment(i)">
+          <button class="btn btn-sm btn-info" (click)="toggleReplyComment(post)">
             reply
           </button>
           <span class="divider"></span>
@@ -36,26 +36,32 @@
           <div datacontainer></div>
           <ul
             class="comments-list-custom"
-            *ngIf="post?.replyComment?.length > 0"
+            *ngIf="post?.replies?.length > 0"
           >
-            <li *ngFor="let reply of post.replyComment">
+            <li *ngFor="let reply of post.replies">
               <div class="col-12 col-sm-12 comment-container">
                 <span style="font-size: 14px; font-style: italic">{{
-                  reply.commentTxt
+                  reply.text
                 }}</span>
-                <div>
+                <div class="reply-metadata">
                   <span
-                    style="
-                      font-weight: bold;
-                      font-size: 12px;
-                      font-style: italic;
-                    "
-                    >{{ reply.author }}</span
-                  >
+                    style="font-weight: bold;"
+                    >{{ reply.username }}
+                  </span>
+                  <span class="divider"></span>
+                  <span>
+                    {{ reply.currentDate | date: "dd/MM/yyyy" }}
+                  </span>
                 </div>
               </div>
             </li>
           </ul>
+          <div *ngIf="post.shouldShowReplyBox">
+            <app-childbox 
+              [parentId]="post.id"
+              (replied)="onReply($event, post)"
+            ></app-childbox>
+          </div>
         </div>
       </div>
     </li>
