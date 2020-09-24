@@ -48,18 +48,6 @@ export class ChildboxComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // if (this.childForm.invalid) {
-    //   return false;
-    // } else {
-    //   this.replyComment.push({
-    //     currentDate: new Date(),
-    //     text: this.childForm.controls["comment"].value,
-    //     username: "some other hardcodename",
-    //   });
-    //   this.userReplycomment.emit(this.replyComment);
-    //   this.deletNo.emit(this.commentNo);
-    // }
-
     if (this.childForm.invalid) {
       return false;
     } else {

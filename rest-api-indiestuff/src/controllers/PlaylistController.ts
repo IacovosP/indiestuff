@@ -14,7 +14,6 @@ export default class PlaylistController {
         const playlistRepository = getRepository(Playlist);
         const playlists = await playlistRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user'] } as any);
 
-        console.log("playlists :" + JSON.stringify(playlists));
         const result = playlists.map(playlist => {
             return {
                 name: playlist.name,

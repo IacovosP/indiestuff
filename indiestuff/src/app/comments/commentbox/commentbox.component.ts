@@ -26,7 +26,6 @@ export class CommentboxComponent implements OnInit {
 
   commentForm: FormGroup;
   submitted: Boolean = false;
-  public id = 0;
   @Output() usercomment = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) {}
@@ -39,7 +38,7 @@ export class CommentboxComponent implements OnInit {
       });
     }
     this.createForm();
-    console.log(`threadId: ${this.threadId} and commentThreadId: ${this.threadType}`);
+    console.debug(`threadId: ${this.threadId} and commentThreadId: ${this.threadType}`);
   }
 
   // ngOnChanges  () {
@@ -92,13 +91,6 @@ export class CommentboxComponent implements OnInit {
         "POST"
       ).then(response => {
         console.log("succeeded in adding comment");
-        const commentVis = {
-          id: this.id++,
-          username: "hardcoded username",
-          currentDate: new Date(),
-          text: this.commentForm.controls["comment"].value,
-          replies: [],
-        };
         this.usercomment.emit(comment);
       }).catch(error => {
         console.error("failed to add comment: " + error);

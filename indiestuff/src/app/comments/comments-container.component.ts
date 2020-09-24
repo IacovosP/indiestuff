@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { ThreadTypes } from "@src/app/music-types/types";
+import { CommentInterface } from "../../../../ApiTypes/lib";
 
 @Component({
   selector: "app-comments-container",
@@ -7,7 +8,7 @@ import { ThreadTypes } from "@src/app/music-types/types";
   styleUrls: ["./comments-container.component.css"],
 })
 export class CommentContainerComponent implements OnInit {
-  comments: Array<object>;
+  comments: CommentInterface[];
   count: number;
   shouldShowComments: boolean;
   commentMessage = "show";
@@ -22,14 +23,14 @@ export class CommentContainerComponent implements OnInit {
     this.shouldShowComments = false;
   }
 
-  receiveComment($event) {
-    if (!this.comments) {
-      this.comments = $event;
+  receiveComment($event: CommentInterface | CommentInterface[]) {
+    if (!this.comments && Array.isArray($event)) {
+      this.comments = $event; // first event is an array of pre-existing comments
+      this.count = this.comments.length;
+    } else if (this.comments && !Array.isArray($event)) {
+      this.comments.push($event);
+      this.count = this.comments.length;
     }
-    console.log("comment added " + JSON.stringify($event));
-    this.comments.push($event);
-    this.count = this.comments.length;
-    console.log(this.comments.length);
   }
 
   receiveCount($event) {

@@ -39,7 +39,6 @@ export class TrackListComponent implements OnInit {
         duration: getFormattedDurationFromSeconds(track.durationInSec),
       };
     });
-    console.log("here 0 " + this.indexOfSongPlaying);
     this.indexOfSongPlaying = undefined;
   }
 
@@ -48,13 +47,10 @@ export class TrackListComponent implements OnInit {
   }
 
   updatePlaylistInfo() {
-    console.log("playlists: " + JSON.stringify(playlistState.getPlaylists()));
     this.playlists = playlistState.getPlaylists();
   }
 
   ngOnChanges() {
-    console.log("here " + this.indexOfSongPlaying);
-    console.log("tracklistid: " + this.trackListId);
     this.trackListId = this.trackListId;
   }
 
@@ -79,8 +75,6 @@ export class TrackListComponent implements OnInit {
       this.restartTrack();
       return;
     }
-    console.error("play " + indexOfSongToPlay);
-    console.error("play " + JSON.stringify(this.trackList));
     this.playerSharedService.change({
       tracks: this.trackList,
       indexOfSongToPlay,

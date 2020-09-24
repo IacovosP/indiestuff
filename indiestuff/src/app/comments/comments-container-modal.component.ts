@@ -39,13 +39,13 @@ export class CommentModalContainerComponent implements OnInit {
   }
 
   receiveComment($event) {
-    if (!this.comments) {
-      this.comments = $event;
+    if (!this.comments && Array.isArray($event)) {
+      this.comments = $event; // first event is an array of pre-existing comments
+      this.count = this.comments.length;
+    } else if (this.comments && !Array.isArray($event)) {
+      this.comments.push($event);
+      this.count = this.comments.length;
     }
-    console.log("comment added " + JSON.stringify($event));
-    this.comments.push($event);
-    this.count = this.comments.length;
-    console.log(this.comments.length);
   }
 
   receiveCount($event) {

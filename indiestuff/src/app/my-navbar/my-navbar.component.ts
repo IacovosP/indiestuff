@@ -37,7 +37,6 @@ export class MyNavComponent implements OnInit {
     httpClient
       .fetch("playlist/list")
         .then((response: PlaylistInterface[]) => {
-          console.log("playlists: " + JSON.stringify(response));
          this.playlists = response;
          playlistState.setPlaylists(this.playlists);
          if (this.isRegistered) {
@@ -70,5 +69,8 @@ export class MyNavComponent implements OnInit {
 
   changeAuthState(item: any) {
     this.isRegistered = item && item.isRegistered ? true : false;
+    if (this.isRegistered) {
+      this.getPlaylists();
+    }
   }
 }

@@ -45,7 +45,7 @@ export default class ArtistController {
             ...artistDetails,
             albums: albumsDetails,
             topTracks: tracks,
-            commentThreadId: commentThread.id
+            commentThreadId: commentThread ? commentThread.id : null
         }
         res.status(200).send(artistResponse);
     }

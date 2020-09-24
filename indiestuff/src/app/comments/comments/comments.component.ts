@@ -27,13 +27,13 @@ export class CommentsComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.postComment !== undefined) {
-      console.log("Main array====>", this.postComment);
+      console.debug("Main array====>", this.postComment);
     }
   }
 
   removeComment(no) {
     this.postComment.splice(no, 1);
-    console.log("After remove array====>", this.postComment);
+    console.debug("After remove array====>", this.postComment);
     this.countComments.emit(this.postComment);
   }
 
