@@ -10,6 +10,7 @@
 import { Howl, Howler } from "howler";
 import { Playlist, Track } from "@src/app/music-types/types";
 import playerEventEmitter from "./playerEmitter";
+import httpClient from "../network/HttpClient";
 
 export enum LoopState {
   "DEFAULT",
@@ -26,6 +27,8 @@ class Player {
   private loopState: LoopState = LoopState.DEFAULT;
   private currentVolume: number = 0.5;
   private trackListId: string;
+  private actualPlayedTimeOfCurrentTrackInSeconds: number = 0;
+  private shouldReportEvent = true;
 
   constructor() {
     Howler.volume(this.currentVolume);
@@ -41,12 +44,26 @@ class Player {
       if (this.currentlyPlayingSound) {
         const currentTrackTime = this.currentlyPlayingSound.seek();
         if (typeof currentTrackTime === "number") {
+          if (this.currentlyPlayingSound.playing()) {
+            this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
+            if (this.actualPlayedTimeOfCurrentTrackInSeconds > 30 && this.shouldReportEvent) {
+              this.reportEvent();
+            }
+          }
           this.elapsedTimeInPercentage =
             (currentTrackTime / player.getDurationOfSong()) * 100;
           this.elapsedTimeInSeconds = currentTrackTime;
         }
       }
     }, 10);
+  }
+
+  private reportEvent() {
+    this.shouldReportEvent = false;
+    httpClient.fetch(
+      "event/add",
+      JSON.stringify({trackId: this.playlist[this.currentlyPlayingIndex].id, artistId: this.playlist[this.currentlyPlayingIndex].artistId }),
+      "POST");
   }
 
   public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
@@ -96,6 +113,8 @@ class Player {
         onseek: function () {},
         onload: function () {
           data.howl.volume(self.currentVolume);
+          self.actualPlayedTimeOfCurrentTrackInSeconds = 0;
+          self.shouldReportEvent = true;
           console.log("loaded " + data.howl.duration());
         },
         onend: function () {

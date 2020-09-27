@@ -44,7 +44,7 @@ export interface TrackInterfaceForPlaylist {
         id: string;
         name: string;
     };
-    positionInAlbum?: number;
+    positionInPlaylist?: number;
 }
 
 export interface PlaylistInterface {
@@ -73,20 +73,27 @@ export interface PlaylistPageInterface extends PlaylistInterface {
     durationInSec?: number;
     albumImages: string[];
     tracks: TrackInterfaceForPlaylist[];
-    commentThreadId: string;
-    comments?: CommentInterface[];
+}
+
+export interface LikedPageInterface {
+    durationInSec?: number;
+    albumImages: string[];
+    tracks: TrackInterfaceForPlaylist[];
 }
 
 export interface ArtistPageInterface extends ArtistInterface {
     topTracks: TrackInterface[];
     albums: AlbumInterface[];
     commentThreadId: string;
-    comments?: CommentInterface[];
 }
 
 export interface AlbumPageInterface extends AlbumInterface {
     tracks: TrackInterface[];
     artist: ArtistInterface;
     commentThreadId: string;
-    comments?: CommentInterface[];
+}
+
+export interface RecentlyPlayedPageInterface {
+    // tslint:disable-next-line: array-type
+    recentlyPlayed: Array<AlbumInterface | ArtistInterface>;
 }

@@ -37,6 +37,7 @@
 
 .playlist-list-container li {
   padding-right: 10px;
+  outline: none;
 }
 
 .playlist-list-container li:hover {

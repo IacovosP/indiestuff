@@ -28,6 +28,7 @@ export class PlayerComponent implements OnInit {
   loopState: LoopState = LoopState.DEFAULT;
   repeatIcon = loopStateToRepeatIconMap[this.loopState];
   volumeValue = 50;
+  actualPlayedTimeOfCurrentTrackInSeconds: number;
 
   constructor(playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
@@ -104,6 +105,7 @@ export class PlayerComponent implements OnInit {
           file: "Cant Keep Checking My Phone",
           filename: track.filename,
           howl: null,
+          id: track.id
           // html5: true, // A live stream can only be played through HTML5 Audio.
           //   format: ['mp3', 'aac']
         })

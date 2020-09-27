@@ -21,6 +21,7 @@ export class TrackListComponent implements OnInit {
   isPaused: boolean = false;
   playlists: PlaylistInterface[];
   dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent | CommentModalContainerComponent>;
+  likedTrackIds: string[];
 
   constructor(public dialog: MatDialog, private playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
@@ -33,7 +34,7 @@ export class TrackListComponent implements OnInit {
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
     this.trackList = value;
-    this.trackList = this.trackList.map((track) => {
+    this.trackList = this.trackList && this.trackList.map((track) => {
       return {
         ...track,
         duration: getFormattedDurationFromSeconds(track.durationInSec),
@@ -52,6 +53,10 @@ export class TrackListComponent implements OnInit {
 
   ngOnChanges() {
     this.trackListId = this.trackListId;
+    playlistState.getLikedTrackIdsPromise().then(() => {
+      this.likedTrackIds = playlistState.getLikedTrackIds();
+      console.log("likedtracks id : " + JSON.stringify(this.likedTrackIds));
+    });
   }
 
   ngOnInit() {
@@ -61,6 +66,7 @@ export class TrackListComponent implements OnInit {
   }
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {
+    console.log("trackListId: " + item.trackListId);
     this.currentPlayingTrackListId = item.trackListId;
     if (this.indexOfSongPlaying === item.indexOfTrackToPlay) {
       this.isPaused = !this.isPaused;
@@ -91,6 +97,20 @@ export class TrackListComponent implements OnInit {
       .catch(err => {
         console.error("Failed to add song to playlist " + err);
       });
+  }
+
+  addTrackToLiked(trackId: string) {
+    httpClient.fetch(
+      "likes/add",
+      JSON.stringify({trackId: trackId}),
+      "POST"
+    )
+    .then(() => {
+      console.log("added to liked tracks succesfully");
+    })
+    .catch(error => {
+      console.error("Couldn't add track to liked : " + error);
+    });
   }
 
   openCommentModal(trackId: string) {

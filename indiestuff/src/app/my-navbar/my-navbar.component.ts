@@ -29,7 +29,6 @@ export class MyNavComponent implements OnInit {
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
       this.changeAuthState({isRegistered: true});
-      this.getPlaylists();
     }
   }
 
@@ -37,8 +36,15 @@ export class MyNavComponent implements OnInit {
     httpClient
       .fetch("playlist/list")
         .then((response: PlaylistInterface[]) => {
-         this.playlists = response;
-         playlistState.setPlaylists(this.playlists);
+         const likePlaylist: PlaylistInterface = {
+          colour: "#505050",
+          name: "Liked",
+          id: "likedTracks"
+        };
+        this.playlists = [likePlaylist];
+        this.playlists = [...this.playlists, ...response];
+        // we don't want the Liked playlist to appear in the add to playlist dropdown
+         playlistState.setPlaylists(response);
          if (this.isRegistered) {
            // to re-render the playlist part of the navbar
            this.isRegistered = true;

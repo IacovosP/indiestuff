@@ -55,7 +55,7 @@
               </li>
           </mat-menu>
         </mat-menu>
-        <img src="/assets/icons/web/outline_favorite_border_black_18dp.png" />
+        <mat-icon class="right-side-icon" [ngClass]="{ 'already-liked': likedTrackIds && likedTrackIds.includes(track.id) }" (click)="addTrackToLiked(track.id)">favorite_outline</mat-icon>
         <img (click)="openCommentModal(track.id)" src="/assets/icons/web/outline_comment_black_18dp.png" />
         <span>{{ track.duration }}</span>
       </div>

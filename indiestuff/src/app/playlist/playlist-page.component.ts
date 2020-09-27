@@ -3,7 +3,7 @@ import httpClient from "../network/HttpClient";
 import { Track, PlaylistDescription } from "../music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
-import { PlaylistPageInterface, TrackInterfaceForPlaylist } from "@apistuff";
+import { PlaylistPageInterface, TrackInterfaceForPlaylist, LikedPageInterface } from "@apistuff";
 import { getMonthName, getFormattedDurationFromSeconds } from "../utils/timeConverter";
 
 @Component({
@@ -18,14 +18,49 @@ export class PlaylistPageComponent implements OnInit {
   textColour: string = "black";
   trackList: TrackInterfaceForPlaylist[] = [];
   playlistDescription: PlaylistDescription;
+  isLikedPage: boolean = false;
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((param) => {
-      this.loadPage(param.id);
+      if (param.id === "likedTracks") {
+        this.loadLikedTracks();
+      } else {
+        this.loadPage(param.id);
+      }
     });
-    const albumId = String(this.route.snapshot.params.id);
-    this.loadPage(albumId);
+    const playlistId = String(this.route.snapshot.params.id);
+    if (playlistId === "likedTracks") {
+      this.loadLikedTracks();
+    } else {
+      this.loadPage(playlistId);
+    }
+  }
+
+  loadLikedTracks() {
+    httpClient
+    .fetch("likes")
+    .then((response: LikedPageInterface) => {
+      this.playlist = {
+        ...response,
+        colour: "#505050",
+        name: "Liked",
+        id: "likedTracks"
+      }
+      this.playlist.albumImages = response.albumImages && response.albumImages.map(image => 
+          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" + image
+      );
+      this.setTrackList(this.playlist);
+      this.setPlaylistDescription(this.playlist);
+      this.darkColour = pSBC(-0.5, this.playlist.colour);
+      if (getBrightness(this.darkColour) < 25) {
+        this.textColour = "white";
+      }
+    })
+    .catch((err) => {
+      console.error("error in getting likes Playlist: " + err);
+    });
   }
 
   loadPage(playlistId: string) {
@@ -35,7 +70,7 @@ export class PlaylistPageComponent implements OnInit {
         this.playlist = response;
         this.playlist.albumImages = response.albumImages.map(image => 
             "https://indie-image-test.s3.eu-west-2.amazonaws.com/" + image
-        );
+      );
         this.setTrackList(this.playlist);
         this.setPlaylistDescription(this.playlist);
         this.darkColour = pSBC(-0.5, response.colour);
@@ -44,12 +79,12 @@ export class PlaylistPageComponent implements OnInit {
         }
       })
       .catch((err) => {
-        console.error("error in getting album: " + err);
+        console.error("error in getting playlist: " + err);
       });
   }
 
   private setTrackList(playlist: PlaylistPageInterface) {
-    this.trackList = playlist.tracks.map((track) => {
+    this.trackList = playlist.tracks && playlist.tracks.map((track) => {
         this.playlist.durationInSec =  this.playlist.durationInSec ?  this.playlist.durationInSec + track.durationInSec : 0  + track.durationInSec;
       return {
         ...track,

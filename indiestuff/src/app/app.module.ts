@@ -44,6 +44,7 @@ import { CreatePlaylistFormComponent } from "./playlist/create-playlist.componen
 import {MatSliderModule} from '@angular/material/slider';
 import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
+import { PlaylistState } from "@src/app/playlist/playlistState";
 
 @NgModule({
   declarations: [
@@ -91,7 +92,7 @@ import { CommentModalContainerComponent } from "@src/app/comments/comments-conta
     MatSliderModule
   ],
   entryComponents: [ChildboxComponent],
-  providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter],
+  providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter, PlaylistState],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

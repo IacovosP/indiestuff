@@ -31,7 +31,6 @@ export class CommentboxComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    console.log("this.commentThreadId: " + this.commentThreadId);
     if (this.commentThreadId) {
       this.getComments().then(comments => {
         this.usercomment.emit(comments);
