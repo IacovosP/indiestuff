@@ -6,12 +6,13 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
-    OneToOne
+    OneToMany
   } from "typeorm";
 import { User } from "./User";
 import { Album } from "./Album";
 import { Artist } from "./Artist";
 import { Track } from "./Track";
+import { RecentlyPlayedTrack } from "./RecentlyPlayedTrack";
   
   @Entity()
   export class RecentlyPlayed {
@@ -20,19 +21,18 @@ import { Track } from "./Track";
   
     @ManyToOne(type => User, user => user.id)
     user: User
-  
-    // @ManyToOne(type => Album, album => album.id, { nullable: true })
-    // @JoinColumn({ name: 'album' })
-    // album: Album;
+        
+    @ManyToOne(type => Album, album => album.id, { nullable: true })
+    @JoinColumn({ name: 'album' })
+    album: Album;
     
     @ManyToOne(type => Artist, artist => artist.id, { nullable: true })
     @JoinColumn({ name: 'artist' })
     artist: Artist;
 
-        
-    @ManyToOne(type => Track, track => track.id)
+    @OneToMany(type => RecentlyPlayedTrack, recentlyPlayedTrack => recentlyPlayedTrack.recentlyPlayed)
     @JoinColumn({ name: 'track' })
-    track: Track;
+    recentlyPlayedTracks: RecentlyPlayedTrack[];
 
     @Column()
     @CreateDateColumn()
