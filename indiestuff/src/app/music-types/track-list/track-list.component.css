@@ -131,3 +131,7 @@
   fill: black;
   color:red;
 }
+
+.removed-from-liked {
+  color: blue;
+}

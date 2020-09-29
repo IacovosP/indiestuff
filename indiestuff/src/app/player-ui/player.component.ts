@@ -29,13 +29,17 @@ export class PlayerComponent implements OnInit {
   repeatIcon = loopStateToRepeatIconMap[this.loopState];
   volumeValue = 50;
   actualPlayedTimeOfCurrentTrackInSeconds: number;
+  isAlbumView: boolean;
+  isArtistView: boolean;
 
   constructor(playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
     this.startPlayerListener();
   }
 
-  changePlaylist(tracks: Track[], indexOfSongToPlay: number, trackListId: string) {
+  changePlaylist(tracks: Track[], indexOfSongToPlay: number, trackListId: string, isAlbumView: boolean = false, isArtistView: boolean = false) {
+    this.isAlbumView = isAlbumView;
+    this.isArtistView = isArtistView;
     this.currentPlaylist = this.createPlaylistWithTracks(tracks);
     try {
       player.setTrackListId(trackListId);
@@ -100,8 +104,10 @@ export class PlayerComponent implements OnInit {
       (track) =>
         ((track as any) = {
           title: track.title,
+          albumId: this.isAlbumView ? track.album.id : undefined, // if albumId is added then recentlyPlayed will be added as albumView
           artistName: track.artist.name,
           artistId: track.artist.id,
+          isPlaylistView: !this.isArtistView && !this.isAlbumView,
           file: "Cant Keep Checking My Phone",
           filename: track.filename,
           howl: null,
@@ -117,7 +123,7 @@ export class PlayerComponent implements OnInit {
     this.subscription = this.playerSharedService
       .getEmittedValue()
       .subscribe((item) =>
-        this.changePlaylist(item.tracks, item.indexOfSongToPlay, item.trackListId)
+        this.changePlaylist(item.tracks, item.indexOfSongToPlay, item.trackListId, item.isAlbumView, item.isArtistView)
       );
     this.pauseSubscription = this.playerSharedService
       .getEmittedPause()

@@ -45,6 +45,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 import { PlaylistState } from "@src/app/playlist/playlistState";
+import { RecentlyPlayedComponent } from "@src/app/mylibrary/recently-played.component";
+import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.component";
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { PlaylistState } from "@src/app/playlist/playlistState";
     TrackUploadFormComponent,
     AlbumPageComponent,
     CreatePlaylistFormComponent,
-    PlaylistPageComponent
+    PlaylistPageComponent,
+    RecentlyPlayedComponent,
+    MyLibraryPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

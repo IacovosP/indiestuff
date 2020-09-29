@@ -17,7 +17,7 @@ export class SharedService {
     console.log("shared service started");
   }
 
-  change(value: {tracks: any[]; indexOfSongToPlay: number; trackListId: string; }) {
+  change(value: {tracks: any[]; indexOfSongToPlay: number; trackListId: string; isAlbumView?: boolean, isArtistView?: boolean}) {
     console.log("change started");
     this.fire.emit(value);
   }

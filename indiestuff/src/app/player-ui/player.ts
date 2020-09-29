@@ -60,9 +60,12 @@ class Player {
 
   private reportEvent() {
     this.shouldReportEvent = false;
+    if (this.playlist[this.currentlyPlayingIndex].isPlaylistView) {
+      return;
+    }
     httpClient.fetch(
       "event/add",
-      JSON.stringify({trackId: this.playlist[this.currentlyPlayingIndex].id, artistId: this.playlist[this.currentlyPlayingIndex].artistId }),
+      JSON.stringify({trackId: this.playlist[this.currentlyPlayingIndex].id, artistId: this.playlist[this.currentlyPlayingIndex].artistId, albumId: this.playlist[this.currentlyPlayingIndex].albumId }),
       "POST");
   }
 

@@ -1,0 +1,29 @@
+.recently-played-list-container ul {
+    list-style: none;
+    font-family: sans-serif;
+    padding-left: 0px;
+}
+
+.recently-played-item-container {
+    height: 220px;
+    width: 200px;
+    background-color: darkslateblue;
+    border-radius: 15px;
+}
+
+.recently-played-item-container img{
+    max-height: 200.1px;
+    max-width: 200.1px;
+    border-radius: 15px;
+}
+
+.recently-played-item-container p {
+    margin-left: 10%;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.recently-played-item-album {
+    border-radius: 15px;
+}

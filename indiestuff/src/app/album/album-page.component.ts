@@ -81,7 +81,7 @@ export class AlbumPageComponent implements OnInit {
       durationInSec,
       releaseDate: `${getMonthName(
         releaseDate.getMonth()
-      )} ${releaseDate.getDay()}`,
+      )} ${releaseDate.toISOString().substr(8, 2)}`,
     };
   }
 }

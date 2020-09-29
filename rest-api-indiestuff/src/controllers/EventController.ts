@@ -11,22 +11,30 @@ import { RecentlyPlayedTrack } from "../entity/RecentlyPlayedTrack";
 export default class EventController {
     
     static getRecentlyPlayed = async (req: Request, res: Response) => {
-        const likedTracksRepository = getRepository(LikedTrack);
-        const likedTracks = await likedTracksRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user', 'track'], take: 10 } as any);
-        
-        const recentlyPlayed: Array<AlbumInterface | ArtistInterface> = likedTracks.map(likedTrack => {
-            return {
-                id: likedTrack.track.artist.id,
-                artist_image_filename: likedTrack.track.artist.artist_image_filename,
-                artist_top_image_filename: likedTrack.track.artist.artist_top_image_filename,
-                latestPlayedAlbumInfo: {
-                    title: likedTrack.track.album.title,
-                    id: likedTrack.track.album.id,
-                    album_image_filename: likedTrack.track.album.album_image_filename
-                },
-                name: likedTrack.track.artist.name,
+        const recentlyPlayedRepository = getRepository(RecentlyPlayed);
+        const recentlyPlayedRaw = await recentlyPlayedRepository.find({ user: res.locals.jwtPayload.userId, relations: ['album', 'artist'], orderBy: "updatedAt", take: 10 } as any);
+    
+        let recentlyPlayed: Array<AlbumInterface | ArtistInterface> = [];
+        for (const recent of recentlyPlayedRaw) {
+            console.log("recent: " + JSON.stringify(recent));
+            if (recent.isAlbumView) {
+                recentlyPlayed.push({
+                    id: recent.album.id,
+                    title: recent.album.title,
+                    colour: recent.album.colour,
+                    album_image_filename: recent.album.album_image_filename,
+                    releaseDate: recent.album.releaseDate,
+                    durationInSec: recent.album.durationInSec
+                });
+            } else {
+                recentlyPlayed.push({
+                    id: recent.artist.id,
+                    name: recent.artist.name,
+                    artist_image_filename: recent.artist.artist_image_filename,
+                    artist_top_image_filename: recent.artist.artist_top_image_filename
+                });
             }
-        })
+        }
         const result: RecentlyPlayedPageInterface = {
             recentlyPlayed
         };
@@ -53,6 +61,8 @@ export default class EventController {
                 const currentDate = new Date();
                 // need to update the date
                 recentlyPlayed.updatedAt = currentDate;
+                recentlyPlayed.isAlbumView = !!albumId;
+                recentlyPlayed.album = albumId ? albumId: null;
 
                 let recentlyPlayedTrack;
                 recentlyPlayedTrack = await recentlyPlayedTrackRepository.findOne({where: {track: trackId, user: res.locals.jwtPayload.userId}});
@@ -100,7 +110,8 @@ export default class EventController {
             recentlyPlayed.album = albumId ? albumId : null;
             recentlyPlayed.artist = artistId ? artistId : null;
             recentlyPlayed.user = res.locals.jwtPayload.userId;
-            
+            recentlyPlayed.isAlbumView = !!albumId;
+
             const recentlyPlayedTrack = new RecentlyPlayedTrack();
             recentlyPlayedTrack.track = trackId;
             recentlyPlayedTrack.recentlyPlayed = recentlyPlayed;

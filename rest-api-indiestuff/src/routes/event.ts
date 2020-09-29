@@ -5,6 +5,6 @@ import EventController from "../controllers/EventController";
 const router = Router();
 
 router.post("/add", checkJwt, EventController.addToRecentlyPlayed);
-router.get("/", checkJwt, EventController.getRecentlyPlayed);
+router.get("/recentlyPlayed", checkJwt, EventController.getRecentlyPlayed);
 
 export default router;

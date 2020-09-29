@@ -23,10 +23,6 @@ import { User } from "./User";
     @ManyToOne(type => Track, track => track.id)
     @JoinColumn({ name: 'track' })
     track: Track;
-    
-    @Column()
-    @IsNotEmpty()
-    positionInPlaylist: number;
 
     @Column()
     @CreateDateColumn()

@@ -28,7 +28,6 @@ export default class PlaylistController {
                     id: likedTrack.track.album.id,
                     title: likedTrack.track.album.title
                 },
-                positionInPlaylist: likedTrack.positionInPlaylist,
                 filename: likedTrack.track.filename,
                 title: likedTrack.track.title
             }
@@ -67,13 +66,19 @@ export default class PlaylistController {
 
         const likedTracksRepository = getRepository(LikedTrack);
 
-        const likedTracks = await likedTracksRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user'] } as any);
-
-        console.log("last position: " + likedTracks.length);
+        try {
+            const deleteResult = await likedTracksRepository.delete({ track: trackId });
+            console.log("deelte result: " + JSON.stringify(deleteResult));
+            if (deleteResult.affected > 0) {
+                res.status(201).send({removedId: trackId});
+                return;
+            }
+        } catch (e) {
+            console.log("errors: " + JSON.stringify(e));
+        }
 
         const likedTrack = new LikedTrack();
         likedTrack.track = trackId;
-        likedTrack.positionInPlaylist = likedTracks.length;
         likedTrack.user = res.locals.jwtPayload.userId;
 
         const errors = await validate(likedTrack);

@@ -3,7 +3,7 @@
     <a href="" [routerLink]="['/home']"
       ><img src="/assets/icons/web/baseline_home_black_18dp.png"
     /></a>
-    <a *ngIf="isRegistered" href="music-library"
+    <a *ngIf="isRegistered" href="" [routerLink]="['/mylibrary']"
       ><img src="/assets/icons/web/baseline_library_music_black_18dp.png"
     /></a>
     <a *ngIf="isRegistered" (click)="openPlaylistCreationDialog()"

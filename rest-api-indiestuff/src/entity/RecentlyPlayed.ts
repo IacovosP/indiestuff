@@ -26,13 +26,16 @@ import { RecentlyPlayedTrack } from "./RecentlyPlayedTrack";
     @JoinColumn({ name: 'album' })
     album: Album;
     
-    @ManyToOne(type => Artist, artist => artist.id, { nullable: true })
+    @ManyToOne(type => Artist, artist => artist.id)
     @JoinColumn({ name: 'artist' })
     artist: Artist;
 
     @OneToMany(type => RecentlyPlayedTrack, recentlyPlayedTrack => recentlyPlayedTrack.recentlyPlayed)
-    @JoinColumn({ name: 'track' })
+    @JoinColumn({ name: 'recentlyPlayedTracks' })
     recentlyPlayedTracks: RecentlyPlayedTrack[];
+
+    @Column()
+    isAlbumView: boolean;
 
     @Column()
     @CreateDateColumn()

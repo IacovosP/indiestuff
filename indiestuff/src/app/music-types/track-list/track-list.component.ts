@@ -55,7 +55,6 @@ export class TrackListComponent implements OnInit {
     this.trackListId = this.trackListId;
     playlistState.getLikedTrackIdsPromise().then(() => {
       this.likedTrackIds = playlistState.getLikedTrackIds();
-      console.log("likedtracks id : " + JSON.stringify(this.likedTrackIds));
     });
   }
 
@@ -66,7 +65,6 @@ export class TrackListComponent implements OnInit {
   }
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {
-    console.log("trackListId: " + item.trackListId);
     this.currentPlayingTrackListId = item.trackListId;
     if (this.indexOfSongPlaying === item.indexOfTrackToPlay) {
       this.isPaused = !this.isPaused;
@@ -84,7 +82,9 @@ export class TrackListComponent implements OnInit {
     this.playerSharedService.change({
       tracks: this.trackList,
       indexOfSongToPlay,
-      trackListId: this.trackListId
+      trackListId: this.trackListId,
+      isAlbumView: this.isAlbumView,
+      isArtistView: this.isArtistView
     });
   }
 
@@ -99,14 +99,25 @@ export class TrackListComponent implements OnInit {
       });
   }
 
-  addTrackToLiked(trackId: string) {
+  addOrRemoveTrackLiked(trackId: string) {
     httpClient.fetch(
       "likes/add",
       JSON.stringify({trackId: trackId}),
       "POST"
     )
-    .then(() => {
-      console.log("added to liked tracks succesfully");
+    .then(response => {
+      console.log("added or removed liked track successfully");
+      const currentLiked = playlistState.getLikedTrackIds();
+      if (response.removedId) {
+        const indexOfTrack = currentLiked.indexOf(response.removedId);
+        if (indexOfTrack > -1) {
+          currentLiked.splice(indexOfTrack, 1);
+          playlistState.setLikedTrackIds(currentLiked);
+        }
+      } else {
+        playlistState.setLikedTrackIds([...currentLiked, trackId]);
+        this.likedTrackIds = playlistState.getLikedTrackIds();
+      }
     })
     .catch(error => {
       console.error("Couldn't add track to liked : " + error);
