@@ -43,5 +43,13 @@
   border-color: inherit;
   text-decoration: none;
   border: none;
+}
+
+.comment {
   cursor: pointer;
+}
+
+.comment[disabled] {
+  opacity: 0.5;
+  cursor: default;
 }

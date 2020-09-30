@@ -31,7 +31,6 @@ export class LoginFormComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: LoginUser; valid: boolean }) {
     this.user = value;
-    console.log(this.user);
     console.log("valid: " + valid);
 
     httpClient

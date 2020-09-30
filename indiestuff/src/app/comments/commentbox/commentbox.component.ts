@@ -12,6 +12,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import httpClient from "@src/app/network/HttpClient";
 import { CommentInterface, CommentThreadInterface } from "@apistuff";
 import { ThreadTypes } from "@src/app/music-types/types";
+import auth from "@src/app/auth/Auth";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 
 @Component({
   selector: "app-commentbox",
@@ -27,8 +29,12 @@ export class CommentboxComponent implements OnInit {
   commentForm: FormGroup;
   submitted: Boolean = false;
   @Output() usercomment = new EventEmitter();
+  isRegistered = false;
+  authEventEmitter: AuthStateEventEmitter;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, authEventEmitter: AuthStateEventEmitter) {
+    this.authEventEmitter = authEventEmitter;
+  }
 
   ngOnInit() {
     if (this.commentThreadId) {
@@ -38,11 +44,17 @@ export class CommentboxComponent implements OnInit {
     }
     this.createForm();
     console.debug(`threadId: ${this.threadId} and commentThreadId: ${this.threadType}`);
+    this.authEventEmitter
+      .getEmittedValue()
+      .subscribe((item) => this.changeAuthState(item));
+    if (auth.getAccessToken()) {
+      this.changeAuthState({isRegistered: true});
+    }
   }
 
-  // ngOnChanges  () {
-  //   this.usercomment.emit(this.commentInfo);
-  // }
+  ngOnChanges  () {
+    this.isRegistered = !!auth.getAccessToken();
+  }
 
   getComments(): Promise<CommentInterface[]> {
     return httpClient.fetch("comment/" + this.commentThreadId)
@@ -75,7 +87,7 @@ export class CommentboxComponent implements OnInit {
       return false;
     } else {
       const comment: CommentInterface = {
-        username: "hardcoded username",
+        username: auth.getUsername(),
         text: this.commentForm.controls["comment"].value
       };
       const commentThread = {
@@ -95,5 +107,9 @@ export class CommentboxComponent implements OnInit {
         console.error("failed to add comment: " + error);
       });
     }
+  }
+
+  changeAuthState(item: any) {
+    this.isRegistered = item && item.isRegistered ? true : false;
   }
 }

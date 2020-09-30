@@ -7,6 +7,8 @@ import {
   EventEmitter,
 } from "@angular/core";
 import { CommentInterface } from "@apistuff";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
+import auth from "@src/app/auth/Auth";
 
 @Component({
   selector: "app-comments",
@@ -20,10 +22,21 @@ export class CommentsComponent implements OnInit, OnChanges {
   public loadComponent = false;
   public commentIndex = 0;
   public reply: Array<object> = [];
+  isRegistered = false;
+  authEventEmitter: AuthStateEventEmitter;
 
-  constructor() {}
+  constructor(authEventEmitter: AuthStateEventEmitter) {
+    this.authEventEmitter = authEventEmitter;
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authEventEmitter
+      .getEmittedValue()
+      .subscribe((item) => this.changeAuthState(item));
+    if (auth.getAccessToken()) {
+      this.changeAuthState({isRegistered: true});
+    }
+  }
 
   ngOnChanges() {
     if (this.postComment !== undefined) {
@@ -48,5 +61,9 @@ export class CommentsComponent implements OnInit, OnChanges {
       post.replies = [replyComment];
     }
     post.shouldShowReplyBox = false;
+  }
+
+  changeAuthState(item: any) {
+    this.isRegistered = item && item.isRegistered ? true : false;
   }
 }

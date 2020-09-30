@@ -24,13 +24,13 @@
           <span class="divider"></span>
           <span>{{ post.currentDate | date: "dd/MM/yyyy" }}</span>
           <span class="divider"></span>
-          <button class="btn btn-sm btn-info" (click)="toggleReplyComment(post)">
+          <button [disabled]="!isRegistered" class="reply-button" (click)="toggleReplyComment(post)">
             reply
           </button>
           <span class="divider"></span>
-          <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
+          <!-- <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
             <i class="fa fa-trash"></i>
-          </button>
+          </button> -->
         </div>
         <div class="childCommentBox">
           <div datacontainer></div>

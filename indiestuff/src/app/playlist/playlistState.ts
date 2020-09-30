@@ -24,7 +24,7 @@ export class PlaylistState {
         }
     }
 
-    private setLikedTrackIdsPromise() {
+    public setLikedTrackIdsPromise() {
         this.likedTrackIdsPromise = httpClient.fetch("likes/ids")
             .then(response => {
               playlistState.setLikedTrackIds(response);

@@ -38,15 +38,6 @@
   margin-bottom: 15px;
 }
 
-.date-style button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: Transparent;
-  font-weight: bold;
-  color: #dda9e4;
-}
-
 .reply-metadata {
   margin-top: -5px;
 }
@@ -54,4 +45,18 @@
 .reply-metadata span {
   font-size: 9px;
   font-style: italic;
+}
+
+.reply-button {
+  border: none;
+  outline: none;
+  background-color: Transparent;
+  font-weight: bold;
+  color: #dda9e4;
+  cursor: pointer;
+}
+
+.reply-button[disabled] {
+  opacity: 0.5;
+  cursor: default;
 }

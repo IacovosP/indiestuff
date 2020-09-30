@@ -9,6 +9,8 @@ import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.c
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import httpClient from "@src/app/network/HttpClient";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
+import auth from "@src/app/auth/Auth";
 
 @Component({
   selector: "app-track-list",
@@ -22,10 +24,14 @@ export class TrackListComponent implements OnInit {
   playlists: PlaylistInterface[];
   dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent | CommentModalContainerComponent>;
   likedTrackIds: string[];
+  isRegistered = false;
+  authEventEmitter: AuthStateEventEmitter;
 
-  constructor(public dialog: MatDialog, private playerSharedService: SharedService) {
+  constructor(public dialog: MatDialog, private playerSharedService: SharedService, authEventEmitter: AuthStateEventEmitter) {
     this.playerSharedService = playerSharedService;
+    this.authEventEmitter = authEventEmitter;
   }
+
   @Input() trackListId: string;
   @Input() isAlbumView: boolean = false;
   @Input() isArtistView: boolean = false;
@@ -40,6 +46,7 @@ export class TrackListComponent implements OnInit {
         duration: getFormattedDurationFromSeconds(track.durationInSec),
       };
     });
+
     this.indexOfSongPlaying = undefined;
   }
 
@@ -62,6 +69,13 @@ export class TrackListComponent implements OnInit {
     this.subscription = playerEventEmitter
       .getEmittedValue()
       .subscribe((item: PlayerChangeEvent) => this.changeIndexOfSongPlaying(item));
+
+    this.authEventEmitter
+      .getEmittedValue()
+      .subscribe((item) => this.changeAuthState(item));
+      if (auth.getAccessToken()) {
+        this.changeAuthState({isRegistered: true});
+      }
   }
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {
@@ -164,5 +178,18 @@ export class TrackListComponent implements OnInit {
 
   pauseTrack() {
     this.playerSharedService.pause();
+  }
+
+  changeAuthState(item: any) {
+    this.isRegistered = item && item.isRegistered ? true : false;
+
+    if (this.isRegistered) {
+      playlistState.setLikedTrackIdsPromise();
+      playlistState.getLikedTrackIdsPromise().then(() => {
+        this.likedTrackIds = playlistState.getLikedTrackIds();
+      });
+    } else {
+      this.likedTrackIds = [];
+    }
   }
 }

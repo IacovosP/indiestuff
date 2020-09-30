@@ -1,6 +1,7 @@
 interface TokenResponse {
   accessToken: string;
   expiresInSec: number;
+  username: string;
 }
 
 const AuthStorageKey = "AuthToken";
@@ -8,10 +9,11 @@ const AuthStorageKey = "AuthToken";
 export class Auth {
   tokenResponse: TokenResponse;
 
-  setAccessToken(tokenResponse: { token: string; expiresIn: number }) {
+  setAccessToken(tokenResponse: { token: string; expiresIn: number; username: string }) {
     this.tokenResponse = {
       accessToken: tokenResponse.token,
       expiresInSec: tokenResponse.expiresIn,
+      username: tokenResponse.username
     };
 
     window.localStorage.setItem("AuthToken", JSON.stringify(this.tokenResponse));
@@ -24,6 +26,15 @@ export class Auth {
       return parsedAccessToken;
     }
     return this.tokenResponse ? this.tokenResponse.accessToken : null;
+  }
+
+  getUsername() {
+    const storedTokenResponse = window.localStorage.getItem(AuthStorageKey);
+    if (storedTokenResponse) {
+      const username = JSON.parse(storedTokenResponse).username;
+      return username;
+    }
+    return this.tokenResponse ? this.tokenResponse.username : null;
   }
 
   deregister() {

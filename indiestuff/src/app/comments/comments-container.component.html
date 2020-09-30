@@ -23,7 +23,7 @@
     ></app-comments>
   </div>
   <div>
-    <button class="custom-toggle-button" (click)="toggleShowComments()">
+    <button *ngIf="count > 0" class="custom-toggle-button" (click)="toggleShowComments()">
       {{ commentMessage }} {{ count }} comments
     </button>
   </div>

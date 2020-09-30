@@ -36,7 +36,8 @@ class AuthController {
         { userId: user.id, username: user.username },
         config.jwtSecret,
         { expiresIn: "1h" }),
-      expiresIn: 3500
+      expiresIn: 3500,
+      username: user.username
     }
 
     //Send the jwt in the response

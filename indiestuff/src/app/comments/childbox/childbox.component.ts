@@ -1,8 +1,5 @@
 import {
   Component,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
   OnInit,
   Output,
   EventEmitter,
@@ -11,6 +8,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import httpClient from "@src/app/network/HttpClient";
 import { CommentInterface } from "@apistuff";
+import auth from "@src/app/auth/Auth";
 
 @Component({
   selector: "app-childbox",
@@ -52,7 +50,7 @@ export class ChildboxComponent implements OnInit {
       return false;
     } else {
       const comment: CommentInterface = {
-        username: "hardcoded username",
+        username: auth.getUsername(),
         text: this.childForm.controls["comment"].value,
         parentId: this.parentId
       };
