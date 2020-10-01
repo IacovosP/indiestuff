@@ -39,6 +39,7 @@ export class Auth {
 
   deregister() {
     window.localStorage.removeItem(AuthStorageKey);
+    this.tokenResponse = null;
   }
 
   refreshToken() {

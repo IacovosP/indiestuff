@@ -48,12 +48,14 @@ export class CommentboxComponent implements OnInit {
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
+      console.log("we have an accessToken");
       this.changeAuthState({isRegistered: true});
     }
   }
 
   ngOnChanges  () {
-    this.isRegistered = !!auth.getAccessToken();
+    // console.log("is registered change");
+    // this.isRegistered = !!auth.getAccessToken();
   }
 
   getComments(): Promise<CommentInterface[]> {
