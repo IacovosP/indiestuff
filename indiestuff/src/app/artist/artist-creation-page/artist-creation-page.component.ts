@@ -97,6 +97,10 @@ export class ArtistCreationPageComponent implements OnInit {
       const track = await result;
       console.log(`Dialog result: ${track}`);
       if (track && track.title && track.filename) {
+        track.artist = {
+          name: "hardcoded artist name",
+          id: "hardcoded artist id"
+        };
         track.positionInAlbum = 1;
         this.tracks.push(track);
         this.newAlbum.tracks.push(track);

@@ -63,6 +63,21 @@ export const uploadArtistImage = multer({
   })
 });
 
+export const uploadArtistTopImage = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: config.awsS3ArtistTopImageBucketName,
+      acl: 'public-read',
+      metadata: function (req, file, cb) {
+        console.log(file);
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+        cb(null, getNewS3FileName(file.originalname));
+      }
+  })
+});
+
 const getNewS3FileName = (name: string) => {
   newS3FileName = Date.now().toString() + '_' + name;
 
@@ -71,10 +86,11 @@ const getNewS3FileName = (name: string) => {
 
 const singleTrackUpload = uploadTrack.single("myFile");
 const singleImageUpload = uploadImage.single("myFile");
-const singleArtistTopImageUpload = uploadArtistImage.single("myFile");
+const singleArtistTopImageUpload = uploadArtistTopImage.single("myFile");
+const singleArtistImageUpload = uploadArtistImage.single("myFile");
 
 export default class UploadController {
-  static artistImage = async (req: Request, res: Response) => {
+  static artistTopImage = async (req: Request, res: Response) => {
     singleArtistTopImageUpload(req, res, async err => {
       if (err) {
         return res.json({
@@ -88,8 +104,37 @@ export default class UploadController {
       } 
       const filename = (res.req as any).file.key;
       const artistRepository = getRepository(Artist);
-      const artist = await artistRepository.findOne({ user: res.locals.jwtPayload.userId, relations: ['user'] } as any);
+      const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
       artist.artist_top_image_filename = filename;
+
+      try {
+        await artistRepository.save(artist);
+      } catch (e) {
+        console.error("error in updating artist image " + e);
+        res.status(400).send("failed to update artist image");
+        return;
+      }
+      res.status(200).send({});
+      return;
+    });
+  }
+
+  static artistImage = async (req: Request, res: Response) => {
+    singleArtistImageUpload(req, res, async err => {
+      if (err) {
+        return res.json({
+          success: false,
+          errors: {
+            title: "Image Upload Error",
+            detail: err.message,
+            error: err,
+          },
+        });
+      } 
+      const filename = (res.req as any).file.key;
+      const artistRepository = getRepository(Artist);
+      const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
+      artist.artist_image_filename = filename;
 
       try {
         await artistRepository.save(artist);

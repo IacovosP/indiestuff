@@ -54,6 +54,10 @@
                 <span>{{playlist.name}}</span>
               </li>
           </mat-menu>
+          <button *ngIf="!isArtistView && !isAlbumView" mat-menu-item class="remove-from-playlist" mat-icon-button (click)="removeFromThisPlaylist(i)">
+            <mat-icon>delete_outline</mat-icon>
+            <span>remove from this playlist</span>
+          </button>
         </mat-menu>
         <mat-icon class="right-side-icon" [ngClass]="{ 'already-liked': likedTrackIds && likedTrackIds.includes(track.id) }" (click)="addOrRemoveTrackLiked(track.id)">favorite_outline</mat-icon>
         <img (click)="openCommentModal(track.id)" src="/assets/icons/web/outline_comment_black_18dp.png" />

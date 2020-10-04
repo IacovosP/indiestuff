@@ -30,12 +30,12 @@ export class PlaylistPageComponent implements OnInit {
         this.loadPage(param.id);
       }
     });
-    const playlistId = String(this.route.snapshot.params.id);
-    if (playlistId === "likedTracks") {
-      this.loadLikedTracks();
-    } else {
-      this.loadPage(playlistId);
-    }
+    // const playlistId = String(this.route.snapshot.params.id);
+    // if (playlistId === "likedTracks") {
+    //   this.loadLikedTracks();
+    // } else {
+    //   this.loadPage(playlistId);
+    // }
   }
 
   loadLikedTracks() {

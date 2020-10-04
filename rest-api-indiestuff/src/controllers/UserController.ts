@@ -59,14 +59,14 @@ static newUser = async (req: Request, res: Response) => {
   
   //Try to save. If fails, the username is already in use
   const userRepository = getRepository(User);
-  if (artistName) {
-    const isArtistWriteSuccessfull = await UserController.newArtist(artistName, user, res);
-    if (!isArtistWriteSuccessfull) {
-      return;
-    }
-  }
   try {
     await userRepository.save(user);
+    if (artistName) {
+      const isArtistWriteSuccessfull = await UserController.newArtist(artistName, user, res);
+      if (!isArtistWriteSuccessfull) {
+        return;
+      }
+    }
   } catch (e) {
     res.status(409).send("username already in use " + e);
     return;

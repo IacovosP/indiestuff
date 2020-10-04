@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import httpClient from "@src/app/network/HttpClient";
 import { AlbumDescription, PlaylistDescription } from "@src/app/music-types/types";
-import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-page-top-image",
@@ -16,15 +16,30 @@ export class PageTopImageComponent implements OnInit {
   @Input() textColour: string;
   @Input() albumImages: string[];
   @Input() playlistDescription: PlaylistDescription;
-
+  @Input() artistImageUrl: string;
+  @Input() isArtistImageEnabled = false;
   uploadedImageUrl: string;
   albumDuration: string;
-  constructor() {}
+  isEditing: boolean = false;
+  
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.params.subscribe((param) => {
+      if (param && param.id) {
+        this.isEditing = false;
+      } else {
+        this.isEditing = true;
+      }
+    });
+    if (this.route.snapshot.params.id) {
+      this.isEditing = false;
+    } else {
+      this.isEditing = true;
+    }
   }
 
-  loadFile(files: FileList) {
+  loadTopImageFile(files: FileList) {
     // FileReader support
     if (FileReader && files && files.length) {
       var fr = new FileReader();
@@ -35,13 +50,50 @@ export class PageTopImageComponent implements OnInit {
     }
   }
 
-  topImageUpload(event: any) {
+  loadArtistImageFile(files: FileList) {
+    // FileReader support
+    if (FileReader && files && files.length) {
+      var fr = new FileReader();
+      fr.onload = () => {
+        const artistImageElemnt = document.getElementById("artist_image_id") as any;
+        artistImageElemnt.src = fr.result;
+        artistImageElemnt.style.height = "100px";
+        artistImageElemnt.style.width = "100px";
+        artistImageElemnt.style.marginTop = "0px";
+      };
+      fr.readAsDataURL(files[0]);
+    }
+  }
+
+  artistImageUpload(event: any) {
     const files = event.target.files;
-    this.uploadedImageUrl = "file.filename";
-    this.loadFile(files);
+    this.artistImageUrl = "file.filename";
+    this.loadArtistImageFile(files);
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/artistImage";
+    httpClient
+      .fetch(restAPIUrl, formData, "POST")
+      .then((response) => {
+        return response.json().then((file) => {
+          if (file.filename) {
+            this.artistImageUrl = file.filename;
+          }
+          console.log("got a response " + JSON.stringify(file));
+        });
+      })
+      .catch((err) => {
+        console.error("got an error: ", err);
+      });
+  }
+
+  topImageUpload(event: any) {
+    const files = event.target.files;
+    this.uploadedImageUrl = "file.filename";
+    this.loadTopImageFile(files);
+    const formData = new FormData();
+    formData.append("myFile", files.item(0));
+    const restAPIUrl = "upload/artistTopImage";
     httpClient
       .fetch(restAPIUrl, formData, "POST")
       .then((response) => {

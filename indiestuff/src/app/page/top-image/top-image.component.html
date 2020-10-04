@@ -1,4 +1,4 @@
-<div class="top-image">
+<div class="top-image parent-image-container">
   <img *ngIf="!!headerImageUrl" src="{{ headerImageUrl }}" />
   <div
     *ngIf="!!albumImageUrl"
@@ -57,46 +57,71 @@
     >
       {{ playlistDescription.createdAt }}
     </p>
-</div>
-  <div *ngIf="!!uploadedImageUrl">
-    <div>
-      <div class="form-group">
-        <label for="top-image-input">
-          <img class="image" id="top_image_id" />
-          <div class="middle">
-            <div class="hoverText">change</div>
-          </div>
-        </label>
-        <input
-          type="file"
-          id="top-image-input"
-          (change)="topImageUpload($event)"
-          style="display: none"
-        />
-      </div>
-    </div>
   </div>
-  <div
-    *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages"
-    class="no-image"
-  >
-    <div>
+    <div *ngIf="!!uploadedImageUrl">
       <div>
-        <label for="top-image-input">
-          <img
-            style="cursor: pointer"
-            width="60px"
-            height="60px"
-            src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
+        <div class="form-group">
+          <label for="top-image-input">
+            <img class="image" id="top_image_id" />
+            <div class="middle">
+              <div class="hoverText">change</div>
+            </div>
+          </label>
+          <input
+            type="file"
+            id="top-image-input"
+            (change)="topImageUpload($event)"
+            style="display: none"
           />
-        </label>
-        <input
-          type="file"
-          id="top-image-input"
-          (change)="topImageUpload($event)"
-          style="display: none"
-        />
+        </div>
       </div>
     </div>
-  </div>
+    <div
+      *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages"
+      class="no-image"
+    >
+      <label for="top-image-input">
+        <img
+          style="cursor: pointer; padding-top: 100px;"
+          width="60px"
+          height="60px"
+          src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
+        />
+      </label>
+      <input
+        type="file"
+        id="top-image-input"
+        (change)="topImageUpload($event)"
+        style="display: none"
+      />
+    </div>
+    <div *ngIf="!artistImageUrl && isArtistImageEnabled" class="artist-image-container">
+      <label for="artist-image-input">
+        <img  
+          class="artist-image"
+          src="/assets/icons/web/baseline_portrait_black_18dp.png" 
+          id="artist_image_id" />
+      </label>
+      <input
+        type="file"
+        id="artist-image-input"
+        (change)="artistImageUpload($event)"
+        style="display: none"
+      />
+    </div>
+    <div *ngIf="!!artistImageUrl && isArtistImageEnabled" class="artist-image-container">
+      <label for="artist-image-input">
+        <img  
+          class="artist-image-exists"
+          src="{{ artistImageUrl }}"
+          id="artist_image_id" />
+      </label>
+      <input
+        *ngIf="isEditing"
+        type="file"
+        id="artist-image-input"
+        (change)="artistImageUpload($event)"
+        style="display: none"
+      />
+    </div>
 </div>

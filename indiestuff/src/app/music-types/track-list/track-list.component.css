@@ -122,6 +122,11 @@
   background-color: transparent;
 }
 
+.remove-from-playlist {
+  outline: none;
+  border: none;
+}
+
 .album-name {
   text-decoration: none;
   color: black;

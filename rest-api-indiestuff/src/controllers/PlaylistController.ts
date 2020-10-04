@@ -10,9 +10,8 @@ import { Track } from "../entity/Track";
 export default class PlaylistController {
     
     static getPlaylists = async (req: Request, res: Response) => {
-
         const playlistRepository = getRepository(Playlist);
-        const playlists = await playlistRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user'] } as any);
+        const playlists = await playlistRepository.find({ where: { user: res.locals.jwtPayload.userId}});
 
         const result = playlists.map(playlist => {
             return {
@@ -29,6 +28,7 @@ export default class PlaylistController {
         const playlist = new Playlist();
         playlist.name = name;
         playlist.colour = colour;
+        playlist.user = res.locals.jwtPayload.userId;
         const errors = await validate(playlist);
         if (errors.length > 0) {
             console.log("errors: " + JSON.stringify(errors));
@@ -137,5 +137,19 @@ export default class PlaylistController {
             return false;
         }
         res.status(201).send({});
+    }
+
+    static removeTrackFromPlaylist = async (req: Request, res: Response) => {
+        console.log("paramst to remove track to request:" + JSON.stringify(req.body));
+
+        const { trackId, playlistId } = req.body;
+        const playlistTrackRepository = getRepository(PlaylistTrack);
+        const deleteResult = await playlistTrackRepository.delete({ track: trackId, playlist: playlistId });
+        console.log("deelte result: " + JSON.stringify(deleteResult));
+        if (deleteResult.affected > 0) {
+            res.status(201).send({removedId: trackId});
+            return;
+        }
+        res.status(404).send({errorMessage: "Didn't find anything to delete"});
     }
 }

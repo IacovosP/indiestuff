@@ -12,7 +12,7 @@ export default class PlaylistController {
     static getLikedTracksPlaylist = async (req: Request, res: Response) => {
 
         const likedTracksRepository = getRepository(LikedTrack);
-        const likedTracks = await likedTracksRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user', 'track'] } as any);
+        const likedTracks = await likedTracksRepository.find({ where: {user: res.locals.jwtPayload.userId}, relations: ['user', 'track'] } as any);
 
         console.log("liked tracks :"  + JSON.stringify(likedTracks));
 
@@ -52,7 +52,7 @@ export default class PlaylistController {
 
     static getLikedTracksIdsOnly = async (req: Request, res: Response) => {
         const likedTracksRepository = getRepository(LikedTrack);
-        const likedTracks = await likedTracksRepository.find({ user: res.locals.jwtPayload.userId, relations: ['user', 'track'] } as any);
+        const likedTracks = await likedTracksRepository.find({ where: {user: res.locals.jwtPayload.userId}, relations: ['user', 'track'] } as any);
 
         const likedTrackIds = likedTracks.map(likedTrack => {
             return likedTrack.track.id

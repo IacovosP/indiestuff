@@ -3,10 +3,12 @@
   <app-my-navbar></app-my-navbar>
   <app-page-top-image
     *ngIf="album && album.album_image_filename"
-    [albumImageUrl]="album.album_image_filename"
+    [albumImageUrl]="album && album.album_image_filename"
     [darkColour]="darkColour"
     [albumDescription]="albumDescription"
     [textColour]="textColour"
+    [artistImageUrl]="album && album.artist && album.artist.artist_image_filename"
+    [isArtistImageEnabled]="true"
   ></app-page-top-image>
   <app-artist-menu-bar [artistId]="album && album.artist.id"></app-artist-menu-bar>
   <app-track-list 
@@ -17,9 +19,9 @@
     [trackListId]="album.id"
   ></app-track-list>
   <app-comments-container
-    [threadId]="album.id"
+    [threadId]="album && album.id"
     [threadType]="threadType"
-    [commentThreadId]="album.commentThreadId"
+    [commentThreadId]="album && album.commentThreadId"
   ></app-comments-container>
   <div style="height: 300px"></div>
 </div>

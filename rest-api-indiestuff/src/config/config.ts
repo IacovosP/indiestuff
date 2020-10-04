@@ -4,5 +4,6 @@ export default {
   awsSecret: "ebf3N9KiQyazzkEQoem9hksC+rWCsFYUG/ng/Xsv",
   awsS3TrackBucketName: "indie-music-test",
   awsS3ImageBucketName: "indie-image-test",
-  awsS3ArtistImageBucketName: "indie-artist-image-test"
+  awsS3ArtistImageBucketName: "indie-artist-image-test",
+  awsS3ArtistTopImageBucketName: "indie-artist-top-image-test"
 };

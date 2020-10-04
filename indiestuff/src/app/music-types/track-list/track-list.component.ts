@@ -73,9 +73,6 @@ export class TrackListComponent implements OnInit {
     this.authEventEmitter
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
-      if (auth.getAccessToken()) {
-        this.changeAuthState({isRegistered: true});
-      }
   }
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {
@@ -110,6 +107,17 @@ export class TrackListComponent implements OnInit {
       })
       .catch(err => {
         console.error("Failed to add song to playlist " + err);
+      });
+  }
+
+  removeFromThisPlaylist(indexOfSongInTrackList: number) {
+    console.log("song to remove from playlist: " + JSON.stringify(this.trackList[indexOfSongInTrackList]));
+    httpClient.fetch("playlist/remove", JSON.stringify({ trackId: this.trackList[indexOfSongInTrackList].id, playlistId: this.trackListId }), "POST")
+      .then(response => {
+        console.log("successfully removed song to playlist ");
+      })
+      .catch(err => {
+        console.error("Failed to remove song from playlist " + err);
       });
   }
 
@@ -184,6 +192,7 @@ export class TrackListComponent implements OnInit {
     this.isRegistered = item && item.isRegistered ? true : false;
 
     if (this.isRegistered) {
+      console.log("here");
       playlistState.setLikedTrackIdsPromise();
       playlistState.getLikedTrackIdsPromise().then(() => {
         this.likedTrackIds = playlistState.getLikedTrackIds();

@@ -21,8 +21,8 @@ export class ArtistMusicComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.loadPage(param.id);
     });
-    const artistId = String(this.route.snapshot.params.id);
-    this.loadPage(artistId);
+    // const artistId = String(this.route.snapshot.params.id);
+    // this.loadPage(artistId);
   }
 
   loadPage(artistId: string) {
@@ -31,7 +31,7 @@ export class ArtistMusicComponent implements OnInit {
       .then((response: ArtistPageInterface) => {
         this.artistMusic = response;
         this.artistMusic.artist_top_image_filename =
-          "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
+          "https://indie-artist-top-image-test.s3.eu-west-2.amazonaws.com/" +
           response.artist_top_image_filename;
         this.artistMusic.artist_image_filename =
           "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +

@@ -12,7 +12,7 @@ export default class EventController {
     
     static getRecentlyPlayed = async (req: Request, res: Response) => {
         const recentlyPlayedRepository = getRepository(RecentlyPlayed);
-        const recentlyPlayedRaw = await recentlyPlayedRepository.find({ user: res.locals.jwtPayload.userId, relations: ['album', 'artist'], orderBy: "updatedAt", take: 10 } as any);
+        const recentlyPlayedRaw = await recentlyPlayedRepository.find({ where: {user: res.locals.jwtPayload.userId}, relations: ['album', 'artist'], orderBy: "updatedAt", take: 10 } as any);
     
         let recentlyPlayed: Array<AlbumInterface | ArtistInterface> = [];
         for (const recent of recentlyPlayedRaw) {

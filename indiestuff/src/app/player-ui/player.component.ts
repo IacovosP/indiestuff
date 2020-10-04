@@ -106,12 +106,12 @@ export class PlayerComponent implements OnInit {
           title: track.title,
           albumId: this.isAlbumView ? track.album.id : undefined, // if albumId is added then recentlyPlayed will be added as albumView
           artistName: track.artist.name,
-          artistId: track.artist.id,
+          artistId:  track.artist.id,
           isPlaylistView: !this.isArtistView && !this.isAlbumView,
           file: "Cant Keep Checking My Phone",
           filename: track.filename,
           howl: null,
-          id: track.id
+          id: track.id ? track.id : null
           // html5: true, // A live stream can only be played through HTML5 Audio.
           //   format: ['mp3', 'aac']
         })

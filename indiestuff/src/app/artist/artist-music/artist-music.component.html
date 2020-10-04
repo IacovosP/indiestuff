@@ -1,20 +1,22 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
 <app-page-top-image
-  *ngIf="artistMusic.artist_image_filename"
-  [headerImageUrl]="artistMusic.artist_image_filename"
+  *ngIf="artistMusic && artistMusic.artist_image_filename"
+  [headerImageUrl]="artistMusic && artistMusic.artist_top_image_filename"
+  [artistImageUrl]="artistMusic && artistMusic.artist_image_filename"
+  [isArtistImageEnabled]="true"
 ></app-page-top-image>
-<app-artist-menu-bar [artistId]="artistMusic.id"></app-artist-menu-bar>
+<app-artist-menu-bar [artistId]="artistMusic && artistMusic.id"></app-artist-menu-bar>
 <app-track-list
-  [tracks]="artistMusic.topTracks"
+  [tracks]="artistMusic && artistMusic.topTracks"
   [isArtistView]="true"
   [isAlbumView]="false"
-  [trackListId]="artistMusic.id"
+  [trackListId]="artistMusic && artistMusic.id"
 ></app-track-list>
 <app-comments-container
-  [threadId]="artistMusic.id"
+  [threadId]="artistMusic && artistMusic.id"
   [threadType]="threadType"
-  [commentThreadId]="artistMusic.commentThreadId"
+  [commentThreadId]="artistMusic && artistMusic.commentThreadId"
 ></app-comments-container>
 <app-artist-albums [albums]="albumsLite"></app-artist-albums>
 <div style="height: 300px"></div>

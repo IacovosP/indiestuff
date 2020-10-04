@@ -1,3 +1,7 @@
+.parent-image-container {
+  position: relative;
+}
+
 .top-image {
   width: 100%;
 }
@@ -88,7 +92,7 @@
 }
 
 .album-image-container img {
-  max-height: 310px;
+  max-height: 312px;
   float: right;
   border: solid;
   border-width: 4px;
@@ -109,7 +113,6 @@
   opacity: 0.6;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 100px;
   display: block;
 }
 
@@ -156,4 +159,30 @@
   font-size: 16px;
   font-family: sans-serif;
   padding: 16px 32px;
+}
+
+
+.artist-image-container {
+  position: absolute;
+  top: 198px;
+  left: 30px;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-left: 15%;
+  margin-right: 0;
+  margin-top: 18px;
+  border-color: white;
+  border-style: solid;
+}
+
+.artist-image {
+  margin-top: 33px;
+  width: 35px;
+  height: 35px;
+}
+
+.artist-image-exists {
+  width: 100px;
+  height: 100px;
 }

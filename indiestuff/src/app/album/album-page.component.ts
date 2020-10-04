@@ -26,8 +26,8 @@ export class AlbumPageComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.loadPage(param.id);
     });
-    const albumId = String(this.route.snapshot.params.id);
-    this.loadPage(albumId);
+    // const albumId = String(this.route.snapshot.params.id);
+    // this.loadPage(albumId);
   }
 
   loadPage(albumId: string) {
@@ -38,6 +38,7 @@ export class AlbumPageComponent implements OnInit {
         this.album.album_image_filename =
           "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
           response.album_image_filename;
+        this.album.artist.artist_image_filename = "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" + response.artist.artist_image_filename;
         this.setAlbumDescription(this.album);
         this.setTrackList(this.album);
         this.darkColour = pSBC(-0.5, response.colour);
@@ -69,11 +70,9 @@ export class AlbumPageComponent implements OnInit {
     });
   }
   private setAlbumDescription(album: AlbumPageInterface) {
-    console.log("album duration :" + album.durationInSec);
     const durationInSec = getFormattedDurationFromSeconds(
       album.durationInSec
     );
-    console.log("album durationInSec :" + durationInSec);
     const releaseDate = new Date(album.releaseDate);
     this.albumDescription = {
       title: album.title,

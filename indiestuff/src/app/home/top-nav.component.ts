@@ -100,7 +100,6 @@ export class TopNavComponent implements OnInit {
   }
 
   loadOption(selected: SearchOptions) {
-    console.log("selected:" + JSON.stringify(selected));
     this.searchControl.setValue("");
     if (selected.type === "ALBUM") {
       this.router.navigate(["/album", selected.id]);
@@ -115,8 +114,6 @@ export class TopNavComponent implements OnInit {
       map((results) => {
         const albumValues = results[0];
         const artistValues = results[1];
-        console.log("values ads: " + JSON.stringify(albumValues));
-        console.log("values arts: " + JSON.stringify(artistValues.artists));
         const albums =
           albumValues.albums &&
           albumValues.albums.length > 0 &&
@@ -133,18 +130,13 @@ export class TopNavComponent implements OnInit {
             id: value.id,
             type: "ARTIST",
           }));
-        console.log("artists: " + JSON.stringify(artists));
         let options = [];
         if (artists && artists.length > 0) {
           options = [...artists];
         }
-        console.log("artists: " + JSON.stringify(options));
         if (albums && albums.length > 0) {
-          console.log("Options: " + JSON.stringify(options));
-          console.log("albums: " + JSON.stringify(albums));
           options = [...options, ...albums];
         }
-        console.log("Options: " + JSON.stringify(options));
         return options;
       }),
       // catch errors
@@ -158,7 +150,6 @@ export class TopNavComponent implements OnInit {
       .fromFetch("search", JSON.stringify({ text }), "POST")
       .pipe(
         map((res: Response) => {
-          console.log("response: " + JSON.stringify(res.body));
           return res;
         })
       );

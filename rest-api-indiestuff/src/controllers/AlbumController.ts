@@ -51,7 +51,7 @@ static createAlbum = async (req: Request, res: Response): Promise<boolean> => {
     let { colour, album_image_filename, title, durationInSec, releaseDate } = req.body.newAlbum as AlbumInterface;
     const album = new Album();
     const artistRepository = getRepository(Artist);
-    const artist = await artistRepository.findOne({ user: res.locals.jwtPayload.userId, relations: ['user'] } as any);
+    const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
     album.artist = artist;
     album.colour = colour;
     album.album_image_filename = album_image_filename || "";
