@@ -1,24 +1,23 @@
 <div [ngStyle]="{ 'background-color': playlist && playlist.colour }">
-    <app-top-nav></app-top-nav>
-    <app-my-navbar></app-my-navbar>
-    <app-page-top-image
-      *ngIf="playlist && playlist.albumImages"
-      [darkColour]="darkColour"
-      [playlistDescription]="playlist && playlistDescription"
-      [albumImages]="playlist.albumImages"
-      [textColour]="textColour"
-      [isArtistImageEnabled]="false"
-    ></app-page-top-image>
-    <app-track-list 
-      *ngIf="playlist" 
-      [tracks]="trackList"
-      [isAlbumView]="false"
-      [isArtistView]="false"
-      [trackListId]="playlist.id"
-    ></app-track-list>
-    <!-- <app-comments-container
+  <app-top-nav></app-top-nav>
+  <app-my-navbar></app-my-navbar>
+  <app-page-top-image
+    *ngIf="playlist && playlist.albumImages"
+    [darkColour]="darkColour"
+    [playlistDescription]="playlist && playlistDescription"
+    [albumImages]="playlist.albumImages"
+    [textColour]="textColour"
+    [isArtistImageEnabled]="false"
+  ></app-page-top-image>
+  <app-track-list
+    *ngIf="playlist"
+    [tracks]="trackList"
+    [isAlbumView]="false"
+    [isArtistView]="false"
+    [trackListId]="playlist.id"
+  ></app-track-list>
+  <!-- <app-comments-container
       [commentThreadId]="playlist.commentThreadId"
     ></app-comments-container> -->
-    <div style="height: 300px"></div>
-  </div>
-  
+  <div style="height: 300px"></div>
+</div>

@@ -59,11 +59,10 @@
   float: left;
 }
 
-.playlist-image-container ul li{
-
+.playlist-image-container ul li {
 }
 
-.playlist-image-container ul li img{
+.playlist-image-container ul li img {
   max-height: 250px;
   border: solid;
   border-width: 2px;
@@ -160,7 +159,6 @@
   font-family: sans-serif;
   padding: 16px 32px;
 }
-
 
 .artist-image-container {
   position: absolute;

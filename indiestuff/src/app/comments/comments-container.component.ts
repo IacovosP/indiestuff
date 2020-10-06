@@ -15,7 +15,7 @@ export class CommentContainerComponent implements OnInit {
   @Input() threadId: string;
   @Input() threadType: ThreadTypes;
   @Input() commentThreadId: string;
-  
+
   constructor() {}
 
   ngOnInit() {

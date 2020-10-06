@@ -1,10 +1,17 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
 import httpClient from "../network/HttpClient";
-import { AlbumDescription, Track, ThreadTypes } from "@src/app/music-types/types";
+import {
+  AlbumDescription,
+  Track,
+  ThreadTypes,
+} from "@src/app/music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
 import { AlbumPageInterface } from "@apistuff";
-import { getMonthName, getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
+import {
+  getMonthName,
+  getFormattedDurationFromSeconds,
+} from "@src/app/utils/timeConverter";
 
 @Component({
   selector: "app-album-page",
@@ -38,7 +45,9 @@ export class AlbumPageComponent implements OnInit {
         this.album.album_image_filename =
           "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
           response.album_image_filename;
-        this.album.artist.artist_image_filename = "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" + response.artist.artist_image_filename;
+        this.album.artist.artist_image_filename =
+          "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +
+          response.artist.artist_image_filename;
         this.setAlbumDescription(this.album);
         this.setTrackList(this.album);
         this.darkColour = pSBC(-0.5, response.colour);
@@ -53,32 +62,30 @@ export class AlbumPageComponent implements OnInit {
 
   private setTrackList(album: AlbumPageInterface) {
     const sortedTracks = album.tracks.sort((track1, track2) => {
-        return track1.positionInAlbum - track2.positionInAlbum;
+      return track1.positionInAlbum - track2.positionInAlbum;
     });
     this.trackList = sortedTracks.map((track) => {
       return {
         ...track,
         album: {
           id: album.id,
-          title: album.title
+          title: album.title,
         },
         artist: {
           name: album.artist.name,
-          id: album.artist.id
-        }
+          id: album.artist.id,
+        },
       };
     });
   }
   private setAlbumDescription(album: AlbumPageInterface) {
-    const durationInSec = getFormattedDurationFromSeconds(
-      album.durationInSec
-    );
+    const durationInSec = getFormattedDurationFromSeconds(album.durationInSec);
     const releaseDate = new Date(album.releaseDate);
     this.albumDescription = {
       title: album.title,
       artist: {
-        name:  album.artist.name,
-        id: album.artist.id
+        name: album.artist.name,
+        id: album.artist.id,
       },
       durationInSec,
       releaseDate: `${getMonthName(

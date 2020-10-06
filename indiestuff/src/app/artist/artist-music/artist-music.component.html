@@ -6,7 +6,9 @@
   [artistImageUrl]="artistMusic && artistMusic.artist_image_filename"
   [isArtistImageEnabled]="true"
 ></app-page-top-image>
-<app-artist-menu-bar [artistId]="artistMusic && artistMusic.id"></app-artist-menu-bar>
+<app-artist-menu-bar
+  [artistId]="artistMusic && artistMusic.id"
+></app-artist-menu-bar>
 <app-track-list
   [tracks]="artistMusic && artistMusic.topTracks"
   [isArtistView]="true"

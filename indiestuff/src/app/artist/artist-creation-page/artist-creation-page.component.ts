@@ -9,7 +9,9 @@ import { ArtistPageLayout, AlbumNew } from "@src/app/music-types/artistMusic";
 import { Track } from "@src/app/music-types/types";
 import { TrackUploadFormComponent } from "./track-upload/track-upload-form.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import playerEventEmitter, { PlayerChangeEvent } from "@src/app/player-ui/playerEmitter";
+import playerEventEmitter, {
+  PlayerChangeEvent,
+} from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
 import httpClient from "@src/app/network/HttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
@@ -59,7 +61,11 @@ export class ArtistCreationPageComponent implements OnInit {
     }
     console.error("play " + indexOfSongToPlay);
     console.error("play " + JSON.stringify(this.tracks));
-    this.playerSharedService.change({ tracks: this.tracks, indexOfSongToPlay, trackListId: "creatingAlbumId" });
+    this.playerSharedService.change({
+      tracks: this.tracks,
+      indexOfSongToPlay,
+      trackListId: "creatingAlbumId",
+    });
   }
 
   restartTrack() {
@@ -77,7 +83,9 @@ export class ArtistCreationPageComponent implements OnInit {
   ngOnInit() {
     this.subscription = playerEventEmitter
       .getEmittedValue()
-      .subscribe((item: PlayerChangeEvent) => this.changeIndexOfSongPlaying(item));
+      .subscribe((item: PlayerChangeEvent) =>
+        this.changeIndexOfSongPlaying(item)
+      );
     this.newAlbum = new AlbumNew({ title: "", tracks: [], durationInSec: 0 });
     this.artistPageLayout = new ArtistPageLayout({
       artistName: "SomeArtist",
@@ -99,7 +107,7 @@ export class ArtistCreationPageComponent implements OnInit {
       if (track && track.title && track.filename) {
         track.artist = {
           name: "hardcoded artist name",
-          id: "hardcoded artist id"
+          id: "hardcoded artist id",
         };
         track.positionInAlbum = 1;
         this.tracks.push(track);
@@ -153,7 +161,9 @@ export class ArtistCreationPageComponent implements OnInit {
         positionInAlbum: this.newAlbum.tracks.indexOf(track),
       };
     });
-    this.newAlbum.colour = !this.newAlbum.colour ? "#c2ddde" : this.newAlbum.colour;
+    this.newAlbum.colour = !this.newAlbum.colour
+      ? "#c2ddde"
+      : this.newAlbum.colour;
 
     console.log("album form submitted: value: " + JSON.stringify(value));
     httpClient

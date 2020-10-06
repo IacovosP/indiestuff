@@ -92,7 +92,7 @@ export class TopNavComponent implements OnInit {
       })
     );
     if (auth.getAccessToken()) {
-      this.changeAuthState({isRegistered: true});
+      this.changeAuthState({ isRegistered: true });
     }
     this.subscription = this.authEventEmitter
       .getEmittedValue()
@@ -154,7 +154,7 @@ export class TopNavComponent implements OnInit {
         })
       );
   }
-  changeAuthState(item: {isRegistered: boolean}) {
+  changeAuthState(item: { isRegistered: boolean }) {
     this.isRegistered = item && item.isRegistered ? true : false;
   }
 }

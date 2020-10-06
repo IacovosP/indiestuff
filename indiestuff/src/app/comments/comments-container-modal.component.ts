@@ -19,7 +19,8 @@ export class CommentModalContainerComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<CommentModalContainerComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: {threadId: string}) {}
+    @Inject(MAT_DIALOG_DATA) private data: { threadId: string }
+  ) {}
 
   ngOnInit() {
     this.count = 0;
@@ -28,12 +29,13 @@ export class CommentModalContainerComponent implements OnInit {
   }
 
   loadCommentThread() {
-    httpClient.fetch("comment/track/" + this.data.threadId)
-      .then(response => {
+    httpClient
+      .fetch("comment/track/" + this.data.threadId)
+      .then((response) => {
         this.comments = response.comments;
         this.commentThreadId = response.commentThreadId;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("error in loading track comment thread: " + error);
       });
   }

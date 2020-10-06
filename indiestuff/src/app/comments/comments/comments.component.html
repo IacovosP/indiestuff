@@ -1,7 +1,8 @@
-<div 
-  class="custom-comments-container"   
-  [ngClass]="{'custom-modal-comments-container': isModal}"
-  *ngIf="postComment !== undefined">
+<div
+  class="custom-comments-container"
+  [ngClass]="{ 'custom-modal-comments-container': isModal }"
+  *ngIf="postComment !== undefined"
+>
   <h6 *ngIf="postComment?.length < 1">no comments found</h6>
   <ul
     style="padding: 0"
@@ -24,7 +25,11 @@
           <span class="divider"></span>
           <span>{{ post.currentDate | date: "dd/MM/yyyy" }}</span>
           <span class="divider"></span>
-          <button [disabled]="!isRegistered" class="reply-button" (click)="toggleReplyComment(post)">
+          <button
+            [disabled]="!isRegistered"
+            class="reply-button"
+            (click)="toggleReplyComment(post)"
+          >
             reply
           </button>
           <span class="divider"></span>
@@ -34,20 +39,14 @@
         </div>
         <div class="childCommentBox">
           <div datacontainer></div>
-          <ul
-            class="comments-list-custom"
-            *ngIf="post?.replies?.length > 0"
-          >
+          <ul class="comments-list-custom" *ngIf="post?.replies?.length > 0">
             <li *ngFor="let reply of post.replies">
               <div class="col-12 col-sm-12 comment-container">
                 <span style="font-size: 14px; font-style: italic">{{
                   reply.text
                 }}</span>
                 <div class="reply-metadata">
-                  <span
-                    style="font-weight: bold;"
-                    >{{ reply.username }}
-                  </span>
+                  <span style="font-weight: bold">{{ reply.username }} </span>
                   <span class="divider"></span>
                   <span>
                     {{ reply.currentDate | date: "dd/MM/yyyy" }}
@@ -57,7 +56,7 @@
             </li>
           </ul>
           <div *ngIf="post.shouldShowReplyBox">
-            <app-childbox 
+            <app-childbox
               [parentId]="post.id"
               (replied)="onReply($event, post)"
             ></app-childbox>

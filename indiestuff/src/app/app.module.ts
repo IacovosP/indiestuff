@@ -25,9 +25,7 @@ import { SharedService } from "@src/app/common/shared-service";
 import { PlayerEventEmitter } from "@src/app/player-ui/playerEmitter";
 import { ArtistCreationPageComponent } from "@src/app/artist/artist-creation-page/artist-creation-page.component";
 import { TrackUploadFormComponent } from "@src/app/artist/artist-creation-page/track-upload/track-upload-form.component";
-import {
-  CommentsComponent,
-} from "@src/app/comments/comments/comments.component";
+import { CommentsComponent } from "@src/app/comments/comments/comments.component";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { LoginFormComponent } from "@src/app/login/login.component";
@@ -41,12 +39,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CreatePlaylistFormComponent } from "./playlist/create-playlist.component";
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from "@angular/material/slider";
 import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 import { PlaylistState } from "@src/app/playlist/playlistState";
 import { RecentlyPlayedComponent } from "@src/app/mylibrary/recently-played.component";
 import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.component";
+import { HomePageComponent } from "@src/app/home/home.component";
 
 @NgModule({
   declarations: [
@@ -75,7 +74,8 @@ import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.compo
     CreatePlaylistFormComponent,
     PlaylistPageComponent,
     RecentlyPlayedComponent,
-    MyLibraryPageComponent
+    MyLibraryPageComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -93,10 +93,15 @@ import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.compo
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
-    MatSliderModule
+    MatSliderModule,
   ],
   entryComponents: [ChildboxComponent],
-  providers: [SharedService, PlayerEventEmitter, AuthStateEventEmitter, PlaylistState],
+  providers: [
+    SharedService,
+    PlayerEventEmitter,
+    AuthStateEventEmitter,
+    PlaylistState,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

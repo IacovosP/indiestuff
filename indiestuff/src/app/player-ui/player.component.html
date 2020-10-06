@@ -2,7 +2,11 @@
   <div class="track-details">
     <a>{{ currentTrack.title }}</a>
     <a> by </a>
-    <a style="text-decoration: none; color:black" [routerLink]="['/artist', currentTrack.artistId]">{{ currentTrack.artistName }}</a>
+    <a
+      style="text-decoration: none; color: black"
+      [routerLink]="['/artist', currentTrack.artistId]"
+      >{{ currentTrack.artistName }}</a
+    >
     <a style="float: right; margin-top: -0.5px">{{ currentTime }}</a>
   </div>
   <div class="player-bar">
@@ -41,7 +45,10 @@
         <mat-icon>skip_next</mat-icon>
       </button>
       <button (click)="toggleLoop()" class="player-utility-button">
-        <mat-icon [ngClass]="{ 'loop-playlist': loopState === 1 || loopState === 2}">{{repeatIcon}}</mat-icon>
+        <mat-icon
+          [ngClass]="{ 'loop-playlist': loopState === 1 || loopState === 2 }"
+          >{{ repeatIcon }}</mat-icon
+        >
       </button>
 
       <mat-slider
@@ -49,7 +56,8 @@
         (change)="updateVolume($event)"
         [value]="volumeValue"
         min="1"
-        max="100">
+        max="100"
+      >
       </mat-slider>
     </div>
   </div>

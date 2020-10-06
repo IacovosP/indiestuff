@@ -1,4 +1,4 @@
-<div [ngStyle]="{ 'background-color': album && album.colour || 'white' }">
+<div [ngStyle]="{ 'background-color': (album && album.colour) || 'white' }">
   <app-top-nav></app-top-nav>
   <app-my-navbar></app-my-navbar>
   <app-page-top-image
@@ -7,12 +7,16 @@
     [darkColour]="darkColour"
     [albumDescription]="albumDescription"
     [textColour]="textColour"
-    [artistImageUrl]="album && album.artist && album.artist.artist_image_filename"
+    [artistImageUrl]="
+      album && album.artist && album.artist.artist_image_filename
+    "
     [isArtistImageEnabled]="true"
   ></app-page-top-image>
-  <app-artist-menu-bar [artistId]="album && album.artist.id"></app-artist-menu-bar>
-  <app-track-list 
-    *ngIf="album" 
+  <app-artist-menu-bar
+    [artistId]="album && album.artist.id"
+  ></app-artist-menu-bar>
+  <app-track-list
+    *ngIf="album"
     [tracks]="trackList"
     [isAlbumView]="true"
     [isArtistView]="false"

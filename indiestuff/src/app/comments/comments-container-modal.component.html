@@ -1,30 +1,28 @@
-<mat-dialog-content
-  class="mat-typography comments-modal-container"
->
-    <div class="container">
-        <div class="card">
-        <div class="commentbox">
-            <div class="col-12 col-sm-12 header"></div>
-            <div class="col-12 col-sm-12 body">
-            <div class="comment-container">
-                <div class="comment-form">
-                <app-commentbox
-                    [threadId]="data.threadId"
-                    [threadType]="threadType"
-                    [commentThreadId]="commentThreadId"
-                    [isModal]="true"
-                    (usercomment)="receiveComment($event)"
-                ></app-commentbox>
-                </div>
+<mat-dialog-content class="mat-typography comments-modal-container">
+  <div class="container">
+    <div class="card">
+      <div class="commentbox">
+        <div class="col-12 col-sm-12 header"></div>
+        <div class="col-12 col-sm-12 body">
+          <div class="comment-container">
+            <div class="comment-form">
+              <app-commentbox
+                [threadId]="data.threadId"
+                [threadType]="threadType"
+                [commentThreadId]="commentThreadId"
+                [isModal]="true"
+                (usercomment)="receiveComment($event)"
+              ></app-commentbox>
             </div>
-            </div>
+          </div>
         </div>
-        <app-comments
-            [isModal]="true"
-            [postComment]="comments"
-            (alreadyExistingComments)="receiveComment($event)"
-            (countComments)="receiveCount($event)"
-        ></app-comments>
-        </div>
+      </div>
+      <app-comments
+        [isModal]="true"
+        [postComment]="comments"
+        (alreadyExistingComments)="receiveComment($event)"
+        (countComments)="receiveCount($event)"
+      ></app-comments>
     </div>
+  </div>
 </mat-dialog-content>

@@ -1,0 +1,32 @@
+<app-top-nav></app-top-nav>
+<app-my-navbar></app-my-navbar>
+<div class="home-page">
+  <div class="top-items-container">
+    <div class="image-container main-image">
+      <img
+        src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
+          topAlbum.album_image_filename
+        }}"
+      />
+      <div class="middle">
+        <div class="hoverText">
+          {{ topAlbum.title }} by {{ topAlbum.artist.name }}
+        </div>
+      </div>
+    </div>
+    <div class="image-container row">
+      <div class="image-list" *ngFor="let album of albums">
+        <img
+          src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
+            album.album_image_filename
+          }}"
+        />
+        <div class="middle">
+          <div class="hoverText">
+            {{ album.title }} by {{ album.artist.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

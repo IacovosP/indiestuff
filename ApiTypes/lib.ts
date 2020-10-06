@@ -97,3 +97,17 @@ export interface RecentlyPlayedPageInterface {
     // tslint:disable-next-line: array-type
     recentlyPlayed: Array<AlbumInterface | ArtistInterface>;
 }
+
+export interface HomePageAlbumInterface {
+    id: string;
+    title: string;
+    album_image_filename: string;
+    artist: {
+        id: string;
+        name: string;
+    };
+}
+
+export interface HomePageInterface {
+    albums: HomePageAlbumInterface[]
+}

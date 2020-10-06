@@ -1,8 +1,9 @@
-<form 
-  class="comment-form"     
-  [ngClass]="{'childbox-modal-container': isModal}"
-  [formGroup]="childForm" 
-  (ngSubmit)="onSubmit()">
+<form
+  class="comment-form"
+  [ngClass]="{ 'childbox-modal-container': isModal }"
+  [formGroup]="childForm"
+  (ngSubmit)="onSubmit()"
+>
   <div class="form-group">
     <textarea
       class="form-control"

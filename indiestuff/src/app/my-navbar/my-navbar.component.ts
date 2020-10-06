@@ -19,7 +19,10 @@ export class MyNavComponent implements OnInit {
   subscription: any;
   isRegistered: boolean = false;
 
-  constructor(public dialog: MatDialog, authEventEmitter: AuthStateEventEmitter) {
+  constructor(
+    public dialog: MatDialog,
+    authEventEmitter: AuthStateEventEmitter
+  ) {
     this.authEventEmitter = authEventEmitter;
   }
 
@@ -28,27 +31,27 @@ export class MyNavComponent implements OnInit {
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
-      this.changeAuthState({isRegistered: true});
+      this.changeAuthState({ isRegistered: true });
     }
   }
 
   getPlaylists() {
     httpClient
       .fetch("playlist/list")
-        .then((response: PlaylistInterface[]) => {
-         const likePlaylist: PlaylistInterface = {
+      .then((response: PlaylistInterface[]) => {
+        const likePlaylist: PlaylistInterface = {
           colour: "#505050",
           name: "Liked",
-          id: "likedTracks"
+          id: "likedTracks",
         };
         this.playlists = [likePlaylist];
         this.playlists = [...this.playlists, ...response];
         // we don't want the Liked playlist to appear in the add to playlist dropdown
-         playlistState.setPlaylists(response);
-         if (this.isRegistered) {
-           // to re-render the playlist part of the navbar
-           this.isRegistered = true;
-         }
+        playlistState.setPlaylists(response);
+        if (this.isRegistered) {
+          // to re-render the playlist part of the navbar
+          this.isRegistered = true;
+        }
       })
       .catch((err) => {
         console.error("error in getting artist: " + err);
@@ -59,9 +62,9 @@ export class MyNavComponent implements OnInit {
     const dialogRef = this.dialog.open(CreatePlaylistFormComponent, {
       panelClass: "app-signup-form-no-padding",
       position: {
-        top: '0',
-        left: '30%'
-      }
+        top: "0",
+        left: "30%",
+      },
     });
     this.dialogRefClassScope = dialogRef;
 

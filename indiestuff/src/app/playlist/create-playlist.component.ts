@@ -9,10 +9,9 @@ import { MatDialogRef } from "@angular/material/dialog";
   styleUrls: ["./create-playlist.component.css"],
 })
 export class CreatePlaylistFormComponent implements OnInit {
-
   constructor(public dialogRef: MatDialogRef<CreatePlaylistFormComponent>) {}
 
-  @Output() playlist: PlaylistInterface = {name: "" , id: "", colour: ""};
+  @Output() playlist: PlaylistInterface = { name: "", id: "", colour: "" };
 
   ngOnInit() {}
 
@@ -23,12 +22,18 @@ export class CreatePlaylistFormComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: PlaylistInterface; valid: boolean }) {
     this.playlist.name = value.name;
-    this.playlist.colour = !this.playlist.colour ? "#c2ddde" : this.playlist.colour;
+    this.playlist.colour = !this.playlist.colour
+      ? "#c2ddde"
+      : this.playlist.colour;
     console.log(this.playlist);
     console.log("valid: " + valid);
 
     const playlistCreationPromise = httpClient
-      .fetch("playlist/create", JSON.stringify({ playlist: this.playlist }), "POST")
+      .fetch(
+        "playlist/create",
+        JSON.stringify({ playlist: this.playlist }),
+        "POST"
+      )
       .then((response) => {
         console.log("got a response " + JSON.stringify(response));
       })

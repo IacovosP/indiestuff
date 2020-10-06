@@ -32,38 +32,44 @@ export class CommentboxComponent implements OnInit {
   isRegistered = false;
   authEventEmitter: AuthStateEventEmitter;
 
-  constructor(private formBuilder: FormBuilder, authEventEmitter: AuthStateEventEmitter) {
+  constructor(
+    private formBuilder: FormBuilder,
+    authEventEmitter: AuthStateEventEmitter
+  ) {
     this.authEventEmitter = authEventEmitter;
   }
 
   ngOnInit() {
     if (this.commentThreadId) {
-      this.getComments().then(comments => {
+      this.getComments().then((comments) => {
         this.usercomment.emit(comments);
       });
     }
     this.createForm();
-    console.debug(`threadId: ${this.threadId} and commentThreadId: ${this.threadType}`);
+    console.debug(
+      `threadId: ${this.threadId} and commentThreadId: ${this.threadType}`
+    );
     this.authEventEmitter
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
       console.log("we have an accessToken");
-      this.changeAuthState({isRegistered: true});
+      this.changeAuthState({ isRegistered: true });
     }
   }
 
-  ngOnChanges  () {
+  ngOnChanges() {
     // console.log("is registered change");
     // this.isRegistered = !!auth.getAccessToken();
   }
 
   getComments(): Promise<CommentInterface[]> {
-    return httpClient.fetch("comment/" + this.commentThreadId)
-      .then(response => {
+    return httpClient
+      .fetch("comment/" + this.commentThreadId)
+      .then((response) => {
         return response;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("error in getting comments: " + error);
         Promise.reject(error);
       });
@@ -90,24 +96,30 @@ export class CommentboxComponent implements OnInit {
     } else {
       const comment: CommentInterface = {
         username: auth.getUsername(),
-        text: this.commentForm.controls["comment"].value
+        text: this.commentForm.controls["comment"].value,
       };
       const commentThread = {
-        artistId: this.threadType === ThreadTypes.Artist ? this.threadId : undefined,
-        albumId: this.threadType === ThreadTypes.Album ? this.threadId : undefined,
-        trackId: this.threadType === ThreadTypes.Track ? this.threadId : undefined,
-        commentThreadId: this.commentThreadId
+        artistId:
+          this.threadType === ThreadTypes.Artist ? this.threadId : undefined,
+        albumId:
+          this.threadType === ThreadTypes.Album ? this.threadId : undefined,
+        trackId:
+          this.threadType === ThreadTypes.Track ? this.threadId : undefined,
+        commentThreadId: this.commentThreadId,
       };
-      httpClient.fetch(
-        "comment/add",
-        JSON.stringify({newComment: comment, commentThread}),
-        "POST"
-      ).then(response => {
-        console.log("succeeded in adding comment");
-        this.usercomment.emit(comment);
-      }).catch(error => {
-        console.error("failed to add comment: " + error);
-      });
+      httpClient
+        .fetch(
+          "comment/add",
+          JSON.stringify({ newComment: comment, commentThread }),
+          "POST"
+        )
+        .then((response) => {
+          console.log("succeeded in adding comment");
+          this.usercomment.emit(comment);
+        })
+        .catch((error) => {
+          console.error("failed to add comment: " + error);
+        });
     }
   }
 

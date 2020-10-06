@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import httpClient from "@src/app/network/HttpClient";
-import { AlbumDescription, PlaylistDescription } from "@src/app/music-types/types";
+import {
+  AlbumDescription,
+  PlaylistDescription,
+} from "@src/app/music-types/types";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -21,7 +24,7 @@ export class PageTopImageComponent implements OnInit {
   uploadedImageUrl: string;
   albumDuration: string;
   isEditing: boolean = false;
-  
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -55,7 +58,9 @@ export class PageTopImageComponent implements OnInit {
     if (FileReader && files && files.length) {
       var fr = new FileReader();
       fr.onload = () => {
-        const artistImageElemnt = document.getElementById("artist_image_id") as any;
+        const artistImageElemnt = document.getElementById(
+          "artist_image_id"
+        ) as any;
         artistImageElemnt.src = fr.result;
         artistImageElemnt.style.height = "100px";
         artistImageElemnt.style.width = "100px";

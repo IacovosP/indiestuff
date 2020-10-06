@@ -9,6 +9,7 @@ import playlist from "./playlist";
 import comment from "./comment";
 import likes from "./likes";
 import event from "./event";
+import home from "./home";
 
 const routes = Router();
 
@@ -22,5 +23,6 @@ routes.use("/playlist", playlist);
 routes.use("/comment", comment);
 routes.use("/likes", likes);
 routes.use("/event", event);
+routes.use("/home", home);
 
 export default routes;

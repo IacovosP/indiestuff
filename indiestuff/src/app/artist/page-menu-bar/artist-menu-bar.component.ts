@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class ArtistMenuBar implements OnInit {
   @Input() artistId: string;
-  
+
   constructor() {}
 
   ngOnInit() {}

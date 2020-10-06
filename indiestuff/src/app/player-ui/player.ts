@@ -15,7 +15,7 @@ import httpClient from "../network/HttpClient";
 export enum LoopState {
   "DEFAULT",
   "LOOP_PLAYLIST",
-  "LOOP_TRACK"
+  "LOOP_TRACK",
 }
 class Player {
   private playlist;
@@ -46,7 +46,10 @@ class Player {
         if (typeof currentTrackTime === "number") {
           if (this.currentlyPlayingSound.playing()) {
             this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
-            if (this.actualPlayedTimeOfCurrentTrackInSeconds > 30 && this.shouldReportEvent) {
+            if (
+              this.actualPlayedTimeOfCurrentTrackInSeconds > 30 &&
+              this.shouldReportEvent
+            ) {
               this.reportEvent();
             }
           }
@@ -65,8 +68,13 @@ class Player {
     }
     httpClient.fetch(
       "event/add",
-      JSON.stringify({trackId: this.playlist[this.currentlyPlayingIndex].id, artistId: this.playlist[this.currentlyPlayingIndex].artistId, albumId: this.playlist[this.currentlyPlayingIndex].albumId }),
-      "POST");
+      JSON.stringify({
+        trackId: this.playlist[this.currentlyPlayingIndex].id,
+        artistId: this.playlist[this.currentlyPlayingIndex].artistId,
+        albumId: this.playlist[this.currentlyPlayingIndex].albumId,
+      }),
+      "POST"
+    );
   }
 
   public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
@@ -124,7 +132,10 @@ class Player {
           console.log("Finished!");
           if (self.currentlyPlayingIndex === self.playlist.length - 1) {
             self.pause();
-          } else if (self.loopState === LoopState.DEFAULT || self.loopState === LoopState.LOOP_PLAYLIST) {
+          } else if (
+            self.loopState === LoopState.DEFAULT ||
+            self.loopState === LoopState.LOOP_PLAYLIST
+          ) {
             self.skip("next");
           } else if (self.loopState === LoopState.LOOP_TRACK) {
             self.playTrack();
@@ -135,7 +146,10 @@ class Player {
       });
     }
 
-    playerEventEmitter.change({ indexOfTrackToPlay, trackListId: this.trackListId });
+    playerEventEmitter.change({
+      indexOfTrackToPlay,
+      trackListId: this.trackListId,
+    });
     this.currentlyPlayingSound.play();
 
     // Keep track of the index we are currently playing.
@@ -156,7 +170,10 @@ class Player {
   // play after pause
   public restart() {
     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-    playerEventEmitter.change({ indexOfTrackToPlay: this.currentlyPlayingIndex, trackListId: this.trackListId });
+    playerEventEmitter.change({
+      indexOfTrackToPlay: this.currentlyPlayingIndex,
+      trackListId: this.trackListId,
+    });
 
     this.currentlyPlayingSound.play();
   }
@@ -165,7 +182,10 @@ class Player {
     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
 
     this.currentlyPlayingSound.pause();
-    playerEventEmitter.change({ indexOfTrackToPlay: this.currentlyPlayingIndex, trackListId: this.trackListId });
+    playerEventEmitter.change({
+      indexOfTrackToPlay: this.currentlyPlayingIndex,
+      trackListId: this.trackListId,
+    });
   }
 
   /**
@@ -231,7 +251,7 @@ class Player {
     // Play the new track.
     this.play(index);
   }
-    /**
+  /**
    * Set the volume and update the volume slider display.
    * @param  {Number} val Volume between 0 and 1.
    */

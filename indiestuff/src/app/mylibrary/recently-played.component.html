@@ -1,18 +1,41 @@
 <div class="recently-played-list-container">
-    <ul style = "display: flex;">
-        <li *ngFor="let recent of recentlyPlayed">
-            <div [ngStyle]="{'background-color': recent.colour ? recent.colour : 'darkslateblue'}" class="recently-played-item-container">
-                <div *ngIf="recent.name" class="recently-played-item-artist">
-                    <img src="https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/{{ recent.artist_image_filename }}">
-                    <p style="cursor: pointer; outline: none;" [routerLink]="['/artist', recent.id]">{{ recent.name }}</p>
-                    <p style="font-size: 12px;">artist</p>
-                </div>
-                <div *ngIf="recent.title" class="recently-played-item-album">
-                    <img src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{ recent.album_image_filename }}">
-                    <p style="cursor: pointer; outline: none;" [routerLink]="['/album', recent.id]">{{ recent.title }}</p>
-                    <p style="font-size: 12px;">album</p>
-                </div>
-            </div>
-        </li>
-    </ul>
+  <ul style="display: flex">
+    <li *ngFor="let recent of recentlyPlayed">
+      <div
+        [ngStyle]="{
+          'background-color': recent.colour ? recent.colour : 'darkslateblue'
+        }"
+        class="recently-played-item-container"
+      >
+        <div *ngIf="recent.name" class="recently-played-item-artist">
+          <img
+            src="https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/{{
+              recent.artist_image_filename
+            }}"
+          />
+          <p
+            style="cursor: pointer; outline: none"
+            [routerLink]="['/artist', recent.id]"
+          >
+            {{ recent.name }}
+          </p>
+          <p style="font-size: 12px">artist</p>
+        </div>
+        <div *ngIf="recent.title" class="recently-played-item-album">
+          <img
+            src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
+              recent.album_image_filename
+            }}"
+          />
+          <p
+            style="cursor: pointer; outline: none"
+            [routerLink]="['/album', recent.id]"
+          >
+            {{ recent.title }}
+          </p>
+          <p style="font-size: 12px">album</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

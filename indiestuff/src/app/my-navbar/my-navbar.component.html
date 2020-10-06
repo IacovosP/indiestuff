@@ -10,17 +10,17 @@
       ><img src="/assets/icons/web/baseline_playlist_add_black_18dp.png"
     /></a>
     <ul *ngIf="isRegistered" class="playlist-list-container">
-      <li *ngFor="let playlist of playlists" [routerLink]="['/playlist', playlist.id]">
+      <li
+        *ngFor="let playlist of playlists"
+        [routerLink]="['/playlist', playlist.id]"
+      >
         <span *ngIf="playlist.id !== 'likedTracks'">
-          {{playlist.name}}
+          {{ playlist.name }}
         </span>
         <span *ngIf="playlist.id === 'likedTracks'">
-          <mat-icon style="margin-top: -2px">
-            favorite_outline
-          </mat-icon>
+          <mat-icon style="margin-top: -2px"> favorite_outline </mat-icon>
         </span>
       </li>
     </ul>
-    
   </div>
 </div>

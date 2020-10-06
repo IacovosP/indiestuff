@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import httpClient from "@src/app/network/HttpClient";
 import { CommentInterface } from "@apistuff";
@@ -52,18 +46,21 @@ export class ChildboxComponent implements OnInit {
       const comment: CommentInterface = {
         username: auth.getUsername(),
         text: this.childForm.controls["comment"].value,
-        parentId: this.parentId
+        parentId: this.parentId,
       };
       this.replied.emit(comment);
-      httpClient.fetch(
-        "comment/add",
-        JSON.stringify({newComment: comment, commentThread: {}}),
-        "POST"
-      ).then(response => {
-        console.log("succeeded in adding reply comment");
-      }).catch(error => {
-        console.error("failed to add comment: " + error);
-      });
+      httpClient
+        .fetch(
+          "comment/add",
+          JSON.stringify({ newComment: comment, commentThread: {} }),
+          "POST"
+        )
+        .then((response) => {
+          console.log("succeeded in adding reply comment");
+        })
+        .catch((error) => {
+          console.error("failed to add comment: " + error);
+        });
     }
   }
 }

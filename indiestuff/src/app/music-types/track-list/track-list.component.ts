@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Track, ThreadTypes } from "../types";
 import { SharedService } from "@src/app/common/shared-service";
-import playerEventEmitter, { PlayerChangeEvent } from "@src/app/player-ui/playerEmitter";
+import playerEventEmitter, {
+  PlayerChangeEvent,
+} from "@src/app/player-ui/playerEmitter";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
 import { PlaylistInterface, TrackInterface } from "@apistuff";
 import playlistState from "@src/app/playlist/playlistState";
@@ -22,12 +24,18 @@ export class TrackListComponent implements OnInit {
   indexOfSongPlaying: number | undefined;
   isPaused: boolean = false;
   playlists: PlaylistInterface[];
-  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent | CommentModalContainerComponent>;
+  dialogRefClassScope: MatDialogRef<
+    CreatePlaylistFormComponent | CommentModalContainerComponent
+  >;
   likedTrackIds: string[];
   isRegistered = false;
   authEventEmitter: AuthStateEventEmitter;
 
-  constructor(public dialog: MatDialog, private playerSharedService: SharedService, authEventEmitter: AuthStateEventEmitter) {
+  constructor(
+    public dialog: MatDialog,
+    private playerSharedService: SharedService,
+    authEventEmitter: AuthStateEventEmitter
+  ) {
     this.playerSharedService = playerSharedService;
     this.authEventEmitter = authEventEmitter;
   }
@@ -40,12 +48,14 @@ export class TrackListComponent implements OnInit {
   private trackList: Track[];
   @Input() set tracks(value: Track[]) {
     this.trackList = value;
-    this.trackList = this.trackList && this.trackList.map((track) => {
-      return {
-        ...track,
-        duration: getFormattedDurationFromSeconds(track.durationInSec),
-      };
-    });
+    this.trackList =
+      this.trackList &&
+      this.trackList.map((track) => {
+        return {
+          ...track,
+          duration: getFormattedDurationFromSeconds(track.durationInSec),
+        };
+      });
 
     this.indexOfSongPlaying = undefined;
   }
@@ -68,7 +78,9 @@ export class TrackListComponent implements OnInit {
   ngOnInit() {
     this.subscription = playerEventEmitter
       .getEmittedValue()
-      .subscribe((item: PlayerChangeEvent) => this.changeIndexOfSongPlaying(item));
+      .subscribe((item: PlayerChangeEvent) =>
+        this.changeIndexOfSongPlaying(item)
+      );
 
     this.authEventEmitter
       .getEmittedValue()
@@ -95,70 +107,91 @@ export class TrackListComponent implements OnInit {
       indexOfSongToPlay,
       trackListId: this.trackListId,
       isAlbumView: this.isAlbumView,
-      isArtistView: this.isArtistView
+      isArtistView: this.isArtistView,
     });
   }
 
   addToPlaylist(playlist: PlaylistInterface, indexOfSongInTrackList: number) {
-    console.log("song to add to playlist: " + JSON.stringify(this.trackList[indexOfSongInTrackList]));
-    httpClient.fetch("playlist/add", JSON.stringify({ trackId: this.trackList[indexOfSongInTrackList].id, playlistId: playlist.id }), "POST")
-      .then(response => {
-        console.log("successfully added song to playlist " + JSON.stringify(response));
+    console.log(
+      "song to add to playlist: " +
+        JSON.stringify(this.trackList[indexOfSongInTrackList])
+    );
+    httpClient
+      .fetch(
+        "playlist/add",
+        JSON.stringify({
+          trackId: this.trackList[indexOfSongInTrackList].id,
+          playlistId: playlist.id,
+        }),
+        "POST"
+      )
+      .then((response) => {
+        console.log(
+          "successfully added song to playlist " + JSON.stringify(response)
+        );
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to add song to playlist " + err);
       });
   }
 
   removeFromThisPlaylist(indexOfSongInTrackList: number) {
-    console.log("song to remove from playlist: " + JSON.stringify(this.trackList[indexOfSongInTrackList]));
-    httpClient.fetch("playlist/remove", JSON.stringify({ trackId: this.trackList[indexOfSongInTrackList].id, playlistId: this.trackListId }), "POST")
-      .then(response => {
+    console.log(
+      "song to remove from playlist: " +
+        JSON.stringify(this.trackList[indexOfSongInTrackList])
+    );
+    httpClient
+      .fetch(
+        "playlist/remove",
+        JSON.stringify({
+          trackId: this.trackList[indexOfSongInTrackList].id,
+          playlistId: this.trackListId,
+        }),
+        "POST"
+      )
+      .then((response) => {
         console.log("successfully removed song to playlist ");
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to remove song from playlist " + err);
       });
   }
 
   addOrRemoveTrackLiked(trackId: string) {
-    httpClient.fetch(
-      "likes/add",
-      JSON.stringify({trackId: trackId}),
-      "POST"
-    )
-    .then(response => {
-      console.log("added or removed liked track successfully");
-      const currentLiked = playlistState.getLikedTrackIds();
-      if (response.removedId) {
-        const indexOfTrack = currentLiked.indexOf(response.removedId);
-        if (indexOfTrack > -1) {
-          currentLiked.splice(indexOfTrack, 1);
-          playlistState.setLikedTrackIds(currentLiked);
+    httpClient
+      .fetch("likes/add", JSON.stringify({ trackId: trackId }), "POST")
+      .then((response) => {
+        console.log("added or removed liked track successfully");
+        const currentLiked = playlistState.getLikedTrackIds();
+        if (response.removedId) {
+          const indexOfTrack = currentLiked.indexOf(response.removedId);
+          if (indexOfTrack > -1) {
+            currentLiked.splice(indexOfTrack, 1);
+            playlistState.setLikedTrackIds(currentLiked);
+          }
+        } else {
+          playlistState.setLikedTrackIds([...currentLiked, trackId]);
+          this.likedTrackIds = playlistState.getLikedTrackIds();
         }
-      } else {
-        playlistState.setLikedTrackIds([...currentLiked, trackId]);
-        this.likedTrackIds = playlistState.getLikedTrackIds();
-      }
-    })
-    .catch(error => {
-      console.error("Couldn't add track to liked : " + error);
-    });
+      })
+      .catch((error) => {
+        console.error("Couldn't add track to liked : " + error);
+      });
   }
 
   openCommentModal(trackId: string) {
     const dialogRef = this.dialog.open(CommentModalContainerComponent, {
       panelClass: "app-signup-form-no-padding",
       position: {
-        left: '60%'
+        left: "60%",
       },
       data: {
-        threadId: trackId
-      }
+        threadId: trackId,
+      },
     });
     this.dialogRefClassScope = dialogRef;
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // do nothing
     });
   }
@@ -166,8 +199,8 @@ export class TrackListComponent implements OnInit {
     const dialogRef = this.dialog.open(CreatePlaylistFormComponent, {
       panelClass: "app-signup-form-no-padding",
       position: {
-        left: '50%'
-      }
+        left: "50%",
+      },
     });
 
     this.dialogRefClassScope = dialogRef;

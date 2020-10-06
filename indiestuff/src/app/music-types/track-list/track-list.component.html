@@ -2,20 +2,29 @@
   <ul class="track-list">
     <li
       *ngFor="let track of tracks; index as i"
-      [ngClass]="{ 'active-track': i === indexOfSongPlaying && trackListId === currentPlayingTrackListId }"
+      [ngClass]="{
+        'active-track':
+          i === indexOfSongPlaying && trackListId === currentPlayingTrackListId
+      }"
     >
       <div class="left-side-items">
         <a style="padding-left: 10px">{{ i + 1 }}</a>
         <img
           *ngIf="
-            indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i) || trackListId !== currentPlayingTrackListId
+            indexOfSongPlaying !== i ||
+            (isPaused && indexOfSongPlaying === i) ||
+            trackListId !== currentPlayingTrackListId
           "
           class="play-arrow"
           src="/assets/icons/web/outline_play_arrow_black_18dp.png"
           (click)="playSong(i)"
         />
         <img
-          *ngIf="isPaused === false && indexOfSongPlaying === i && trackListId === currentPlayingTrackListId"
+          *ngIf="
+            isPaused === false &&
+            indexOfSongPlaying === i &&
+            trackListId === currentPlayingTrackListId
+          "
           class="pause-button"
           src="/assets/icons/web/baseline_pause_black_18dp.png"
           (click)="pauseTrack()"
@@ -31,36 +40,64 @@
           >{{ track.album.title }}</a
         >
         <a
-        *ngIf="isAlbumView === false && isArtistView === false && track.artist"
-        [routerLink]="['/artist', track.artist.id]"
-        class="album-name"
-        style="max-width: 200px; text-align: right"
-        >{{ track.artist.name }}</a
-      >
+          *ngIf="
+            isAlbumView === false && isArtistView === false && track.artist
+          "
+          [routerLink]="['/artist', track.artist.id]"
+          class="album-name"
+          style="max-width: 200px; text-align: right"
+          >{{ track.artist.name }}</a
+        >
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item class="playlist-menu-container" mat-icon-button [matMenuTriggerFor]="playlistMenu" (mouseenter)="updatePlaylistInfo()">
+          <button
+            mat-menu-item
+            class="playlist-menu-container"
+            mat-icon-button
+            [matMenuTriggerFor]="playlistMenu"
+            (mouseenter)="updatePlaylistInfo()"
+          >
             <mat-icon>playlist_add_check</mat-icon>
             <span>add to playlist</span>
           </button>
           <mat-menu #playlistMenu="matMenu">
-              <li mat-menu-item (click)="openPlaylistCreationDialog()">
-                <mat-icon>playlist_add</mat-icon>
-                <span>create new playlist</span>
-              </li>
-              <li mat-menu-item *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist, i)">
-                <span>{{playlist.name}}</span>
-              </li>
+            <li mat-menu-item (click)="openPlaylistCreationDialog()">
+              <mat-icon>playlist_add</mat-icon>
+              <span>create new playlist</span>
+            </li>
+            <li
+              mat-menu-item
+              *ngFor="let playlist of playlists"
+              (click)="addToPlaylist(playlist, i)"
+            >
+              <span>{{ playlist.name }}</span>
+            </li>
           </mat-menu>
-          <button *ngIf="!isArtistView && !isAlbumView" mat-menu-item class="remove-from-playlist" mat-icon-button (click)="removeFromThisPlaylist(i)">
+          <button
+            *ngIf="!isArtistView && !isAlbumView"
+            mat-menu-item
+            class="remove-from-playlist"
+            mat-icon-button
+            (click)="removeFromThisPlaylist(i)"
+          >
             <mat-icon>delete_outline</mat-icon>
             <span>remove from this playlist</span>
           </button>
         </mat-menu>
-        <mat-icon class="right-side-icon" [ngClass]="{ 'already-liked': likedTrackIds && likedTrackIds.includes(track.id) }" (click)="addOrRemoveTrackLiked(track.id)">favorite_outline</mat-icon>
-        <img (click)="openCommentModal(track.id)" src="/assets/icons/web/outline_comment_black_18dp.png" />
+        <mat-icon
+          class="right-side-icon"
+          [ngClass]="{
+            'already-liked': likedTrackIds && likedTrackIds.includes(track.id)
+          }"
+          (click)="addOrRemoveTrackLiked(track.id)"
+          >favorite_outline</mat-icon
+        >
+        <img
+          (click)="openCommentModal(track.id)"
+          src="/assets/icons/web/outline_comment_black_18dp.png"
+        />
         <span>{{ track.duration }}</span>
       </div>
     </li>

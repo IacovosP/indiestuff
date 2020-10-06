@@ -34,7 +34,7 @@ export class CommentsComponent implements OnInit, OnChanges {
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
-      this.changeAuthState({isRegistered: true});
+      this.changeAuthState({ isRegistered: true });
     }
   }
 

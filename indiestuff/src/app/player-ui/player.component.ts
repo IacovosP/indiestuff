@@ -6,7 +6,7 @@ import { Track } from "@src/app/music-types/types";
 const loopStateToRepeatIconMap = {
   [LoopState.DEFAULT]: "repeat",
   [LoopState.LOOP_PLAYLIST]: "repeat",
-  [LoopState.LOOP_TRACK]: "repeat_one"
+  [LoopState.LOOP_TRACK]: "repeat_one",
 };
 
 @Component({
@@ -37,7 +37,13 @@ export class PlayerComponent implements OnInit {
     this.startPlayerListener();
   }
 
-  changePlaylist(tracks: Track[], indexOfSongToPlay: number, trackListId: string, isAlbumView: boolean = false, isArtistView: boolean = false) {
+  changePlaylist(
+    tracks: Track[],
+    indexOfSongToPlay: number,
+    trackListId: string,
+    isAlbumView: boolean = false,
+    isArtistView: boolean = false
+  ) {
     this.isAlbumView = isAlbumView;
     this.isArtistView = isArtistView;
     this.currentPlaylist = this.createPlaylistWithTracks(tracks);
@@ -59,7 +65,7 @@ export class PlayerComponent implements OnInit {
     }, 20);
   }
 
-  updateVolume(event: {value: number}) {
+  updateVolume(event: { value: number }) {
     player.volume(event.value / 100);
   }
 
@@ -106,12 +112,12 @@ export class PlayerComponent implements OnInit {
           title: track.title,
           albumId: this.isAlbumView ? track.album.id : undefined, // if albumId is added then recentlyPlayed will be added as albumView
           artistName: track.artist.name,
-          artistId:  track.artist.id,
+          artistId: track.artist.id,
           isPlaylistView: !this.isArtistView && !this.isAlbumView,
           file: "Cant Keep Checking My Phone",
           filename: track.filename,
           howl: null,
-          id: track.id ? track.id : null
+          id: track.id ? track.id : null,
           // html5: true, // A live stream can only be played through HTML5 Audio.
           //   format: ['mp3', 'aac']
         })
@@ -123,7 +129,13 @@ export class PlayerComponent implements OnInit {
     this.subscription = this.playerSharedService
       .getEmittedValue()
       .subscribe((item) =>
-        this.changePlaylist(item.tracks, item.indexOfSongToPlay, item.trackListId, item.isAlbumView, item.isArtistView)
+        this.changePlaylist(
+          item.tracks,
+          item.indexOfSongToPlay,
+          item.trackListId,
+          item.isAlbumView,
+          item.isArtistView
+        )
       );
     this.pauseSubscription = this.playerSharedService
       .getEmittedPause()

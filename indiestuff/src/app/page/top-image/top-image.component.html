@@ -16,7 +16,12 @@
         >{{ albumDescription.durationInSec }} by</span
       >
       <span
-        style="font-size: 36px; padding-right: 35px; cursor: pointer; outline:none;"
+        style="
+          font-size: 36px;
+          padding-right: 35px;
+          cursor: pointer;
+          outline: none;
+        "
         [ngStyle]="{ color: textColour }"
         [routerLink]="['/artist', albumDescription.artist.id]"
         >{{ albumDescription.artist.name }}</span
@@ -30,7 +35,7 @@
     </div>
   </div>
   <div
-  *ngIf="albumImages"
+    *ngIf="albumImages"
     class="playlist-image-container"
     [ngStyle]="{ 'background-color': darkColour }"
   >
@@ -42,11 +47,11 @@
         <span
           style="font-size: 22px; padding-right: 8px"
           [ngStyle]="{ color: textColour }"
-        >{{ playlistDescription.durationInSec }}</span
+          >{{ playlistDescription.durationInSec }}</span
         >
       </p>
       <ul>
-        <li style="list-style: none;" *ngFor="let image of albumImages">
+        <li style="list-style: none" *ngFor="let image of albumImages">
           <img src="{{ image }}" />
         </li>
       </ul>
@@ -58,70 +63,80 @@
       {{ playlistDescription.createdAt }}
     </p>
   </div>
-    <div *ngIf="!!uploadedImageUrl">
-      <div>
-        <div class="form-group">
-          <label for="top-image-input">
-            <img class="image" id="top_image_id" />
-            <div class="middle">
-              <div class="hoverText">change</div>
-            </div>
-          </label>
-          <input
-            type="file"
-            id="top-image-input"
-            (change)="topImageUpload($event)"
-            style="display: none"
-          />
-        </div>
+  <div *ngIf="!!uploadedImageUrl">
+    <div>
+      <div class="form-group">
+        <label for="top-image-input">
+          <img class="image" id="top_image_id" />
+          <div class="middle">
+            <div class="hoverText">change</div>
+          </div>
+        </label>
+        <input
+          type="file"
+          id="top-image-input"
+          (change)="topImageUpload($event)"
+          style="display: none"
+        />
       </div>
     </div>
-    <div
-      *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages"
-      class="no-image"
-    >
-      <label for="top-image-input">
-        <img
-          style="cursor: pointer; padding-top: 100px;"
-          width="60px"
-          height="60px"
-          src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
-        />
-      </label>
-      <input
-        type="file"
-        id="top-image-input"
-        (change)="topImageUpload($event)"
-        style="display: none"
+  </div>
+  <div
+    *ngIf="
+      !headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages
+    "
+    class="no-image"
+  >
+    <label for="top-image-input">
+      <img
+        style="cursor: pointer; padding-top: 100px"
+        width="60px"
+        height="60px"
+        src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
       />
-    </div>
-    <div *ngIf="!artistImageUrl && isArtistImageEnabled" class="artist-image-container">
-      <label for="artist-image-input">
-        <img  
-          class="artist-image"
-          src="/assets/icons/web/baseline_portrait_black_18dp.png" 
-          id="artist_image_id" />
-      </label>
-      <input
-        type="file"
-        id="artist-image-input"
-        (change)="artistImageUpload($event)"
-        style="display: none"
+    </label>
+    <input
+      type="file"
+      id="top-image-input"
+      (change)="topImageUpload($event)"
+      style="display: none"
+    />
+  </div>
+  <div
+    *ngIf="!artistImageUrl && isArtistImageEnabled"
+    class="artist-image-container"
+  >
+    <label for="artist-image-input">
+      <img
+        class="artist-image"
+        src="/assets/icons/web/baseline_portrait_black_18dp.png"
+        id="artist_image_id"
       />
-    </div>
-    <div *ngIf="!!artistImageUrl && isArtistImageEnabled" class="artist-image-container">
-      <label for="artist-image-input">
-        <img  
-          class="artist-image-exists"
-          src="{{ artistImageUrl }}"
-          id="artist_image_id" />
-      </label>
-      <input
-        *ngIf="isEditing"
-        type="file"
-        id="artist-image-input"
-        (change)="artistImageUpload($event)"
-        style="display: none"
+    </label>
+    <input
+      type="file"
+      id="artist-image-input"
+      (change)="artistImageUpload($event)"
+      style="display: none"
+    />
+  </div>
+  <div
+    *ngIf="!!artistImageUrl && isArtistImageEnabled"
+    class="artist-image-container"
+  >
+    <label for="artist-image-input">
+      <img
+        class="artist-image-exists"
+        src="{{ artistImageUrl }}"
+        id="artist_image_id"
       />
-    </div>
+    </label>
+    <input
+      *ngIf="isEditing"
+      type="file"
+      id="artist-image-input"
+      (change)="artistImageUpload($event)"
+      style="display: none"
+    />
+  </div>
 </div>

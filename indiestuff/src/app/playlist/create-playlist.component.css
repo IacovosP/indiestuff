@@ -1,83 +1,82 @@
 .playlist-modal-container {
+}
 
-  }
-  
-  .custom-row {
-    margin: 20px 20px 20px 10px;
-    padding: 30px 20px 20px 10px;
-    text-align: left;
-  }
-  
-  .custom-modal {
-    background-color: #f8e3ff;
-    font-family: sans-serif;
-    color: #47525e;
-    font-size: 26px;
-    font-weight: bold;
-    height: 215px;
-    width: 500px;
-    overflow: hidden;
-  }
-  
-  .text-danger {
-    font-size: 10px;
-    color: red;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .text-danger p {
-    padding: 0;
-    margin: 0;
-    margin-bottom: -20px;
-    padding-left: 220px;
-  }
-  
-  .input-custom {
-    border: none;
-    outline: none;
-    height: 40px;
-    float: left;
-    width: 320px;
-  }
-  
-  .playlist-title {
-    height: 50px;
-    border-bottom: solid;
-    border-width: medium;
-    border-color: #47525e;
-    margin: 0;
-    padding: 0;
-    padding-top: 20px;
-  }
-  .playlist-title-text {
-    margin-left: 30px;
-    padding-top: 5px;
-  }
-  .form-group-name {
-    padding-top: 5px;
-    padding-left: 30px;
-    padding-bottom: 5px;
-  }
-  
-  .form-group {
-    padding-top: 15px;
-    padding-left: 30px;
-    display: flex;
-  }
-  
-  .control-label {
-    padding-top: 5px;
-    width: 25%;
-  }
-  
-  .button-custom-tick {
-    border:none;
-    background-color: transparent;
-  }
+.custom-row {
+  margin: 20px 20px 20px 10px;
+  padding: 30px 20px 20px 10px;
+  text-align: left;
+}
 
-  .button-custom-tick mat-icon {
-    cursor: pointer;
-    font-size: 42px;
-    font-weight: bold;
-  }
+.custom-modal {
+  background-color: #f8e3ff;
+  font-family: sans-serif;
+  color: #47525e;
+  font-size: 26px;
+  font-weight: bold;
+  height: 215px;
+  width: 500px;
+  overflow: hidden;
+}
+
+.text-danger {
+  font-size: 10px;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.text-danger p {
+  padding: 0;
+  margin: 0;
+  margin-bottom: -20px;
+  padding-left: 220px;
+}
+
+.input-custom {
+  border: none;
+  outline: none;
+  height: 40px;
+  float: left;
+  width: 320px;
+}
+
+.playlist-title {
+  height: 50px;
+  border-bottom: solid;
+  border-width: medium;
+  border-color: #47525e;
+  margin: 0;
+  padding: 0;
+  padding-top: 20px;
+}
+.playlist-title-text {
+  margin-left: 30px;
+  padding-top: 5px;
+}
+.form-group-name {
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  padding-top: 15px;
+  padding-left: 30px;
+  display: flex;
+}
+
+.control-label {
+  padding-top: 5px;
+  width: 25%;
+}
+
+.button-custom-tick {
+  border: none;
+  background-color: transparent;
+}
+
+.button-custom-tick mat-icon {
+  cursor: pointer;
+  font-size: 42px;
+  font-weight: bold;
+}

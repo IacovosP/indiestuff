@@ -6,8 +6,8 @@ export interface Track extends TrackInterface {
     title: string;
   };
   artist: {
-      id: string;
-      name: string;
+    id: string;
+    name: string;
   };
   duration?: string;
 }
@@ -51,5 +51,5 @@ export interface PlaylistDescription {
 export enum ThreadTypes {
   "Artist",
   "Album",
-  "Track"
+  "Track",
 }

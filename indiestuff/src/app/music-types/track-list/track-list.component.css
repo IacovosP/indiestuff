@@ -111,7 +111,7 @@
   height: 40px;
 }
 
-.playlist-list{ 
+.playlist-list {
   list-style-type: none; /* Remove bullets */
   cursor: pointer;
 }
@@ -134,5 +134,5 @@
 
 .already-liked {
   fill: black;
-  color:red;
+  color: red;
 }

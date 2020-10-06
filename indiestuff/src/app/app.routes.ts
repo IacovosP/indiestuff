@@ -1,12 +1,12 @@
 import { Routes } from "@angular/router";
 
-import { TopNavComponent } from "@src/app/home/top-nav.component";
 import { SignupFormComponent } from "@src/app/signup-form/signup-form.component";
 import { ArtistMusicComponent } from "@src/app/artist/artist-music/artist-music.component";
 import { ArtistCreationPageComponent } from "@src/app/artist/artist-creation-page/artist-creation-page.component";
 import { AlbumPageComponent } from "@src/app/album/album-page.component";
 import { PlaylistPageComponent } from "@src/app/playlist/playlist-page.component";
 import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.component";
+import { HomePageComponent } from "@src/app/home/home.component";
 
 export const routes: Routes = [
   {
@@ -16,30 +16,30 @@ export const routes: Routes = [
   },
   {
     path: "home",
-    component: TopNavComponent
+    component: HomePageComponent,
   },
   {
     path: "signUp",
-    component: SignupFormComponent
+    component: SignupFormComponent,
   },
   {
     path: "artist/:id",
-    component: ArtistMusicComponent
+    component: ArtistMusicComponent,
   },
   {
     path: "mypage",
-    component: ArtistCreationPageComponent
+    component: ArtistCreationPageComponent,
   },
   {
     path: "album/:id",
-    component: AlbumPageComponent
+    component: AlbumPageComponent,
   },
   {
     path: "playlist/:id",
-    component: PlaylistPageComponent
+    component: PlaylistPageComponent,
   },
   {
     path: "mylibrary",
-    component: MyLibraryPageComponent
-  }
+    component: MyLibraryPageComponent,
+  },
 ];

@@ -9,14 +9,21 @@ const AuthStorageKey = "AuthToken";
 export class Auth {
   tokenResponse: TokenResponse;
 
-  setAccessToken(tokenResponse: { token: string; expiresIn: number; username: string }) {
+  setAccessToken(tokenResponse: {
+    token: string;
+    expiresIn: number;
+    username: string;
+  }) {
     this.tokenResponse = {
       accessToken: tokenResponse.token,
       expiresInSec: tokenResponse.expiresIn,
-      username: tokenResponse.username
+      username: tokenResponse.username,
     };
 
-    window.localStorage.setItem("AuthToken", JSON.stringify(this.tokenResponse));
+    window.localStorage.setItem(
+      "AuthToken",
+      JSON.stringify(this.tokenResponse)
+    );
   }
 
   getAccessToken() {
