@@ -48,7 +48,7 @@
           style="max-width: 200px; text-align: right"
           >{{ track.artist.name }}</a
         >
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button *ngIf="isRegistered" mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -87,6 +87,7 @@
           </button>
         </mat-menu>
         <mat-icon
+          *ngIf="isRegistered"
           class="right-side-icon"
           [ngClass]="{
             'already-liked': likedTrackIds && likedTrackIds.includes(track.id)

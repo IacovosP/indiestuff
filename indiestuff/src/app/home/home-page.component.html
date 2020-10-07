@@ -1,30 +1,68 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
-<div class="home-page">
+<div class="home-page" *ngIf="albums">
   <div class="top-items-container">
     <div class="image-container main-image">
       <img
+        [routerLink]="['/album', topAlbum.id]"
         src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
           topAlbum.album_image_filename
         }}"
       />
       <div class="middle">
         <div class="hoverText">
-          {{ topAlbum.title }} by {{ topAlbum.artist.name }}
+          <span [routerLink]="['/album', topAlbum.id]">{{
+            topAlbum.title
+          }}</span>
+          <span style="font-size: 12px">by</span>
+          <span
+            style="font-weight: bold"
+            [routerLink]="['/artist', topAlbum.artist.id]"
+            >{{ topAlbum.artist.name }}</span
+          >
         </div>
       </div>
     </div>
     <div class="image-container row">
       <div class="image-list" *ngFor="let album of albums">
         <img
+          [routerLink]="['/album', album.id]"
           src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
             album.album_image_filename
           }}"
         />
         <div class="middle">
           <div class="hoverText">
-            {{ album.title }} by {{ album.artist.name }}
+            <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
+            <span style="font-size: 12px">by</span>
+            <span
+              style="font-weight: bold"
+              [routerLink]="['/artist', album.artist.id]"
+              >{{ album.artist.name }}</span
+            >
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>here what's trending or some other meaningless message</h3>
+  <div class="album-list-container">
+    <div class="album-list" *ngFor="let album of albums">
+      <img
+        [routerLink]="['/album', album.id]"
+        src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
+          album.album_image_filename
+        }}"
+      />
+      <div class="middle">
+        <div class="hoverText">
+          <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
+          <span style="font-size: 12px">by</span>
+          <span
+            style="font-weight: bold"
+            [routerLink]="['/artist', album.artist.id]"
+            >{{ album.artist.name }}</span
+          >
         </div>
       </div>
     </div>
