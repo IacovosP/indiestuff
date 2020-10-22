@@ -13,7 +13,7 @@ import playerEventEmitter, {
   PlayerChangeEvent,
 } from "@src/app/player-ui/playerEmitter";
 import { SharedService } from "@src/app/common/shared-service";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
 import { TrackInterface } from "@apistuff";
@@ -140,7 +140,7 @@ export class ArtistCreationPageComponent implements OnInit {
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/image";
-    httpClient
+    defaultHttpClient
       .fetch(restAPIUrl, formData, "POST")
       .then((response) => {
         if (response.filename) {
@@ -166,7 +166,7 @@ export class ArtistCreationPageComponent implements OnInit {
       : this.newAlbum.colour;
 
     console.log("album form submitted: value: " + JSON.stringify(value));
-    httpClient
+    defaultHttpClient
       .fetch(
         "album/create",
         JSON.stringify({ newAlbum: this.newAlbum }),

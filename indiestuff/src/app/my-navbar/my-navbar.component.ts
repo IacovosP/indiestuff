@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { PlaylistInterface } from "@apistuff";
 import auth from "@src/app/auth/Auth";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
@@ -36,7 +36,7 @@ export class MyNavComponent implements OnInit {
   }
 
   getPlaylists() {
-    httpClient
+    defaultHttpClient
       .fetch("playlist/list")
       .then((response: PlaylistInterface[]) => {
         const likePlaylist: PlaylistInterface = {

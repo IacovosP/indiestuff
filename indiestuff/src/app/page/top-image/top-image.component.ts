@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import {
   AlbumDescription,
   PlaylistDescription,
@@ -77,7 +77,7 @@ export class PageTopImageComponent implements OnInit {
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/artistImage";
-    httpClient
+    defaultHttpClient
       .fetch(restAPIUrl, formData, "POST")
       .then((response) => {
         return response.json().then((file) => {
@@ -99,7 +99,7 @@ export class PageTopImageComponent implements OnInit {
     const formData = new FormData();
     formData.append("myFile", files.item(0));
     const restAPIUrl = "upload/artistTopImage";
-    httpClient
+    defaultHttpClient
       .fetch(restAPIUrl, formData, "POST")
       .then((response) => {
         return response.json().then((file) => {

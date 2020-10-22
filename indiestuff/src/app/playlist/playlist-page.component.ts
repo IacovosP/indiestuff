@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
-import httpClient from "../network/HttpClient";
-import { Track, PlaylistDescription } from "../music-types/types";
+import { Component, OnInit } from "@angular/core";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+import { PlaylistDescription } from "../music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
 import {
@@ -46,7 +46,7 @@ export class PlaylistPageComponent implements OnInit {
   }
 
   loadLikedTracks() {
-    httpClient
+    defaultHttpClient
       .fetch("likes")
       .then((response: LikedPageInterface) => {
         this.playlist = {
@@ -74,7 +74,7 @@ export class PlaylistPageComponent implements OnInit {
   }
 
   loadPage(playlistId: string) {
-    httpClient
+    defaultHttpClient
       .fetch("playlist/" + playlistId)
       .then((response: PlaylistPageInterface) => {
         this.playlist = response;

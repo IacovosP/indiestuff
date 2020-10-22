@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import httpClient from "../network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { HomePageAlbumInterface } from "@apistuff";
+import auth from "../auth/Auth";
 
 @Component({
   selector: "app-home-page",
@@ -18,7 +19,7 @@ export class HomePageComponent implements OnInit {
   }
 
   loadHomePage() {
-    httpClient
+    defaultHttpClient
       .fetch("home/")
       .then((response) => {
         this.topAlbum = response.shift();

@@ -7,7 +7,6 @@ import {
     ManyToOne,
     JoinColumn
   } from "typeorm";
-  import { Length, IsNotEmpty } from "class-validator";
 import { Track } from "./Track";
 import { User } from "./User";
   

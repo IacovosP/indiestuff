@@ -7,7 +7,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, catchError, debounceTime, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
-import httpClient from "../network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import auth, { Auth } from "../auth/Auth";
 
 interface SearchOptions {
@@ -146,7 +146,7 @@ export class TopNavComponent implements OnInit {
     );
   }
   search(text: string): Observable<Response> {
-    return httpClient
+    return defaultHttpClient
       .fromFetch("search", JSON.stringify({ text }), "POST")
       .pipe(
         map((res: Response) => {

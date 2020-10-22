@@ -1,7 +1,5 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
-import httpClient from "../network/HttpClient";
-import { ActivatedRoute } from "@angular/router";
-import { pSBC, getBrightness } from "@src/app/utils/colourChange";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import {
   RecentlyPlayedPageInterface,
   AlbumInterface,
@@ -23,7 +21,7 @@ export class RecentlyPlayedComponent implements OnInit {
   }
 
   loadRecentlyPlayed() {
-    httpClient
+    defaultHttpClient
       .fetch("event/recentlyPlayed")
       .then((response: RecentlyPlayedPageInterface) => {
         this.recentlyPlayed = response.recentlyPlayed;

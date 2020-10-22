@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CommentInterface } from "@apistuff";
 import auth from "@src/app/auth/Auth";
 
@@ -49,7 +49,7 @@ export class ChildboxComponent implements OnInit {
         parentId: this.parentId,
       };
       this.replied.emit(comment);
-      httpClient
+      defaultHttpClient
         .fetch(
           "comment/add",
           JSON.stringify({ newComment: comment, commentThread: {} }),

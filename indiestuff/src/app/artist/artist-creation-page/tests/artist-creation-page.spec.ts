@@ -3,10 +3,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { TestBed, async } from "@angular/core/testing";
 import { of } from "rxjs";
 import { SharedService } from "@src/app/common/shared-service";
-import { Track } from "@src/app/music-types/types";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
-import httpClient from "@src/app/network/HttpClient";
 import { TrackInterface } from "@apistuff";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 
 describe("artist-creation-page", () => {
   let artistCreationPage: ArtistCreationPageComponent;
@@ -171,7 +170,7 @@ describe("artist-creation-page", () => {
 
   describe("onFormSubmit", () => {
     beforeEach(() => {
-      spyOn(httpClient, "fetch").and.callFake(() => {
+      spyOn(defaultHttpClient, "fetch").and.callFake(() => {
         return Promise.resolve();
       });
     });
@@ -194,7 +193,7 @@ describe("artist-creation-page", () => {
         {} as Event
       );
 
-      expect(httpClient.fetch).toHaveBeenCalledWith(
+      expect(defaultHttpClient.fetch).toHaveBeenCalledWith(
         "album/create",
         JSON.stringify({
           newAlbum: {

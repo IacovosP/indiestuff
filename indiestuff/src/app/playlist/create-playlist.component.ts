@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, Output } from "@angular/core";
-import httpClient from "@src/app/network/HttpClient";
+import { Component, OnInit, Output } from "@angular/core";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { PlaylistInterface } from "@apistuff";
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -28,7 +28,7 @@ export class CreatePlaylistFormComponent implements OnInit {
     console.log(this.playlist);
     console.log("valid: " + valid);
 
-    const playlistCreationPromise = httpClient
+    const playlistCreationPromise = defaultHttpClient
       .fetch(
         "playlist/create",
         JSON.stringify({ playlist: this.playlist }),

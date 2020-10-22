@@ -9,8 +9,8 @@ import {
   Input,
 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import httpClient from "@src/app/network/HttpClient";
-import { CommentInterface, CommentThreadInterface } from "@apistuff";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+import { CommentInterface } from "@apistuff";
 import { ThreadTypes } from "@src/app/music-types/types";
 import auth from "@src/app/auth/Auth";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
@@ -31,6 +31,7 @@ export class CommentboxComponent implements OnInit {
   @Output() usercomment = new EventEmitter();
   isRegistered = false;
   authEventEmitter: AuthStateEventEmitter;
+  hasLoadedForId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,6 +42,7 @@ export class CommentboxComponent implements OnInit {
 
   ngOnInit() {
     if (this.commentThreadId) {
+      this.hasLoadedForId = this.commentThreadId;
       this.getComments().then((comments) => {
         this.usercomment.emit(comments);
       });
@@ -59,12 +61,15 @@ export class CommentboxComponent implements OnInit {
   }
 
   ngOnChanges() {
-    // console.log("is registered change");
-    // this.isRegistered = !!auth.getAccessToken();
+    if (this.commentThreadId && this.hasLoadedForId !== this.commentThreadId) {
+      this.getComments().then((comments) => {
+        this.usercomment.emit(comments);
+      });
+    }
   }
 
   getComments(): Promise<CommentInterface[]> {
-    return httpClient
+    return defaultHttpClient
       .fetch("comment/" + this.commentThreadId)
       .then((response) => {
         return response;
@@ -107,7 +112,7 @@ export class CommentboxComponent implements OnInit {
           this.threadType === ThreadTypes.Track ? this.threadId : undefined,
         commentThreadId: this.commentThreadId,
       };
-      httpClient
+      defaultHttpClient
         .fetch(
           "comment/add",
           JSON.stringify({ newComment: comment, commentThread }),

@@ -1,5 +1,5 @@
 import { PlaylistInterface } from "@apistuff";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 
 export class PlaylistState {
   private playlists: PlaylistInterface[];
@@ -26,7 +26,7 @@ export class PlaylistState {
   }
 
   public setLikedTrackIdsPromise() {
-    this.likedTrackIdsPromise = httpClient
+    this.likedTrackIdsPromise = defaultHttpClient
       .fetch("likes/ids")
       .then((response) => {
         playlistState.setLikedTrackIds(response);

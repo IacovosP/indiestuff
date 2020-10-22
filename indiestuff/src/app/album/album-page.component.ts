@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Injectable } from "@angular/core";
-import httpClient from "../network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import {
   AlbumDescription,
   Track,
@@ -38,7 +38,7 @@ export class AlbumPageComponent implements OnInit {
   }
 
   loadPage(albumId: string) {
-    httpClient
+    defaultHttpClient
       .fetch("album/" + albumId)
       .then((response: AlbumPageInterface) => {
         this.album = response;

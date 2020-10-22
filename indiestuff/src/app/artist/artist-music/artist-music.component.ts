@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { ArtistPageInterface, AlbumInterface } from "@apistuff";
 import { AlbumLite, ThreadTypes } from "@src/app/music-types/types";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
@@ -26,7 +26,7 @@ export class ArtistMusicComponent implements OnInit {
   }
 
   loadPage(artistId: string) {
-    httpClient
+    defaultHttpClient
       .fetch("artist/" + artistId)
       .then((response: ArtistPageInterface) => {
         this.artistMusic = response;

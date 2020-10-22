@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { AuthStateEventEmitter } from "./loggedInEventEmitter";
 import auth from "@src/app/auth/Auth";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 
 interface LoginUser {
   email: string;
@@ -33,11 +33,11 @@ export class LoginFormComponent implements OnInit {
     this.user = value;
     console.log("valid: " + valid);
 
-    httpClient
+    defaultHttpClient
       .fetch("auth/login", JSON.stringify({ user: this.user }), "POST")
       .then((response) => {
         console.log("got a response " + JSON.stringify(response));
-        auth.setAccessToken(response);
+        auth.setTokenResponse(response);
         this.authEventEmitter.change({ isRegistered: true });
       })
       .catch((err) => {

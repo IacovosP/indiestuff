@@ -1,6 +1,6 @@
 import { AlbumPageComponent } from "../album-page.component";
 import { ActivatedRoute, Router, UrlSerializer } from "@angular/router";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { of } from "rxjs";
 
 jasmine.getEnv().allowRespy(true);
@@ -20,7 +20,7 @@ describe("AlbumPageComponent", () => {
   let getAlbumPromise;
 
   beforeEach(() => {
-    getAlbumPromise = spyOn(httpClient, "fetch");
+    getAlbumPromise = spyOn(defaultHttpClient, "fetch");
     route = new ActivatedRoute();
     route.params = of({ id: "testId" });
     route.snapshot = { params: { id: "testId" } };
@@ -58,7 +58,7 @@ describe("AlbumPageComponent", () => {
   });
 
   it("should log error when fetch rejects on initialisation", async () => {
-    spyOn(httpClient, "fetch").and.rejectWith(new Error("Error"));
+    spyOn(defaultHttpClient, "fetch").and.rejectWith(new Error("Error"));
     const consoleSpy = spyOn(console, "error");
     const comp = new AlbumPageComponent(route);
     comp.ngOnInit();

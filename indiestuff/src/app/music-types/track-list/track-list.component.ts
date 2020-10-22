@@ -9,7 +9,7 @@ import { PlaylistInterface, TrackInterface } from "@apistuff";
 import playlistState from "@src/app/playlist/playlistState";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import httpClient from "@src/app/network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import auth from "@src/app/auth/Auth";
@@ -81,7 +81,9 @@ export class TrackListComponent implements OnInit {
       .subscribe((item: PlayerChangeEvent) =>
         this.changeIndexOfSongPlaying(item)
       );
-
+    if (auth.getAccessToken()) {
+      this.changeAuthState({ isRegistered: true });
+    }
     this.authEventEmitter
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
@@ -116,7 +118,7 @@ export class TrackListComponent implements OnInit {
       "song to add to playlist: " +
         JSON.stringify(this.trackList[indexOfSongInTrackList])
     );
-    httpClient
+    defaultHttpClient
       .fetch(
         "playlist/add",
         JSON.stringify({
@@ -140,7 +142,7 @@ export class TrackListComponent implements OnInit {
       "song to remove from playlist: " +
         JSON.stringify(this.trackList[indexOfSongInTrackList])
     );
-    httpClient
+    defaultHttpClient
       .fetch(
         "playlist/remove",
         JSON.stringify({
@@ -158,7 +160,7 @@ export class TrackListComponent implements OnInit {
   }
 
   addOrRemoveTrackLiked(trackId: string) {
-    httpClient
+    defaultHttpClient
       .fetch("likes/add", JSON.stringify({ trackId: trackId }), "POST")
       .then((response) => {
         console.log("added or removed liked track successfully");
@@ -225,7 +227,6 @@ export class TrackListComponent implements OnInit {
     this.isRegistered = item && item.isRegistered ? true : false;
 
     if (this.isRegistered) {
-      console.log("here");
       playlistState.setLikedTrackIdsPromise();
       playlistState.getLikedTrackIdsPromise().then(() => {
         this.likedTrackIds = playlistState.getLikedTrackIds();

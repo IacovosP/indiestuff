@@ -32,11 +32,41 @@ class AuthController {
 
     //Sing JWT, valid for 1 hour
     const tokenResponse = {
-      token: jwt.sign(
+      accessToken: jwt.sign(
         { userId: user.id, username: user.username },
         config.jwtSecret,
         { expiresIn: "1h" }),
-      expiresIn: 3500,
+      refreshToken: jwt.sign(
+        { userId: user.id, username: user.username },
+        config.jwtSecret),
+      username: user.username
+    }
+
+    //Send the jwt in the response
+    res.send(tokenResponse);
+  };
+
+  static refreshToken = async (req: Request, res: Response) => {
+    let { refresh_token } = req.body.tokenRequest;
+
+    console.log("refresh token: "  + refresh_token);
+    const jwtPayload = <any>jwt.verify(refresh_token, config.jwtSecret);
+
+    //Get user from database
+    const userRepository = getRepository(User);
+    let user: User;
+    try {
+      user = await userRepository.findOneOrFail(jwtPayload.userId);
+    } catch (error) {
+      res.status(401).send("Refresh failed - couldn't find user");
+    }
+
+    //Sing JWT, valid for 1 hour
+    const tokenResponse = {
+      accessToken: jwt.sign(
+        { userId: user.id, username: user.username },
+        config.jwtSecret,
+        { expiresIn: "1h" }),
       username: user.username
     }
 

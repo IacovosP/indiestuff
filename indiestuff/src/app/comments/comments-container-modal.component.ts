@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, Inject } from "@angular/core";
 import { ThreadTypes } from "@src/app/music-types/types";
-import httpClient from "../network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
@@ -29,7 +29,7 @@ export class CommentModalContainerComponent implements OnInit {
   }
 
   loadCommentThread() {
-    httpClient
+    defaultHttpClient
       .fetch("comment/track/" + this.data.threadId)
       .then((response) => {
         this.comments = response.comments;

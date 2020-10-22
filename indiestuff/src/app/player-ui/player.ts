@@ -10,7 +10,7 @@
 import { Howl, Howler } from "howler";
 import { Playlist, Track } from "@src/app/music-types/types";
 import playerEventEmitter from "./playerEmitter";
-import httpClient from "../network/HttpClient";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 
 export enum LoopState {
   "DEFAULT",
@@ -66,7 +66,7 @@ class Player {
     if (this.playlist[this.currentlyPlayingIndex].isPlaylistView) {
       return;
     }
-    httpClient.fetch(
+    defaultHttpClient.fetch(
       "event/add",
       JSON.stringify({
         trackId: this.playlist[this.currentlyPlayingIndex].id,
