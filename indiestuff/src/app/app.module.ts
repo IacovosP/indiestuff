@@ -46,6 +46,7 @@ import { PlaylistState } from "@src/app/playlist/playlistState";
 import { RecentlyPlayedComponent } from "@src/app/mylibrary/recently-played.component";
 import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.component";
 import { HomePageComponent } from "@src/app/home/home.component";
+import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-artist-page.component";
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { HomePageComponent } from "@src/app/home/home.component";
     RecentlyPlayedComponent,
     MyLibraryPageComponent,
     HomePageComponent,
+    MyArtistPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

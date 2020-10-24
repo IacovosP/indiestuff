@@ -53,3 +53,8 @@ export enum ThreadTypes {
   "Album",
   "Track",
 }
+
+export enum myArtistSubPageType {
+  NEW_STUFF = "newStuff",
+  MY_MUSIC = "myMusic"
+}

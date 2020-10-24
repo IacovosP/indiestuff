@@ -1,0 +1,9 @@
+<app-top-nav></app-top-nav>
+<app-my-navbar></app-my-navbar>
+<app-page-top-image
+  [headerImageUrl]="''"
+  [isArtistImageEnabled]="true"
+></app-page-top-image>
+<app-artist-menu-bar [isMyArtistPage]="true" (myArtistSubPageType)="changeMyArtistSubPageType($event)"
+></app-artist-menu-bar>
+<app-artist-creation-page *ngIf="activeSubPageType === 'newStuff'"></app-artist-creation-page>

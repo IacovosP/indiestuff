@@ -11,7 +11,8 @@ const RefreshTokenStorageKey = "RefreshToken";
 
 export class Auth {
   tokenResponse: TokenResponse;
-
+  refreshRequestPromise: Promise<string | null>;
+  
   setAccessToken(tokenResponse: {
     accessToken: string;
     expiresIn: number;
@@ -98,7 +99,10 @@ export class Auth {
   refreshToken(): Promise<string | null> {
     const refresh_token = this.getRefreshToken();
     if (refresh_token) {
-      return httpClient
+      if (this.refreshRequestPromise) {
+        return this.refreshRequestPromise;
+      }
+      this.refreshRequestPromise = httpClient
         .fetch(
           "auth/refreshToken",
           JSON.stringify({
@@ -111,6 +115,7 @@ export class Auth {
         )
         .then((response) => {
           this.setAccessToken(response);
+          this.refreshRequestPromise = null;
           return response.accessToken;
         })
         .catch((error) => {
@@ -118,6 +123,7 @@ export class Auth {
           this.deregister();
           return null;
         });
+      return this.refreshRequestPromise;
     }
     return null;
   }
