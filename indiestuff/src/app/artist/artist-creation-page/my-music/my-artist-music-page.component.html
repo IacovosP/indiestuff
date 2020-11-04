@@ -1,0 +1,30 @@
+<div class="album-list-container">
+    <h3>albums</h3>
+    <div class="album-list">
+      <div
+        style="margin-bottom: 10px"
+        *ngFor="let album of albums; let i = index"
+      >
+        <div class="album-container">
+            <img
+                style="cursor: pointer"
+                [routerLink]="['/album', album.id]"
+                src="{{ album.imageUrl }}"
+            />
+            <div>
+                <p class="album-title" style="cursor: pointer" [routerLink]="['/album', album.id]">{{
+                album.title
+                }}</p>
+                <a style="color:#BDB76B" (click)="changeToEditStuffPageType(album.id)">edit</a>
+                <a style="color: #CD5C5C">delete</a>
+                <div class="release-date-container">
+                    <span class="span-no-hover" style="font-size: 14px;" *ngIf="album.isReleased">released on</span>
+                    <span class="span-no-hover" style="font-size: 14px;" *ngIf="!album.isReleased">releases on</span>
+                    <span class="span-no-hover">{{album.releaseDate}}</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+  

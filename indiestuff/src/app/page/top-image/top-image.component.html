@@ -1,5 +1,5 @@
 <div class="top-image parent-image-container">
-  <img *ngIf="!!headerImageUrl" src="{{ headerImageUrl }}" />
+  <img *ngIf="!!headerImageUrl && !isEditing" src="{{ headerImageUrl }}" />
   <div
     *ngIf="!!albumImageUrl"
     class="album-image-container"
@@ -68,6 +68,24 @@
       <div class="form-group">
         <label for="top-image-input">
           <img class="image" id="top_image_id" />
+          <div class="middle">
+            <div class="hoverText">change</div>
+          </div>
+        </label>
+        <input
+          type="file"
+          id="top-image-input"
+          (change)="topImageUpload($event)"
+          style="display: none"
+        />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isEditing && headerImageUrl">
+    <div>
+      <div class="form-group">
+        <label for="top-image-input">
+          <img class="image" id="top_image_id" src="{{ headerImageUrl }}"/>
           <div class="middle">
             <div class="hoverText">change</div>
           </div>

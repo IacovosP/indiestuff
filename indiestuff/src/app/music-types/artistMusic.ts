@@ -13,6 +13,10 @@ export class ArtistMusic {
   }
 }
 
+export interface AlbumEdit extends AlbumNew {
+  id: string;
+}
+
 export class AlbumNew implements AlbumInterface {
   title: string;
   tracks: TrackInterface[];

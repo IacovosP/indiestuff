@@ -25,6 +25,12 @@ export interface AlbumLite {
   duration: string;
   artistName: string;
   imageUrl: string;
+
+}
+
+export interface MyAlbumsLite extends AlbumLite {
+  releaseDate: string;
+  isReleased: boolean;
 }
 
 export interface Playlist {
@@ -56,5 +62,11 @@ export enum ThreadTypes {
 
 export enum myArtistSubPageType {
   NEW_STUFF = "newStuff",
-  MY_MUSIC = "myMusic"
+  MY_MUSIC = "myMusic",
+  EDIT_STUFF = "editStuff"
+}
+
+export interface EditSubPageNavigation {
+  subPageType: myArtistSubPageType;
+  albumId: string;
 }

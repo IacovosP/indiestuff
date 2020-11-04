@@ -8,7 +8,9 @@
   >
     <div class="left-side">
       <!-- title input block -->
-      <div class="album-creation" [style.background]="color">
+      <div class="album-creation"
+        [ngStyle]="{ 'background-color': (albumForEdit && albumForEdit.colour) || '#f8e3ff' }" 
+        [style.background]="color">
         <div>
           <div class="form-group">
             <label for="inputTitle" class="col-lg-2 control-label"
@@ -17,9 +19,9 @@
             <div class="col-lg-7">
               <input
                 type="text"
-                placeholder="album name something pretentious..."
+                placeholder="album name something pretentious..." 
                 class="form-control input-custom"
-                [ngModel]="newAlbum.title"
+                [ngModel]="albumForEdit ? albumForEdit.title : newAlbum.title"
                 name="title"
                 #title="ngModel"
                 id="inputTitle"
@@ -28,7 +30,8 @@
             </div>
           </div>
         </div>
-        <img class="image-uploaded" id="file_id" />
+        <img *ngIf="albumForEdit" class="image-uploaded" id="file_id" src="{{albumForEdit.album_image_filename}}"/>
+        <img *ngIf="!albumForEdit" class="image-uploaded" id="file_id"/>
 
         <!-- album cover block -->
         <div>
@@ -139,7 +142,7 @@
           [disabled]="!albumForm.form.valid"
         >
           <mat-icon>done_outline</mat-icon>
-          <span style="padding-top: 30px">create</span>
+          <span style="padding-top: 30px">{{albumForEdit ? 'submit edit' : 'create'}}</span>
         </button>
       </div>
     </div>
