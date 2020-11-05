@@ -5,3 +5,8 @@
   padding: 0;
   overflow: hidden;
 }
+
+.mat-button-toggle-label-content{
+  font-family: sans-serif;
+  color: #47525e;
+}

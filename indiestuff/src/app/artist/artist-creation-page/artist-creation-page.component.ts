@@ -46,6 +46,8 @@ export class ArtistCreationPageComponent implements OnInit {
   clickoutHandler: Function;
   dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
   title = "indiestuff";
+  albumOrSingle: "album" | "single" = "album";
+
   @Input() albumId: string;
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {

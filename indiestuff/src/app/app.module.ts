@@ -48,6 +48,7 @@ import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.compo
 import { HomePageComponent } from "@src/app/home/home.component";
 import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-artist-page.component";
 import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page/my-music/my-artist-music-page.component";
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page
     MatInputModule,
     DragDropModule,
     MatSliderModule,
+    MatButtonToggleModule
   ],
   entryComponents: [ChildboxComponent],
   providers: [

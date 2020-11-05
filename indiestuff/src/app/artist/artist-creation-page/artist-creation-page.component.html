@@ -1,5 +1,10 @@
 <div class="add-album-container">
-  <h3>album</h3>
+  <div class="album-or-single">
+    <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="albumOrSingle" name="musicType" aria-label="Music Type">
+      <mat-button-toggle value="album">album</mat-button-toggle>
+      <mat-button-toggle value="single">single</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
   <form
     class="form-container"
     novalidate
@@ -14,12 +19,12 @@
         <div>
           <div class="form-group">
             <label for="inputTitle" class="col-lg-2 control-label"
-              >album title</label
+              >{{group.value}} title</label
             >
             <div class="col-lg-7">
               <input
                 type="text"
-                placeholder="album name something pretentious..." 
+                placeholder="{{group.value}} name something pretentious..." 
                 class="form-control input-custom"
                 [ngModel]="albumForEdit ? albumForEdit.title : newAlbum.title"
                 name="title"
@@ -37,7 +42,7 @@
         <div>
           <div class="form-group">
             <label for="inputCover" class="col-lg-2 control-label"
-              >add album cover</label
+              >add {{group.value}} cover</label
             >
 
             <label for="file-input">
