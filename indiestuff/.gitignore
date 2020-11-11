@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/coverage
 
 # dependencies
 /node_modules
@@ -37,6 +38,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+debug.log
 
 # System Files
 .DS_Store

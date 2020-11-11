@@ -49,6 +49,7 @@ import { HomePageComponent } from "@src/app/home/home.component";
 import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-artist-page.component";
 import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page/my-music/my-artist-music-page.component";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatInputModule,
     DragDropModule,
     MatSliderModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    Router
   ],
   entryComponents: [ChildboxComponent],
   providers: [

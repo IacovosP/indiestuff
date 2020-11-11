@@ -8,11 +8,12 @@ jasmine.getEnv().allowRespy(true);
 describe("AlbumPageComponent", () => {
   let route;
   const albumResponse = Promise.resolve({
+    id: "someAlbumId",
     title: "someAlbum",
     durationInSeconds: 100,
     tracks: [
       {
-        name: "someTrack",
+        title: "someTrack",
       },
     ],
     album_image_filename: "someImage.com",
@@ -39,17 +40,13 @@ describe("AlbumPageComponent", () => {
     expect(comp.album as any).toEqual({
       tracks: [
         {
-          name: "someTrack",
-          filename: undefined,
-          albumName: "someAlbum",
-          durationInSec: undefined,
+          title: "someTrack",
         },
       ],
-      imageUrl:
-        "https://indie-image-test.s3.eu-west-2.amazonaws.com/someImage.com",
+      id: "someAlbumId",
       title: "someAlbum",
       durationInSeconds: 100,
-      album_image_filename: "someImage.com",
+      album_image_filename: "https://indie-image-test.s3.eu-west-2.amazonaws.com/someImage.com",
     });
     //   comp.clicked();
     //   expect(comp.isOn).toBe(true, 'on after click');

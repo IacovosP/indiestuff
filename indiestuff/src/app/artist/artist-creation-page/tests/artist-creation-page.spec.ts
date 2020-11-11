@@ -6,11 +6,12 @@ import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import { TrackInterface } from "@apistuff";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe("artist-creation-page", () => {
   let artistCreationPage: ArtistCreationPageComponent;
   let sharedService: SharedService;
-  let dialogSpy: jasmine.Spy;
+  // let dialogSpy: jasmine.Spy;
   let dialogRefSpyObj = jasmine.createSpyObj({
     afterClosed: of({}),
     close: null,
@@ -23,13 +24,13 @@ describe("artist-creation-page", () => {
       durationInSec: 20,
       filename: "someFileName",
       id: "someUid",
-      positionInAlbum: 2,
+      positionInAlbum: 0,
     },
   ];
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule],
-      providers: [ArtistCreationPageComponent, SharedService],
+      imports: [MatDialogModule, RouterTestingModule],
+      providers: [ArtistCreationPageComponent, SharedService ],
     });
     artistCreationPage = TestBed.get(ArtistCreationPageComponent);
     sharedService = TestBed.get(SharedService);
@@ -53,6 +54,9 @@ describe("artist-creation-page", () => {
       expect(sharedService.change).toHaveBeenCalledWith({
         tracks: mockTracks,
         indexOfSongToPlay: 2,
+        trackListId: "creatingAlbumId"
+        // isAlbumView?: boolean;
+        // isArtistView?: boolean;
       });
     });
 
@@ -130,7 +134,7 @@ describe("artist-creation-page", () => {
   describe("imageUpload", () => {
     let mockFetch;
     beforeEach(() => {
-      mockFetch = spyOn(global, "fetch").and.callFake(() => {
+      mockFetch = spyOn(defaultHttpClient, "fetch").and.callFake(() => {
         return Promise.resolve({}) as any;
       });
       spyOn(FileReader.prototype, "readAsDataURL").and.callFake(() => {});
@@ -162,8 +166,9 @@ describe("artist-creation-page", () => {
       };
       expect(mockFetch).toHaveBeenCalledTimes(1);
       expect(mockFetch).toHaveBeenCalledWith(
-        "http://localhost:5000/upload/image",
-        requestInit
+        "upload/image",
+        requestInit.body,
+        requestInit.method
       );
     });
   });
