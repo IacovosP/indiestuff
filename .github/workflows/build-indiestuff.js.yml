@@ -24,6 +24,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: rm package-lock.json
+    - run: npm install
+      working-directory: ./indiestuff
     - run: npm run build
+      working-directory: ./indiestuff
     - run: npm run test
+      working-directory: ./indiestuff
