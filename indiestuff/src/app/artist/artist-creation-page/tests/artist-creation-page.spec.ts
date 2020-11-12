@@ -213,5 +213,47 @@ describe("artist-creation-page", () => {
         "POST"
       );
     });
+
+    it("should call fetch with edit album value", () => {
+      artistCreationPage.ngOnInit();
+      const mockDate = new Date();
+      artistCreationPage.albumForEdit = {
+        id: "2",
+        title: "someTitle",
+        colour: "someColour",
+        album_image_filename: "someFileName",
+        releaseDate: mockDate,
+        durationInSec: 100,
+        commentThreadId: "2",
+        tracks: mockTracks,
+        artist: {
+          artist_image_filename: "someArtistImage",
+          artist_top_image_filename: "someArtistTopImage",
+          id: "25",
+          name: "someArtist"
+        }
+      };
+
+      artistCreationPage.onFormSubmit(
+        { value: { title: "newTitle" }, valid: true },
+        {} as Event
+      );
+
+      expect(defaultHttpClient.fetch).toHaveBeenCalledWith(
+        "album/edit",
+        JSON.stringify({
+          editedAlbum: {
+            id: "2",
+            title: "someTitle",
+            album_image_filename: "someFileName",
+            colour: "#f8e3ff",
+            durationInSec: 100,
+            releaseDate: mockDate,
+            tracks: mockTracks,
+          },
+        }),
+        "POST"
+      );
+    });
   });
 });
