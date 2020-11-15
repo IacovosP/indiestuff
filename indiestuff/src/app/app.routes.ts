@@ -45,6 +45,6 @@ export const routes: Routes = [
   },
   {
     path: "mypage/add",
-    component: ArtistCreationPageComponent
-  }
+    component: ArtistCreationPageComponent,
+  },
 ];

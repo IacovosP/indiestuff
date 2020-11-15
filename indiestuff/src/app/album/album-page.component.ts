@@ -61,9 +61,9 @@ export class AlbumPageComponent implements OnInit {
   }
 
   private setTrackList(album: AlbumPageInterface) {
-    const sortedTracks = album.tracks.sort((track1, track2) => {
-      return track1.positionInAlbum - track2.positionInAlbum;
-    });
+    const sortedTracks = album.tracks.sort((track1, track2) =>
+      track1.positionInAlbum.localeCompare(track2.positionInAlbum)
+    );
     this.trackList = sortedTracks.map((track) => {
       return {
         ...track,

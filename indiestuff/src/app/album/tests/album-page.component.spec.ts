@@ -46,7 +46,8 @@ describe("AlbumPageComponent", () => {
       id: "someAlbumId",
       title: "someAlbum",
       durationInSeconds: 100,
-      album_image_filename: "https://indie-image-test.s3.eu-west-2.amazonaws.com/someImage.com",
+      album_image_filename:
+        "https://indie-image-test.s3.eu-west-2.amazonaws.com/someImage.com",
     });
     //   comp.clicked();
     //   expect(comp.isOn).toBe(true, 'on after click');

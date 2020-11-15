@@ -36,7 +36,7 @@ import { TrackInterface } from "@apistuff";
 
     @Column()
     @IsNotEmpty()
-    positionInAlbum: number;
+    positionInAlbum: string;
 
     @Column()
     @IsNotEmpty()

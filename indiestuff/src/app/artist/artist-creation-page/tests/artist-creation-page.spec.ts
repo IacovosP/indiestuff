@@ -6,7 +6,7 @@ import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
 import { TrackInterface } from "@apistuff";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe("artist-creation-page", () => {
   let artistCreationPage: ArtistCreationPageComponent;
@@ -24,13 +24,13 @@ describe("artist-creation-page", () => {
       durationInSec: 20,
       filename: "someFileName",
       id: "someUid",
-      positionInAlbum: 0,
+      positionInAlbum: "0",
     },
   ];
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule, RouterTestingModule],
-      providers: [ArtistCreationPageComponent, SharedService ],
+      providers: [ArtistCreationPageComponent, SharedService],
     });
     artistCreationPage = TestBed.get(ArtistCreationPageComponent);
     sharedService = TestBed.get(SharedService);
@@ -54,7 +54,7 @@ describe("artist-creation-page", () => {
       expect(sharedService.change).toHaveBeenCalledWith({
         tracks: mockTracks,
         indexOfSongToPlay: 2,
-        trackListId: "creatingAlbumId"
+        trackListId: "creatingAlbumId",
         // isAlbumView?: boolean;
         // isArtistView?: boolean;
       });
@@ -203,7 +203,7 @@ describe("artist-creation-page", () => {
         JSON.stringify({
           newAlbum: {
             title: "newTitle",
-            tracks: mockTracks,
+            tracks: [],
             colour: "newColour",
             album_image_filename: "someFileName",
             releaseDate: mockDate,
@@ -230,8 +230,8 @@ describe("artist-creation-page", () => {
           artist_image_filename: "someArtistImage",
           artist_top_image_filename: "someArtistTopImage",
           id: "25",
-          name: "someArtist"
-        }
+          name: "someArtist",
+        },
       };
 
       artistCreationPage.onFormSubmit(
@@ -249,7 +249,7 @@ describe("artist-creation-page", () => {
             colour: "#f8e3ff",
             durationInSec: 100,
             releaseDate: mockDate,
-            tracks: mockTracks,
+            tracks: [],
           },
         }),
         "POST"

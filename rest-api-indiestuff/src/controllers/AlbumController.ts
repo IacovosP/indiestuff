@@ -68,53 +68,57 @@ static editAlbum = async (req: Request, res: Response) => {
         return;
     }
 
-    // const artistRepository = getRepository(Artist);
-    // const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
+    const artistRepository = getRepository(Artist);
+    const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
 
-    // const tracks = req.body.newAlbum.tracks;
-    // tracks.forEach(async tr => {
-    //     let track;
-    //     if (tr.id) {
-    //         track = tr;
+    const tracks = req.body.editedAlbum.tracks as TrackInterface[];
+    for(let tr of tracks) {
+        let track;
+        if (tr.id) {
+            const trackRepository = getRepository(Track);
+            const oldTrack = await trackRepository.findOne(tr.id);
 
-    //         const trackRepository = getRepository(Track);
-    //         const oldTrack = await trackRepository.findOne(tr.id);
+            if (!oldTrack) {
+                res.status(400).send("failed to edit album - couldn't find one of the tracks: " + tr.title);
+                break;
+            }
 
-    //         if (!oldTrack) {
-    //             res.status(400).send("failed to edit album - couldn't find one of the tracks: " + tr.title);
-    //             return;
-    //         }
+            console.log("checking oldTrack with new to see if anything changed")
+            if (oldTrack.positionInAlbum === tr.positionInAlbum && oldTrack.title === tr.title) {
+                console.log("return for " + tr.title);
+                continue;
+            } else {
+                track = oldTrack;
+                track.positionInAlbum = tr.positionInAlbum;
+                track.title = tr.title;
+                track.updatedAt = new Date();
+            }
+        } else {
+            track = new Track();
 
-    //         oldTrack.durationInSec = tr.durationInSec;
-    //         oldTrack.positionInAlbum = tr.positionInAlbum;
-    //         oldTrack.filename = tr.filename;
-    //         oldTrack.title = tr.track;
-    //         oldTrack.updatedAt = new Date();
-    //     } else {
-    //         track = new Track();
+            track.durationInSec = tr.durationInSec;
+            track.title = tr.title;
+            track.filename = tr.filename;
+            track.positionInAlbum = tr.positionInAlbum;
+            track.artist = artist;
+            track.album = album;
+        }
 
-
-    //         track.durationInSec = tr.durationInSec;
-    //         track.title = tr.title;
-    //         track.filename = tr.filename;
-    //         track.positionInAlbum = tr.positionInAlbum;
-    //     }
-    //     track.artist = artist;
-    //     track.album = album;
-
-    //     const errors = await validate(track);
-    //     if (errors.length > 0) {
-    //         console.log("errors: " + JSON.stringify(errors));
-    //         res.status(400).send(errors);
-    //         return;
-    //     }
-    //     const trackRepository = getRepository(Track);
-    //     try {
-    //         await trackRepository.save(track);
-    //     } catch (err) {
-    //         console.log("errors: " + JSON.stringify(err));
-    //     }
-    // });
+        const errors = await validate(track);
+        if (errors.length > 0) {
+            console.log("errors: " + JSON.stringify(errors));
+            res.status(400).send(errors);
+            break;
+        }
+        const trackRepository = getRepository(Track);
+        try {
+            await trackRepository.save(track);
+        } catch (err) {
+            console.log("errors: " + JSON.stringify(err));
+            res.status(400).send(err);
+            break;
+        }
+    };
 
     try {
         await albumRepository.save(album);

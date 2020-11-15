@@ -5,8 +5,19 @@
   [artistImageUrl]="artistMusic && artistMusic.artist_image_filename"
   [isArtistImageEnabled]="true"
 ></app-page-top-image>
-<app-artist-menu-bar [isMyArtistPage]="true" (myArtistSubPageType)="changeMyArtistSubPageType($event)"
+<app-artist-menu-bar
+  [isMyArtistPage]="true"
+  (myArtistSubPageType)="changeMyArtistSubPageType($event)"
 ></app-artist-menu-bar>
-<app-artist-creation-page *ngIf="activeSubPageType === 'newStuff'"></app-artist-creation-page>
-<app-artist-creation-page *ngIf="activeSubPageType === 'editStuff'" [albumId]="currentAlbumToEdit"></app-artist-creation-page>
-<app-my-artist-music-page (myArtistSubPageType)="changeToEditAlbumPageType($event)" [albums]="albumsLite" *ngIf="activeSubPageType === 'myMusic'"></app-my-artist-music-page>
+<app-artist-creation-page
+  *ngIf="activeSubPageType === 'newStuff'"
+></app-artist-creation-page>
+<app-artist-creation-page
+  *ngIf="activeSubPageType === 'editStuff'"
+  [albumId]="currentAlbumToEdit"
+></app-artist-creation-page>
+<app-my-artist-music-page
+  (myArtistSubPageType)="changeToEditAlbumPageType($event)"
+  [albums]="albumsLite"
+  *ngIf="activeSubPageType === 'myMusic'"
+></app-my-artist-music-page>

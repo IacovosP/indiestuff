@@ -8,7 +8,10 @@ import { myArtistSubPageType } from "@src/app/music-types/types";
 })
 export class ArtistMenuBar implements OnInit {
   @Input() isMyArtistPage: boolean = false;
-  @Output() myArtistSubPageType: EventEmitter<myArtistSubPageType> = new EventEmitter();
+  @Output() myArtistSubPageType: EventEmitter<
+    myArtistSubPageType
+  > = new EventEmitter();
+  @Input() artistId: string;
 
   ngOnInit() {}
 

@@ -1,13 +1,9 @@
+import { Component, OnInit, Input } from "@angular/core";
 import {
-  Component,
-  OnInit,
-  ElementRef,
-  Injectable,
-  HostListener,
-  Input,
-} from "@angular/core";
-import { ArtistPageLayout, AlbumNew, AlbumEdit } from "@src/app/music-types/artistMusic";
-import { Track } from "@src/app/music-types/types";
+  ArtistPageLayout,
+  AlbumNew,
+  AlbumEdit,
+} from "@src/app/music-types/artistMusic";
 import { TrackUploadFormComponent } from "./track-upload/track-upload-form.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import playerEventEmitter, {
@@ -17,8 +13,13 @@ import { SharedService } from "@src/app/common/shared-service";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
-import { AlbumPageInterface, TrackInterface } from "@apistuff";
+import {
+  AlbumPageInterface,
+  POSITION_MULTIPLIER,
+  TrackInterface,
+} from "@apistuff";
 import { Router } from "@angular/router";
+import { midString } from "@src/app/utils/arrayRepositioning";
 
 @Component({
   selector: "app-artist-creation-page",
@@ -82,7 +83,27 @@ export class ArtistCreationPageComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    const prevItem =
+      event.currentIndex !== 0
+        ? this.tracks[event.currentIndex].positionInAlbum
+        : "";
+    let nextItem: string;
+    if (event.currentIndex === 0) {
+      nextItem =
+        event.currentIndex !== this.tracks.length - 1
+          ? this.tracks[event.currentIndex].positionInAlbum
+          : "";
+    } else {
+      nextItem =
+        event.currentIndex !== this.tracks.length - 1
+          ? this.tracks[event.currentIndex + 1].positionInAlbum
+          : "";
+    }
     moveItemInArray(this.tracks, event.previousIndex, event.currentIndex);
+    this.tracks[event.currentIndex].positionInAlbum = midString(
+      prevItem,
+      nextItem
+    );
   }
 
   ngOnInit() {
@@ -106,9 +127,9 @@ export class ArtistCreationPageComponent implements OnInit {
   }
 
   private setTrackList(album: AlbumPageInterface) {
-    const sortedTracks = album.tracks.sort((track1, track2) => {
-      return track1.positionInAlbum - track2.positionInAlbum;
-    });
+    const sortedTracks = album.tracks.sort((track1, track2) =>
+      track1.positionInAlbum.localeCompare(track2.positionInAlbum)
+    );
     this.tracks = sortedTracks.map((track) => {
       return {
         ...track,
@@ -155,7 +176,11 @@ export class ArtistCreationPageComponent implements OnInit {
           name: "hardcoded artist name",
           id: "hardcoded artist id",
         };
-        track.positionInAlbum = 1;
+        track.positionInAlbum =
+          this.tracks.length === 0
+            ? midString()
+            : midString(this.tracks[this.tracks.length - 1].positionInAlbum);
+        console.log("track.position: " + track.positionInAlbum);
         this.tracks.push(track);
         this.newAlbum.tracks.push(track);
         this.newAlbum.durationInSec += track.durationInSec;
@@ -201,52 +226,52 @@ export class ArtistCreationPageComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
     this.newAlbum.title = value.title;
-    this.newAlbum.tracks = this.newAlbum.tracks.map((track) => {
-      return {
-        ...track,
-        positionInAlbum: this.newAlbum.tracks.indexOf(track),
-      };
-    });
+    this.newAlbum.tracks = this.tracks;
     this.newAlbum.colour = !this.newAlbum.colour
       ? "#c2ddde"
       : this.newAlbum.colour;
-
     console.log("album form submitted: value: " + JSON.stringify(value));
     if (this.albumForEdit) {
       const albumForEditForRequest: AlbumEdit = {
         id: this.albumForEdit.id,
         title: this.albumForEdit.title,
-        album_image_filename: this.albumForEdit.album_image_filename.replace("https://indie-image-test.s3.eu-west-2.amazonaws.com/", ""),
-        colour: this.newAlbum.colour !== "#c2ddde" ? this.newAlbum.colour : this.albumForEdit.colour,
+        album_image_filename: this.albumForEdit.album_image_filename.replace(
+          "https://indie-image-test.s3.eu-west-2.amazonaws.com/",
+          ""
+        ),
+        colour:
+          this.newAlbum.colour !== "#c2ddde"
+            ? this.newAlbum.colour
+            : this.albumForEdit.colour,
         durationInSec: this.albumForEdit.durationInSec,
         releaseDate: this.albumForEdit.releaseDate,
-        tracks: this.albumForEdit.tracks
+        tracks: this.tracks,
       };
       defaultHttpClient
-      .fetch(
-        "album/edit",
-        JSON.stringify({ editedAlbum: albumForEditForRequest }),
-        "POST"
-      )
-      .then((response) => {
-        this.router.navigate(["/album", response.albumId]);
-      })
-      .catch((err) => {
-        console.error("error editing album: " + err);
-      });
+        .fetch(
+          "album/edit",
+          JSON.stringify({ editedAlbum: albumForEditForRequest }),
+          "POST"
+        )
+        .then((response) => {
+          this.router.navigate(["/album", response.albumId]);
+        })
+        .catch((err) => {
+          console.error("error editing album: " + err);
+        });
     } else {
       defaultHttpClient
-      .fetch(
-        "album/create",
-        JSON.stringify({ newAlbum: this.newAlbum }),
-        "POST"
-      )
-      .then((response) => {
-        this.router.navigate(["/album", response.albumId]);
-      })
-      .catch((err) => {
-        console.error("error creating album: " + err);
-      });
+        .fetch(
+          "album/create",
+          JSON.stringify({ newAlbum: this.newAlbum }),
+          "POST"
+        )
+        .then((response) => {
+          this.router.navigate(["/album", response.albumId]);
+        })
+        .catch((err) => {
+          console.error("error creating album: " + err);
+        });
     }
   }
 }

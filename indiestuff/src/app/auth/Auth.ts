@@ -12,7 +12,7 @@ const RefreshTokenStorageKey = "RefreshToken";
 export class Auth {
   tokenResponse: TokenResponse;
   refreshRequestPromise: Promise<string | null>;
-  
+
   setAccessToken(tokenResponse: {
     accessToken: string;
     expiresIn: number;

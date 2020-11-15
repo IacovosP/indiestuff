@@ -48,8 +48,8 @@ import { MyLibraryPageComponent } from "@src/app/mylibrary/my-library-page.compo
 import { HomePageComponent } from "@src/app/home/home.component";
 import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-artist-page.component";
 import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page/my-music/my-artist-music-page.component";
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { Router } from '@angular/router';
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { Router } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -81,7 +81,7 @@ import { Router } from '@angular/router';
     MyLibraryPageComponent,
     HomePageComponent,
     MyArtistPageComponent,
-    MyArtistMusicPageComponent
+    MyArtistMusicPageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -101,7 +101,6 @@ import { Router } from '@angular/router';
     DragDropModule,
     MatSliderModule,
     MatButtonToggleModule,
-    Router
   ],
   entryComponents: [ChildboxComponent],
   providers: [

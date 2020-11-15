@@ -19,7 +19,7 @@ export interface TrackInterface {
     title: string;
     filename: string;
     durationInSec: number;
-    positionInAlbum: number;
+    positionInAlbum: string;
     commentThreadId?: string;
 }
 
@@ -111,3 +111,5 @@ export interface HomePageAlbumInterface {
 export interface HomePageInterface {
     albums: HomePageAlbumInterface[]
 }
+
+export const POSITION_MULTIPLIER = 10000;
