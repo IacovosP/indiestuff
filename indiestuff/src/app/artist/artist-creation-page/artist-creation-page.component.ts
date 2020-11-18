@@ -15,7 +15,6 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
 import {
   AlbumPageInterface,
-  POSITION_MULTIPLIER,
   TrackInterface,
 } from "@apistuff";
 import { Router } from "@angular/router";

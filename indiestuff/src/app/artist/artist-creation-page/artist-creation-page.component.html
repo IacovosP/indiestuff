@@ -6,8 +6,15 @@
       name="musicType"
       aria-label="Music Type"
     >
-      <mat-button-toggle value="album">album</mat-button-toggle>
-      <mat-button-toggle value="single">single</mat-button-toggle>
+      <mat-button-toggle 
+        class="album-or-single-toggle"
+        [disabled]="tracks && tracks.length === 1 && albumOrSingle === 'single'"
+        value="album">album</mat-button-toggle>
+      <mat-button-toggle 
+        class="album-or-single-toggle"
+        [disabled]="tracks && (tracks.length > 1 || (tracks.length === 1 && albumForEdit) ) && albumOrSingle === 'album'"
+        value="single">single
+      </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <form
@@ -130,25 +137,23 @@
         <div *ngFor="let track of tracks; index as i" class="track-box" cdkDrag>
           <div class="left-side-items">
             <a>{{ i + 1 }}</a>
-            <img
+            <mat-icon 
               *ngIf="
                 indexOfSongPlaying !== i ||
                 (isPaused && indexOfSongPlaying === i)
               "
-              class="play-arrow"
-              src="/assets/icons/web/outline_play_arrow_black_18dp.png"
+              class="play-arrow" 
               (click)="playSong(i)"
-            />
-            <img
+            >play_arrow_outline</mat-icon>
+            <mat-icon
               *ngIf="isPaused === false && indexOfSongPlaying === i"
               class="pause-button"
-              src="/assets/icons/web/baseline_pause_black_18dp.png"
               (click)="pauseTrack()"
-            />
+            >pause_outline</mat-icon>
             <a>{{ track.title }}</a>
           </div>
           <div class="right-side-items">
-            <a>{{ track.durationInSec }}s</a>
+            <span>{{ track.durationInSec }}s</span>
             <img src="/assets/icons/web/outline_comment_black_18dp.png" />
           </div>
         </div>
