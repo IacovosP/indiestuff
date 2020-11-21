@@ -35,6 +35,7 @@ export class TestFactory {
     private options: any = {
         type: 'postgres',
         database: "test.postgresql",
+        password: "testPassword",
         location: 'database',
         logging: false,
         synchronize: true,
