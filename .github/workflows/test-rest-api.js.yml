@@ -41,7 +41,7 @@ jobs:
       env:
         # use postgres for the host here because we have specified a contaienr for the job.
         # If we were running the job on the VM this would be localhost
-        PG_HOST: postgres
+        PG_HOST: localhost
         PG_USER: postgres
         PG_DATABASE: postgres
         PG_PASSWORD: postgres
