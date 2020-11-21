@@ -1,30 +1,32 @@
 // from https://github.com/andregardi/jwt-express-typeorm
 import "reflect-metadata";
-import { createConnection } from "typeorm";
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import * as helmet from "helmet";
-import * as cors from "cors";
-import routes from "./routes";
+import { Server } from "./api/server";
 
+const server = new Server();
+server.createConnection().then()
+		//Connects to the Database -> then starts the express
+    .then(async connection => {
+      server.createApp();
+    })
+    .catch(error => console.log(error));
 //Connects to the Database -> then starts the express
-createConnection()
-  .then(async connection => {
-    // Create a new express application instance
-    const app = express();
+// export const server = createConnection()
+//   .then(async connection => {
+//     // Create a new express application instance
+//     const app = express();
 
-    // Call midlewares
-    app.use(cors());
-    app.use(helmet());
-    app.use(bodyParser.json());
+//     // Call midlewares
+//     app.use(cors());
+//     app.use(helmet());
+//     app.use(bodyParser.json());
 
-    //Set all routes from routes folder
-    app.use("/", routes);
-    app.listen(5000, () => {
-      console.log("Server started on port 5000!");
-    });
-  })
-  .catch(error => console.log(error));
+//     //Set all routes from routes folder
+//     app.use("/", routes);
+//     app.listen(5000, () => {
+//       console.log("Server started on port 5000!");
+//     });
+//   })
+//   .catch(error => console.log(error));
 
 // import "reflect-metadata";
 // import {createConnection} from "typeorm";

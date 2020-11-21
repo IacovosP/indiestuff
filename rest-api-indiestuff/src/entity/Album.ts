@@ -44,5 +44,21 @@ import { AlbumInterface } from "@apistuff";
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
+
+    public static mockTestAlbum(): Album {
+      const album: Album = new Album();
+  
+      album.id = "albumTestId";
+      album.title = 'testTitle';
+      album.artist = {id: 'albumArtistTestId'} as any;
+      album.album_image_filename = 'mockAlbumImageName';
+      album.colour = 'mockColour';
+      album.releaseDate = new Date();
+      album.durationInSec = 50;
+      album.createdAt = new Date();
+      album.updatedAt = new Date();
+
+      return album;
+    }
   }
   

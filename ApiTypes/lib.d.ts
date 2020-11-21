@@ -17,11 +17,36 @@ export interface TrackInterface {
     title: string;
     filename: string;
     durationInSec: number;
-    positionInAlbum: number;
+    positionInAlbum: string;
+    commentThreadId?: string;
+}
+export interface CommentThreadInterface {
+    id: string;
+    comments?: CommentInterface[];
+    artistId?: string;
+    albumId?: string;
+    trackId?: string;
+}
+export interface TrackInterfaceForPlaylist {
+    id: string;
+    title: string;
+    filename: string;
+    durationInSec: number;
+    album: {
+        id: string;
+        title: string;
+    };
+    artist: {
+        id: string;
+        name: string;
+    };
+    positionInPlaylist?: number;
 }
 export interface PlaylistInterface {
     id: string;
     name: string;
+    colour: string;
+    createdAt?: Date;
 }
 export interface PlaylistTrackInterface {
     id: string;
@@ -30,19 +55,46 @@ export interface PlaylistTrackInterface {
     positionInPlaylist: number;
 }
 export interface CommentInterface {
-    id: string;
+    id?: string;
     text: string;
-    username: string;
+    username?: string;
+    createdAt?: Date;
     parentId?: string;
+}
+export interface PlaylistPageInterface extends PlaylistInterface {
+    durationInSec?: number;
+    albumImages: string[];
+    tracks: TrackInterfaceForPlaylist[];
+}
+export interface LikedPageInterface {
+    durationInSec?: number;
+    albumImages: string[];
+    tracks: TrackInterfaceForPlaylist[];
 }
 export interface ArtistPageInterface extends ArtistInterface {
     topTracks: TrackInterface[];
     albums: AlbumInterface[];
-    comments?: CommentInterface[];
+    commentThreadId: string;
 }
 export interface AlbumPageInterface extends AlbumInterface {
     tracks: TrackInterface[];
     artist: ArtistInterface;
-    comments?: CommentInterface[];
+    commentThreadId: string;
 }
+export interface RecentlyPlayedPageInterface {
+    recentlyPlayed: Array<AlbumInterface | ArtistInterface>;
+}
+export interface HomePageAlbumInterface {
+    id: string;
+    title: string;
+    album_image_filename: string;
+    artist: {
+        id: string;
+        name: string;
+    };
+}
+export interface HomePageInterface {
+    albums: HomePageAlbumInterface[];
+}
+export declare const POSITION_MULTIPLIER = 10000;
 //# sourceMappingURL=lib.d.ts.map

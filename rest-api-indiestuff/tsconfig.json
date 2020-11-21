@@ -4,6 +4,7 @@
          "es5",
          "es6"
       ],
+      "types": ["mocha"],
       "target": "es5",
       "module": "commonjs",
       "moduleResolution": "node",
