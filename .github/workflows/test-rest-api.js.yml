@@ -14,6 +14,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        
     strategy:
       matrix:
         node-version: [12.x, 14.x]
@@ -28,3 +38,11 @@ jobs:
       working-directory: ./rest-api-indiestuff
     - run: npm test
       working-directory: ./rest-api-indiestuff
+      env:
+        # use postgres for the host here because we have specified a contaienr for the job.
+        # If we were running the job on the VM this would be localhost
+        PG_HOST: postgres
+        PG_USER: postgres
+        PG_DATABASE: postgres
+        PG_PASSWORD: postgres
+        PG_PORT: ${{ job.services.postgres.ports['5432'] }}
