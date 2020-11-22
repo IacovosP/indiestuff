@@ -24,7 +24,8 @@ export default class EventController {
                     colour: recent.album.colour,
                     album_image_filename: recent.album.album_image_filename,
                     releaseDate: recent.album.releaseDate,
-                    durationInSec: recent.album.durationInSec
+                    durationInSec: recent.album.durationInSec,
+                    isSingle: recent.album.isSingle
                 });
             } else {
                 recentlyPlayed.push({

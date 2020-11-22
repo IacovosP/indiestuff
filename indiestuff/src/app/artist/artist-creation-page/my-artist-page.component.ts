@@ -59,6 +59,7 @@ export class MyArtistPageComponent implements OnInit {
         imageUrl:
           "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
           album.album_image_filename,
+        isSingle: album.isSingle
       };
     });
   }

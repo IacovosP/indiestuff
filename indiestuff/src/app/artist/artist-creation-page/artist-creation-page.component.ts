@@ -14,6 +14,7 @@ import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
 import {
+  AlbumOrSingle,
   AlbumPageInterface,
   TrackInterface,
 } from "@apistuff";
@@ -46,7 +47,7 @@ export class ArtistCreationPageComponent implements OnInit {
   clickoutHandler: Function;
   dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
   title = "indiestuff";
-  albumOrSingle: "album" | "single" = "album";
+  albumOrSingle: AlbumOrSingle = AlbumOrSingle.ALBUM;
 
   @Input() albumId: string;
 
@@ -229,6 +230,7 @@ export class ArtistCreationPageComponent implements OnInit {
     this.newAlbum.colour = !this.newAlbum.colour
       ? "#c2ddde"
       : this.newAlbum.colour;
+    this.newAlbum.isSingle = this.albumOrSingle === AlbumOrSingle.SINGLE;
     console.log("album form submitted: value: " + JSON.stringify(value));
     if (this.albumForEdit) {
       const albumForEditForRequest: AlbumEdit = {
@@ -245,6 +247,7 @@ export class ArtistCreationPageComponent implements OnInit {
         durationInSec: this.albumForEdit.durationInSec,
         releaseDate: this.albumForEdit.releaseDate,
         tracks: this.tracks,
+        isSingle: this.albumOrSingle === AlbumOrSingle.SINGLE
       };
       defaultHttpClient
         .fetch(

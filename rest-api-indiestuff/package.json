@@ -42,7 +42,7 @@
       "tsc": "tsc",
       "start-debug": "ts-node-dev --respawn --transpile-only src/index.ts",
       "start": "ts-node src/index.ts",
-      "prod": "tsc && node ./build/app.js",
+      "prod": "tsc && node ./build/index.js",
       "test": "mocha -r ts-node/register src/**/*.spec.ts",
       "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
       "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"

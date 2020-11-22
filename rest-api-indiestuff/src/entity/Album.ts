@@ -32,6 +32,9 @@ import { AlbumInterface } from "@apistuff";
     colour: string;
   
     @Column()
+    isSingle: boolean;
+
+    @Column()
     releaseDate: Date;
 
     @Column()
@@ -55,6 +58,7 @@ import { AlbumInterface } from "@apistuff";
       album.colour = 'mockColour';
       album.releaseDate = new Date();
       album.durationInSec = 50;
+      album.isSingle = false;
       album.createdAt = new Date();
       album.updatedAt = new Date();
 

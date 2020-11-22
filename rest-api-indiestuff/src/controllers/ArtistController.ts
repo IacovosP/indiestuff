@@ -53,7 +53,8 @@ const getArtistResponse = async (artist: Artist, artistId: string) => {
             durationInSec: album.durationInSec,
             releaseDate: album.releaseDate,
             title: album.title,
-            id: album.id
+            id: album.id,
+            isSingle: album.isSingle
         }
     })
     const artistResponse: ArtistPageInterface = {

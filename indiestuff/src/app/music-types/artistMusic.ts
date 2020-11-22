@@ -1,5 +1,5 @@
 import { AlbumLite, Track } from "./types";
-import { TrackInterface, AlbumInterface } from "@apistuff";
+import { TrackInterface, AlbumInterface, AlbumOrSingle } from "@apistuff";
 
 export class ArtistMusic {
   artistName: string;
@@ -24,6 +24,7 @@ export class AlbumNew implements AlbumInterface {
   album_image_filename: string;
   releaseDate: Date = new Date();
   durationInSec: number;
+  isSingle: boolean;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

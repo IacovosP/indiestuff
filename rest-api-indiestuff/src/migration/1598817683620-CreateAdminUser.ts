@@ -4,14 +4,14 @@ import { User } from "../entity/User";
 export class CreateAdminUser1598817683620 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        let user = new User();
-        user.username = "admin";
-        user.password = "admin";
-        user.hashPassword();
-        user.role = "ADMIN";
-        user.email= "someemail@someemail.com"
-        const userRepository = getRepository(User);
-        await userRepository.save(user);
+        // let user = new User();
+        // user.username = "admin";
+        // user.password = "admin";
+        // user.hashPassword();
+        // user.role = "ADMIN";
+        // user.email= "someemail@someemail.com"
+        // const userRepository = getRepository(User);
+        // await userRepository.save(user);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

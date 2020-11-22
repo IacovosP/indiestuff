@@ -40,13 +40,14 @@ static getAlbum = async (req: Request, res: Response) => {
         colour: album.colour,
         artist: artistDetails,
         tracks,
-        commentThreadId: commentThread? commentThread.id : null
+        commentThreadId: commentThread? commentThread.id : null,
+        isSingle: album.isSingle
     }
     res.status(200).send(albumResponse);
 }
 
 static editAlbum = async (req: Request, res: Response) => {
-    const { id, colour, album_image_filename, title, durationInSec, releaseDate } = req.body.editedAlbum as AlbumInterface;
+    const { id, colour, album_image_filename, title, durationInSec, releaseDate, isSingle } = req.body.editedAlbum as AlbumInterface;
 
     const albumRepository = getRepository(Album);
     const album = await albumRepository.findOne(id);
@@ -60,6 +61,7 @@ static editAlbum = async (req: Request, res: Response) => {
     album.title = title;
     album.durationInSec = durationInSec;
     album.releaseDate = releaseDate;
+    // album.isSingle = isSingle;
 
     const errors = await validate(album);
     if (errors.length > 0) {
@@ -133,7 +135,7 @@ static editAlbum = async (req: Request, res: Response) => {
 static createAlbum = async (req: Request, res: Response): Promise<boolean> => {
     console.log("newUser " + JSON.stringify(req.body));
     //Get parameters from the body
-    let { colour, album_image_filename, title, durationInSec, releaseDate } = req.body.newAlbum as AlbumInterface;
+    let { colour, album_image_filename, title, durationInSec, releaseDate, isSingle } = req.body.newAlbum as AlbumInterface;
     const album = new Album();
     const artistRepository = getRepository(Artist);
     const artist = await artistRepository.findOne({ where: {user: res.locals.jwtPayload.userId}});
@@ -143,6 +145,7 @@ static createAlbum = async (req: Request, res: Response): Promise<boolean> => {
     album.title = title;
     album.durationInSec = durationInSec;
     album.releaseDate = releaseDate;
+    album.isSingle = isSingle;
 
     const errors = await validate(album);
     if (errors.length > 0) {

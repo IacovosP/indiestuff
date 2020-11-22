@@ -12,6 +12,13 @@ export interface AlbumInterface {
     colour: string;
     releaseDate: Date;
     durationInSec: number;
+    isSingle: boolean;
+}
+
+
+export enum AlbumOrSingle {
+    ALBUM = "album",
+    SINGLE = "single"
 }
 
 export interface TrackInterface {
