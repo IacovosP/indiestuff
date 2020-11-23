@@ -9,7 +9,6 @@ import config from "../config/config";
 class AuthController {
   static login = async (req: Request, res: Response) => {
     //Check if username and password are set
-    console.log("login attempt: " + JSON.stringify(req.body.user));
     let { email, password } = req.body.user;
     if (!(email && password)) {
       res.status(400).send();

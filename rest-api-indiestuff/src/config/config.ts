@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 export default {
-  jwtSecret: "@QEGTUI",
-  awsAccessID: "AKIAJNJYMNAEQ2OI7SOA",
-  awsSecret: "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",
+  jwtSecret: process.env.JWT_SECRET_KEY,
+  awsAccessID: process.env.AWS_ACCESS_KEY_ID,
+  awsSecret: process.env.AWS_SECRET_ACCESS_KEY,
   awsS3TrackBucketName: "indie-music-test",
   awsS3ImageBucketName: "indie-image-test",
   awsS3ArtistImageBucketName: "indie-artist-image-test",

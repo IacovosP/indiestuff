@@ -8,7 +8,6 @@ import * as cors from "cors";
 import routes from "../routes";
 import { Server as HttpServer } from 'http';
 
-
 export class Server {
     private _app: express.Application;
     public connection: Connection;
@@ -22,7 +21,6 @@ export class Server {
     }
     
     public createApp() {
-        console.error("here 1");
         // Create a new express application instance
         this.app = express();
 
