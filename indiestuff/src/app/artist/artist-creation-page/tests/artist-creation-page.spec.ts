@@ -190,7 +190,7 @@ describe("artist-creation-page", () => {
         album_image_filename: "someFileName",
         releaseDate: mockDate,
         durationInSec: 100,
-        isSingle: false
+        isSingle: false,
       };
 
       artistCreationPage.updateColor("newColour");
@@ -209,7 +209,7 @@ describe("artist-creation-page", () => {
             album_image_filename: "someFileName",
             releaseDate: mockDate,
             durationInSec: 100,
-            isSingle: false
+            isSingle: false,
           },
         }),
         "POST"
@@ -234,7 +234,7 @@ describe("artist-creation-page", () => {
           id: "25",
           name: "someArtist",
         },
-        isSingle: false
+        isSingle: false,
       };
 
       artistCreationPage.onFormSubmit(
@@ -253,7 +253,7 @@ describe("artist-creation-page", () => {
             durationInSec: 100,
             releaseDate: mockDate,
             tracks: [],
-            isSingle: false
+            isSingle: false,
           },
         }),
         "POST"

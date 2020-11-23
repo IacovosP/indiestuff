@@ -17,7 +17,7 @@ describe("AlbumPageComponent", () => {
       },
     ],
     album_image_filename: "someImage.com",
-    isSingle: false
+    isSingle: false,
   });
   let getAlbumPromise;
 
@@ -49,8 +49,7 @@ describe("AlbumPageComponent", () => {
       durationInSeconds: 100,
       album_image_filename:
         "https://indie-image-test.s3.eu-west-2.amazonaws.com/someImage.com",
-      isSingle: false
-
+      isSingle: false,
     });
     //   comp.clicked();
     //   expect(comp.isOn).toBe(true, 'on after click');

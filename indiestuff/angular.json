@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "defaultCollection": "@nativescript/schematics"
+    "defaultCollection": "@nativescript/schematics",
+    "analytics": "b485787c-c47e-4f79-b1d3-ba41f145cf0e"
   },
   "projects": {
     "indiestuff": {

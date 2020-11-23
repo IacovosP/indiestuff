@@ -1,1 +1,0 @@
-export var POSITION_MULTIPLIER = 10000;

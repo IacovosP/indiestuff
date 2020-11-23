@@ -13,11 +13,7 @@ import { SharedService } from "@src/app/common/shared-service";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
-import {
-  AlbumOrSingle,
-  AlbumPageInterface,
-  TrackInterface,
-} from "@apistuff";
+import { AlbumOrSingle, AlbumPageInterface, TrackInterface } from "@apistuff";
 import { Router } from "@angular/router";
 import { midString } from "@src/app/utils/arrayRepositioning";
 
@@ -247,7 +243,7 @@ export class ArtistCreationPageComponent implements OnInit {
         durationInSec: this.albumForEdit.durationInSec,
         releaseDate: this.albumForEdit.releaseDate,
         tracks: this.tracks,
-        isSingle: this.albumOrSingle === AlbumOrSingle.SINGLE
+        isSingle: this.albumOrSingle === AlbumOrSingle.SINGLE,
       };
       defaultHttpClient
         .fetch(

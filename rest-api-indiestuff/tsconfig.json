@@ -20,6 +20,6 @@
       }
    },
   "references": [
-      { "path": "../apitypes" }
+      { "path": "../ApiTypes/" }
    ]
 }
