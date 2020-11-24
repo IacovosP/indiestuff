@@ -18,7 +18,11 @@
             <div class="col-lg-7">
               <input
                 type="text"
-                placeholder="song name something less pretentious..."
+                placeholder="{{
+                  trackToEdit
+                    ? trackToEdit.title
+                    : 'song name something less pretentious...'
+                }}"
                 class="form-control input-custom"
                 [ngModel]="track.title"
                 #name="ngModel"
@@ -41,9 +45,9 @@
         </div>
         <div>
           <div class="form-group">
-            <label for="inputTrack" class="col-lg-2 control-label"
-              >upload</label
-            >
+            <label for="inputTrack" class="col-lg-2 control-label">{{
+              data && data.trackToEdit ? "replace" : "upload"
+            }}</label>
             <div class="col-lg-7">
               <input
                 type="file"
@@ -79,7 +83,10 @@
             mat-button
             [mat-dialog-close]="false"
             cdkFocusInitial
-            [disabled]="!trackUploadForm.form.valid"
+            [disabled]="
+              !trackUploadForm.form.valid &&
+              (!data || (data && !data.trackToEdit))
+            "
           >
             <mat-icon>done</mat-icon>
           </button>

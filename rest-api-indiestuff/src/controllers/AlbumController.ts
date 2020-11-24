@@ -86,13 +86,14 @@ static editAlbum = async (req: Request, res: Response) => {
             }
 
             console.log("checking oldTrack with new to see if anything changed")
-            if (oldTrack.positionInAlbum === tr.positionInAlbum && oldTrack.title === tr.title) {
+            if (oldTrack.positionInAlbum === tr.positionInAlbum && oldTrack.title === tr.title && oldTrack.filename === tr.filename) {
                 console.log("return for " + tr.title);
                 continue;
             } else {
                 track = oldTrack;
                 track.positionInAlbum = tr.positionInAlbum;
                 track.title = tr.title;
+                track.filename = tr.filename;
                 track.updatedAt = new Date();
             }
         } else {

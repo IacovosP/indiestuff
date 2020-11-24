@@ -4,12 +4,18 @@ import {
   ElementRef,
   Output,
   EventEmitter,
+  Input,
+  Inject,
 } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { TrackInterface } from "@apistuff";
 
 // Import the User model
-
+interface TrackUploadData {
+  trackToEdit: {
+    title: string;
+  };
+}
 @Component({
   selector: "app-track-upload-form",
   templateUrl: "./track-upload-form.component.html",
@@ -18,15 +24,20 @@ import { TrackInterface } from "@apistuff";
 export class TrackUploadFormComponent implements OnInit {
   constructor(
     public hostElement: ElementRef,
-    public dialogRef: MatDialogRef<TrackUploadFormComponent>
+    public dialogRef: MatDialogRef<TrackUploadFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: TrackUploadData
   ) {}
   private track: TrackInterface;
   fileToUpload: File;
+  originalDataIfInjected: TrackUploadData | undefined;
 
   ngOnInit() {
     // Create a new user object
+    const injectedTitle =
+      this.data && this.data.trackToEdit && this.data.trackToEdit.title;
+    this.originalDataIfInjected = injectedTitle ? this.data : undefined;
     this.track = {
-      title: "",
+      title: injectedTitle ? injectedTitle : "",
       durationInSec: 0,
       filename: "",
       id: "",
@@ -35,6 +46,14 @@ export class TrackUploadFormComponent implements OnInit {
   }
 
   onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
+    if (
+      this.originalDataIfInjected &&
+      this.originalDataIfInjected.trackToEdit &&
+      this.originalDataIfInjected.trackToEdit.title === value.name &&
+      !this.fileToUpload
+    ) {
+      return;
+    }
     this.track.title = value.name;
     console.log(value);
     console.log("valid: " + valid);

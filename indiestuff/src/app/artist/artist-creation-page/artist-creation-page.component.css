@@ -123,10 +123,11 @@
   padding-right: 10px;
 }
 
-.right-side-items img {
-  height: 30px;
+.right-side-items mat-icon {
+  font-size: 32px;
   padding-right: 30px;
-  margin-top: 5px;
+  color: #bdb76b;
+  cursor: pointer;
 }
 
 .cdk-drag-preview {

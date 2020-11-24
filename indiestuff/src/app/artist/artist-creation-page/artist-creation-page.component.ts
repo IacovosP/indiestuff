@@ -44,7 +44,7 @@ export class ArtistCreationPageComponent implements OnInit {
   dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
   title = "indiestuff";
   albumOrSingle: AlbumOrSingle = AlbumOrSingle.ALBUM;
-
+  pendingUploads: Promise<any>[] = [];
   @Input() albumId: string;
 
   changeIndexOfSongPlaying(item: PlayerChangeEvent) {
@@ -141,6 +141,10 @@ export class ArtistCreationPageComponent implements OnInit {
     });
   }
 
+  editTrack(trackIndex: number) {
+    this.openTrackUploadForm(trackIndex);
+  }
+
   loadAlbumForEdit(albumId: string) {
     defaultHttpClient
       .fetch("album/" + albumId)
@@ -159,27 +163,59 @@ export class ArtistCreationPageComponent implements OnInit {
       });
   }
 
-  openTrackUploadForm() {
+  openTrackUploadForm(trackToEditIndex?: number) {
+    const trackToEdit = this.tracks[trackToEditIndex];
+    const styleChangesAndInput = trackToEdit
+      ? {
+          position: {
+            left: "60%",
+          },
+          data: {
+            trackToEdit: { title: trackToEdit.title },
+          },
+        }
+      : {};
     const dialogRef = this.dialog.open(TrackUploadFormComponent, {
       panelClass: "app-signup-form-no-padding",
+      ...styleChangesAndInput,
     });
     this.dialogRefClassScope = dialogRef;
     dialogRef.afterClosed().subscribe(async (result) => {
+      const pendingUploadsLength = this.pendingUploads
+        ? this.pendingUploads.length
+        : 0;
+      this.pendingUploads.push(result);
       const track = await result;
+      this.pendingUploads.splice(pendingUploadsLength, 1);
       console.log(`Dialog result: ${track}`);
       if (track && track.title && track.filename) {
         track.artist = {
           name: "hardcoded artist name",
           id: "hardcoded artist id",
         };
-        track.positionInAlbum =
-          this.tracks.length === 0
-            ? midString()
-            : midString(this.tracks[this.tracks.length - 1].positionInAlbum);
-        console.log("track.position: " + track.positionInAlbum);
-        this.tracks.push(track);
-        this.newAlbum.tracks.push(track);
-        this.newAlbum.durationInSec += track.durationInSec;
+
+        if (!trackToEdit) {
+          track.positionInAlbum =
+            this.tracks.length === 0
+              ? midString()
+              : midString(this.tracks[this.tracks.length - 1].positionInAlbum);
+          console.log("track.position: " + track.positionInAlbum);
+          this.tracks.push(track);
+          this.newAlbum.tracks.push(track);
+          this.newAlbum.durationInSec += track.durationInSec;
+        } else {
+          const trackBeingReplaced = this.tracks[trackToEditIndex];
+          const durationOfTrackBeingReplaced = trackBeingReplaced.durationInSec;
+          track.id = trackBeingReplaced.id;
+          track.positionInAlbum = trackBeingReplaced.positionInAlbum;
+          track.commentThreadId = trackBeingReplaced.commentThreadId;
+          this.tracks[trackToEditIndex] = track;
+          this.albumForEdit.tracks[trackToEditIndex] = track;
+          this.albumForEdit.durationInSec =
+            this.albumForEdit.durationInSec -
+            durationOfTrackBeingReplaced +
+            track.durationInSec;
+        }
       }
     });
   }

@@ -163,7 +163,7 @@
           </div>
           <div class="right-side-items">
             <span>{{ track.durationInSec }}s</span>
-            <img src="/assets/icons/web/outline_comment_black_18dp.png" />
+            <mat-icon (click)="editTrack(i)"> edit </mat-icon>
           </div>
         </div>
       </div>
@@ -172,7 +172,10 @@
         <button
           type="submit"
           cdkFocusInitial
-          [disabled]="!albumForm.form.valid"
+          [disabled]="
+            !albumForm.form.valid ||
+            (pendingUploads && pendingUploads.length > 0)
+          "
         >
           <mat-icon>done_outline</mat-icon>
           <span style="padding-top: 30px">{{
