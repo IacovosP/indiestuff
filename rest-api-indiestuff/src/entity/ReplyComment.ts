@@ -22,7 +22,7 @@ import { Comment } from "./Comment";
     @IsNotEmpty()
     text: string;
   
-    @ManyToOne(type => User, user => user.id)
+    @ManyToOne(type => User, user => user.id, { onDelete:'CASCADE'})
     @JoinColumn({ name: 'user' })
     userId: User;
 
@@ -31,7 +31,7 @@ import { Comment } from "./Comment";
     @IsNotEmpty()
     username: string;
 
-    @ManyToOne(type => Comment, comment => comment.id)
+    @ManyToOne(type => Comment, comment => comment.id, { onDelete:'CASCADE'})
     @JoinColumn({ name: 'comment' })
     parentComment: Comment
 

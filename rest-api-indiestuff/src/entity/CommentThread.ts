@@ -26,11 +26,11 @@ import { Track } from "./Track";
     @JoinColumn({ name: 'artist' })
     artist: Artist
 
-    @OneToOne(type => Album, album => album.id, { nullable: true })
+    @OneToOne(type => Album, album => album.id, { nullable: true, onDelete:'CASCADE'})
     @JoinColumn({ name: 'album' })
     album: Album
 
-    @OneToOne(type => Track, track => track.id, { nullable: true })
+    @OneToOne(type => Track, track => track.id, { nullable: true, onDelete:'CASCADE'})
     @JoinColumn({ name: 'track' })
     track: Track
 

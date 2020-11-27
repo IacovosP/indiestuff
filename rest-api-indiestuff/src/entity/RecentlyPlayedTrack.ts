@@ -20,11 +20,11 @@ import { RecentlyPlayed } from "./RecentlyPlayed";
     @ManyToOne(type => User, user => user.id)
     user: User
         
-    @ManyToOne(type => Track, track => track.id)
+    @ManyToOne(type => Track, track => track.id, { onDelete:'CASCADE'})
     @JoinColumn({ name: 'track' })
     track: Track;
 
-    @ManyToOne(type => RecentlyPlayed, recentlyPlayed => recentlyPlayed.recentlyPlayedTracks)
+    @ManyToOne(type => RecentlyPlayed, recentlyPlayed => recentlyPlayed.recentlyPlayedTracks, { onDelete:'CASCADE'})
     @JoinColumn({ name: 'recentlyPlayed' })
     recentlyPlayed: RecentlyPlayed;
 

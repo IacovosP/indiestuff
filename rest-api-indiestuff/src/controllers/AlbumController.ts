@@ -7,6 +7,7 @@ import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
 import { AlbumPageInterface, ArtistInterface, AlbumInterface, TrackInterface } from "@apistuff";
 import { CommentThread } from "../entity/CommentThread";
+import { RecentlyPlayed } from "../entity/RecentlyPlayed";
 
 export default class AlbumController {
     
@@ -44,6 +45,49 @@ static getAlbum = async (req: Request, res: Response) => {
         isSingle: album.isSingle
     }
     res.status(200).send(albumResponse);
+}
+
+static deleteAlbum = async (req: Request, res: Response) => {
+    const { albumId } = req.params;
+    const userId = res.locals.jwtPayload.userId;
+
+    const albumRepository = getRepository(Album);
+    const album = await albumRepository.findOne(albumId);
+
+    if (album) {
+        const artistRepository = getRepository(Artist);
+        const artist = await artistRepository.findOne({ where: {user: userId}});
+
+        if (artist.id === album.artist.id) {
+            // const trackRepository = getRepository(Track);
+            // const tracksToRemove = await trackRepository.find({where: {album: albumId}});
+            // const deleteTrackResult = await trackRepository.remove(tracksToRemove);
+
+            // const recentlyPlayedRepository = getRepository(RecentlyPlayed);
+            // const recentlyPlayedToRemove = await recentlyPlayedRepository.find({where: {album: albumId}});
+            // await recentlyPlayedRepository.remove(recentlyPlayedToRemove);
+
+            // const commentThreadRepository = getRepository(CommentThread);
+            // const commentThreadToRemove = await commentThreadRepository.find({where: {album: albumId}});
+            // await commentThreadRepository.remove(commentThreadToRemove);
+
+            const deleteResult = await albumRepository.delete(albumId);
+
+            console.log("deelte result: " + JSON.stringify(deleteResult));
+            if (deleteResult.affected > 0) {
+                res.status(201).send({removedId: albumId});
+                return;
+            } else {
+                res.status(400).send(`Found album and artist id matched, but couldn't remove album with id ${albumId} for unknown reason`);
+            }
+        } else {
+            res.status(400).send(`ArtistId for this user doesn't match the artist id for this album with id ${albumId} - Not Removing`);
+        }
+    } else {
+        res.status(404).send(`Couldn't find album with id ${albumId} in order to remove it`);
+    }
+    console.log("albumId to delete: " + albumId);
+
 }
 
 static editAlbum = async (req: Request, res: Response) => {

@@ -17,7 +17,7 @@ class DefaultHttpClient {
   public async fetch(
     url: string,
     body?: string | FormData,
-    method?: "GET" | "POST",
+    method?: "GET" | "POST" | "DELETE",
     retryOptions?: {
       statusToRetry: number[];
       maxAttempts: number;
@@ -28,7 +28,7 @@ class DefaultHttpClient {
     const match = POST_NO_AUTH_URL.filter((noAuthUrl) =>
       url.includes(noAuthUrl)
     );
-    if (method === "POST" && !accessToken && !match) {
+    if (method === "POST" || method === "DELETE" && !accessToken && !match) {
       Promise.reject("Authenticated POST request for unauthenticated user");
     }
     return this.defaultHttpClient.fetch(

@@ -4,6 +4,8 @@ import {
   MyAlbumsLite,
   myArtistSubPageType,
 } from "@src/app/music-types/types";
+import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+
 @Component({
   selector: "app-my-artist-music-page",
   templateUrl: "./my-artist-music-page.component.html",
@@ -14,6 +16,7 @@ export class MyArtistMusicPageComponent implements OnInit {
   @Output() myArtistSubPageType: EventEmitter<
     EditSubPageNavigation
   > = new EventEmitter();
+  showDeleteOptions: boolean[];
 
   constructor() {}
 
@@ -28,6 +31,22 @@ export class MyArtistMusicPageComponent implements OnInit {
           );
         })
         .reverse();
+  }
+
+  toggleDelete(index: number) {
+    (this.albums[index] as any).shouldShowDeleteOptions = (this.albums[index] as any).shouldShowDeleteOptions ? !(this.albums[index] as any).shouldShowDeleteOptions: true;
+  }
+
+  deleteAlbum(albumId: string, index: number) {
+    this.albums.splice(index, 1);
+
+    defaultHttpClient.fetch("album/" + albumId, undefined, "DELETE")
+      .then(() => {
+        console.log("succesfully delete album: " + albumId);
+      })
+      .catch(e => {
+        console.error("Failed to remove album: " + albumId);
+      });
   }
 
   changeToEditStuffPageType(albumId: string) {

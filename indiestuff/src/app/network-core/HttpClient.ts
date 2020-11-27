@@ -7,10 +7,10 @@ import * as pRetry from "p-retry";
 import * as delay from "delay";
 
 export class HttpClient {
-  public fetch(
+  public  fetch(
     url: string,
     body?: string | FormData,
-    method: "GET" | "POST" = "GET",
+    method: "GET" | "POST" | "DELETE" = "GET",
     retryOptions?: {
       statusToRetry: number[];
       maxAttempts: number;

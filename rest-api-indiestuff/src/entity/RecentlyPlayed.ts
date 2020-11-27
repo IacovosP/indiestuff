@@ -22,7 +22,7 @@ import { RecentlyPlayedTrack } from "./RecentlyPlayedTrack";
     @ManyToOne(type => User, user => user.id)
     user: User
         
-    @ManyToOne(type => Album, album => album.id, { nullable: true })
+    @ManyToOne(type => Album, album => album.id, { nullable: true, onDelete:'CASCADE'})
     @JoinColumn({ name: 'album' })
     album: Album;
     

@@ -20,7 +20,7 @@ import { Playlist } from "./Playlist";
     @JoinColumn({ name: 'playlist' })
     playlist: Playlist;
   
-    @ManyToOne(type => Track, track => track.id, { eager: true })
+    @ManyToOne(type => Track, track => track.id, { eager: true , onDelete:'CASCADE'})
     @JoinColumn({ name: 'track' })
     track: Track;
     

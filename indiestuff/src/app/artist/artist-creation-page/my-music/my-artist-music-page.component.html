@@ -24,7 +24,10 @@
             (click)="changeToEditStuffPageType(album.id)"
             >edit</a
           >
-          <a style="color: #cd5c5c">delete</a>
+          <a *ngIf="!album.shouldShowDeleteOptions" (click)="toggleDelete(i)" style="color: #cd5c5c">delete</a>
+          <a *ngIf="album.shouldShowDeleteOptions" style="color: #cd5c5c; padding-right:0px" (click)="deleteAlbum(album.id, i)">yes</a>
+          <a *ngIf="album.shouldShowDeleteOptions" style="padding-right:0px">/</a>
+          <a *ngIf="album.shouldShowDeleteOptions" style="color: #bdb76b" (click)="toggleDelete(i)">no</a>
           <div class="release-date-container">
             <span
               class="span-no-hover"
