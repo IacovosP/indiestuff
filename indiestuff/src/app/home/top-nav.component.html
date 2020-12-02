@@ -11,15 +11,19 @@
       [formControl]="searchControl"
       [matAutocomplete]="auto"
     />
-    <mat-autocomplete #auto="matAutocomplete">
+    <mat-autocomplete style="max-width: 250px" #auto="matAutocomplete">
       <mat-option
         #matOption
         *ngFor="let option of filteredOptions | async"
         [value]="option.title"
         (click)="loadOption(option)"
       >
-        <div>
-          <p>{{ option.title }}</p>
+        <div class="result-option">
+          <img src="{{ option.imageName }}" />
+          <div>
+            <span>{{ option.title }}</span>
+            <p style="font-size: 11px">{{ option.type }}</p>
+          </div>
         </div>
       </mat-option>
     </mat-autocomplete>

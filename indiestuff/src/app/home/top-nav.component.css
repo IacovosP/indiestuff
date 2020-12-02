@@ -75,6 +75,41 @@
   opacity: 0.7;
 }
 
+.result-option {
+  height: 65px;
+  width: 275px;
+  display: flex;
+}
+
+.result-option div {
+  max-width: 190px;
+}
+
+.result-option img {
+  height: 65px;
+  width: 65px;
+  margin: 0;
+  padding: 0;
+  padding-right: 5px;
+}
+
+mat-option.mat-option {
+  position: relative;
+  height: 74px !important;
+  line-height: 24px !important;
+  max-height: 74px !important;
+  white-space: pre-wrap !important;
+}
+
+::ng-deep .cdk-overlay-pane {
+  width: 290px !important;
+}
+
+.result-option p {
+  margin: 0px;
+  padding-bottom: 5px;
+}
+
 .auth {
   margin-left: 30%;
   display: inline;

@@ -120,6 +120,9 @@ export class TopNavComponent implements OnInit {
           albumValues.albums.map((value) => ({
             title: value.title,
             id: value.id,
+            imageName:
+              "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
+              value.album_image_filename,
             type: "ALBUM",
           }));
         const artists =
@@ -128,6 +131,9 @@ export class TopNavComponent implements OnInit {
           artistValues.artists.map((value) => ({
             title: value.name,
             id: value.id,
+            imageName:
+              "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +
+              value.artist_image_filename,
             type: "ARTIST",
           }));
         let options = [];

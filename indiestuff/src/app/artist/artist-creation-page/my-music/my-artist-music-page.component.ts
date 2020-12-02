@@ -34,17 +34,22 @@ export class MyArtistMusicPageComponent implements OnInit {
   }
 
   toggleDelete(index: number) {
-    (this.albums[index] as any).shouldShowDeleteOptions = (this.albums[index] as any).shouldShowDeleteOptions ? !(this.albums[index] as any).shouldShowDeleteOptions: true;
+    (this.albums[index] as any).shouldShowDeleteOptions = (this.albums[
+      index
+    ] as any).shouldShowDeleteOptions
+      ? !(this.albums[index] as any).shouldShowDeleteOptions
+      : true;
   }
 
   deleteAlbum(albumId: string, index: number) {
     this.albums.splice(index, 1);
 
-    defaultHttpClient.fetch("album/" + albumId, undefined, "DELETE")
+    defaultHttpClient
+      .fetch("album/" + albumId, undefined, "DELETE")
       .then(() => {
         console.log("succesfully delete album: " + albumId);
       })
-      .catch(e => {
+      .catch((e) => {
         console.error("Failed to remove album: " + albumId);
       });
   }
