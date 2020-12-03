@@ -12,6 +12,7 @@ export class SharedService {
   @Output() fire: EventEmitter<any> = new EventEmitter();
   @Output() firePause: EventEmitter<any> = new EventEmitter();
   @Output() fireRestart: EventEmitter<any> = new EventEmitter();
+  @Output() fireChangeIndex: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     console.log("shared service started");
@@ -26,6 +27,13 @@ export class SharedService {
   }) {
     console.log("change started");
     this.fire.emit(value);
+  }
+
+  changeIndex(value: {
+    newIndexOfSongPlaying: number;
+    tracksWithNewIndexing: any[];
+  }) {
+    this.fireChangeIndex.emit(value);
   }
 
   pause() {
@@ -48,5 +56,9 @@ export class SharedService {
 
   getEmittedRestart() {
     return this.fireRestart;
+  }
+
+  getEmittedIndexChange() {
+    return this.fireChangeIndex;
   }
 }

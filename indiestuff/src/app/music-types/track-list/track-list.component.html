@@ -1,6 +1,13 @@
 <div class="tracks-custom">
-  <ul class="track-list">
+  <ul
+    class="track-list"
+    cdkDropList
+    [cdkDropListDisabled]="isAlbumView === true || isArtistView === true"
+    (cdkDropListDropped)="drop($event)"
+  >
     <li
+      style="list-style-type: none"
+      cdkDrag
       *ngFor="let track of tracks; index as i"
       [ngClass]="{
         'active-track':

@@ -19,6 +19,7 @@ export class PlayerComponent implements OnInit {
   subscription: any;
   pauseSubscription: any;
   restartSubscription: any;
+  trackPlayingIndexChangeSubscription: any;
   playerSharedService: SharedService;
   durationAnimation: any;
   playerElapsedTime;
@@ -54,6 +55,14 @@ export class PlayerComponent implements OnInit {
     } catch (e) {
       console.error("errored out ", e);
     }
+  }
+
+  silentPlaylistSwitch(
+    newIndexOfSongPlaying: number,
+    tracksWithNewIndexing: Track[]
+  ) {
+    this.currentPlaylist = this.createPlaylistWithTracks(tracksWithNewIndexing);
+    player.setPlaylistSilently(this.currentPlaylist, newIndexOfSongPlaying);
   }
 
   startPlayerListener() {
@@ -143,6 +152,14 @@ export class PlayerComponent implements OnInit {
     this.restartSubscription = this.playerSharedService
       .getEmittedRestart()
       .subscribe((item) => this.play());
+    this.trackPlayingIndexChangeSubscription = this.playerSharedService
+      .getEmittedIndexChange()
+      .subscribe((item) =>
+        this.silentPlaylistSwitch(
+          item.newIndexOfSongPlaying,
+          item.tracksWithNewIndexing
+        )
+      );
   }
 
   ngOnChange() {}

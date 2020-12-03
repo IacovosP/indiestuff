@@ -13,6 +13,8 @@ import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CommentModalContainerComponent } from "@src/app/comments/comments-container-modal.component";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import auth from "@src/app/auth/Auth";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { midString } from "@src/app/utils/arrayRepositioning";
 
 @Component({
   selector: "app-track-list",
@@ -135,6 +137,35 @@ export class TrackListComponent implements OnInit {
       .catch((err) => {
         console.error("Failed to add song to playlist " + err);
       });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    const prevItem =
+      event.currentIndex !== 0
+        ? this.tracks[event.currentIndex].positionInAlbum
+        : "";
+    let nextItem: string;
+    if (event.currentIndex === 0) {
+      nextItem =
+        event.currentIndex !== this.tracks.length - 1
+          ? this.tracks[event.currentIndex].positionInAlbum
+          : "";
+    } else {
+      nextItem =
+        event.currentIndex !== this.tracks.length - 1
+          ? this.tracks[event.currentIndex + 1].positionInAlbum
+          : "";
+    }
+    moveItemInArray(this.tracks, event.previousIndex, event.currentIndex);
+    this.indexOfSongPlaying = event.currentIndex;
+    this.playerSharedService.changeIndex({
+      newIndexOfSongPlaying: event.currentIndex,
+      tracksWithNewIndexing: this.tracks,
+    });
+    this.tracks[event.currentIndex].positionInAlbum = midString(
+      prevItem,
+      nextItem
+    );
   }
 
   removeFromThisPlaylist(indexOfSongInTrackList: number) {

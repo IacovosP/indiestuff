@@ -29,6 +29,7 @@ class Player {
   private trackListId: string;
   private actualPlayedTimeOfCurrentTrackInSeconds: number = 0;
   private shouldReportEvent = true;
+  private oldHowlFromSilentSwitch: any;
 
   constructor() {
     Howler.volume(this.currentVolume);
@@ -77,6 +78,32 @@ class Player {
     );
   }
 
+  public setPlaylistSilently(
+    playlist: Playlist,
+    changeIndexOfSongPlayingTo: number
+  ) {
+    if (
+      this.playlist &&
+      this.currentlyPlayingIndex >= 0 &&
+      this.playlist[this.currentlyPlayingIndex] &&
+      this.playlist[this.currentlyPlayingIndex].howl
+    ) {
+      this.oldHowlFromSilentSwitch = this.playlist[
+        this.currentlyPlayingIndex
+      ].howl;
+      this.playlist = playlist;
+      this.currentlyPlayingIndex = changeIndexOfSongPlayingTo;
+      this.playlist[this.currentlyPlayingIndex] = changeIndexOfSongPlayingTo;
+      // this.playlist[this.currentlyPlayingIndex].howl = oldHowl;
+    }
+  }
+
+  private stopOldHowlIfItExists() {
+    if (this.oldHowlFromSilentSwitch && this.oldHowlFromSilentSwitch.stop) {
+      this.oldHowlFromSilentSwitch.stop();
+    }
+  }
+
   public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
     if (
       this.playlist &&
@@ -86,6 +113,7 @@ class Player {
     ) {
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
+    this.stopOldHowlIfItExists();
 
     this.playlist = playlist;
     this.currentlyPlayingIndex = indexOfTrackToPlay;
@@ -161,6 +189,7 @@ class Player {
     if (this.playlist[this.currentlyPlayingIndex].howl) {
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
+    this.stopOldHowlIfItExists();
 
     this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
 
@@ -246,8 +275,11 @@ class Player {
   private skipTo(index) {
     // Stop the current track.
     if (this.playlist[this.currentlyPlayingIndex].howl) {
+      console.log("stopping current");
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
+    this.stopOldHowlIfItExists();
+    console.log("playing");
     // Play the new track.
     this.play(index);
   }
