@@ -140,21 +140,33 @@ export class TrackListComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const prevItem =
+    let prevItem =
       event.currentIndex !== 0
-        ? this.tracks[event.currentIndex].positionInAlbum
-        : "";
+        ? // if it's not the first item in the list then prevItem is the one before the new position
+          this.tracks[event.currentIndex - 1].positionInPlaylist
+        : // if it's the first item in the list then prevItem is an empty string
+          "";
+    // if item was moved downwards, we need to get the positionInPlaylist of the item that was previously there.
+    prevItem =
+      event.currentIndex > event.previousIndex
+        ? this.tracks[event.currentIndex].positionInPlaylist
+        : prevItem;
     let nextItem: string;
+    // If it's the first item in the list
     if (event.currentIndex === 0) {
       nextItem =
         event.currentIndex !== this.tracks.length - 1
-          ? this.tracks[event.currentIndex].positionInAlbum
-          : "";
+          ? // if it's not the only item in the list then nextItem is the one that was first before (i.e. the one which is getting replaced in terms of position)
+            this.tracks[event.currentIndex].positionInPlaylist
+          : // if it's the only item then nextItem empty string
+            "";
     } else {
       nextItem =
         event.currentIndex !== this.tracks.length - 1
-          ? this.tracks[event.currentIndex + 1].positionInAlbum
-          : "";
+          ? // if it's not the last item in the list then nextItem is the one that was there before (i.e. the one which is getting replaced in terms of position)
+            this.tracks[event.currentIndex].positionInPlaylist
+          : // if it's the last item then nextItem empty string
+            "";
     }
     moveItemInArray(this.tracks, event.previousIndex, event.currentIndex);
     this.indexOfSongPlaying = event.currentIndex;
@@ -162,9 +174,18 @@ export class TrackListComponent implements OnInit {
       newIndexOfSongPlaying: event.currentIndex,
       tracksWithNewIndexing: this.tracks,
     });
-    this.tracks[event.currentIndex].positionInAlbum = midString(
-      prevItem,
-      nextItem
+    const trackToChange = this.tracks[event.currentIndex];
+    console.log("prevItem: " + prevItem);
+    console.log("nextItem: " + nextItem);
+    trackToChange.positionInPlaylist = midString(prevItem, nextItem);
+    defaultHttpClient.fetch(
+      "playlist/reposition",
+      JSON.stringify({
+        trackId: trackToChange.id,
+        playlistId: this.trackListId,
+        newPosition: trackToChange.positionInPlaylist,
+      }),
+      "POST"
     );
   }
 

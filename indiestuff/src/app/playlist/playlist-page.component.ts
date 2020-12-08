@@ -95,9 +95,14 @@ export class PlaylistPageComponent implements OnInit {
   }
 
   private setTrackList(playlist: PlaylistPageInterface) {
-    this.trackList =
+    const sortedTracks =
       playlist.tracks &&
-      playlist.tracks.map((track) => {
+      playlist.tracks.sort((track1, track2) =>
+        track1.positionInPlaylist.localeCompare(track2.positionInPlaylist)
+      );
+    this.trackList =
+      sortedTracks &&
+      sortedTracks.map((track) => {
         this.playlist.durationInSec = this.playlist.durationInSec
           ? this.playlist.durationInSec + track.durationInSec
           : 0 + track.durationInSec;

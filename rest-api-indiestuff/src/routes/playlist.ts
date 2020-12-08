@@ -9,5 +9,6 @@ router.post("/add", checkJwt, PlaylistController.addTrackToPlaylist);
 router.post("/remove", checkJwt, PlaylistController.removeTrackFromPlaylist);
 router.get("/list", checkJwt, PlaylistController.getPlaylists);
 router.get("/:playlistId", PlaylistController.getPlaylist);
+router.post("/reposition", checkJwt, PlaylistController.repositionTrackInPlaylist)
 
 export default router;

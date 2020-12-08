@@ -54,16 +54,14 @@ export default class PlaylistController {
         const playlistTrackRepository = getRepository(PlaylistTrack);
         try {
             let [playlist, playlistTracks] = await Promise.all([playlistRepository.findOne({ where: { id: playlistId}} ), playlistTrackRepository.find({ where: { playlist: playlistId}} )])
-            playlistTracks = playlistTracks.sort((track1, track2) => {
-                return track1.positionInPlaylist - track2.positionInPlaylist
-            })
-    
+
             const trackRepository = getRepository(Track);
             try {
                 const tracks = await trackRepository.find({
                     where: { id: In(playlistTracks.map(playlistTrack => playlistTrack.track.id)) },
                 });
                 const trackList = tracks.map(track => {
+                    const trackWithinPlaylist = playlistTracks.find(playlistTrack => track.id === playlistTrack.track.id);
                     return {
                         ...track,
                         artist: {
@@ -73,10 +71,11 @@ export default class PlaylistController {
                         album: {
                             id: track.album.id,
                             title: track.album.title
-                        }
+                        },
+                        positionInPlaylist: trackWithinPlaylist.positionInPlaylist
                     }
                 });
-        
+
                 let albumImages = [];
                 for(let i = 0; i < 3; i++) {
                     if (tracks[i] && tracks[i].album && tracks[i].album.album_image_filename) {
@@ -106,8 +105,6 @@ export default class PlaylistController {
     }
 
     static addTrackToPlaylist = async (req: Request, res: Response) => {
-        console.log("paramst oadd track to request:" + JSON.stringify(req.body));
-
         const { trackId, playlistId } = req.body;
 
         const playlistTrack = new PlaylistTrack();
@@ -115,10 +112,10 @@ export default class PlaylistController {
         const playlistRepository = getRepository(Playlist);
         const trackRepository = getRepository(Track);
         const playlistTrackRepository = getRepository(PlaylistTrack);
-        const [playlist, track, lastPosition] = await Promise.all([playlistRepository.findOne(playlistId), trackRepository.findOne(trackId), playlistTrackRepository.count({ where: { playlist: playlistId}} )]);
+        const lastPositionPromise = playlistTrackRepository.find({ where: { playlist: playlistId}, order: { positionInPlaylist: 'DESC'}, take: 1});
+        const [playlist, track, lastPositionTrack] = await Promise.all([playlistRepository.findOne(playlistId), trackRepository.findOne(trackId), lastPositionPromise]);
 
-        console.log("last position: " + lastPosition);
-        playlistTrack.positionInPlaylist = lastPosition;
+        playlistTrack.positionInPlaylist = lastPositionTrack ? midString(lastPositionTrack[0].positionInPlaylist) : 'f';
         playlistTrack.track = track;
         playlistTrack.playlist = playlist;
 
@@ -152,4 +149,58 @@ export default class PlaylistController {
         }
         res.status(404).send({errorMessage: "Didn't find anything to delete"});
     }
+
+    static repositionTrackInPlaylist = async (req: Request, res: Response) => {
+        const { trackId, newPosition, playlistId } = req.body;
+        
+        const playlistTrackRepository = getRepository(PlaylistTrack);
+
+        const trackToChange = await playlistTrackRepository.findOne({where: {track: trackId, playlist: playlistId}});
+
+        if (!trackToChange) {
+            res.status(404).send("Track to reposition, not found in playlist");
+        }
+        trackToChange.positionInPlaylist = newPosition;
+
+        try {
+            await playlistTrackRepository.save(trackToChange);
+            res.status(200).send({});
+        } catch (e) {
+            console.log("errors: " + JSON.stringify(e));
+            res.status(400).send("failed to reposition track in playlist " + e);
+        }
+    }
 }
+
+function midString(prev: string = "", next: string = "") {
+    let p: number, n: number, pos: number, str: string;
+    for (pos = 0; p === n; pos++) {
+      // find leftmost non-matching character
+      p = pos < prev.length ? prev.charCodeAt(pos) : 96;
+      n = pos < next.length ? next.charCodeAt(pos) : 123;
+    }
+    str = prev.slice(0, pos - 1); // copy identical part of string
+    if (p === 96) {
+      // prev string equals beginning of next
+      while (n === 97) {
+        // next character is 'a'
+        n = pos < next.length ? next.charCodeAt(pos++) : 123; // get char from next
+        str += "a"; // insert an 'a' to match the 'a'
+      }
+      if (n === 98) {
+        // next character is 'b'
+        str += "a"; // insert an 'a' to match the 'b'
+        n = 123; // set to end of alphabet
+      }
+    } else if (p + 1 === n) {
+      // found consecutive characters
+      str += String.fromCharCode(p); // insert character from prev
+      n = 123; // set to end of alphabet
+      while ((p = pos < prev.length ? prev.charCodeAt(pos++) : 96) === 122) {
+        // p='z'
+        str += "z"; // insert 'z' to match 'z'
+      }
+    }
+    return str + String.fromCharCode(Math.ceil((p + n) / 2)); // append middle character
+  };
+  

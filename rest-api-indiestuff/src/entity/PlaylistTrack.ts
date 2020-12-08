@@ -26,7 +26,7 @@ import { Playlist } from "./Playlist";
     
     @Column()
     @IsNotEmpty()
-    positionInPlaylist: number;
+    positionInPlaylist: string;
 
     @Column()
     @CreateDateColumn()

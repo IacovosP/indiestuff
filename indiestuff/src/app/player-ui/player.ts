@@ -21,15 +21,14 @@ class Player {
   private playlist;
   private currentlyPlayingIndex: number;
   private currentlyPlayingSound: any;
-  public elapsedTimeInPercentage: number = 0; // 0-100
-  public elapsedTimeInSeconds: number = 0;
+  public elapsedTimeInPercentage = 0; // 0-100
+  public elapsedTimeInSeconds = 0;
   private playerClock: any; // interval
   private loopState: LoopState = LoopState.DEFAULT;
-  private currentVolume: number = 0.5;
+  private currentVolume = 0.5;
   private trackListId: string;
-  private actualPlayedTimeOfCurrentTrackInSeconds: number = 0;
+  private actualPlayedTimeOfCurrentTrackInSeconds = 0;
   private shouldReportEvent = true;
-  private oldHowlFromSilentSwitch: any;
 
   constructor() {
     Howler.volume(this.currentVolume);
@@ -88,19 +87,14 @@ class Player {
       this.playlist[this.currentlyPlayingIndex] &&
       this.playlist[this.currentlyPlayingIndex].howl
     ) {
-      this.oldHowlFromSilentSwitch = this.playlist[
+      const oldCurrentlyPlayingFromSilentSwitch = this.playlist[
         this.currentlyPlayingIndex
-      ].howl;
+      ];
       this.playlist = playlist;
       this.currentlyPlayingIndex = changeIndexOfSongPlayingTo;
-      this.playlist[this.currentlyPlayingIndex] = changeIndexOfSongPlayingTo;
-      // this.playlist[this.currentlyPlayingIndex].howl = oldHowl;
-    }
-  }
-
-  private stopOldHowlIfItExists() {
-    if (this.oldHowlFromSilentSwitch && this.oldHowlFromSilentSwitch.stop) {
-      this.oldHowlFromSilentSwitch.stop();
+      this.playlist[
+        this.currentlyPlayingIndex
+      ] = oldCurrentlyPlayingFromSilentSwitch;
     }
   }
 
@@ -113,7 +107,6 @@ class Player {
     ) {
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
-    this.stopOldHowlIfItExists();
 
     this.playlist = playlist;
     this.currentlyPlayingIndex = indexOfTrackToPlay;
@@ -189,7 +182,6 @@ class Player {
     if (this.playlist[this.currentlyPlayingIndex].howl) {
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
-    this.stopOldHowlIfItExists();
 
     this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
 
@@ -209,8 +201,8 @@ class Player {
 
   public pause() {
     this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-
     this.currentlyPlayingSound.pause();
+
     playerEventEmitter.change({
       indexOfTrackToPlay: this.currentlyPlayingIndex,
       trackListId: this.trackListId,
@@ -275,11 +267,8 @@ class Player {
   private skipTo(index) {
     // Stop the current track.
     if (this.playlist[this.currentlyPlayingIndex].howl) {
-      console.log("stopping current");
       this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
-    this.stopOldHowlIfItExists();
-    console.log("playing");
     // Play the new track.
     this.play(index);
   }

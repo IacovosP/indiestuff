@@ -62,6 +62,9 @@ export class PlayerComponent implements OnInit {
     tracksWithNewIndexing: Track[]
   ) {
     this.currentPlaylist = this.createPlaylistWithTracks(tracksWithNewIndexing);
+    console.log(
+      "currentPlaylist: " + JSON.stringify(this.currentPlaylist, null, 4)
+    );
     player.setPlaylistSilently(this.currentPlaylist, newIndexOfSongPlaying);
   }
 

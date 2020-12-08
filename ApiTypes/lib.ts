@@ -28,6 +28,7 @@ export interface TrackInterface {
     durationInSec: number;
     positionInAlbum: string;
     commentThreadId?: string;
+    positionInPlaylist?: string;
 }
 
 export interface CommentThreadInterface {
@@ -51,7 +52,7 @@ export interface TrackInterfaceForPlaylist {
         id: string;
         name: string;
     };
-    positionInPlaylist?: number;
+    positionInPlaylist?: string;
 }
 
 export interface PlaylistInterface {
@@ -65,7 +66,7 @@ export interface PlaylistTrackInterface {
     id: string;
     playlist_id: string;
     track_id: string;
-    positionInPlaylist: number;
+    positionInPlaylist: string;
 }
 
 export interface CommentInterface {
