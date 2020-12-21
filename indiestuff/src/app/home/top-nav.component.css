@@ -102,7 +102,7 @@ mat-option.mat-option {
 }
 
 ::ng-deep .cdk-overlay-pane {
-  width: 290px !important;
+  min-width: 290px !important;
 }
 
 .result-option p {

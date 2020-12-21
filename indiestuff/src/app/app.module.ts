@@ -50,6 +50,7 @@ import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-a
 import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page/my-music/my-artist-music-page.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog/confirmation-dialog.component";
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { Router } from "@angular/router";
     HomePageComponent,
     MyArtistPageComponent,
     MyArtistMusicPageComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,

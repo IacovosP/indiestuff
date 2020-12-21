@@ -115,7 +115,7 @@ export default class PlaylistController {
         const lastPositionPromise = playlistTrackRepository.find({ where: { playlist: playlistId}, order: { positionInPlaylist: 'DESC'}, take: 1});
         const [playlist, track, lastPositionTrack] = await Promise.all([playlistRepository.findOne(playlistId), trackRepository.findOne(trackId), lastPositionPromise]);
 
-        playlistTrack.positionInPlaylist = lastPositionTrack ? midString(lastPositionTrack[0].positionInPlaylist) : 'f';
+        playlistTrack.positionInPlaylist = lastPositionTrack && lastPositionTrack[0] ? midString(lastPositionTrack[0].positionInPlaylist) : 'f';
         playlistTrack.track = track;
         playlistTrack.playlist = playlist;
 
@@ -134,6 +134,21 @@ export default class PlaylistController {
             return false;
         }
         res.status(201).send({});
+    }
+
+    static deletePlaylist = async (req: Request, res: Response) => {
+        const { playlistId } = req.params;
+        const userId = res.locals.jwtPayload.userId;
+
+        const playlistRepository = getRepository(Playlist);
+        const deleteResult = await playlistRepository.delete({id: playlistId, user: userId});
+        console.log("delete playlist result: " + JSON.stringify(deleteResult));
+        if (deleteResult.affected > 0) {
+            res.status(201).send({removedId: playlistId});
+            return;
+        } else {
+            res.status(404).send("Playlist not found or not owned by you"); 
+        }
     }
 
     static removeTrackFromPlaylist = async (req: Request, res: Response) => {

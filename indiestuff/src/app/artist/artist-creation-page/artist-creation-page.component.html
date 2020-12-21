@@ -5,6 +5,7 @@
       [(ngModel)]="albumOrSingle"
       name="musicType"
       aria-label="Music Type"
+      style="margin-bottom: -25px"
     >
       <mat-button-toggle
         class="album-or-single-toggle"
@@ -40,7 +41,7 @@
         [style.background]="color"
       >
         <div>
-          <div class="form-group">
+          <div class="form-group" style="display: flex; margin-top: 25px">
             <label for="inputTitle" class="col-lg-2 control-label"
               >{{ group.value }} title</label
             >
@@ -73,9 +74,8 @@
               >add {{ group.value }} cover</label
             >
 
-            <label for="file-input">
+            <label style="float: right;" for="file-input">
               <img
-                style="padding-left: 70px"
                 width="60px"
                 height="60px"
                 src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
@@ -96,7 +96,6 @@
               >colour</label
             >
             <img
-              style="padding-left: 198px"
               width="60px"
               height="60px"
               src="/assets/icons/web/outline_color_lens_black_36dp.png"
@@ -129,7 +128,6 @@
               >add track</label
             >
             <img
-              style="padding-left: 163px"
               width="60px"
               height="60px"
               src="/assets/icons/web/outline_cloud_upload_black_36dp.png"
@@ -142,7 +140,7 @@
     <div class="right-side">
       <div cdkDropList class="track-list" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let track of tracks; index as i" class="track-box" cdkDrag>
-          <div class="left-side-items">
+          <div *ngIf="!track.shouldRemove" class="left-side-items">
             <a>{{ i + 1 }}</a>
             <mat-icon
               *ngIf="
@@ -161,9 +159,10 @@
             >
             <a>{{ track.title }}</a>
           </div>
-          <div class="right-side-items">
-            <span>{{ track.durationInSec }}s</span>
-            <mat-icon (click)="editTrack(i)"> edit </mat-icon>
+          <div *ngIf="!track.shouldRemove" class="right-side-items">
+            <span style="padding-bottom: 5px">{{ track.durationInSec }}s</span>
+            <mat-icon class="edit-track" (click)="editTrack(i)"> edit </mat-icon>
+            <mat-icon class="remove-track" (click)="removeTrack(i)">close_outline</mat-icon>
           </div>
         </div>
       </div>

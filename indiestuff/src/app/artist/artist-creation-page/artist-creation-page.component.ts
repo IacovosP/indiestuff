@@ -16,6 +16,7 @@ import { getBrightness } from "@src/app/utils/colourChange";
 import { AlbumOrSingle, AlbumPageInterface, TrackInterface } from "@apistuff";
 import { Router } from "@angular/router";
 import { midString } from "@src/app/utils/arrayRepositioning";
+import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: "app-artist-creation-page",
@@ -41,7 +42,7 @@ export class ArtistCreationPageComponent implements OnInit {
   isPaused: boolean = false;
   isAlbumView = false;
   clickoutHandler: Function;
-  dialogRefClassScope: MatDialogRef<TrackUploadFormComponent>;
+  dialogRefClassScope: MatDialogRef<TrackUploadFormComponent|ConfirmationDialogComponent>;
   title = "indiestuff";
   albumOrSingle: AlbumOrSingle = AlbumOrSingle.ALBUM;
   pendingUploads: Promise<any>[] = [];
@@ -138,6 +139,36 @@ export class ArtistCreationPageComponent implements OnInit {
           id: album.artist.id,
         },
       };
+    });
+  }
+
+  removeTrack(trackIndex: number) {
+    this.showDeleteConfirmationDialog(trackIndex);
+  }
+
+  showDeleteConfirmationDialog(trackToRemoveIndex: number) {
+    const trackToRemove = this.tracks[trackToRemoveIndex];
+    const styleChangesAndInput = trackToRemove
+      ? {
+          position: {
+            left: "60%",
+          },
+          maxWidth: "100px",
+          data: {
+            message: `are you sure you want to remove track '${trackToRemove.title}'? it will be permanent`,
+          },
+        }
+      : {};
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      panelClass: "app-signup-form-no-padding",
+      ...styleChangesAndInput,
+    });
+    this.dialogRefClassScope = dialogRef;
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        this.albumForEdit.durationInSec -= trackToRemove.durationInSec; 
+        this.tracks[trackToRemoveIndex].shouldRemove = true;
+      }
     });
   }
 

@@ -10,6 +10,7 @@ import comment from "./comment";
 import likes from "./likes";
 import event from "./event";
 import home from "./home";
+import track from "./track";
 
 const routes = Router();
 
@@ -24,5 +25,5 @@ routes.use("/comment", comment);
 routes.use("/likes", likes);
 routes.use("/event", event);
 routes.use("/home", home);
-
+routes.use("/track", track);
 export default routes;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
@@ -6,6 +6,8 @@ import { PlaylistInterface } from "@apistuff";
 import auth from "@src/app/auth/Auth";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import playlistState from "@src/app/playlist/playlistState";
+import { MatMenuTrigger } from "@angular/material/menu";
+import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: "app-my-navbar",
@@ -14,10 +16,28 @@ import playlistState from "@src/app/playlist/playlistState";
 })
 export class MyNavComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
-  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent>;
+  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent|ConfirmationDialogComponent>;
   playlists: PlaylistInterface[];
   subscription: any;
   isRegistered: boolean = false;
+  
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+
+  contextMenuPosition = { x: '0px', y: '0px' };
+
+  onContextMenu(event: MouseEvent, playlist: PlaylistInterface) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menuData = { 'item': playlist };
+    this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
+  }
+
+  deletePlaylist(playlistIndex: number) {
+    this.openPlaylistConfirmationDialog(playlistIndex);
+  }
 
   constructor(
     public dialog: MatDialog,
@@ -72,6 +92,41 @@ export class MyNavComponent implements OnInit {
       const playlist = await result;
       if (playlist) {
         this.playlists.push(playlist);
+      }
+    });
+  }
+
+  openPlaylistConfirmationDialog(itemIndex: number) {
+    const playlistToRemove = this.playlists[itemIndex];
+    const styleChangesAndInput = playlistToRemove
+      ? {
+          position: {
+            top: "10%"
+          },
+          data: {
+            message: `are you sure you want to remove playlist '${playlistToRemove.name}'?`,
+            // clientX: $event.clientX,
+            // clientY: $event.clientY,
+            // item: playlistToRemove
+          },
+        }
+      : {};
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      panelClass: "app-signup-form-no-padding",
+      ...styleChangesAndInput,
+    });
+    this.dialogRefClassScope = dialogRef;
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        this.playlists.splice(itemIndex, 1);
+        defaultHttpClient
+        .fetch("playlist/" + playlistToRemove.id, undefined, "DELETE")
+        .then(() => {
+          console.log("succesfully delete album: " + playlistToRemove.id);
+        })
+        .catch((e) => {
+          console.error("Failed to remove album: " + playlistToRemove.id);
+        });
       }
     });
   }

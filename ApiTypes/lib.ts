@@ -29,6 +29,7 @@ export interface TrackInterface {
     positionInAlbum: string;
     commentThreadId?: string;
     positionInPlaylist?: string;
+    shouldRemove?: boolean;
 }
 
 export interface CommentThreadInterface {

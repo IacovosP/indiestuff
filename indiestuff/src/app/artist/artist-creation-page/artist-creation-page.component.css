@@ -29,6 +29,7 @@
 .form-container {
   display: flex;
 }
+
 .add-album-container h3 {
   padding-bottom: 0px;
   margin-bottom: 5px;
@@ -36,11 +37,13 @@
 
 .album-creation {
   margin-left: 3%;
-  font-size: 26px;
+  font-size: 22px;
   font-family: sans-serif;
   font-weight: bold;
-  height: 330px;
-  width: 740px;
+  height: 350px;
+  max-width: 740px;
+  min-width: 620px;
+  width:110%;
 }
 
 .album-creation input {
@@ -52,7 +55,7 @@
   font-family: sans-serif;
   font-weight: bold;
   opacity: 0.5;
-  width: 425px;
+  width: 60%;
 }
 
 .album-creation img {
@@ -82,9 +85,10 @@
 }
 
 .form-group {
-  padding-top: 35px;
+  padding-top: 30px;
+  padding-bottom: 35px;
   padding-left: 30px;
-  display: flex;
+  display: block;
 }
 
 .left-side-items {
@@ -102,7 +106,16 @@
 
 .left-side-items img {
   cursor: pointer;
-  padding-left: 50px;
+  /* padding-left: 50px; */
+}
+
+.form-group label {
+  float: left;
+}
+
+.form-group img {
+  float: right;
+  padding-right: 50px;
 }
 
 .left-side-items img:hover {
@@ -110,7 +123,7 @@
 }
 
 .left-side-items mat-icon {
-  padding-left: 50px;
+  margin-left: 50px;
   font-size: 36px;
   cursor: pointer;
   margin-top: -2px;
@@ -125,8 +138,7 @@
 
 .right-side-items mat-icon {
   font-size: 32px;
-  padding-right: 30px;
-  color: #bdb76b;
+  margin-right: 30px;
   cursor: pointer;
 }
 
@@ -173,6 +185,9 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+.track-box button {
+}
+
 .right-side-items li span {
   padding-left: 0px;
   margin-left: 0px;
@@ -195,7 +210,6 @@
 }
 
 .right-side button {
-  margin-top: 25px;
   background-color: transparent;
   outline: none;
   border: none;
@@ -205,7 +219,7 @@
 
 .right-side button mat-icon {
   font-size: 40px;
-  padding-right: 20px;
+  margin-right: 20px;
 }
 
 .upload-image-button {
@@ -213,4 +227,22 @@
   outline: none;
   background-color: transparent;
   cursor: pointer;
+}
+
+.edit-track {
+  color: #bdb76b;
+  opacity: 0.6;
+}
+
+.edit-track:hover {
+  opacity: 1;
+}
+.remove-track {
+  opacity: 0.6;
+  font-size: 12px;
+  color: #cd5c5c;
+}
+
+.remove-track:hover {
+  opacity: 1;
 }

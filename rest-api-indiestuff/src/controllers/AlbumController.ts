@@ -122,13 +122,26 @@ static editAlbum = async (req: Request, res: Response) => {
         let track;
         if (tr.id) {
             const trackRepository = getRepository(Track);
-            const oldTrack = await trackRepository.findOne(tr.id);
+            const oldTrack = await trackRepository.findOne({ where: {id: tr.id, artist: artist}});
+            if (!oldTrack) {
+                console.warn(`Couldn't find oldTrack for ${tr.id} in db - maybe artist ${artist.id} doesn't match`);
+            }
 
             if (!oldTrack) {
-                res.status(400).send("failed to edit album - couldn't find one of the tracks: " + tr.title);
+                res.status(404).send("failed to edit album - couldn't find one of the tracks: " + tr.title);
                 break;
             }
 
+            if (tr.shouldRemove) {
+                const deleteResult = await trackRepository.delete(tr.id);
+                console.log("delete track result: " + JSON.stringify(deleteResult));
+                if (deleteResult.affected > 0) {
+                    // track successfully removed
+                } else {
+                    console.warn(`Found album and artist id matched, but couldn't remove track with id ${tr.id} for ${deleteResult.raw} unknown reason`);
+                }
+                continue;
+            }
             console.log("checking oldTrack with new to see if anything changed")
             if (oldTrack.positionInAlbum === tr.positionInAlbum && oldTrack.title === tr.title && oldTrack.filename === tr.filename) {
                 console.log("return for " + tr.title);

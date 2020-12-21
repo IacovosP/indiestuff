@@ -2,7 +2,7 @@
 <app-my-navbar></app-my-navbar>
 <div class="home-page" *ngIf="albums">
   <div class="top-items-container">
-    <div class="image-container main-image">
+    <div *ngIf="topAlbum" class="image-container main-image">
       <img
         [routerLink]="['/album', topAlbum.id]"
         src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{

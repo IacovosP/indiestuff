@@ -11,10 +11,10 @@
     /></a>
     <ul *ngIf="isRegistered" class="playlist-list-container">
       <li
-        *ngFor="let playlist of playlists"
+        *ngFor="let playlist of playlists, let i = index"
         [routerLink]="['/playlist', playlist.id]"
       >
-        <span *ngIf="playlist.id !== 'likedTracks'">
+        <span *ngIf="playlist.id !== 'likedTracks'" (contextmenu)="onContextMenu($event, i)">
           {{ playlist.name }}
         </span>
         <span *ngIf="playlist.id === 'likedTracks'">
@@ -24,3 +24,13 @@
     </ul>
   </div>
 </div>
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+	<ng-template matMenuContent let-item="item">
+		<button mat-menu-item (click)="deletePlaylist(item)">delete playlist</button>
+	</ng-template>
+</mat-menu>
