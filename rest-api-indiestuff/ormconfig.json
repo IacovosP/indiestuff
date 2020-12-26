@@ -3,19 +3,20 @@
    "host": "127.0.0.1",
    "port": 5432,
    "database": "test.postgresql",
+   "username": "postgres",
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "build/entity/**/*.js"
    ],
    "migrations": [
-      "src/migration/**/*.ts"
+      "src/migration/**/*.js"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "src/subscriber/**/*.js"
    ],
    "cli": {
-      "entitiesDir": "src/entity",
+      "entitiesDir": "build/entity",
       "migrationsDir": "src/migration",
       "subscribersDir": "src/subscriber"
    }

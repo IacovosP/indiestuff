@@ -1,9 +1,9 @@
 // from https://github.com/andregardi/jwt-express-typeorm
 import "reflect-metadata";
 import { Connection, createConnection } from "typeorm";
-import * as express from "express";
+import * as express from "express"; 
 import * as bodyParser from "body-parser";
-import * as helmet from "helmet";
+import * as  helmet from "helmet";
 import * as cors from "cors";
 import routes from "../routes";
 import { Server as HttpServer } from 'http';
@@ -34,6 +34,12 @@ export class Server {
         this.server = this.app.listen(5000, () => {
             console.log("Server started on port 5000!");
         });
+          
+        process.on("SIGINT", () => {
+            //graceful shutdown
+            this.closeConnection();
+            process.exit(1);
+        });
     }
 
     public async createConnection() {
@@ -41,6 +47,7 @@ export class Server {
     }
 
     public closeConnection() {
+        console.log("closing connection");
         this.server.close();
     }
 }

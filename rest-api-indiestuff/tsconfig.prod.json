@@ -5,7 +5,7 @@
          "es6",
          "dom"
       ],
-      "types": ["mocha"],
+      "types": ["mocha", "node"],
       "target": "es5",
       "module": "commonjs",
       "moduleResolution": "node",

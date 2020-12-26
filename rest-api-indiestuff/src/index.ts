@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // from https://github.com/andregardi/jwt-express-typeorm
 import "reflect-metadata";
 import { Server } from "./api/server";
@@ -9,6 +11,7 @@ server.createConnection().then()
       server.createApp();
     })
     .catch(error => console.log(error));
+
 //Connects to the Database -> then starts the express
 // export const server = createConnection()
 //   .then(async connection => {

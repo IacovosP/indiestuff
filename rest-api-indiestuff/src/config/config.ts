@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 export default {
   jwtSecret: process.env.JWT_SECRET_KEY,
   awsAccessID: process.env.AWS_ACCESS_KEY_ID,
