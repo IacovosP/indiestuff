@@ -1,4 +1,4 @@
-import { TrackInterface } from "@apistuff";
+import { TrackInterface } from "@src/app/music-types/lib";
 
 export interface Track extends TrackInterface {
   album: {

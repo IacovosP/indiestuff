@@ -10,7 +10,7 @@ import {
   import { Length, IsNotEmpty } from "class-validator";
 import { Artist } from "./Artist";
 import { Album } from "./Album";
-import { TrackInterface } from "@apistuff";
+import { TrackInterface } from "../../types/lib";
   
   @Entity()
   export class Track implements TrackInterface {

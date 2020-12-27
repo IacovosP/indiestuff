@@ -33,11 +33,11 @@ class AuthController {
     const tokenResponse = {
       accessToken: jwt.sign(
         { userId: user.id, username: user.username },
-        config.jwtSecret,
+        process.env.JWT_SECRET_KEY,
         { expiresIn: "1h" }),
       refreshToken: jwt.sign(
         { userId: user.id, username: user.username },
-        config.jwtSecret),
+        process.env.JWT_SECRET_KEY),
       username: user.username
     }
 
@@ -49,7 +49,7 @@ class AuthController {
     let { refresh_token } = req.body.tokenRequest;
 
     console.log("refresh token: "  + refresh_token);
-    const jwtPayload = <any>jwt.verify(refresh_token, config.jwtSecret);
+    const jwtPayload = <any>jwt.verify(refresh_token, process.env.JWT_SECRET_KEY);
 
     //Get user from database
     const userRepository = getRepository(User);
@@ -64,7 +64,7 @@ class AuthController {
     const tokenResponse = {
       accessToken: jwt.sign(
         { userId: user.id, username: user.username },
-        config.jwtSecret,
+        process.env.JWT_SECRET_KEY,
         { expiresIn: "1h" }),
       username: user.username
     }

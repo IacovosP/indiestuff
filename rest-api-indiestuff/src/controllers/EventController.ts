@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { getRepository, In } from "typeorm";
 import { validate } from "class-validator";
-import { RecentlyPlayedPageInterface, AlbumInterface, ArtistInterface } from "@apistuff";
+import { RecentlyPlayedPageInterface, AlbumInterface, ArtistInterface } from "../../types/lib";
 import { Track } from "../entity/Track";
 import { LikedTrack } from "../entity/LikedTrack";
 import { RecentlyPlayed } from "../entity/RecentlyPlayed";

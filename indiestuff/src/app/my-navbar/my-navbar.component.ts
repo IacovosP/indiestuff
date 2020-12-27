@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { PlaylistInterface } from "@apistuff";
+import { PlaylistInterface } from "@src/app/music-types/lib";
 import auth from "@src/app/auth/Auth";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import playlistState from "@src/app/playlist/playlistState";
@@ -16,22 +16,24 @@ import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog
 })
 export class MyNavComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
-  dialogRefClassScope: MatDialogRef<CreatePlaylistFormComponent|ConfirmationDialogComponent>;
+  dialogRefClassScope: MatDialogRef<
+    CreatePlaylistFormComponent | ConfirmationDialogComponent
+  >;
   playlists: PlaylistInterface[];
   subscription: any;
   isRegistered: boolean = false;
-  
+
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
 
-  contextMenuPosition = { x: '0px', y: '0px' };
+  contextMenuPosition = { x: "0px", y: "0px" };
 
   onContextMenu(event: MouseEvent, playlist: PlaylistInterface) {
     event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.menuData = { 'item': playlist };
-    this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenuPosition.x = event.clientX + "px";
+    this.contextMenuPosition.y = event.clientY + "px";
+    this.contextMenu.menuData = { item: playlist };
+    this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
 
@@ -101,7 +103,7 @@ export class MyNavComponent implements OnInit {
     const styleChangesAndInput = playlistToRemove
       ? {
           position: {
-            top: "10%"
+            top: "10%",
           },
           data: {
             message: `are you sure you want to remove playlist '${playlistToRemove.name}'?`,
@@ -120,13 +122,13 @@ export class MyNavComponent implements OnInit {
       if (result) {
         this.playlists.splice(itemIndex, 1);
         defaultHttpClient
-        .fetch("playlist/" + playlistToRemove.id, undefined, "DELETE")
-        .then(() => {
-          console.log("succesfully delete album: " + playlistToRemove.id);
-        })
-        .catch((e) => {
-          console.error("Failed to remove album: " + playlistToRemove.id);
-        });
+          .fetch("playlist/" + playlistToRemove.id, undefined, "DELETE")
+          .then(() => {
+            console.log("succesfully delete album: " + playlistToRemove.id);
+          })
+          .catch((e) => {
+            console.error("Failed to remove album: " + playlistToRemove.id);
+          });
       }
     });
   }

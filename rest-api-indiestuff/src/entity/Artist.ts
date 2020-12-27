@@ -9,7 +9,7 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty, IsEmail } from "class-validator";
 import { User } from "./User";
-import { ArtistInterface } from "@apistuff";
+import { ArtistInterface } from "../../types/lib";
 
   @Entity()
   export class Artist implements ArtistInterface {

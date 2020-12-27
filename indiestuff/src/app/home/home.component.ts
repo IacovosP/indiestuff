@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { HomePageAlbumInterface } from "@apistuff";
+import { HomePageAlbumInterface } from "@src/app/music-types/lib";
 import auth from "../auth/Auth";
 
 @Component({

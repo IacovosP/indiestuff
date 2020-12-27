@@ -14,14 +14,6 @@
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
       "sourceMap": true,
-      "baseUrl": "./",
-      "paths": {
-         "@apistuff": [
-            "../ApiTypes"
-          ]
-      }
-   },
-  "references": [
-      { "path": "../ApiTypes/" }
-   ]
+      "baseUrl": "./"
+   }
 }

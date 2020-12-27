@@ -7,7 +7,7 @@ import {
   PlaylistPageInterface,
   TrackInterfaceForPlaylist,
   LikedPageInterface,
-} from "@apistuff";
+} from "@src/app/music-types/lib";
 import {
   getMonthName,
   getFormattedDurationFromSeconds,

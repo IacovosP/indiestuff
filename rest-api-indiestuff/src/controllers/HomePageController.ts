@@ -5,7 +5,7 @@ import { validate } from "class-validator";
 import { Album } from "../entity/Album";
 import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
-import { AlbumPageInterface, ArtistInterface, AlbumInterface, TrackInterface } from "@apistuff";
+import { AlbumPageInterface, ArtistInterface, AlbumInterface, TrackInterface } from "../../types/lib";
 import { CommentThread } from "../entity/CommentThread";
 import { RecentlyPlayedTrack } from "../entity/RecentlyPlayedTrack";
 

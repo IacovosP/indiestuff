@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
+import httpClient from "@src/app/network-core/HttpClient";
 
 // Import the User model
 import { Artist } from "./User";
@@ -27,18 +28,11 @@ export class ArtistSignupFormComponent implements OnInit {
     this.user = value;
     console.log(this.user);
     console.log("valid: " + valid);
-    const restAPIUrl = "http://localhost:5000/user";
-    const requestInit: RequestInit = {
-      body: JSON.stringify({
-        user: this.user,
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-      method: "POST",
-    };
-    fetch(restAPIUrl, requestInit)
+    const body = JSON.stringify({
+      user: this.user,
+    });
+    httpClient
+      .fetch("user", body, "POST")
       .then((response) => {
         console.log("got a response " + JSON.stringify(response));
       })

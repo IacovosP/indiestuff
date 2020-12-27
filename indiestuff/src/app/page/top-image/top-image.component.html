@@ -121,7 +121,7 @@
     />
   </div>
   <div
-    *ngIf="!artistImageUrl && isArtistImageEnabled"
+    *ngIf="!artistImageUrl && isArtistImageEnabled && isEditing"
     class="artist-image-container"
   >
     <label for="artist-image-input">

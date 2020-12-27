@@ -8,7 +8,8 @@ import {
   Inject,
 } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { TrackInterface } from "@apistuff";
+import { TrackInterface } from "@src/app/music-types/lib";
+import { REST_URL_PROD } from "@src/app/network-core/HttpClient";
 
 // Import the User model
 interface TrackUploadData {
@@ -61,7 +62,7 @@ export class TrackUploadFormComponent implements OnInit {
     formData.append("name", this.track.title);
     formData.append("durationInSec", String(this.track.durationInSec));
     formData.append("myFile", this.fileToUpload);
-    const restAPIUrl = "http://localhost:5000/upload/track";
+    const restAPIUrl = `http://${REST_URL_PROD}/upload/track`;
     const requestInit: RequestInit = {
       body: formData,
       method: "POST",

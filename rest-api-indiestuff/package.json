@@ -17,7 +17,8 @@
       "supertest": "^6.0.1",
       "ts-node": "3.3.0",
       "ts-node-dev": "^1.1.1",
-      "typescript": "3.3.3333"
+      "typescript": "3.3.3333",
+      "rimraf": "^3.0.2"
    },
    "dependencies": {
       "@types/express": "^4.17.9",
@@ -44,7 +45,7 @@
       "tscb": "tsc -b",
       "tsc": "tsc",
       "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-      "build": "tsc --project tsconfig.prod.json",
+      "build": "npm install && rimraf ./build && tsc --project tsconfig.prod.json",
       "prestart": "npm run build",
       "start": "node ./build/index.js",
       "prod": "tsc && node ./build/index.js",

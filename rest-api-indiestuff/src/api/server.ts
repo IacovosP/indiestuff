@@ -31,8 +31,8 @@ export class Server {
 
         //Set all routes from routes folder
         this.app.use("/", routes);
-        this.server = this.app.listen(5000, () => {
-            console.log("Server started on port 5000!");
+        this.server = this.app.listen(process.env.EXPRESS_PORT, () => {
+            console.log(`Server started on port ${process.env.EXPRESS_PORT}!`);
         });
           
         process.on("SIGINT", () => {

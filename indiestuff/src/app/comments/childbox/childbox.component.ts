@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "@src/app/music-types/lib";
 import auth from "@src/app/auth/Auth";
 
 @Component({

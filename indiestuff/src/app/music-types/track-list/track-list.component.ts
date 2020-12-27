@@ -5,7 +5,7 @@ import playerEventEmitter, {
   PlayerChangeEvent,
 } from "@src/app/player-ui/playerEmitter";
 import { getFormattedDurationFromSeconds } from "@src/app/utils/timeConverter";
-import { PlaylistInterface, TrackInterface } from "@apistuff";
+import { PlaylistInterface, TrackInterface } from "@src/app/music-types/lib";
 import playlistState from "@src/app/playlist/playlistState";
 import { CreatePlaylistFormComponent } from "@src/app/playlist/create-playlist.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";

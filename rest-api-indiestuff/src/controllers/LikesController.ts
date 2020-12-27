@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { getRepository, In } from "typeorm";
 import { validate } from "class-validator";
-import {  TrackInterfaceForPlaylist, LikedPageInterface } from "@apistuff";
+import {  TrackInterfaceForPlaylist, LikedPageInterface } from "../../types/lib";
 import { Track } from "../entity/Track";
 import { LikedTrack } from "../entity/LikedTrack";
 import { JsonWebTokenError } from "jsonwebtoken";

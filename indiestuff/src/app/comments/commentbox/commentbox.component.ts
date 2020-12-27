@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "@src/app/music-types/lib";
 import { ThreadTypes } from "@src/app/music-types/types";
 import auth from "@src/app/auth/Auth";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";

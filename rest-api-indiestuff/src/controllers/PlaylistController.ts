@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { getRepository, In } from "typeorm";
 import { validate } from "class-validator";
-import {  PlaylistInterface, PlaylistPageInterface } from "@apistuff";
+import {  PlaylistInterface, PlaylistPageInterface } from "../../types/lib";
 import { Playlist } from "../entity/Playlist";
 import { PlaylistTrack } from "../entity/PlaylistTrack";
 import { Track } from "../entity/Track";

@@ -83,7 +83,7 @@ import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog
     HomePageComponent,
     MyArtistPageComponent,
     MyArtistMusicPageComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,

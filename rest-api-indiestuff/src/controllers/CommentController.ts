@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "../../types/lib";
 import { getRepository, Repository } from "typeorm";
 import { User } from "../entity/User";
 import { Comment } from "../entity/Comment";

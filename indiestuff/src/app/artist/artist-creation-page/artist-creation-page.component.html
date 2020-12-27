@@ -74,7 +74,7 @@
               >add {{ group.value }} cover</label
             >
 
-            <label style="float: right;" for="file-input">
+            <label style="float: right" for="file-input">
               <img
                 width="60px"
                 height="60px"
@@ -161,8 +161,12 @@
           </div>
           <div *ngIf="!track.shouldRemove" class="right-side-items">
             <span style="padding-bottom: 5px">{{ track.durationInSec }}s</span>
-            <mat-icon class="edit-track" (click)="editTrack(i)"> edit </mat-icon>
-            <mat-icon class="remove-track" (click)="removeTrack(i)">close_outline</mat-icon>
+            <mat-icon class="edit-track" (click)="editTrack(i)">
+              edit
+            </mat-icon>
+            <mat-icon class="remove-track" (click)="removeTrack(i)"
+              >close_outline</mat-icon
+            >
           </div>
         </div>
       </div>

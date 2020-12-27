@@ -8,7 +8,7 @@ import {
     OneToMany,
     OneToOne
   } from "typeorm";
-import { CommentThreadInterface } from "@apistuff";
+import { CommentThreadInterface } from "../../types/lib";
 import { Comment } from "./Comment";
 import { Artist } from "./Artist";
 import { Album } from "./Album";

@@ -1,4 +1,4 @@
-import { PlaylistInterface } from "@apistuff";
+import { PlaylistInterface } from "@src/app/music-types/lib";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 
 export class PlaylistState {

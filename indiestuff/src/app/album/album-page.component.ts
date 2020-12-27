@@ -7,7 +7,7 @@ import {
 } from "@src/app/music-types/types";
 import { ActivatedRoute } from "@angular/router";
 import { pSBC, getBrightness } from "@src/app/utils/colourChange";
-import { AlbumPageInterface } from "@apistuff";
+import { AlbumPageInterface } from "@src/app/music-types/lib";
 import {
   getMonthName,
   getFormattedDurationFromSeconds,

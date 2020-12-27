@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from "@angular/core";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import { PlaylistInterface } from "@apistuff";
+import { PlaylistInterface } from "@src/app/music-types/lib";
 import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({

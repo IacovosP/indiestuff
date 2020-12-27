@@ -9,7 +9,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
 
   //Try to validate the token and get data
   try {
-    jwtPayload = <any>jwt.verify(token, config.jwtSecret);
+    jwtPayload = <any>jwt.verify(token, process.env.JWT_SECRET_KEY);
     res.locals.jwtPayload = jwtPayload;
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
@@ -20,7 +20,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   //The token is valid for 1 hour
   //We want to send a new token on every request
   const { userId, username } = jwtPayload;
-  const newToken = jwt.sign({ userId, username }, config.jwtSecret, {
+  const newToken = jwt.sign({ userId, username }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1h"
   });
   res.setHeader("token", newToken);

@@ -13,7 +13,11 @@ import { SharedService } from "@src/app/common/shared-service";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { getBrightness } from "@src/app/utils/colourChange";
-import { AlbumOrSingle, AlbumPageInterface, TrackInterface } from "@apistuff";
+import {
+  AlbumOrSingle,
+  AlbumPageInterface,
+  TrackInterface,
+} from "@src/app/music-types/lib";
 import { Router } from "@angular/router";
 import { midString } from "@src/app/utils/arrayRepositioning";
 import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog/confirmation-dialog.component";
@@ -42,7 +46,9 @@ export class ArtistCreationPageComponent implements OnInit {
   isPaused: boolean = false;
   isAlbumView = false;
   clickoutHandler: Function;
-  dialogRefClassScope: MatDialogRef<TrackUploadFormComponent|ConfirmationDialogComponent>;
+  dialogRefClassScope: MatDialogRef<
+    TrackUploadFormComponent | ConfirmationDialogComponent
+  >;
   title = "indiestuff";
   albumOrSingle: AlbumOrSingle = AlbumOrSingle.ALBUM;
   pendingUploads: Promise<any>[] = [];
@@ -166,7 +172,7 @@ export class ArtistCreationPageComponent implements OnInit {
     this.dialogRefClassScope = dialogRef;
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        this.albumForEdit.durationInSec -= trackToRemove.durationInSec; 
+        this.albumForEdit.durationInSec -= trackToRemove.durationInSec;
         this.tracks[trackToRemoveIndex].shouldRemove = true;
       }
     });

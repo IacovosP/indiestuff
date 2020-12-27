@@ -6,7 +6,7 @@ import {
   OnChanges,
   EventEmitter,
 } from "@angular/core";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "@src/app/music-types/lib";
 import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 import auth from "@src/app/auth/Auth";
 

@@ -9,7 +9,7 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
 import { Artist } from "./Artist";
-import { AlbumInterface } from "@apistuff";
+import { AlbumInterface } from "../../types/lib";
   
   @Entity()
   export class Album implements AlbumInterface{

@@ -8,6 +8,7 @@
     "tsc": "tsc",
     "tscb": "tsc -b",
     "ng": "ng",
+    "prestart": "npm install",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

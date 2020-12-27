@@ -1,5 +1,9 @@
 import { AlbumLite, Track } from "./types";
-import { TrackInterface, AlbumInterface, AlbumOrSingle } from "@apistuff";
+import {
+  TrackInterface,
+  AlbumInterface,
+  AlbumOrSingle,
+} from "@src/app/music-types/lib";
 
 export class ArtistMusic {
   artistName: string;

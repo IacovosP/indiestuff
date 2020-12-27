@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { AlbumInterface, ArtistPageInterface } from "@apistuff";
+import { AlbumInterface, ArtistPageInterface } from "@src/app/music-types/lib";
 import {
   EditSubPageNavigation,
   MyAlbumsLite,
@@ -31,12 +31,14 @@ export class MyArtistPageComponent implements OnInit {
       .fetch("artist/single/myArtistPage")
       .then((response: ArtistPageInterface) => {
         this.artistMusic = response;
-        this.artistMusic.artist_top_image_filename = response.artist_top_image_filename &&
+        this.artistMusic.artist_top_image_filename =
+          response.artist_top_image_filename &&
           "https://indie-artist-top-image-test.s3.eu-west-2.amazonaws.com/" +
-          response.artist_top_image_filename;
-        this.artistMusic.artist_image_filename = response.artist_image_filename &&
+            response.artist_top_image_filename;
+        this.artistMusic.artist_image_filename =
+          response.artist_image_filename &&
           "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +
-          response.artist_image_filename;
+            response.artist_image_filename;
         this.setAlbumLite(response.albums);
       })
       .catch((err) => {

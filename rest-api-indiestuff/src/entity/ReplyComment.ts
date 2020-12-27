@@ -8,7 +8,7 @@ import {
     JoinColumn
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "../../types/lib";
 import { User } from "./User";
 import { Comment } from "./Comment";
   

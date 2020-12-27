@@ -3,11 +3,12 @@ module.exports = {
    "host": process.env.TYPEORM_HOST,
    "port": process.env.TYPEORM_PORT,
    "database": process.env.TYPEORM_DATABASE,
+   "password": process.env.TYPEORM_PASSWORD,
    "username": process.env.TYPEORM_USERNAME,
    "synchronize": process.env.TYPEORM_SYNCHRONIZE,
    "logging": process.env.TYPEORM_LOGGING,
    entities: [
-       `${process.env.TYPEORM_ENTITIES_SRC}/entity/**/*.${process.env.TYPEORM_ENTITIES_TS}`
+       "build/entity/**/*.js"
    ],
    migrations: [
        'src/db/migrations/*{.js,.ts}'

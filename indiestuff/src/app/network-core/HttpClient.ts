@@ -6,6 +6,10 @@ import { of } from "rxjs";
 import * as pRetry from "p-retry";
 import * as delay from "delay";
 
+export const REST_URL_PROD =
+  "IndiestavfRest-env-1.eba-ik2v3hvm.eu-west-2.elasticbeanstalk.com";
+export const REST_URL_DEVS = "localhost:5000";
+
 export class HttpClient {
   public fetch(
     url: string,
@@ -18,7 +22,7 @@ export class HttpClient {
     },
     headers?: Headers
   ): Promise<any> {
-    const requestUrl = `http://localhost:5000/${url}`;
+    const requestUrl = `http://${REST_URL_PROD}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,
@@ -67,7 +71,7 @@ export class HttpClient {
     method: "GET" | "POST" = "GET",
     headers?: Headers
   ) {
-    const requestUrl = `http://localhost:5000/${url}`;
+    const requestUrl = `http://${REST_URL_PROD}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,

@@ -5,7 +5,7 @@ import { validate } from "class-validator";
 import { Album } from "../entity/Album";
 import { Track } from "../entity/Track";
 import { Artist } from "../entity/Artist";
-import { ArtistInterface, ArtistPageInterface, AlbumInterface } from "@apistuff";
+import { ArtistInterface, ArtistPageInterface, AlbumInterface } from "../../types/lib";
 import { CommentThread } from "../entity/CommentThread";
 
 export default class ArtistController {

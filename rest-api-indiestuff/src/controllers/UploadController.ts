@@ -14,14 +14,14 @@ const multerS3 = require('multer-s3');
 let newS3FileName: string;
 
 const s3 = new AWS.S3({
-  accessKeyId: config.awsAccessID,
-  secretAccessKey: config.awsSecret
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 export const uploadTrack = multer({
   storage: multerS3({
       s3: s3,
-      bucket: config.awsS3TrackBucketName,
+      bucket: process.env.AWS_BUCKET_TRACK,
       acl: 'public-read',
       metadata: function (req, file, cb) {
         console.log(file);
@@ -36,7 +36,7 @@ export const uploadTrack = multer({
 export const uploadImage = multer({
   storage: multerS3({
       s3: s3,
-      bucket: config.awsS3ImageBucketName,
+      bucket: process.env.AWS_BUCKET_IMAGE,
       acl: 'public-read',
       metadata: function (req, file, cb) {
         console.log(file);
@@ -51,7 +51,7 @@ export const uploadImage = multer({
 export const uploadArtistImage = multer({
   storage: multerS3({
       s3: s3,
-      bucket: config.awsS3ArtistImageBucketName,
+      bucket: process.env.AWS_BUCKET_ARTIST_IMAGE,
       acl: 'public-read',
       metadata: function (req, file, cb) {
         console.log(file);
@@ -66,7 +66,7 @@ export const uploadArtistImage = multer({
 export const uploadArtistTopImage = multer({
   storage: multerS3({
       s3: s3,
-      bucket: config.awsS3ArtistTopImageBucketName,
+      bucket: process.env.AWS_BUCKET_ARTIST_TOP_IMAGE,
       acl: 'public-read',
       metadata: function (req, file, cb) {
         console.log(file);

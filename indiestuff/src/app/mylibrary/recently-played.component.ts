@@ -4,7 +4,7 @@ import {
   RecentlyPlayedPageInterface,
   AlbumInterface,
   ArtistInterface,
-} from "@apistuff";
+} from "@src/app/music-types/lib";
 
 @Component({
   selector: "app-recently-played",

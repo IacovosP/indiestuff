@@ -10,7 +10,7 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
 import { CommentThread } from "./CommentThread";
-import { CommentInterface } from "@apistuff";
+import { CommentInterface } from "../../types/lib";
 import { User } from "./User";
 import { ReplyComment } from "./ReplyComment";
   
