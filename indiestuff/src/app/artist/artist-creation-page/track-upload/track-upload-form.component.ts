@@ -62,7 +62,7 @@ export class TrackUploadFormComponent implements OnInit {
     formData.append("name", this.track.title);
     formData.append("durationInSec", String(this.track.durationInSec));
     formData.append("myFile", this.fileToUpload);
-    const restAPIUrl = `http://${REST_URL_PROD}/upload/track`;
+    const restAPIUrl = `${REST_URL_PROD}/upload/track`;
     const requestInit: RequestInit = {
       body: formData,
       method: "POST",

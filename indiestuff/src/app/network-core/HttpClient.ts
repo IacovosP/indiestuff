@@ -7,8 +7,8 @@ import * as pRetry from "p-retry";
 import * as delay from "delay";
 
 export const REST_URL_PROD =
-  "IndiestavfRest-env-1.eba-ik2v3hvm.eu-west-2.elasticbeanstalk.com";
-export const REST_URL_DEVS = "localhost:5000";
+  "https://api.indiestavf.com";
+export const REST_URL_DEVS = "http://localhost:5000";
 
 export class HttpClient {
   public fetch(
@@ -22,7 +22,7 @@ export class HttpClient {
     },
     headers?: Headers
   ): Promise<any> {
-    const requestUrl = `http://${REST_URL_PROD}/${url}`;
+    const requestUrl = `${REST_URL_PROD}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,
@@ -71,7 +71,7 @@ export class HttpClient {
     method: "GET" | "POST" = "GET",
     headers?: Headers
   ) {
-    const requestUrl = `http://${REST_URL_PROD}/${url}`;
+    const requestUrl = `${REST_URL_PROD}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,
