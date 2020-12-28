@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import httpClient from "@src/app/network-core/HttpClient";
+import { AuthStateEventEmitter } from "@src/app/login/loggedInEventEmitter";
 
 // Import the User model
 import { Artist } from "./User";
+import { loginWithEmailAndPassword } from "@src/app/common/login";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-artist-sign-up-form",
@@ -11,7 +14,12 @@ import { Artist } from "./User";
   styleUrls: ["./artist-sign-up-form.component.css"],
 })
 export class ArtistSignupFormComponent implements OnInit {
-  constructor(public hostElement: ElementRef, private router: Router) {}
+  authEventEmitter: AuthStateEventEmitter;
+
+  constructor(public hostElement: ElementRef, private router: Router, authEventEmitter: AuthStateEventEmitter, public dialogRef: MatDialogRef<ArtistSignupFormComponent>,
+    ) {
+    this.authEventEmitter = authEventEmitter;
+  }
   // Property for the user
   private user: Artist;
   ngOnInit() {
@@ -26,24 +34,17 @@ export class ArtistSignupFormComponent implements OnInit {
 
   onFormSubmit({ value, valid }: { value: Artist; valid: boolean }) {
     this.user = value;
-    console.log(this.user);
-    console.log("valid: " + valid);
     const body = JSON.stringify({
       user: this.user,
     });
     httpClient
       .fetch("user", body, "POST")
       .then((response) => {
-        console.log("got a response " + JSON.stringify(response));
+        loginWithEmailAndPassword({email: this.user.email, password: this.user.password}, this.authEventEmitter);
+        this.dialogRef.close(true);
       })
       .catch((err) => {
         console.error("got an error: ", err);
       });
   }
-  // onFormSubmit({ value, valid }: { value: Artist; valid: boolean }) {
-  //   this.user = value;
-  //   console.log(this.user);
-  //   console.log("valid: " + valid);
-  //   window.location.href = "/myartistpage";
-  // }
 }

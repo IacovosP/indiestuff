@@ -8,7 +8,7 @@ import * as delay from "delay";
 
 export const REST_URL_PROD =
   "https://api.indiestavf.com";
-export const REST_URL_DEVS = "http://localhost:5000";
+export const REST_URL_DEV = "http://localhost:5000";
 
 export class HttpClient {
   public fetch(
@@ -45,8 +45,11 @@ export class HttpClient {
       if (!retryOptions.statusToRetry.includes(response.status)) {
         throw new pRetry.AbortError(response.statusText);
       }
-
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
     };
     if (retryOptions) {
       return pRetry(executeFetch, {
@@ -61,7 +64,12 @@ export class HttpClient {
         retries: retryOptions.maxAttempts,
       });
     } else {
-      return fetch(requestUrl, requestInit).then((response) => response.json());
+      return fetch(requestUrl, requestInit).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(response);
+      });
     }
   }
 

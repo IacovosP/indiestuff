@@ -28,7 +28,7 @@ export class SignupChoiceComponent implements OnInit {
     this.dialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
 
     dialogRef.afterOpened().subscribe(() => {
@@ -43,7 +43,7 @@ export class SignupChoiceComponent implements OnInit {
     this.artistDialogRefClassScope = dialogRef;
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
 
     dialogRef.afterOpened().subscribe(() => {

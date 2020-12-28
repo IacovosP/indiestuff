@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { AlbumInterface, ArtistPageInterface } from "@src/app/music-types/lib";
 import {
   EditSubPageNavigation,
@@ -22,6 +23,7 @@ export class MyArtistPageComponent implements OnInit {
   private albumsLite: MyAlbumsLite[];
   currentAlbumToEdit: string;
 
+  constructor(private router: Router) {}
   ngOnInit() {
     this.loadPage();
   }
@@ -42,7 +44,8 @@ export class MyArtistPageComponent implements OnInit {
         this.setAlbumLite(response.albums);
       })
       .catch((err) => {
-        console.error("error in getting artist: " + err);
+        console.error("error in getting artist: " + JSON.stringify(err));
+        this.router.navigate(["/home"]);
       });
   }
 

@@ -8,7 +8,7 @@ import { Observable, of } from "rxjs";
 import { map, catchError, debounceTime, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import auth, { Auth } from "../auth/Auth";
+import auth, { AccountType } from "../auth/Auth";
 
 interface SearchOptions {
   title: string;
@@ -25,6 +25,7 @@ export class TopNavComponent implements OnInit {
   subscription: any;
   searchControl: FormControl;
   isRegistered: boolean = false;
+  isArtistRegistered: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -58,6 +59,7 @@ export class TopNavComponent implements OnInit {
 
     dialogRef.afterOpened().subscribe(() => {
       this.clickoutHandler = this.closeDialogFromClick;
+      
     });
   }
 
@@ -93,6 +95,7 @@ export class TopNavComponent implements OnInit {
     );
     if (auth.getAccessToken()) {
       this.changeAuthState({ isRegistered: true });
+      this.isArtistRegistered = auth.getAccountType() === AccountType.Artist;
     }
     this.subscription = this.authEventEmitter
       .getEmittedValue()
@@ -162,5 +165,9 @@ export class TopNavComponent implements OnInit {
   }
   changeAuthState(item: { isRegistered: boolean }) {
     this.isRegistered = item && item.isRegistered ? true : false;
+    if (this.isRegistered && this.dialog) {
+      this.isArtistRegistered = auth.getAccountType() === AccountType.Artist;
+      this.dialog.closeAll();
+    }
   }
 }

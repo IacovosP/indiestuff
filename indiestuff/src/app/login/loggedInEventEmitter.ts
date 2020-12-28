@@ -9,7 +9,7 @@ export class AuthStateEventEmitter {
   }
 
   change(value: any) {
-    console.log("change started");
+    console.log("auth change started");
     this.fire.emit(value);
   }
 

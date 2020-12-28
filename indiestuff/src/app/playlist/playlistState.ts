@@ -1,5 +1,6 @@
 import { PlaylistInterface } from "@src/app/music-types/lib";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+import auth from "../auth/Auth";
 
 export class PlaylistState {
   private playlists: PlaylistInterface[];
@@ -26,6 +27,9 @@ export class PlaylistState {
   }
 
   public setLikedTrackIdsPromise() {
+    if (!auth.getAccessToken()) {
+      return;
+    }
     this.likedTrackIdsPromise = defaultHttpClient
       .fetch("likes/ids")
       .then((response) => {

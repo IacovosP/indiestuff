@@ -12,6 +12,7 @@
   border-style: solid;
   border-width: medium;
   border-color: #47525e;
+  cursor: pointer;
 }
 
 .sign-up-choice-modal-container h3 {

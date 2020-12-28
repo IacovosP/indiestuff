@@ -87,6 +87,7 @@
   padding: 0;
   opacity: 80%;
   height: 60px;
+  cursor: pointer;
 }
 
 .form-group {
