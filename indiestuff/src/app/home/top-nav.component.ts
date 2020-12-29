@@ -57,7 +57,6 @@ export class TopNavComponent implements OnInit {
 
     dialogRef.afterOpened().subscribe(() => {
       this.clickoutHandler = this.closeDialogFromClick;
-      
     });
   }
 

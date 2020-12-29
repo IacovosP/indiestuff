@@ -18,7 +18,7 @@
         "src/*.ios.ts",
         "src/*.tns.ts",
         "src/*.web.ts",
-        "src/*.ts",
+        "src/*.ts"
       ]
     }
   }

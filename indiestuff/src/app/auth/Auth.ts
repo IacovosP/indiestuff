@@ -2,14 +2,14 @@ import httpClient from "@src/app/network-core/HttpClient";
 
 export enum AccountType {
   Artist = "Artist",
-  Fan = "Fan"
+  Fan = "Fan",
 }
 
 interface TokenResponse {
   accessToken: string;
   expiresAt: number; // timestamp when token expires
   username: string;
-  accountType? : AccountType;
+  accountType?: AccountType;
 }
 
 const AuthStorageKey = "AuthToken";
@@ -22,12 +22,12 @@ export class Auth {
   constructor() {
     this.tokenResponse = this.getTokenResponse();
   }
-  
+
   setAccessToken(tokenResponse: {
     accessToken: string;
     expiresIn: number;
     username: string;
-    isArtist?: boolean
+    isArtist?: boolean;
   }) {
     const accountType = this.tokenResponse && this.tokenResponse.accountType;
 
@@ -35,7 +35,10 @@ export class Auth {
       accessToken: tokenResponse.accessToken,
       expiresAt: Date.now() + 60 * 60 * 1000,
       username: tokenResponse.username,
-      accountType: tokenResponse.isArtist || accountType === AccountType.Artist ? AccountType.Artist : AccountType.Fan
+      accountType:
+        tokenResponse.isArtist || accountType === AccountType.Artist
+          ? AccountType.Artist
+          : AccountType.Fan,
     };
     window.localStorage.setItem(
       "AuthToken",
@@ -55,7 +58,10 @@ export class Auth {
       accessToken: tokenResponse.accessToken,
       expiresAt: Date.now() + 60 * 60 * 1000,
       username: tokenResponse.username,
-      accountType: tokenResponse.isArtist || accountType === AccountType.Artist ? AccountType.Artist : AccountType.Fan
+      accountType:
+        tokenResponse.isArtist || accountType === AccountType.Artist
+          ? AccountType.Artist
+          : AccountType.Fan,
     };
 
     window.localStorage.setItem(

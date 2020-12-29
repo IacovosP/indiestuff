@@ -14,7 +14,11 @@ import { MatDialogRef } from "@angular/material/dialog";
 export class SignupFormComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
 
-  constructor(public hostElement: ElementRef, authEventEmitter: AuthStateEventEmitter, public dialogRef: MatDialogRef<SignupFormComponent>) {
+  constructor(
+    public hostElement: ElementRef,
+    authEventEmitter: AuthStateEventEmitter,
+    public dialogRef: MatDialogRef<SignupFormComponent>
+  ) {
     this.authEventEmitter = authEventEmitter;
   }
   // Property for the user
@@ -32,7 +36,10 @@ export class SignupFormComponent implements OnInit {
     httpClient
       .fetch("user", body, "POST")
       .then((response) => {
-        loginWithEmailAndPassword({email: this.user.email, password: this.user.password}, this.authEventEmitter);
+        loginWithEmailAndPassword(
+          { email: this.user.email, password: this.user.password },
+          this.authEventEmitter
+        );
         this.dialogRef.close(true);
       })
       .catch((err) => {

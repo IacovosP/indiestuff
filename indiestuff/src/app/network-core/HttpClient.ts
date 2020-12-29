@@ -6,8 +6,7 @@ import { of } from "rxjs";
 import * as pRetry from "p-retry";
 import * as delay from "delay";
 
-export const REST_URL_PROD =
-  "https://api.indiestavf.com";
+export const REST_URL_PROD = "https://api.indiestavf.com";
 export const REST_URL_DEV = "http://localhost:5000";
 
 export class HttpClient {

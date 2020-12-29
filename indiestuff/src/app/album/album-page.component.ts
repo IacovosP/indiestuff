@@ -40,12 +40,14 @@ export class AlbumPageComponent implements OnInit {
       .fetch("album/" + albumId)
       .then((response: AlbumPageInterface) => {
         this.album = response;
-        this.album.album_image_filename = response.album_image_filename && 
+        this.album.album_image_filename =
+          response.album_image_filename &&
           "https://indie-image-test.s3.eu-west-2.amazonaws.com/" +
-          response.album_image_filename;
-        this.album.artist.artist_image_filename = response.artist.artist_image_filename && 
+            response.album_image_filename;
+        this.album.artist.artist_image_filename =
+          response.artist.artist_image_filename &&
           "https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/" +
-          response.artist.artist_image_filename;
+            response.artist.artist_image_filename;
         this.setAlbumDescription(this.album);
         this.setTrackList(this.album);
         this.darkColour = pSBC(-0.5, response.colour);

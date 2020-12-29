@@ -45,7 +45,11 @@
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button *ngIf='isArtistRegistered' mat-menu-item [routerLink]="['/mypage']">
+      <button
+        *ngIf="isArtistRegistered"
+        mat-menu-item
+        [routerLink]="['/mypage']"
+      >
         <mat-icon>person</mat-icon>
         <span>me</span>
       </button>
