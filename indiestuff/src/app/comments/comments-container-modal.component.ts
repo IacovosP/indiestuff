@@ -51,7 +51,6 @@ export class CommentModalContainerComponent implements OnInit {
   }
 
   receiveCount($event) {
-    console.error("what is even: " + $event);
     this.comments = $event;
     this.count = this.comments.length;
   }

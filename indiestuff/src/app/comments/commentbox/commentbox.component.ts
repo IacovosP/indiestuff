@@ -55,7 +55,6 @@ export class CommentboxComponent implements OnInit {
       .getEmittedValue()
       .subscribe((item) => this.changeAuthState(item));
     if (auth.getAccessToken()) {
-      console.log("we have an accessToken");
       this.changeAuthState({ isRegistered: true });
     }
   }
@@ -119,7 +118,6 @@ export class CommentboxComponent implements OnInit {
           "POST"
         )
         .then((response) => {
-          console.log("succeeded in adding comment");
           this.usercomment.emit(comment);
         })
         .catch((error) => {

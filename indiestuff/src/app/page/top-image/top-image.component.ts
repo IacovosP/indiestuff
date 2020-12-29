@@ -40,6 +40,8 @@ export class PageTopImageComponent implements OnInit {
     } else {
       this.isEditing = true;
     }
+    console.log("artistImage " + this.artistImageUrl);
+
   }
 
   loadTopImageFile(files: FileList) {
