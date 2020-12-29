@@ -40,8 +40,6 @@ export class TopNavComponent implements OnInit {
   filteredOptions: Observable<SearchOptions[]>;
   searchForm: FormGroup;
 
-  title = "indiestuff";
-
   logout() {
     auth.deregister();
     this.authEventEmitter.change({ isRegistered: false });

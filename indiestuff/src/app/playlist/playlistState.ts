@@ -41,7 +41,7 @@ export class PlaylistState {
   }
 
   public getLikedTrackIdsPromise() {
-    return this.likedTrackIdsPromise;
+    return Promise.resolve(this.likedTrackIdsPromise);
   }
 
   public getPlaylists() {

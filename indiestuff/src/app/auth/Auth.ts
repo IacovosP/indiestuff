@@ -19,6 +19,10 @@ export class Auth {
   tokenResponse: TokenResponse;
   refreshRequestPromise: Promise<string | null>;
 
+  constructor() {
+    this.tokenResponse = this.getTokenResponse();
+  }
+  
   setAccessToken(tokenResponse: {
     accessToken: string;
     expiresIn: number;
