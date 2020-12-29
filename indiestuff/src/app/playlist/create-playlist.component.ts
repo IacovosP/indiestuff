@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from "@angular/core";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
 import { PlaylistInterface } from "@src/app/music-types/lib";
 import { MatDialogRef } from "@angular/material/dialog";
+import playlistState from "./playlistState";
 
 @Component({
   selector: "app-create-playlist-form",
@@ -35,7 +36,7 @@ export class CreatePlaylistFormComponent implements OnInit {
         "POST"
       )
       .then((response) => {
-        console.log("got a response " + JSON.stringify(response));
+        return response;
       })
       .catch((err) => {
         console.error("got an error: ", err);

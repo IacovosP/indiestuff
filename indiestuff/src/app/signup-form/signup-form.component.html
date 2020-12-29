@@ -26,6 +26,7 @@
                 #email="ngModel"
                 id="inputEmail"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                maxlength="150"
                 required
               />
             </div>
@@ -59,6 +60,7 @@
               #password="ngModel"
               id="inputPassword"
               minlength="8"
+              maxlength="20"
               required
             />
           </div>
@@ -86,6 +88,8 @@
               name="username"
               #username="ngModel"
               id="inputUsername"
+              minlength="2"
+              maxlength="30"
               required
             />
           </div>

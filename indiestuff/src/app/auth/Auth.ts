@@ -25,7 +25,7 @@ export class Auth {
     username: string;
     isArtist?: boolean
   }) {
-    const accountType = this.tokenResponse.accountType;
+    const accountType = this.tokenResponse && this.tokenResponse.accountType;
 
     this.tokenResponse = {
       accessToken: tokenResponse.accessToken,
@@ -44,13 +44,14 @@ export class Auth {
     expiresIn: number;
     username: string;
     refreshToken: string;
+    isArtist?: boolean;
   }) {
-    const accountType = this.tokenResponse.accountType;
+    const accountType = this.tokenResponse && this.tokenResponse.accountType;
     this.tokenResponse = {
       accessToken: tokenResponse.accessToken,
       expiresAt: Date.now() + 60 * 60 * 1000,
       username: tokenResponse.username,
-      accountType
+      accountType: tokenResponse.isArtist || accountType === AccountType.Artist ? AccountType.Artist : AccountType.Fan
     };
 
     window.localStorage.setItem(
