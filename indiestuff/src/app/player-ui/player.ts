@@ -11,6 +11,7 @@ import { Howl, Howler } from "howler";
 import { Playlist, Track } from "@src/app/music-types/types";
 import playerEventEmitter from "./playerEmitter";
 import defaultHttpClient from "@src/app/network/DefaultHttpClient";
+import auth from "../auth/Auth";
 
 export enum LoopState {
   "DEFAULT",
@@ -64,6 +65,9 @@ class Player {
   private reportEvent() {
     this.shouldReportEvent = false;
     if (this.playlist[this.currentlyPlayingIndex].isPlaylistView) {
+      return;
+    }
+    if (!auth.getAccessToken()) {
       return;
     }
     defaultHttpClient.fetch(
@@ -249,7 +253,9 @@ class Player {
       index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
       if (index < 0) {
         index = this.playlist && this.playlist.length - 1;
-      }
+      } else if (this.currentlyPlayingIndex === 0 && index === 0) {
+        index = this.playlist && this.playlist.length - 1;
+      } 
     } else {
       index = this.currentlyPlayingIndex + 1;
       if (this.playlist && index >= this.playlist.length) {
