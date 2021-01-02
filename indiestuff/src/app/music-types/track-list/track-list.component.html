@@ -1,4 +1,14 @@
 <div class="tracks-custom">
+  <ul class="track-list-header">
+    <li class="left-side-items" style="padding-left: 40px;">
+      <a style="padding-left: 10px">#</a>
+      <a style="margin-left: 70px">track</a>
+    </li>
+    <li class="right-side-items">
+      <span *ngIf="isAlbumView === false" style="margin-right: 80px">album</span>
+      <span>duration</span>
+    </li>
+  </ul>
   <ul
     class="track-list"
     cdkDropList
