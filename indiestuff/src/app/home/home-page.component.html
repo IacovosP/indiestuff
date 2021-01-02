@@ -11,7 +11,7 @@
           topAlbum.album_image_filename
         }}"
       />
-      <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSide }" style="left: 50%">
+      <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSide, 'min-width': innerWidthSide }" style="left: 50%">
         <div class="hoverText">
           <span [routerLink]="['/album', topAlbum.id]">{{
             topAlbum.title
@@ -36,7 +36,7 @@
               album.album_image_filename
             }}"
           />
-          <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop }" style="left: 40%">
+          <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop, 'min-width': innerWidthSide }" style="left: 100%">
             <div class="hoverText">
               <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
               <span style="font-size: 12px">by</span>
@@ -63,7 +63,7 @@
             album.album_image_filename
           }}"
         />
-        <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop }" style="left: 40%;">
+        <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop, 'min-width': innerWidthSide }" style="left: 50%;">
           <div class="hoverText">
             <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
             <span style="font-size: 12px">by</span>
