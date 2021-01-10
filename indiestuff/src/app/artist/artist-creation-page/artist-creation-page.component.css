@@ -12,7 +12,7 @@
 .album-or-single mat-button-toggle-group {
   margin-left: 2%;
   margin-top: 15px;
-  font-size: 34px;
+  font-size: 24px;
   font-weight: bold;
   color: #47525e;
   font-family: sans-serif;
@@ -37,13 +37,13 @@
 
 .album-creation {
   margin-left: 3%;
-  font-size: 22px;
+  font-size: 16px;
   font-family: sans-serif;
   font-weight: bold;
   height: 350px;
   max-width: 740px;
   min-width: 620px;
-  width: 110%;
+  width: 100%;
 }
 
 .album-creation input {
@@ -51,7 +51,7 @@
   border: none;
   outline: none;
   padding-left: 150px;
-  font-size: 24px;
+  font-size: 18px;
   font-family: sans-serif;
   font-weight: bold;
   opacity: 0.5;
@@ -68,10 +68,10 @@
   padding: 0;
   margin: 0;
   float: right;
-  padding-right: 50px;
+  padding-right: 30px;
   padding-top: 40px;
-  width: 220px;
-  height: 220px;
+  width: 160px;
+  height: 160px;
 }
 
 .left-side {
@@ -86,7 +86,7 @@
 
 .form-group {
   padding-top: 30px;
-  padding-bottom: 35px;
+  padding-bottom: 20px;
   padding-left: 30px;
   display: block;
 }
@@ -124,7 +124,7 @@
 
 .left-side-items mat-icon {
   margin-left: 50px;
-  font-size: 36px;
+  font-size: 22px;
   cursor: pointer;
   margin-top: -2px;
 }
@@ -137,7 +137,7 @@
 }
 
 .right-side-items mat-icon {
-  font-size: 32px;
+  font-size: 24px;
   margin-right: 30px;
   cursor: pointer;
 }
@@ -206,19 +206,19 @@
 .track-list {
   list-style-type: none; /* Remove bullets */
   font-family: sans-serif;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .right-side button {
   background-color: transparent;
   outline: none;
   border: none;
-  font-size: 36px;
+  font-size: 26px;
   cursor: pointer;
 }
 
 .right-side button mat-icon {
-  font-size: 40px;
+  font-size: 30px;
   margin-right: 20px;
 }
 

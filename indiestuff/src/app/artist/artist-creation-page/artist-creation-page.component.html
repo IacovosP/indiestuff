@@ -45,7 +45,7 @@
             <label for="inputTitle" class="col-lg-2 control-label"
               >{{ group.value }} title</label
             >
-            <div class="col-lg-7">
+            <div class="col-lg-7" style="width: 85%">
               <input
                 type="text"
                 placeholder="{{ group.value }} name something pretentious..."
@@ -76,8 +76,8 @@
 
             <label style="float: right" for="file-input">
               <img
-                width="60px"
-                height="60px"
+                width="40px"
+                height="40px"
                 src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png"
               />
             </label>
@@ -96,8 +96,8 @@
               >colour</label
             >
             <img
-              width="60px"
-              height="60px"
+              width="40px"
+              height="40px"
               src="/assets/icons/web/outline_color_lens_black_36dp.png"
               [(colorPicker)]="color"
               [cpColorMode]="'color'"
@@ -128,8 +128,8 @@
               >add track</label
             >
             <img
-              width="60px"
-              height="60px"
+              width="40px"
+              height="40px"
               src="/assets/icons/web/outline_cloud_upload_black_36dp.png"
               (click)="openTrackUploadForm()"
             />
