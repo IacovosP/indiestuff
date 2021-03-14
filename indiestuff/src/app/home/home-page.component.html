@@ -25,9 +25,9 @@
         </div>
       </div>
     </div>
-    <div class="image-container row">
-      <ngContainer *ngFor="let album of albums" [ngStyle]="{ 'width': innerWidthSide }">
-        <div class="image-list" >
+    <div class="image-container row" [ngStyle]="{ 'width': innerWidthMain, 'height': innerWidthMain }">
+      <ngContainer *ngFor="let album of albums" [ngStyle]="{ 'width': innerWidthSide, 'max-height': innerWidthSide }">
+        <div class="image-list">
           <img
             style="min-width: 100px;"
             [ngStyle]="{ 'width': innerWidthSide }"
@@ -54,7 +54,7 @@
   </div>
   <h3>here what's trending or some other meaningless message</h3>
   <div class="album-list-container">
-    <ngContainer *ngFor="let album of albums" [ngStyle]="{ 'width': innerWidthSide }">
+    <ngContainer *ngFor="let album of mostPopAlbumResult" [ngStyle]="{ 'width': innerWidthSide }">
       <div class="album-list">
         <img
           [ngStyle]="{ 'width': innerWidthSide }"

@@ -11,7 +11,7 @@
 }
 
 .custom-modal {
-  background-color: #c2ddde;
+  /* background-color: #83a2a3; */
   font-family: sans-serif;
   color: #47525e;
   font-size: 26px;
@@ -47,7 +47,7 @@
   height: 60px;
   border-bottom: solid;
   border-width: medium;
-  border-color: #89b8b9;
+  /* border-color: #89b8b9; */
   margin: 0;
   padding: 0;
   padding-top: 20px;

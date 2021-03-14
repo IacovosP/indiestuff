@@ -11,12 +11,11 @@
 }
 
 .custom-modal {
-  background-color: #c2ddde;
+  /* background-color: #c2ddde; */
   font-family: sans-serif;
   color: #47525e;
   font-size: 26px;
   font-weight: bold;
-  height: 315px;
   width: 750px;
   overflow: hidden;
 }
@@ -76,7 +75,9 @@
   font-family: sans-serif;
   color: #47525e;
   font-weight: bold;
-  margin-top: -30px;
+  margin-top: -40px;
+  outline: none;
+  cursor: pointer;
 }
 
 .icon-done {
@@ -102,6 +103,12 @@
   float: right;
 }
 
+.form-group-button mat-icon {
+  font-size: 50px;
+  margin-right: 20px;
+  margin-top: -12px;
+}
+
 .control-label {
   padding-top: 5px;
   width: 25%;
@@ -109,4 +116,22 @@
 
 .checkbox {
   margin-left: 5%;
+}
+
+.forgot-my-password-container {
+  padding-left: 30px;
+  display: inline-flex;
+  padding-bottom: 10px;
+}
+
+.forgot-my-password-container a {
+  font-size: 15px;
+  color: #F08080;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.input-forgot-password {
+  width: 250px;
+  float: right;
 }

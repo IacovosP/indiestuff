@@ -1,6 +1,4 @@
-import auth from "../auth/Auth";
 import { fromFetch } from "rxjs/fetch";
-import { Observable } from "@nativescript/core";
 import { switchMap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import * as pRetry from "p-retry";
@@ -21,7 +19,7 @@ export class HttpClient {
     },
     headers?: Headers
   ): Promise<any> {
-    const requestUrl = `${REST_URL_PROD}/${url}`;
+    const requestUrl = `${REST_URL_DEV}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,
@@ -45,6 +43,9 @@ export class HttpClient {
         throw new pRetry.AbortError(response.statusText);
       }
       if (response.ok) {
+        if (typeof response === 'string') {
+          return response;
+        }
         return response.json();
       } else {
         return Promise.reject(response);
@@ -78,7 +79,7 @@ export class HttpClient {
     method: "GET" | "POST" = "GET",
     headers?: Headers
   ) {
-    const requestUrl = `${REST_URL_PROD}/${url}`;
+    const requestUrl = `${REST_URL_DEV}/${url}`;
     let requestInit: RequestInit = {
       body,
       headers,

@@ -49,8 +49,10 @@ import { HomePageComponent } from "@src/app/home/home.component";
 import { MyArtistPageComponent } from "@src/app/artist/artist-creation-page/my-artist-page.component";
 import { MyArtistMusicPageComponent } from "@src/app/artist/artist-creation-page/my-music/my-artist-music-page.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { Router } from "@angular/router";
 import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog/confirmation-dialog.component";
+import { SettingsPageComponent } from "@src/app/user/settings-page.component";
+import { ResetPasswordComponent } from "@src/app/user/reset-password/reset-password.component";
+import { DonationPageComponent } from "@src/app/donation/donation-page.component";
 
 @NgModule({
   declarations: [
@@ -84,6 +86,9 @@ import { ConfirmationDialogComponent } from "@src/app/common/confirmation-dialog
     MyArtistPageComponent,
     MyArtistMusicPageComponent,
     ConfirmationDialogComponent,
+    SettingsPageComponent,
+    ResetPasswordComponent,
+    DonationPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

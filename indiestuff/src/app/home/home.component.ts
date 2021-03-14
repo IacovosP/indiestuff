@@ -10,6 +10,7 @@ import auth from "../auth/Auth";
 })
 export class HomePageComponent implements OnInit {
   albums: HomePageAlbumInterface[];
+  mostPopAlbumResult: HomePageAlbumInterface[];
   topAlbum: HomePageAlbumInterface;
   innerWidthMain: string;
   innerWidthSide: string;
@@ -34,8 +35,10 @@ export class HomePageComponent implements OnInit {
     defaultHttpClient
       .fetch("home/")
       .then((response) => {
-        this.topAlbum = response.shift();
-        this.albums = response;
+        this.topAlbum = response.result.shift();
+        this.albums = response.result;
+        this.mostPopAlbumResult = response.mostPopAlbumResult;
+        console.log("mostPopAlbumResult " + JSON.stringify(this.mostPopAlbumResult, null, 4));
       })
       .catch((error) => {
         console.error("Error in fetching home page: " + error);

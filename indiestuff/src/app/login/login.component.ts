@@ -11,6 +11,7 @@ import { LoginUser, loginWithEmailAndPassword } from "@src/app/common/login";
 })
 export class LoginFormComponent implements OnInit {
   authEventEmitter: AuthStateEventEmitter;
+  shouldShowForgotPasswordTail: boolean = false;
 
   constructor(
     public hostElement: ElementRef,
@@ -20,6 +21,9 @@ export class LoginFormComponent implements OnInit {
   }
   // Property for the user
   private user: LoginUser;
+  private forgottenAccountEmail: string = "";
+  private shouldShowForgotPasswordInput = false;
+
   ngOnInit() {
     // Create a new user object
     this.user = { email: "", password: "" };
@@ -29,5 +33,21 @@ export class LoginFormComponent implements OnInit {
     this.user = value;
 
     loginWithEmailAndPassword(this.user, this.authEventEmitter);
+  }
+
+  openForgotPasswordDialog() {
+    this.shouldShowForgotPasswordInput = true;
+  }
+
+  verifyEmailAndSendResetEmail({ value, valid }) {
+    const emailAddressForForgottenPassword = value.forgottenEmail;
+    console.log("email 1: " + emailAddressForForgottenPassword);
+    defaultHttpClient.fetch(
+      "auth/resetPassword",
+      JSON.stringify({
+        email: emailAddressForForgottenPassword,
+      }),
+      "POST"
+    );
   }
 }

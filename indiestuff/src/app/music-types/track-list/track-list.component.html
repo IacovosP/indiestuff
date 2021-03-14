@@ -5,7 +5,7 @@
       <a style="margin-left: 70px">track</a>
     </li>
     <li class="right-side-items">
-      <span *ngIf="isAlbumView === false" style="margin-right: 80px">album</span>
+      <span *ngIf="isAlbumView === false" [ngStyle]="{ 'margin-right': isRegistered ? '195px' : '80px' }">album</span>
       <span>duration</span>
     </li>
   </ul>

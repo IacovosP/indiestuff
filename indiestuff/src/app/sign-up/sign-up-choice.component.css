@@ -28,7 +28,12 @@
   border-right-style: solid;
   border-width: medium;
   border-color: #47525e;
-  display: grid;
+  display: flex;
+}
+
+.fan-sign-up img {
+ position: absolute;
+ bottom: 0;
 }
 
 .artist-sign-up {

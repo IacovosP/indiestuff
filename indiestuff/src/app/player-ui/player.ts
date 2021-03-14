@@ -18,6 +18,10 @@ export enum LoopState {
   "LOOP_PLAYLIST",
   "LOOP_TRACK",
 }
+
+const PERCENTAGE_TO_REPORT_HALF_MARK  = 40;
+const SECONDS_LISTENED_TO_REPORT_FIRST_MARK = 30;
+
 class Player {
   private playlist;
   private currentlyPlayingIndex: number;
@@ -30,6 +34,8 @@ class Player {
   private trackListId: string;
   private actualPlayedTimeOfCurrentTrackInSeconds = 0;
   private shouldReportEvent = true;
+  private shouldReportHalfMark = true;
+  private secondsReportedLast: number;
 
   constructor() {
     Howler.volume(this.currentVolume);
@@ -47,11 +53,21 @@ class Player {
         if (typeof currentTrackTime === "number") {
           if (this.currentlyPlayingSound.playing()) {
             this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
+            const elapsedActualPlayedTimeInPercentageOfDuration = (this.actualPlayedTimeOfCurrentTrackInSeconds / player.getDurationOfSong())*100;
             if (
-              this.actualPlayedTimeOfCurrentTrackInSeconds > 30 &&
+              this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
               this.shouldReportEvent
             ) {
               this.reportEvent();
+              this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
+            } else if (this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK && elapsedActualPlayedTimeInPercentageOfDuration > PERCENTAGE_TO_REPORT_HALF_MARK && this.shouldReportHalfMark) {
+              if (this.shouldReportEvent) {
+                this.reportEvent();
+                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
+              } else {
+                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+              }
+              this.shouldReportHalfMark = false; 
             }
           }
           this.elapsedTimeInPercentage =
@@ -76,6 +92,23 @@ class Player {
         trackId: this.playlist[this.currentlyPlayingIndex].id,
         artistId: this.playlist[this.currentlyPlayingIndex].artistId,
         albumId: this.playlist[this.currentlyPlayingIndex].albumId,
+      }),
+      "POST"
+    );
+  }
+
+  private reportAdditionalTimeListened(additionalSecondsListened: number) {
+    if (!auth.getAccessToken()) {
+      return;
+    }
+    this.secondsReportedLast = additionalSecondsListened;
+    defaultHttpClient.fetch(
+      "event/addListen",
+      JSON.stringify({
+        trackId: this.playlist[this.currentlyPlayingIndex].id,
+        artistId: this.playlist[this.currentlyPlayingIndex].artistId,
+        albumId: this.playlist[this.currentlyPlayingIndex].albumId,
+        additionalSecondsListened: Math.floor(additionalSecondsListened)
       }),
       "POST"
     );
@@ -155,6 +188,13 @@ class Player {
         },
         onend: function () {
           console.log("Finished!");
+          if (data.howl.duration() > (100/PERCENTAGE_TO_REPORT_HALF_MARK * SECONDS_LISTENED_TO_REPORT_FIRST_MARK)) {
+            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK - self.secondsReportedLast);
+          } else if (data.howl.duration() > SECONDS_LISTENED_TO_REPORT_FIRST_MARK) {
+            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+          } else {
+            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds);
+          }
           if (self.currentlyPlayingIndex === self.playlist.length - 1) {
             self.pause();
           } else if (

@@ -1,6 +1,5 @@
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #fff;
   overflow: hidden;
   border-bottom: solid;
   border-width: thin;
@@ -99,6 +98,7 @@ mat-option.mat-option {
   line-height: 24px !important;
   max-height: 74px !important;
   white-space: pre-wrap !important;
+  width: 300px;
 }
 
 ::ng-deep .cdk-overlay-pane {
@@ -111,7 +111,7 @@ mat-option.mat-option {
 }
 
 .auth {
-  margin-left: 30%;
+  margin-left: 20%;
   display: inline;
 }
 
@@ -133,7 +133,7 @@ mat-option.mat-option {
 }
 
 .profile {
-  margin-left: 30%;
+  margin-left: 20%;
 }
 .profile button {
   border: none;
