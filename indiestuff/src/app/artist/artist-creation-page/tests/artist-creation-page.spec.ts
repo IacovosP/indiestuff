@@ -1,6 +1,6 @@
 import { ArtistCreationPageComponent } from "../artist-creation-page.component";
 import { MatDialogModule } from "@angular/material/dialog";
-import { TestBed, async } from "@angular/core/testing";
+import { TestBed, waitForAsync } from "@angular/core/testing";
 import { of } from "rxjs";
 import { SharedService } from "@src/app/common/shared-service";
 import playerEventEmitter from "@src/app/player-ui/playerEmitter";
