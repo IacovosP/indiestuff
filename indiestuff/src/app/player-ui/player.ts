@@ -195,15 +195,17 @@ class Player {
           } else {
             self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds);
           }
-          if (self.currentlyPlayingIndex === self.playlist.length - 1) {
-            self.pause();
-          } else if (
-            self.loopState === LoopState.DEFAULT ||
+          if (
+            (self.loopState === LoopState.DEFAULT && self.currentlyPlayingIndex !== self.playlist.length - 1)||
             self.loopState === LoopState.LOOP_PLAYLIST
           ) {
             self.skip("next");
-          } else if (self.loopState === LoopState.LOOP_TRACK) {
+          } 
+          else if (self.loopState === LoopState.LOOP_TRACK) {
             self.playTrack();
+          }
+          else if (self.currentlyPlayingIndex === self.playlist.length - 1) {
+            self.pause();
           }
         },
         onpause: function () {},
