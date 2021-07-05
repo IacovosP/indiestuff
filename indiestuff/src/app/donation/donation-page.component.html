@@ -2,30 +2,15 @@
 <app-my-navbar></app-my-navbar>
 <app-artist-menu-bar
 ></app-artist-menu-bar>
-<div id="menu" class="container mx-auto px-4 lg:pt-24 lg:pb-64">
-    <div *ngFor="let artist of artists; index as i" class="flex flex-wrap mt-12 justify-center">
-      <div  class="grid grid-cols-1 sm:grid-cols-8 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-8 gap-2">
-          <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-            <img
-              alt="..."
-              src="https://source.unsplash.com/gUBJ9vSlky0"
-              class="h-24 w-24 rounded  mx-auto"
-            />
-          </div>
-          <div class="col-span-2 sm:col-span-4 xl:col-span-4">
-            <h3 class="font-semibold text-black">{{ artist.name }}</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div class="col-span-2 sm:col-span-1 xl:col-span-1 italic ">
-            $22
-          </div>
-          <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-            <mat-icon *ngIf="!artist.shouldRemove" (click)="removeTrack(i)">close_outline</mat-icon>
+<div class="donation-container">
+    <div cdkDropList class="artist-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let artist of artists; index as i" class="track-box" cdkDrag>
+          <div *ngIf="!artist.shouldRemove" class="tab-container">
+            <mat-icon class="remove-track" (click)="removeTrack(i)"
+            >close_outline</mat-icon
+          >
+            <a>{{ artist.name }}</a>
           </div>
         </div>
-    </div>
+      </div>
 </div>
-
-<!-- src="https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/{{
-  artist.artist_image_filename
-}}" -->
