@@ -7,10 +7,9 @@ import httpClient from "@src/app/network-core/HttpClient";
   styleUrls: ["./donation-page.component.css"],
 })
 export class DonationPageComponent implements OnInit {
-    artists = [{name: "iacovos"}, {name: "bandman"}];
+  artists = [{ name: "iacovos" }, { name: "bandman" }];
 
-    constructor() {}
+  constructor() {}
 
-    ngOnInit() {}
-
+  ngOnInit() {}
 }

@@ -9,7 +9,7 @@ import httpClient from "@src/app/network-core/HttpClient";
   styleUrls: ["./reset-password.component.css"],
 })
 export class ResetPasswordComponent implements OnInit {
-  private user: {password: string};
+  private user: { password: string };
   resetToken: string;
   username: string;
 
@@ -17,12 +17,12 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.user = {
-      password: ""
-    }
+      password: "",
+    };
 
-    this.route.queryParams.subscribe(params => {
-      this.resetToken = params['token'];
-      this.username = params['username'];
+    this.route.queryParams.subscribe((params) => {
+      this.resetToken = params["token"];
+      this.username = params["username"];
       if (!this.resetToken || !this.username || auth.getAccessToken()) {
         console.log("navigating home even though we tried to go to reset page");
         this.router.navigate(["/home"]);
@@ -42,24 +42,29 @@ export class ResetPasswordComponent implements OnInit {
     }
     console.log("form to reset password submitted: " + JSON.stringify(value));
 
-    httpClient.fetch(
-      "auth/resetChangePassword", 
-      JSON.stringify({newPassword: value.password, username: this.username}), 
-      "POST", 
-      undefined,
-      new Headers({ 
-        auth: this.resetToken,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }))
-    .then(() => {
-      alert("password successfully changed");
-      this.router.navigate(["/home"]);
-    })
-    .catch(error => {
-      alert("failed to change password")
-      console.error("Failed to reset-change password: " + error);
-      this.router.navigate(["/home"]);
-    });
+    httpClient
+      .fetch(
+        "auth/resetChangePassword",
+        JSON.stringify({
+          newPassword: value.password,
+          username: this.username,
+        }),
+        "POST",
+        undefined,
+        new Headers({
+          auth: this.resetToken,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        })
+      )
+      .then(() => {
+        alert("password successfully changed");
+        this.router.navigate(["/home"]);
+      })
+      .catch((error) => {
+        alert("failed to change password");
+        console.error("Failed to reset-change password: " + error);
+        this.router.navigate(["/home"]);
+      });
   }
 }

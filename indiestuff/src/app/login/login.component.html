@@ -70,19 +70,24 @@
           </p>
         </div>
         <div class="forgot-my-password-container form-group-button">
-          <form *ngIf="shouldShowForgotPasswordInput" novalidate (ngSubmit)="verifyEmailAndSendResetEmail(forgotPasswordForm)" #forgotPasswordForm="ngForm">
+          <form
+            *ngIf="shouldShowForgotPasswordInput"
+            novalidate
+            (ngSubmit)="verifyEmailAndSendResetEmail(forgotPasswordForm)"
+            #forgotPasswordForm="ngForm"
+          >
             <div style="display: flex; width: 300px; padding-top: 20px">
-              <input 
-              type="text"
-              class="form-control input-forgot-password"
-              placeholder="verify email address to reset password"
-              [ngModel]="forgottenAccountEmail"
-              name="forgottenEmail"
-              #email="ngModel"
-              id="inputForgottenEmail"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-              required
-            />
+              <input
+                type="text"
+                class="form-control input-forgot-password"
+                placeholder="verify email address to reset password"
+                [ngModel]="forgottenAccountEmail"
+                name="forgottenEmail"
+                #email="ngModel"
+                id="inputForgottenEmail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                required
+              />
               <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
               <button
                 style="padding: 0px; padding-left: 5px; padding-top: 32px"
@@ -91,14 +96,13 @@
                 mat-button
                 [mat-dialog-close]="true"
                 [disabled]="!forgotPasswordForm.form.valid"
-              >reset
+              >
+                reset
               </button>
             </div>
           </form>
-          <a
-            style="padding-left: 25px;"
-            (click)="openForgotPasswordDialog()"
-          >forgot my password
+          <a style="padding-left: 25px" (click)="openForgotPasswordDialog()"
+            >forgot my password
           </a>
 
           <!-- Buttons block -->
@@ -111,10 +115,8 @@
               [mat-dialog-close]="true"
               [disabled]="!loginForm.form.valid"
             >
-              <div style="display: flex; float: right;padding-top: 30px">
-                <mat-icon>
-                  done
-                </mat-icon>
+              <div style="display: flex; float: right; padding-top: 30px">
+                <mat-icon> done </mat-icon>
                 <p>login</p>
               </div>
             </button>

@@ -2,17 +2,20 @@
 <app-my-navbar></app-my-navbar>
 <div class="home-page" *ngIf="albums">
   <div class="top-items-container">
-    <div *ngIf="topAlbum" class="image-container main-image"
-    >
+    <div *ngIf="topAlbum" class="image-container main-image">
       <img
-        [ngStyle]="{ 'width': innerWidthMain }"
+        [ngStyle]="{ width: innerWidthMain }"
         [routerLink]="['/album', topAlbum.id]"
         src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
           topAlbum.album_image_filename
         }}"
       />
-      <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSide, 'min-width': innerWidthSide }" style="left: 50%">
-        <div class="hoverText">
+      <div
+        class="bottom"
+        [ngStyle]="{ top: '-' + innerWidthSide, 'min-width': innerWidthSide }"
+        style="left: 50%"
+      >
+        <div class="image-hover-overlay">
           <span [routerLink]="['/album', topAlbum.id]">{{
             topAlbum.title
           }}</span>
@@ -25,19 +28,25 @@
         </div>
       </div>
     </div>
-    <div class="image-container row" [ngStyle]="{ 'width': innerWidthMain, 'height': innerWidthMain }">
-      <ngContainer *ngFor="let album of albums" [ngStyle]="{ 'width': innerWidthSide, 'max-height': innerWidthSide }">
+    <div
+      class="image-container row"
+      [ngStyle]="{ width: innerWidthMain, height: innerWidthMain }"
+    >
+      <ngContainer
+        *ngFor="let album of albums"
+        [ngStyle]="{ width: innerWidthSide, 'max-height': innerWidthSide }"
+      >
         <div class="image-list">
           <img
-            style="min-width: 100px;"
-            [ngStyle]="{ 'width': innerWidthSide }"
+            style="min-width: 100px"
+            [ngStyle]="{ width: innerWidthSide }"
             [routerLink]="['/album', album.id]"
             src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
               album.album_image_filename
             }}"
           />
-          <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop, 'min-width': innerWidthSide }" style="left: 100%">
-            <div class="hoverText">
+          <div class="bottom">
+            <div class="small-image-hover-overlay">
               <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
               <span style="font-size: 12px">by</span>
               <span
@@ -49,21 +58,30 @@
           </div>
         </div>
       </ngContainer>
-
     </div>
   </div>
   <h3>here what's trending or some other meaningless message</h3>
   <div class="album-list-container">
-    <ngContainer *ngFor="let album of mostPopAlbumResult" [ngStyle]="{ 'width': innerWidthSide }">
+    <ngContainer
+      *ngFor="let album of mostPopAlbumResult"
+      [ngStyle]="{ width: innerWidthSide }"
+    >
       <div class="album-list">
         <img
-          [ngStyle]="{ 'width': innerWidthSide }"
+          [ngStyle]="{ width: innerWidthSide }"
           [routerLink]="['/album', album.id]"
           src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{
             album.album_image_filename
           }}"
         />
-        <div class="middle" [ngStyle]="{ 'top': '-' + innerWidthSideForTop, 'min-width': innerWidthSide }" style="left: 50%;">
+        <div
+          class="middle"
+          [ngStyle]="{
+            top: '-' + innerWidthSideForTop,
+            'min-width': innerWidthSide
+          }"
+          style="left: 50%"
+        >
           <div class="hoverText">
             <span [routerLink]="['/album', album.id]">{{ album.title }}</span>
             <span style="font-size: 12px">by</span>

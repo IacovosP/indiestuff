@@ -1,16 +1,15 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
-<app-artist-menu-bar
-></app-artist-menu-bar>
+<app-artist-menu-bar></app-artist-menu-bar>
 <div class="donation-container">
-    <div cdkDropList class="artist-list" (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let artist of artists; index as i" class="track-box" cdkDrag>
-          <div *ngIf="!artist.shouldRemove" class="tab-container">
-            <mat-icon class="remove-track" (click)="removeTrack(i)"
-            >close_outline</mat-icon
-          >
-            <a>{{ artist.name }}</a>
-          </div>
-        </div>
+  <div cdkDropList class="artist-list" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let artist of artists; index as i" class="track-box" cdkDrag>
+      <div *ngIf="!artist.shouldRemove" class="tab-container">
+        <mat-icon class="remove-track" (click)="removeTrack(i)"
+          >close_outline</mat-icon
+        >
+        <a>{{ artist.name }}</a>
       </div>
+    </div>
+  </div>
 </div>

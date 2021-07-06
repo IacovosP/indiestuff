@@ -7,15 +7,15 @@ import httpClient from "@src/app/network-core/HttpClient";
   styleUrls: ["./settings-page.component.css"],
 })
 export class SettingsPageComponent implements OnInit {
-  private user: {password: string};
+  private user: { password: string };
   username: string;
 
   constructor() {}
 
   ngOnInit() {
     this.user = {
-      password: ""
-    }
+      password: "",
+    };
   }
 
   checkValidnessOfToken() {
@@ -28,16 +28,21 @@ export class SettingsPageComponent implements OnInit {
     }
     console.log("form to reset password submitted: " + JSON.stringify(value));
 
-    httpClient.fetch(
-      "auth/resetChangePassword", 
-      JSON.stringify({newPassword: value.password, username: this.username}), 
-      "POST")
-    .then(() => {
-      alert("Password successfully changed");
-    })
-    .catch(error => {
-      alert("Failed to changed password")
-      console.error("Failed to reset-change password: " + error);
-    });
+    httpClient
+      .fetch(
+        "auth/resetChangePassword",
+        JSON.stringify({
+          newPassword: value.password,
+          username: this.username,
+        }),
+        "POST"
+      )
+      .then(() => {
+        alert("Password successfully changed");
+      })
+      .catch((error) => {
+        alert("Failed to changed password");
+        console.error("Failed to reset-change password: " + error);
+      });
   }
 }

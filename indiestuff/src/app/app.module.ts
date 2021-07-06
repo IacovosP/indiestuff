@@ -88,7 +88,7 @@ import { DonationPageComponent } from "@src/app/donation/donation-page.component
     ConfirmationDialogComponent,
     SettingsPageComponent,
     ResetPasswordComponent,
-    DonationPageComponent
+    DonationPageComponent,
   ],
   imports: [
     BrowserAnimationsModule,

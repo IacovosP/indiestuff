@@ -15,7 +15,12 @@
   --b-pink: #c1357e;
   --b-purple: #675997;
   --b-blue: #0655a9;
-  background-image: linear-gradient(45deg, var(--b-pink), var(--b-purple), var(--b-blue));
+  background-image: linear-gradient(
+    45deg,
+    var(--b-pink),
+    var(--b-purple),
+    var(--b-blue)
+  );
 }
 
 .mat-dialog-content {

@@ -43,7 +43,7 @@ export class HttpClient {
         throw new pRetry.AbortError(response.statusText);
       }
       if (response.ok) {
-        if (typeof response === 'string') {
+        if (typeof response === "string") {
           return response;
         }
         return response.json();

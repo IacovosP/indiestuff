@@ -17,18 +17,30 @@ export class HomePageComponent implements OnInit {
   innerWidthSideForTop: string;
   constructor() {}
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event: any) {
-    this.innerWidthMain = window.innerWidth ? (window.innerWidth / 3).toString() + 'px' : '800px';
-    this.innerWidthSide = window.innerWidth ? (window.innerWidth / 6).toString() + 'px' : '398px';
-    this.innerWidthSideForTop = window.innerWidth ? (window.innerWidth / 12).toString() + 'px' : '199px';
+    this.innerWidthMain = window.innerWidth
+      ? (window.innerWidth / 3).toString() + "px"
+      : "800px";
+    this.innerWidthSide = window.innerWidth
+      ? (window.innerWidth / 6).toString() + "px"
+      : "398px";
+    this.innerWidthSideForTop = window.innerWidth
+      ? (window.innerWidth / 12).toString() + "px"
+      : "199px";
   }
 
   ngOnInit() {
     this.loadHomePage();
-    this.innerWidthMain = window.innerWidth ? (window.innerWidth / 3).toString() + 'px' : '800px';
-    this.innerWidthSide = window.innerWidth ? (window.innerWidth / 6).toString() + 'px' : '398px';
-    this.innerWidthSideForTop = window.innerWidth ? (window.innerWidth / 12).toString() + 'px' : '199px';
+    this.innerWidthMain = window.innerWidth
+      ? (window.innerWidth / 3).toString() + "px"
+      : "800px";
+    this.innerWidthSide = window.innerWidth
+      ? (window.innerWidth / 6).toString() + "px"
+      : "398px";
+    this.innerWidthSideForTop = window.innerWidth
+      ? (window.innerWidth / 12).toString() + "px"
+      : "199px";
   }
 
   loadHomePage() {
@@ -38,7 +50,10 @@ export class HomePageComponent implements OnInit {
         this.topAlbum = response.result.shift();
         this.albums = response.result;
         this.mostPopAlbumResult = response.mostPopAlbumResult;
-        console.log("mostPopAlbumResult " + JSON.stringify(this.mostPopAlbumResult, null, 4));
+        console.log(
+          "mostPopAlbumResult " +
+            JSON.stringify(this.mostPopAlbumResult, null, 4)
+        );
       })
       .catch((error) => {
         console.error("Error in fetching home page: " + error);

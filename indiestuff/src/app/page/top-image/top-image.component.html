@@ -3,7 +3,10 @@
   <div
     *ngIf="!!albumImageUrl"
     class="album-image-container"
-    [ngStyle]="{ 'background-image': 'linear-gradient(to bottom, ' +  darkColour +'  0% , transparent)'}"
+    [ngStyle]="{
+      'background-image':
+        'linear-gradient(to bottom, ' + darkColour + '  0% , transparent)'
+    }"
   >
     <img src="{{ albumImageUrl }}" />
     <div>

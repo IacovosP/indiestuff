@@ -19,7 +19,7 @@ export enum LoopState {
   "LOOP_TRACK",
 }
 
-const PERCENTAGE_TO_REPORT_HALF_MARK  = 40;
+const PERCENTAGE_TO_REPORT_HALF_MARK = 40;
 const SECONDS_LISTENED_TO_REPORT_FIRST_MARK = 30;
 
 class Player {
@@ -53,21 +53,38 @@ class Player {
         if (typeof currentTrackTime === "number") {
           if (this.currentlyPlayingSound.playing()) {
             this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
-            const elapsedActualPlayedTimeInPercentageOfDuration = (this.actualPlayedTimeOfCurrentTrackInSeconds / player.getDurationOfSong())*100;
+            const elapsedActualPlayedTimeInPercentageOfDuration =
+              (this.actualPlayedTimeOfCurrentTrackInSeconds /
+                player.getDurationOfSong()) *
+              100;
             if (
-              this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
+              this.actualPlayedTimeOfCurrentTrackInSeconds >
+                SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
               this.shouldReportEvent
             ) {
               this.reportEvent();
-              this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
-            } else if (this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK && elapsedActualPlayedTimeInPercentageOfDuration > PERCENTAGE_TO_REPORT_HALF_MARK && this.shouldReportHalfMark) {
+              this.reportAdditionalTimeListened(
+                this.actualPlayedTimeOfCurrentTrackInSeconds
+              );
+            } else if (
+              this.actualPlayedTimeOfCurrentTrackInSeconds >
+                SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
+              elapsedActualPlayedTimeInPercentageOfDuration >
+                PERCENTAGE_TO_REPORT_HALF_MARK &&
+              this.shouldReportHalfMark
+            ) {
               if (this.shouldReportEvent) {
                 this.reportEvent();
-                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
+                this.reportAdditionalTimeListened(
+                  this.actualPlayedTimeOfCurrentTrackInSeconds
+                );
               } else {
-                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+                this.reportAdditionalTimeListened(
+                  this.actualPlayedTimeOfCurrentTrackInSeconds -
+                    SECONDS_LISTENED_TO_REPORT_FIRST_MARK
+                );
               }
-              this.shouldReportHalfMark = false; 
+              this.shouldReportHalfMark = false;
             }
           }
           this.elapsedTimeInPercentage =
@@ -108,7 +125,7 @@ class Player {
         trackId: this.playlist[this.currentlyPlayingIndex].id,
         artistId: this.playlist[this.currentlyPlayingIndex].artistId,
         albumId: this.playlist[this.currentlyPlayingIndex].albumId,
-        additionalSecondsListened: Math.floor(additionalSecondsListened)
+        additionalSecondsListened: Math.floor(additionalSecondsListened),
       }),
       "POST"
     );
@@ -188,23 +205,37 @@ class Player {
         },
         onend: function () {
           console.log("Finished!");
-          if (data.howl.duration() > (100/PERCENTAGE_TO_REPORT_HALF_MARK * SECONDS_LISTENED_TO_REPORT_FIRST_MARK)) {
-            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK - self.secondsReportedLast);
-          } else if (data.howl.duration() > SECONDS_LISTENED_TO_REPORT_FIRST_MARK) {
-            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+          if (
+            data.howl.duration() >
+            (100 / PERCENTAGE_TO_REPORT_HALF_MARK) *
+              SECONDS_LISTENED_TO_REPORT_FIRST_MARK
+          ) {
+            self.reportAdditionalTimeListened(
+              self.actualPlayedTimeOfCurrentTrackInSeconds -
+                SECONDS_LISTENED_TO_REPORT_FIRST_MARK -
+                self.secondsReportedLast
+            );
+          } else if (
+            data.howl.duration() > SECONDS_LISTENED_TO_REPORT_FIRST_MARK
+          ) {
+            self.reportAdditionalTimeListened(
+              self.actualPlayedTimeOfCurrentTrackInSeconds -
+                SECONDS_LISTENED_TO_REPORT_FIRST_MARK
+            );
           } else {
-            self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds);
+            self.reportAdditionalTimeListened(
+              self.actualPlayedTimeOfCurrentTrackInSeconds
+            );
           }
           if (
-            (self.loopState === LoopState.DEFAULT && self.currentlyPlayingIndex !== self.playlist.length - 1)||
+            (self.loopState === LoopState.DEFAULT &&
+              self.currentlyPlayingIndex !== self.playlist.length - 1) ||
             self.loopState === LoopState.LOOP_PLAYLIST
           ) {
             self.skip("next");
-          } 
-          else if (self.loopState === LoopState.LOOP_TRACK) {
+          } else if (self.loopState === LoopState.LOOP_TRACK) {
             self.playTrack();
-          }
-          else if (self.currentlyPlayingIndex === self.playlist.length - 1) {
+          } else if (self.currentlyPlayingIndex === self.playlist.length - 1) {
             self.pause();
           }
         },
@@ -297,7 +328,7 @@ class Player {
         index = this.playlist && this.playlist.length - 1;
       } else if (this.currentlyPlayingIndex === 0 && index === 0) {
         index = this.playlist && this.playlist.length - 1;
-      } 
+      }
     } else {
       index = this.currentlyPlayingIndex + 1;
       if (this.playlist && index >= this.playlist.length) {

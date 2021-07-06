@@ -23,6 +23,7 @@
 }
 
 .image-container {
+  position: relative;
   /* height: 800px;
   width: 800px; */
 }
@@ -131,6 +132,28 @@
   opacity: 1;
 }
 
+.bottom {
+  transition: 0.5s ease;
+  opacity: 0;
+  /* position: relative; */
+  /* top: -50%; */
+  /* left: 50%; */
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  /* margin-left: auto; */
+}
+
+.bottom span {
+  padding-right: 4px;
+  color: white;
+  font-weight: 100;
+}
+
+.image-container:hover .bottom {
+  opacity: 1;
+}
+
 .hoverText:hover {
   text-shadow: -0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white,
     0.5px 0.5px 0 white;
@@ -138,4 +161,45 @@
   -moz-transition: all 1s;
   -o-transition: all 1s;
   transition: all 1s;
+}
+
+.image-container .image-hover-overlay {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 50%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2px;
+  margin-bottom: 4px;
+}
+.image-container .small-image-hover-overlay {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 50%;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 4px;
+  margin-bottom: 4px;
+}
+
+.image-container .small-image-hover-overlay {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 50%;
+  width: 204%;
+  box-sizing: border-box;
+  padding-top: 4px;
+}
+
+.image-container:hover .image-hover-overlay {
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.image-list:hover .small-image-hover-overlay {
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
 }

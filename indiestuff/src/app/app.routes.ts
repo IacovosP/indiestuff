@@ -61,5 +61,5 @@ export const routes: Routes = [
   {
     path: "donation",
     component: DonationPageComponent,
-  }
+  },
 ];
