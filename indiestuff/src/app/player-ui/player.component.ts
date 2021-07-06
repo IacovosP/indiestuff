@@ -32,6 +32,7 @@ export class PlayerComponent implements OnInit {
   actualPlayedTimeOfCurrentTrackInSeconds: number;
   isAlbumView: boolean;
   isArtistView: boolean;
+  colour: string = "#dda9e4";
 
   constructor(playerSharedService: SharedService) {
     this.playerSharedService = playerSharedService;
@@ -43,10 +44,12 @@ export class PlayerComponent implements OnInit {
     indexOfSongToPlay: number,
     trackListId: string,
     isAlbumView: boolean = false,
-    isArtistView: boolean = false
+    isArtistView: boolean = false,
+    colour: string = "#dda9e4"
   ) {
     this.isAlbumView = isAlbumView;
     this.isArtistView = isArtistView;
+    this.colour = colour;
     this.currentPlaylist = this.createPlaylistWithTracks(tracks);
     try {
       player.setTrackListId(trackListId);
@@ -146,7 +149,8 @@ export class PlayerComponent implements OnInit {
           item.indexOfSongToPlay,
           item.trackListId,
           item.isAlbumView,
-          item.isArtistView
+          item.isArtistView,
+          item.colour
         )
       );
     this.pauseSubscription = this.playerSharedService

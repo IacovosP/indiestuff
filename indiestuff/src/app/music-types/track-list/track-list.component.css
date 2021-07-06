@@ -58,11 +58,13 @@ span {
 .track-list li:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
 }
 
 .active-track {
   background: rgba(0, 0, 0, 0.2);
   color: #fff;
+  border-radius: 25px;
 }
 
 .left-side-items {

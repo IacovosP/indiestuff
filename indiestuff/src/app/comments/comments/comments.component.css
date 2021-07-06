@@ -12,12 +12,18 @@
   overflow: scroll;
   overflow-x: auto;
   word-wrap: normal;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .custom-modal-comments-container {
   width: 95%;
   margin: auto;
   margin-bottom: 10px;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .non-favourte {

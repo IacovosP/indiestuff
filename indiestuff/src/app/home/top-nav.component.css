@@ -39,6 +39,9 @@
   display: inherit;
   max-height: 200px;
   display: flex;
+
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .search-form input {
@@ -82,6 +85,8 @@
 
 .result-option div {
   max-width: 190px;
+
+  border-radius: 5px;
 }
 
 .result-option img {

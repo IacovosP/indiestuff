@@ -1,4 +1,10 @@
-<div class="player-container">
+<div
+  class="player-container"
+  [ngStyle]="{
+    'background-image':
+      'linear-gradient(to top, ' + colour + '  0% , transparent)'
+  }"
+>
   <div class="track-details">
     <a>{{ currentTrack.title }}</a>
     <a> by </a>
@@ -7,26 +13,16 @@
       [routerLink]="['/artist', currentTrack.artistId]"
       >{{ currentTrack.artistName }}</a
     >
-    <a style="float: right; margin-top: -0.5px">{{ currentTime }}</a>
+    <a style="padding-left: 40%; margin-top: -0.5px">{{ currentTime }}</a>
   </div>
   <div class="player-bar">
     <div class="play-button" id="playBtn">
-      <img
-        *ngIf="!isPlaying"
-        style="padding-top: 1px"
-        src="/assets/icons/web/baseline_play_arrow_black_18dp.png"
-        (click)="play()"
-        height="40px"
-        width="40px"
-      />
-      <img
-        *ngIf="isPlaying"
-        style="padding-top: 1px"
-        src="/assets/icons/web/baseline_pause_black_18dp.png"
-        (click)="pause()"
-        height="40px"
-        width="40px"
-      />
+      <mat-icon *ngIf="!isPlaying" class="play-icon" (click)="play()"
+        >play_arrow</mat-icon
+      >
+      <mat-icon *ngIf="isPlaying" class="play-icon" (click)="pause()"
+        >pause</mat-icon
+      >
     </div>
     <div class="progress-bar-container">
       <mat-progress-bar

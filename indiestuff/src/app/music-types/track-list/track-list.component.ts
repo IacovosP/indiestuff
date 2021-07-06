@@ -45,6 +45,8 @@ export class TrackListComponent implements OnInit {
   @Input() trackListId: string;
   @Input() isAlbumView: boolean = false;
   @Input() isArtistView: boolean = false;
+  @Input() playerColour: string;
+
   currentPlayingTrackListId: string;
 
   private trackList: Track[];
@@ -112,6 +114,7 @@ export class TrackListComponent implements OnInit {
       trackListId: this.trackListId,
       isAlbumView: this.isAlbumView,
       isArtistView: this.isArtistView,
+      colour: this.playerColour,
     });
   }
 

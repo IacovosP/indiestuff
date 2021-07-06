@@ -14,6 +14,8 @@
   width: 100%;
   resize: none;
   font-family: helvetica;
+
+  border-radius: 10px;
 }
 
 .childbox-modal-container textarea {

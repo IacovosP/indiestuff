@@ -16,6 +16,8 @@
   width: 100%;
   resize: none;
   font-family: helvetica;
+
+  border-radius: 10px;
 }
 
 .comment-modal button {

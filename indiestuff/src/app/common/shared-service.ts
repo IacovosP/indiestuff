@@ -24,8 +24,9 @@ export class SharedService {
     trackListId: string;
     isAlbumView?: boolean;
     isArtistView?: boolean;
+    colour?: string;
   }) {
-    console.log("change started");
+    // console.log("change started " + JSON.stringify(value, null, 4));
     this.fire.emit(value);
   }
 
