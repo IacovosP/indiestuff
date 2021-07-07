@@ -19,7 +19,7 @@ export class MyNavComponent implements OnInit {
   dialogRefClassScope: MatDialogRef<
     CreatePlaylistFormComponent | ConfirmationDialogComponent
   >;
-  playlists: PlaylistInterface[];
+  playlists: PlaylistInterface[] = [];
   subscription: any;
   isRegistered: boolean = false;
 
@@ -57,16 +57,22 @@ export class MyNavComponent implements OnInit {
     }
   }
 
+  addLikedToPlaylists() {
+    playlistState.getLikedTrackIdsPromise().then(() => {
+      const likePlaylist: PlaylistInterface = {
+        colour: "#505050",
+        name: "Liked",
+        id: "likedTracks",
+      };
+      this.playlists = [...this.playlists, likePlaylist];
+    });
+  }
+
   getPlaylists() {
+    this.addLikedToPlaylists();
     defaultHttpClient
       .fetch("playlist/list")
       .then((response: PlaylistInterface[]) => {
-        const likePlaylist: PlaylistInterface = {
-          colour: "#505050",
-          name: "Liked",
-          id: "likedTracks",
-        };
-        this.playlists = [likePlaylist];
         this.playlists = [...this.playlists, ...response];
         // we don't want the Liked playlist to appear in the add to playlist dropdown
         playlistState.setPlaylists(response);

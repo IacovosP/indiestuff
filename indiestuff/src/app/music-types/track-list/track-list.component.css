@@ -16,6 +16,14 @@ span {
   font: inherit;
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 .track-list {
   font-family: sans-serif;
 }
@@ -138,7 +146,6 @@ span {
 
 .a-name {
   text-decoration: none;
-  color: black;
 }
 
 .already-liked {

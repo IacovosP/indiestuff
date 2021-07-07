@@ -220,7 +220,7 @@ export class TrackListComponent implements OnInit {
       .then((response) => {
         console.log("added or removed liked track successfully");
         const currentLiked = playlistState.getLikedTrackIds();
-        if (response.removedId) {
+        if (currentLiked && response.removedId) {
           const indexOfTrack = currentLiked.indexOf(response.removedId);
           if (indexOfTrack > -1) {
             currentLiked.splice(indexOfTrack, 1);
