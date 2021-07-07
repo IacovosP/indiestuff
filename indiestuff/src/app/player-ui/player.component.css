@@ -6,8 +6,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  /* border-top-left-radius: 20px;
-  border-top-right-radius: 20px; */
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
 }
 
 .track-details {
@@ -23,6 +23,7 @@
   padding: 0;
   font-family: sans-serif;
   font-size: 18px;
+  text-shadow: 1px 1px 5px #f0e68c;
 }
 
 .player-container mat-icon:hover {
