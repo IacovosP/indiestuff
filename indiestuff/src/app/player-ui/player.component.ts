@@ -114,7 +114,7 @@ export class PlayerComponent implements OnInit {
 
   seekSongToLocation(event: any) {
     const percentageOfTrackProgress: number = Math.floor(
-      (event.layerX / (event.target.offsetWidth - 3)) * 100
+      100 - (Math.abs(event.layerX) / (event.target.offsetWidth - 3)) * 100
     );
     console.log("% " + percentageOfTrackProgress);
     player.seek(percentageOfTrackProgress / 100);

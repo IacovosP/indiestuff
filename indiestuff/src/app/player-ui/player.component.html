@@ -2,7 +2,8 @@
   class="player-container"
   [ngStyle]="{
     'background-image':
-      'linear-gradient(to top, ' + colour + '  10% , transparent)'
+      'linear-gradient(to top, ' + colour + '  10% , transparent)',
+    display: currentTrack.title ? 'block' : 'none'
   }"
 >
   <div class="track-details">
