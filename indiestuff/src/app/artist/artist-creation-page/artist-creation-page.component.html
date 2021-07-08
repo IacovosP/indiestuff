@@ -1,40 +1,40 @@
-<div class="album-or-single">
-  <mat-button-toggle-group
+<form novalidate (ngSubmit)="onFormSubmit(albumForm)" #albumForm="ngForm">
+  <div class="album-or-single">
+    <mat-button-toggle-group
+      [ngStyle]="{
+        'background-color': (albumForEdit && albumForEdit.colour) || '#f8e3ff3f'
+      }"
+      [style.background]="color"
+      #group="matButtonToggleGroup"
+      [(ngModel)]="albumOrSingle"
+      name="musicType"
+      aria-label="Music Type"
+    >
+      <mat-button-toggle
+        class="album-or-single-toggle"
+        [disabled]="tracks && tracks.length === 1 && albumOrSingle === 'single'"
+        value="album"
+        >album</mat-button-toggle
+      >
+      <mat-button-toggle
+        class="album-or-single-toggle"
+        [disabled]="
+          tracks &&
+          (tracks.length > 1 || (tracks.length === 1 && albumForEdit)) &&
+          albumOrSingle === 'album'
+        "
+        value="single"
+        >single
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div
+    class="container"
     [ngStyle]="{
       'background-color': (albumForEdit && albumForEdit.colour) || '#f8e3ff3f'
     }"
     [style.background]="color"
-    #group="matButtonToggleGroup"
-    [(ngModel)]="albumOrSingle"
-    name="musicType"
-    aria-label="Music Type"
   >
-    <mat-button-toggle
-      class="album-or-single-toggle"
-      [disabled]="tracks && tracks.length === 1 && albumOrSingle === 'single'"
-      value="album"
-      >album</mat-button-toggle
-    >
-    <mat-button-toggle
-      class="album-or-single-toggle"
-      [disabled]="
-        tracks &&
-        (tracks.length > 1 || (tracks.length === 1 && albumForEdit)) &&
-        albumOrSingle === 'album'
-      "
-      value="single"
-      >single
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
-<div
-  class="container"
-  [ngStyle]="{
-    'background-color': (albumForEdit && albumForEdit.colour) || '#f8e3ff3f'
-  }"
-  [style.background]="color"
->
-  <form novalidate (ngSubmit)="onFormSubmit(albumForm)" #albumForm="ngForm">
     <div class="album-creation box">
       <div class="album-title-text">
         <input
@@ -120,61 +120,65 @@
         <img *ngIf="!albumForEdit" class="image-uploaded" id="file_id" />
       </div>
     </div>
-  </form>
-  <div
-    cdkDropList
-    class="track-list new-track-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div *ngFor="let track of tracks; index as i" class="track-box" cdkDrag>
-      <div *ngIf="!track.shouldRemove" class="track-list-container">
-        <div class="index">
-          <a>{{ i + 1 }}</a>
-        </div>
-        <div class="play-state">
-          <mat-icon
-            *ngIf="
-              indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i)
-            "
-            class="play-arrow"
-            (click)="playSong(i)"
-            >play_arrow_outline</mat-icon
-          >
-          <mat-icon
-            *ngIf="isPaused === false && indexOfSongPlaying === i"
-            class="pause-button"
-            (click)="pauseTrack()"
-            >pause_outline</mat-icon
-          >
-        </div>
-        <div class="track-title">
-          <a>{{ track.title }}</a>
-        </div>
-        <div class="duration">
-          <span>{{ track.durationInSec }}s</span>
-        </div>
-        <div class="edit">
-          <mat-icon class="edit-track" (click)="editTrack(i)"> edit </mat-icon>
-        </div>
-        <div class="remove">
-          <mat-icon class="remove-track" (click)="removeTrack(i)"
-            >close_outline</mat-icon
-          >
+    <div
+      cdkDropList
+      class="track-list new-track-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let track of tracks; index as i" class="track-box" cdkDrag>
+        <div *ngIf="!track.shouldRemove" class="track-list-container">
+          <div class="index">
+            <a>{{ i + 1 }}</a>
+          </div>
+          <div class="play-state">
+            <mat-icon
+              *ngIf="
+                indexOfSongPlaying !== i ||
+                (isPaused && indexOfSongPlaying === i)
+              "
+              class="play-arrow"
+              (click)="playSong(i)"
+              >play_arrow_outline</mat-icon
+            >
+            <mat-icon
+              *ngIf="isPaused === false && indexOfSongPlaying === i"
+              class="pause-button"
+              (click)="pauseTrack()"
+              >pause_outline</mat-icon
+            >
+          </div>
+          <div class="track-title">
+            <a>{{ track.title }}</a>
+          </div>
+          <div class="duration">
+            <span>{{ track.durationInSec }}s</span>
+          </div>
+          <div class="edit">
+            <mat-icon class="edit-track" (click)="editTrack(i)">
+              edit
+            </mat-icon>
+          </div>
+          <div class="remove">
+            <mat-icon class="remove-track" (click)="removeTrack(i)"
+              >close_outline</mat-icon
+            >
+          </div>
         </div>
       </div>
-    </div>
-    <div style="float: right; padding-right: 25px; padding-top: 10px">
-      <button
-        type="submit"
-        cdkFocusInitial
-        [disabled]="
-          !albumForm.form.valid || (pendingUploads && pendingUploads.length > 0)
-        "
-      >
-        <span style="padding-top: 30px">{{
-          albumForEdit ? "submit edit" : "create"
-        }}</span>
-      </button>
+      <div style="float: right; padding-right: 25px; padding-top: 10px">
+        <button
+          type="submit"
+          cdkFocusInitial
+          [disabled]="
+            !albumForm.form.valid ||
+            (pendingUploads && pendingUploads.length > 0)
+          "
+        >
+          <span style="padding-top: 30px">{{
+            albumForEdit ? "submit edit" : "create"
+          }}</span>
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</form>

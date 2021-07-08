@@ -4,7 +4,7 @@
   position: relative;
   overflow: hidden;
   border: solid;
-  background-color: #f8e3ff;
+  /* background-color: #f8e3ff; */
   border-color: #8492a6;
   border-width: 2px;
 }
@@ -17,7 +17,7 @@
 }
 
 .custom-modal {
-  background-color: #f8e3ff;
+  /* background-color: #f8e3ff; */
   opacity: 0.8;
   font-family: sans-serif;
   color: #47525e;
@@ -45,7 +45,7 @@
   height: 40px;
   float: left;
   width: 220px;
-  background-color: #f8e3ff;
+  /* background-color: #f8e3ff; */
   opacity: 0.5;
   margin-top: -8px;
   font-size: 20px;
