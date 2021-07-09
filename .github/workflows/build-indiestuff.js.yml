@@ -24,7 +24,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
+    - run: npm install --no-optional
       working-directory: ./indiestuff
     - run: npm run build
       working-directory: ./indiestuff
