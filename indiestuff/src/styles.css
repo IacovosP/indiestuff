@@ -1,31 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 .app-signup-form-no-padding .mat-dialog-container {
-  padding: 0;
-  overflow: hidden;
+    padding: 0;
+    overflow: hidden;
 }
 
 .mat-button-toggle-label-content {
-  font-family: sans-serif;
-  color: #47525e;
+    font-family: sans-serif;
+    color: #47525e;
 }
 
 .mat-app-background {
-  --b-pink: #c1357e;
-  --b-purple: #675997;
-  --b-blue: #0655a9;
-  background-image: linear-gradient(
-    45deg,
-    var(--b-pink),
-    var(--b-purple),
-    var(--b-blue)
-  );
+    --b-pink: #c1357e;
+    --b-purple: #675997;
+    --b-blue: #0655a9;
+    background-image: linear-gradient(45deg, var(--b-pink), var(--b-purple), var(--b-blue));
 }
 
 .mat-dialog-content {
-  --t-blue: #4fa5c2;
-  --t-pink: #f587ac;
+    --t-blue: #4fa5c2;
+    --t-pink: #f587ac;
 
-  background-image: linear-gradient(45deg, var(--t-blue), var(--t-pink));
+    background-image: linear-gradient(45deg, var(--t-blue), var(--t-pink));
 }

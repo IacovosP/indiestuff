@@ -1,27 +1,17 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
 <app-page-top-image
-  *ngIf="
-    artistMusic &&
-    (artistMusic.artist_image_filename || artistMusic.artist_top_image_filename)
-  "
-  [headerImageUrl]="artistMusic.artist_top_image_filename"
-  [artistImageUrl]="artistMusic.artist_image_filename"
-  [isArtistImageEnabled]="true"
+    *ngIf="artistMusic && (artistMusic.artist_image_filename || artistMusic.artist_top_image_filename)"
+    [headerImageUrl]="artistMusic.artist_top_image_filename"
+    [artistImageUrl]="artistMusic.artist_image_filename"
+    [isArtistImageEnabled]="true"
 ></app-page-top-image>
-<app-artist-menu-bar
-  [artistId]="artistMusic && artistMusic.id"
-></app-artist-menu-bar>
-<app-track-list
-  [tracks]="artistMusic && artistMusic.topTracks"
-  [isArtistView]="true"
-  [isAlbumView]="false"
-  [trackListId]="artistMusic && artistMusic.id"
-></app-track-list>
+<app-artist-menu-bar [artistId]="artistMusic && artistMusic.id"></app-artist-menu-bar>
+<app-track-list [tracks]="artistMusic && artistMusic.topTracks" [isArtistView]="true" [isAlbumView]="false" [trackListId]="artistMusic && artistMusic.id"></app-track-list>
 <app-comments-container
-  [threadId]="artistMusic && artistMusic.id"
-  [threadType]="threadType"
-  [commentThreadId]="artistMusic && artistMusic.commentThreadId"
+    [threadId]="artistMusic && artistMusic.id"
+    [threadType]="threadType"
+    [commentThreadId]="artistMusic && artistMusic.commentThreadId"
 ></app-comments-container>
 <app-artist-albums [albums]="albumsLite"></app-artist-albums>
 <div style="height: 300px"></div>

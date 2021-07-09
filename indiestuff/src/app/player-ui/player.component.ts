@@ -1,173 +1,142 @@
-import { Component, OnInit, Input } from "@angular/core";
-import player, { LoopState } from "./player";
-import { SharedService } from "@src/app/common/shared-service";
-import { Track } from "@src/app/music-types/types";
+import { Component, OnInit, Input } from '@angular/core';
+import player, { LoopState } from './player';
+import { SharedService } from '@src/app/common/shared-service';
+import { Track } from '@src/app/music-types/types';
+import { TrackInterface } from '../music-types/lib';
 
 const loopStateToRepeatIconMap = {
-  [LoopState.DEFAULT]: "repeat",
-  [LoopState.LOOP_PLAYLIST]: "repeat",
-  [LoopState.LOOP_TRACK]: "repeat_one",
+    [LoopState.DEFAULT]: 'repeat',
+    [LoopState.LOOP_PLAYLIST]: 'repeat',
+    [LoopState.LOOP_TRACK]: 'repeat_one'
 };
 
 @Component({
-  selector: "app-player",
-  templateUrl: "./player.component.html",
-  styleUrls: ["./player.component.css"],
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
-  currentPlaylist: any;
-  subscription: any;
-  pauseSubscription: any;
-  restartSubscription: any;
-  trackPlayingIndexChangeSubscription: any;
-  playerSharedService: SharedService;
-  durationAnimation: any;
-  playerElapsedTime;
-  isPlaying: boolean = false;
-  currentTrack = {};
-  currentTime: any;
-  loopState: LoopState = LoopState.DEFAULT;
-  repeatIcon = loopStateToRepeatIconMap[this.loopState];
-  volumeValue = 50;
-  actualPlayedTimeOfCurrentTrackInSeconds: number;
-  isAlbumView: boolean;
-  isArtistView: boolean;
-  colour: string = "#dda9e4";
+    currentPlaylist: any;
+    subscription: any;
+    pauseSubscription: any;
+    restartSubscription: any;
+    trackPlayingIndexChangeSubscription: any;
+    playerSharedService: SharedService;
+    durationAnimation: any;
+    playerElapsedTime;
+    isPlaying = false;
+    currentTrack: any = {};
+    currentTime: any;
+    loopState: LoopState = LoopState.DEFAULT;
+    repeatIcon = loopStateToRepeatIconMap[this.loopState];
+    volumeValue = 50;
+    actualPlayedTimeOfCurrentTrackInSeconds: number;
+    isAlbumView: boolean;
+    isArtistView: boolean;
+    colour = '#dda9e4';
 
-  constructor(playerSharedService: SharedService) {
-    this.playerSharedService = playerSharedService;
-    this.startPlayerListener();
-  }
-
-  changePlaylist(
-    tracks: Track[],
-    indexOfSongToPlay: number,
-    trackListId: string,
-    isAlbumView: boolean = false,
-    isArtistView: boolean = false,
-    colour: string = "#dda9e4"
-  ) {
-    this.isAlbumView = isAlbumView;
-    this.isArtistView = isArtistView;
-    this.colour = colour;
-    this.currentPlaylist = this.createPlaylistWithTracks(tracks);
-    try {
-      player.setTrackListId(trackListId);
-      player.setPlaylist(this.currentPlaylist);
-      player.play(indexOfSongToPlay);
-    } catch (e) {
-      console.error("errored out ", e);
+    constructor(playerSharedService: SharedService) {
+        this.playerSharedService = playerSharedService;
+        this.startPlayerListener();
     }
-  }
 
-  silentPlaylistSwitch(
-    newIndexOfSongPlaying: number,
-    tracksWithNewIndexing: Track[]
-  ) {
-    this.currentPlaylist = this.createPlaylistWithTracks(tracksWithNewIndexing);
-    console.log(
-      "currentPlaylist: " + JSON.stringify(this.currentPlaylist, null, 4)
-    );
-    player.setPlaylistSilently(this.currentPlaylist, newIndexOfSongPlaying);
-  }
+    changePlaylist(tracks: Track[], indexOfSongToPlay: number, trackListId: string, isAlbumView: boolean = false, isArtistView: boolean = false, colour: string = '#dda9e4') {
+        this.isAlbumView = isAlbumView;
+        this.isArtistView = isArtistView;
+        this.colour = colour;
+        this.currentPlaylist = this.createPlaylistWithTracks(tracks);
+        try {
+            player.setTrackListId(trackListId);
+            player.setPlaylist(this.currentPlaylist);
+            player.play(indexOfSongToPlay);
+        } catch (e) {
+            console.error('errored out ', e);
+        }
+    }
 
-  startPlayerListener() {
-    setInterval(() => {
-      this.playerElapsedTime = player.elapsedTimeInPercentage.toFixed(5);
-      this.formatTime(Math.round(player.elapsedTimeInSeconds));
-      this.isPlaying = player.isPlayerPlaying();
-      this.currentTrack = player.getCurrentTrack();
-    }, 20);
-  }
+    silentPlaylistSwitch(newIndexOfSongPlaying: number, tracksWithNewIndexing: Track[]) {
+        this.currentPlaylist = this.createPlaylistWithTracks(tracksWithNewIndexing);
+        console.log('currentPlaylist: ' + JSON.stringify(this.currentPlaylist, null, 4));
+        player.setPlaylistSilently(this.currentPlaylist, newIndexOfSongPlaying);
+    }
 
-  updateVolume(event: { value: number }) {
-    player.volume(event.value / 100);
-  }
+    startPlayerListener() {
+        setInterval(() => {
+            this.playerElapsedTime = player.elapsedTimeInPercentage.toFixed(5);
+            this.formatTime(Math.round(player.elapsedTimeInSeconds));
+            this.isPlaying = player.isPlayerPlaying();
+            this.currentTrack = player.getCurrentTrack();
+        }, 20);
+    }
 
-  formatTime(secs: number) {
-    const minutes = Math.floor(secs / 60) || 0;
-    const seconds = secs - minutes * 60 || 0;
+    updateVolume(event: { value: number }) {
+        player.volume(event.value / 100);
+    }
 
-    this.currentTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  }
+    formatTime(secs: number) {
+        const minutes = Math.floor(secs / 60) || 0;
+        const seconds = secs - minutes * 60 || 0;
 
-  pause() {
-    player.pause();
-  }
+        this.currentTime = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    }
 
-  play() {
-    player.restart();
-  }
+    pause() {
+        player.pause();
+    }
 
-  skip() {
-    player.skip("next");
-  }
+    play() {
+        player.restart();
+    }
 
-  previous() {
-    player.skip("prev");
-  }
+    skip() {
+        player.skip('next');
+    }
 
-  toggleLoop() {
-    this.loopState = player.toggleLoop();
-    this.repeatIcon = loopStateToRepeatIconMap[this.loopState];
-  }
+    previous() {
+        player.skip('prev');
+    }
 
-  seekSongToLocation(event: any) {
-    const percentageOfTrackProgress: number = Math.floor(
-      100 - (Math.abs(event.layerX) / (event.target.offsetWidth - 3)) * 100
-    );
-    console.log("% " + percentageOfTrackProgress);
-    player.seek(percentageOfTrackProgress / 100);
-  }
+    toggleLoop() {
+        this.loopState = player.toggleLoop();
+        this.repeatIcon = loopStateToRepeatIconMap[this.loopState];
+    }
 
-  createPlaylistWithTracks(tracks: Track[]) {
-    const playlist = tracks.map(
-      (track) =>
-        ((track as any) = {
-          title: track.title,
-          albumId: this.isAlbumView ? track.album.id : undefined, // if albumId is added then recentlyPlayed will be added as albumView
-          artistName: track.artist.name,
-          artistId: track.artist.id,
-          isPlaylistView: !this.isArtistView && !this.isAlbumView,
-          file: "Cant Keep Checking My Phone",
-          filename: track.filename,
-          howl: null,
-          id: track.id ? track.id : null,
-          // html5: true, // A live stream can only be played through HTML5 Audio.
-          //   format: ['mp3', 'aac']
-        })
-    );
-    return playlist;
-  }
+    seekSongToLocation(event: any) {
+        const percentageOfTrackProgress: number = Math.floor(100 - (Math.abs(event.layerX) / (event.target.offsetWidth - 3)) * 100);
+        console.log('% ' + percentageOfTrackProgress);
+        player.seek(percentageOfTrackProgress / 100);
+    }
 
-  ngOnInit() {
-    this.subscription = this.playerSharedService
-      .getEmittedValue()
-      .subscribe((item) =>
-        this.changePlaylist(
-          item.tracks,
-          item.indexOfSongToPlay,
-          item.trackListId,
-          item.isAlbumView,
-          item.isArtistView,
-          item.colour
-        )
-      );
-    this.pauseSubscription = this.playerSharedService
-      .getEmittedPause()
-      .subscribe((item) => this.pause());
-    this.restartSubscription = this.playerSharedService
-      .getEmittedRestart()
-      .subscribe((item) => this.play());
-    this.trackPlayingIndexChangeSubscription = this.playerSharedService
-      .getEmittedIndexChange()
-      .subscribe((item) =>
-        this.silentPlaylistSwitch(
-          item.newIndexOfSongPlaying,
-          item.tracksWithNewIndexing
-        )
-      );
-  }
+    createPlaylistWithTracks(tracks: Track[]) {
+        const playlist = tracks.map(
+            (track) =>
+                ((track as any) = {
+                    title: track.title,
+                    albumId: this.isAlbumView ? track.album.id : undefined, // if albumId is added then recentlyPlayed will be added as albumView
+                    artistName: track.artist.name,
+                    artistId: track.artist.id,
+                    isPlaylistView: !this.isArtistView && !this.isAlbumView,
+                    file: 'Cant Keep Checking My Phone',
+                    filename: track.filename,
+                    howl: null,
+                    id: track.id ? track.id : null
+                    // html5: true, // A live stream can only be played through HTML5 Audio.
+                    //   format: ['mp3', 'aac']
+                })
+        );
+        return playlist;
+    }
 
-  ngOnChange() {}
+    ngOnInit() {
+        this.subscription = this.playerSharedService
+            .getEmittedValue()
+            .subscribe((item) => this.changePlaylist(item.tracks, item.indexOfSongToPlay, item.trackListId, item.isAlbumView, item.isArtistView, item.colour));
+        this.pauseSubscription = this.playerSharedService.getEmittedPause().subscribe((item) => this.pause());
+        this.restartSubscription = this.playerSharedService.getEmittedRestart().subscribe((item) => this.play());
+        this.trackPlayingIndexChangeSubscription = this.playerSharedService
+            .getEmittedIndexChange()
+            .subscribe((item) => this.silentPlaylistSwitch(item.newIndexOfSongPlaying, item.tracksWithNewIndexing));
+    }
+
+    ngOnChange() {}
 }

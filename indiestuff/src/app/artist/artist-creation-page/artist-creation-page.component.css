@@ -1,8 +1,8 @@
 .add-album-container {
-  color: #47525e;
-  font-family: sans-serif;
-  width: 80%;
-  margin-left: 11%;
+    color: #47525e;
+    font-family: sans-serif;
+    width: 80%;
+    margin-left: 11%;
 }
 /* 
 .album-or-single {
@@ -10,318 +10,317 @@
 } */
 
 .album-or-single mat-button-toggle-group {
-  /* margin-left: 2%;
+    /* margin-left: 2%;
   margin-top: 15px; */
-  font-size: 24px;
-  font-weight: bold;
-  color: #47525e;
-  font-family: sans-serif;
-  background-color: rgb(240, 151, 235, 0.1);
-  border-radius: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #47525e;
+    font-family: sans-serif;
+    background-color: rgb(240, 151, 235, 0.1);
+    border-radius: 5px;
 }
 
 .mat-button-toggle-disabled {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .mat-button-toggle-checked {
-  background-color: rgb(240, 151, 235, 0.1);
+    background-color: rgb(240, 151, 235, 0.1);
 }
 
 .add-album-container h3 {
-  padding-bottom: 0px;
-  margin-bottom: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 5px;
 }
 
 .album-creation {
-  /* margin-left: 3%; */
-  font-size: 16px;
-  font-family: sans-serif;
-  font-weight: bold;
-  /* max-width: 740px;
+    /* margin-left: 3%; */
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: bold;
+    /* max-width: 740px;
   min-width: 620px;
   width: 100%; */
 }
 
 .album-creation input {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  font-size: 18px;
-  font-family: sans-serif;
-  font-weight: bold;
-  opacity: 0.5;
-  width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    opacity: 0.5;
+    width: 100%;
 }
 
 .box {
-  border-right: 5px solid rgb(241, 241, 241);
-  margin-right: 10%;
+    border-right: 5px solid rgb(241, 241, 241);
+    margin-right: 10%;
 }
 
 .image-uploaded {
-  outline: transparent;
-  border: none;
-  padding-right: 30px;
-  width: 160px;
-  height: 160px;
+    outline: transparent;
+    border: none;
+    padding-right: 30px;
+    width: 160px;
+    height: 160px;
 }
 
 .form-group {
-  padding-top: 30px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  display: block;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    display: block;
 }
 
 .container img {
-  cursor: pointer;
-  /* padding-left: 50px; */
+    cursor: pointer;
+    /* padding-left: 50px; */
 }
 
 .form-group label {
-  float: left;
+    float: left;
 }
 
 .form-group img {
-  float: right;
-  padding-right: 50px;
+    float: right;
+    padding-right: 50px;
 }
 
 .container img:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .container mat-icon {
-  font-size: 22px;
-  cursor: pointer;
+    font-size: 22px;
+    cursor: pointer;
 }
 
 .new-track-list mat-icon {
-  font-size: 24px;
-  cursor: pointer;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 .cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-preview mat-icon {
-  margin-top: -8px;
+    margin-top: -8px;
 }
 
 .cdk-drag-preview span {
-  margin-top: 7px;
+    margin-top: 7px;
 }
 
 .cdk-drag-placeholder {
-  opacity: 0;
+    opacity: 0;
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .track-box {
-  /* padding: 20px 10px; */
-  /* border-bottom: solid 1px #ccc; */
-  color: rgba(0, 0, 0, 0.87);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  cursor: move;
+    /* padding: 20px 10px; */
+    /* border-bottom: solid 1px #ccc; */
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
 }
 .track-box:last-child {
-  border: none;
+    border: none;
 }
 
 .track-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .new-track-list img:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 .new-track-list span:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .track-list {
-  list-style-type: none; /* Remove bullets */
-  font-family: sans-serif;
-  font-size: 20px;
+    list-style-type: none; /* Remove bullets */
+    font-family: sans-serif;
+    font-size: 20px;
 }
 
 .new-track-list button {
-  background-color: transparent;
-  outline: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
 }
 
 .new-track-list button mat-icon {
-  font-size: 30px;
+    font-size: 30px;
 }
 
 .upload-image-button {
-  border: none;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .edit-track {
-  color: #bdb76b;
-  opacity: 0.6;
+    color: #bdb76b;
+    opacity: 0.6;
 }
 
 .edit-track:hover {
-  opacity: 1;
+    opacity: 1;
 }
 .remove-track {
-  opacity: 0.6;
-  font-size: 12px;
-  color: #cd5c5c;
+    opacity: 0.6;
+    font-size: 12px;
+    color: #cd5c5c;
 }
 
 .remove-track:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 .input-custom {
-  color: #19222c;
+    color: #19222c;
 }
 ::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #19222c;
-  opacity: 1; /* Firefox */
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #19222c;
+    opacity: 1; /* Firefox */
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 2fr 2.6fr;
-  grid-template-rows: 1fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas: "album-creation new-track-list";
-  width: 80%;
-  margin-left: 11%;
-  height: 25%;
-  background-color: rgb(240, 151, 235, 0.1);
-  border-radius: 15px;
+    display: grid;
+    grid-template-columns: 2fr 2.6fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: 'album-creation new-track-list';
+    width: 80%;
+    margin-left: 11%;
+    height: 25%;
+    background-color: rgb(240, 151, 235, 0.1);
+    border-radius: 15px;
 }
 
 .container img {
-  margin-top: -6px;
+    margin-top: -6px;
 }
 .album-creation {
-  display: grid;
-  grid-template-columns: 1.1fr 0.4fr 1.5fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-auto-rows: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "album-or-single album-or-single album-or-single"
-    "album-title-label album-title-text album-title-text"
-    "album-cover-label album-cover-icon album-image"
-    "colour-label colour-icon album-image"
-    "add-track-label add-track-icon album-image";
-  grid-area: album-creation;
+    display: grid;
+    grid-template-columns: 1.1fr 0.4fr 1.5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        'album-or-single album-or-single album-or-single'
+        'album-title-label album-title-text album-title-text'
+        'album-cover-label album-cover-icon album-image'
+        'colour-label colour-icon album-image'
+        'add-track-label add-track-icon album-image';
+    grid-area: album-creation;
 }
 
 .album-or-single {
-  margin-left: 12%;
-  margin-top: 50px;
-  grid-area: album-or-single;
-  display: flex;
+    margin-left: 12%;
+    margin-top: 50px;
+    grid-area: album-or-single;
+    display: flex;
 }
 
 .album-title-text {
-  grid-area: album-title-text;
-  padding-left: 9px;
+    grid-area: album-title-text;
+    padding-left: 9px;
 }
 
 .album-title-label {
-  grid-area: album-title-label;
-  padding-left: 9px;
+    grid-area: album-title-label;
+    padding-left: 9px;
 }
 
 .album-cover-label {
-  grid-area: album-cover-label;
-  padding-left: 9px;
+    grid-area: album-cover-label;
+    padding-left: 9px;
 }
 
 .colour-label {
-  grid-area: colour-label;
-  padding-left: 9px;
+    grid-area: colour-label;
+    padding-left: 9px;
 }
 
 .album-cover-icon {
-  grid-area: album-cover-icon;
+    grid-area: album-cover-icon;
 }
 
 .colour-icon {
-  grid-area: colour-icon;
+    grid-area: colour-icon;
 }
 
 .add-track-label {
-  grid-area: add-track-label;
-  padding-left: 9px;
+    grid-area: add-track-label;
+    padding-left: 9px;
 }
 
 .add-track-icon {
-  grid-area: add-track-icon;
+    grid-area: add-track-icon;
 }
 
 .album-image {
-  grid-area: album-image;
+    grid-area: album-image;
 }
 
 .new-track-list {
-  grid-area: new-track-list;
-  margin-top: 50px;
+    grid-area: new-track-list;
+    margin-top: 50px;
 }
 
 .track-list-container {
-  display: grid;
-  grid-template-columns: 0.3fr 0.3fr 4.6fr 0.6fr 0.4fr 0.4fr;
-  grid-template-rows: 1fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas: "index play-state track-title duration edit remove";
-  width: 100%;
-  height: 25%;
+    display: grid;
+    grid-template-columns: 0.3fr 0.3fr 4.6fr 0.6fr 0.4fr 0.4fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: 'index play-state track-title duration edit remove';
+    width: 100%;
+    height: 25%;
 }
 
 .index {
-  grid-area: index;
+    grid-area: index;
 }
 
 .play-state {
-  grid-area: play-state;
+    grid-area: play-state;
 }
 
 .track-title {
-  grid-area: track-title;
+    grid-area: track-title;
 }
 
 .duration {
-  grid-area: duration;
+    grid-area: duration;
 }
 
 .edit {
-  grid-area: edit;
+    grid-area: edit;
 }
 
 .remove {
-  grid-area: remove;
+    grid-area: remove;
 }

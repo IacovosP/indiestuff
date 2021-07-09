@@ -1,153 +1,153 @@
 /* Add a black background color to the top navigation */
 .topnav {
-  overflow: hidden;
-  border-bottom: solid;
-  border-width: thin;
-  border-color: #47525e;
-  height: 40px;
-  font-family: sans-serif;
-  display: flex;
+    overflow: hidden;
+    border-bottom: solid;
+    border-width: thin;
+    border-color: #47525e;
+    height: 40px;
+    font-family: sans-serif;
+    display: flex;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
-  text-align: center;
-  margin-left: 15%;
-  padding: 8px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    float: left;
+    text-align: center;
+    margin-left: 15%;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  color: black;
+    color: black;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  color: black;
+    color: black;
 }
 
 .search-form {
-  /* color: #d5dbd8; */
-  height: 20px;
-  width: 300px;
-  margin-left: 100px;
-  background-color: #d5dbd8;
-  padding: 8px 20px;
-  display: inherit;
-  max-height: 200px;
-  display: flex;
+    /* color: #d5dbd8; */
+    height: 20px;
+    width: 300px;
+    margin-left: 100px;
+    background-color: #d5dbd8;
+    padding: 8px 20px;
+    display: inherit;
+    max-height: 200px;
+    display: flex;
 
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .search-form input {
-  padding-left: 20px;
-  font-size: 16px;
-  font-family: sans-serif;
-  background-color: transparent;
-  outline: none;
-  border: none;
+    padding-left: 20px;
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
 
 .search-form mat-icon {
-  font-size: 36px;
-  margin-top: -8px;
-  margin-left: -15px;
+    font-size: 36px;
+    margin-top: -8px;
+    margin-left: -15px;
 }
 
 .search-icon {
-  border: none;
-  outline: none;
-  margin-top: -10px;
-  height: 40px;
-  opacity: 0.7;
+    border: none;
+    outline: none;
+    margin-top: -10px;
+    height: 40px;
+    opacity: 0.7;
 }
 
 .search-text {
-  background-color: #d5dbd8;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  margin-left: 20px;
-  font-size: 20px;
-  opacity: 0.7;
+    background-color: #d5dbd8;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    margin-left: 20px;
+    font-size: 20px;
+    opacity: 0.7;
 }
 
 .result-option {
-  height: 65px;
-  width: 275px;
-  display: flex;
+    height: 65px;
+    width: 275px;
+    display: flex;
 }
 
 .result-option div {
-  max-width: 190px;
+    max-width: 190px;
 
-  border-radius: 5px;
+    border-radius: 5px;
 }
 
 .result-option img {
-  height: 65px;
-  width: 65px;
-  margin: 0;
-  padding: 0;
-  padding-right: 5px;
+    height: 65px;
+    width: 65px;
+    margin: 0;
+    padding: 0;
+    padding-right: 5px;
 }
 
 mat-option.mat-option {
-  position: relative;
-  height: 74px !important;
-  line-height: 24px !important;
-  max-height: 74px !important;
-  white-space: pre-wrap !important;
-  width: 300px;
+    position: relative;
+    height: 74px !important;
+    line-height: 24px !important;
+    max-height: 74px !important;
+    white-space: pre-wrap !important;
+    width: 300px;
 }
 
 ::ng-deep .cdk-overlay-pane {
-  min-width: 290px !important;
+    min-width: 290px !important;
 }
 
 .result-option p {
-  margin: 0px;
-  padding-bottom: 5px;
+    margin: 0px;
+    padding-bottom: 5px;
 }
 
 .auth {
-  margin-left: 20%;
-  display: inline;
+    margin-left: 20%;
+    display: inline;
 }
 
 .auth-button {
-  color: #dda9e4;
-  font-weight: bold;
-  font-family: sans-serif;
-  border: none;
-  background-color: inherit;
-  padding: 10px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-  border: none;
+    color: #dda9e4;
+    font-weight: bold;
+    font-family: sans-serif;
+    border: none;
+    background-color: inherit;
+    padding: 10px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    border: none;
 }
 
 .auth-button:focus {
-  outline: none;
+    outline: none;
 }
 
 .profile {
-  margin-left: 20%;
+    margin-left: 20%;
 }
 .profile button {
-  border: none;
-  background-color: transparent;
-  outline: none;
-  cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
 }
 
 .profile mat-icon {
-  color: #dda9e4;
-  font-size: 36px;
+    color: #dda9e4;
+    font-size: 36px;
 }

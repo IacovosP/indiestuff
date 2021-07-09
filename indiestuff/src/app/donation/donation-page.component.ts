@@ -1,15 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import httpClient from "@src/app/network-core/HttpClient";
+import { Component, OnInit } from '@angular/core';
+import httpClient from '@src/app/network-core/HttpClient';
 
 @Component({
-  selector: "donation-page",
-  templateUrl: "./donation-page.component.html",
-  styleUrls: ["./donation-page.component.css"],
+    selector: 'donation-page',
+    templateUrl: './donation-page.component.html',
+    styleUrls: ['./donation-page.component.css']
 })
 export class DonationPageComponent implements OnInit {
-  artists = [{ name: "iacovos" }, { name: "bandman" }];
+    artists = [{ name: 'iacovos' }, { name: 'bandman' }];
 
-  constructor() {}
+    constructor() {}
 
-  ngOnInit() {}
+    drop(event: Event) {}
+
+    ngOnInit() {}
 }

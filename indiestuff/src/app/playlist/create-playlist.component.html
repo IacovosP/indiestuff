@@ -1,84 +1,69 @@
 <mat-dialog-content class="mat-typography playlist-modal-container">
-  <div class="custom-modal" [style.background]="color">
-    <div class="col-sm-7 jumbotron">
-      <form
-        novalidate
-        (ngSubmit)="onFormSubmit(playlistForm)"
-        #playlistForm="ngForm"
-      >
-        <div class="playlist-title">
-          <p class="playlist-title-text">create playlist</p>
-        </div>
+    <div class="custom-modal" [style.background]="color">
+        <div class="col-sm-7 jumbotron">
+            <form novalidate (ngSubmit)="onFormSubmit(playlistForm)" #playlistForm="ngForm">
+                <div class="playlist-title">
+                    <p class="playlist-title-text">create playlist</p>
+                </div>
 
-        <!-- Name input block -->
-        <div class="form-group">
-          <label for="inputName" class="col-lg-2 control-label"
-            >playlist name</label
-          >
-          <div class="col-lg-7">
-            <input
-              type="text"
-              class="form-control input-custom"
-              [ngModel]="playlist.name"
-              name="name"
-              #name="ngModel"
-              id="inputName"
-              minlength="2"
-              maxlength="50"
-              required
-            />
-          </div>
-        </div>
+                <!-- Name input block -->
+                <div class="form-group">
+                    <label for="inputName" class="col-lg-2 control-label">playlist name</label>
+                    <div class="col-lg-7">
+                        <input
+                            type="text"
+                            class="form-control input-custom"
+                            [ngModel]="playlist.name"
+                            name="name"
+                            #name="ngModel"
+                            id="inputName"
+                            minlength="2"
+                            maxlength="50"
+                            required
+                        />
+                    </div>
+                </div>
 
-        <!-- Name error block -->
+                <!-- Name error block -->
 
-        <div *ngIf="name.invalid && name.touched" class="col-sm-3 text-danger">
-          <p *ngIf="name.errors?.required">name field can't be blank</p>
-        </div>
+                <div *ngIf="name.invalid && name.touched" class="col-sm-3 text-danger">
+                    <p *ngIf="name.errors?.required">name field can't be blank</p>
+                </div>
 
-        <!-- colour choice block -->
-        <div class="form-group">
-          <label for="inputColour" class="col-lg-2 control-label">colour</label>
-          <img
-            width="40px"
-            height="40px"
-            src="/assets/icons/web/outline_color_lens_black_36dp.png"
-            [(colorPicker)]="color"
-            [cpColorMode]="'color'"
-            [cpPresetColors]="[
-              'rgba(71, 82, 94, 0.85)',
-              '#00008B',
-              '#2889e9',
-              '#431c53',
-              '#e920e9',
-              'rgb(178, 32, 101)',
-              '#FF8C00',
-              '#fff500',
-              '#8b0000',
-              'rgb(236,64,64)',
-              '#228B22',
-              '#20B2AA',
-              '#808000'
-            ]"
-            (colorPickerClose)="updateColor($event)"
-          />
+                <!-- colour choice block -->
+                <div class="form-group">
+                    <label for="inputColour" class="col-lg-2 control-label">colour</label>
+                    <img
+                        width="40px"
+                        height="40px"
+                        src="/assets/icons/web/outline_color_lens_black_36dp.png"
+                        [(colorPicker)]="color"
+                        [cpColorMode]="'color'"
+                        [cpPresetColors]="[
+                            'rgba(71, 82, 94, 0.85)',
+                            '#00008B',
+                            '#2889e9',
+                            '#431c53',
+                            '#e920e9',
+                            'rgb(178, 32, 101)',
+                            '#FF8C00',
+                            '#fff500',
+                            '#8b0000',
+                            'rgb(236,64,64)',
+                            '#228B22',
+                            '#20B2AA',
+                            '#808000'
+                        ]"
+                        (colorPickerClose)="updateColor($event)"
+                    />
+                </div>
+                <!-- Buttons block -->
+                <mat-dialog-actions style="float: right; margin-right: 50px; margin-top: -30px">
+                    <button type="submit" class="btn btn-success button-custom-tick" mat-button [mat-dialog-close]="false" cdkFocusInitial [disabled]="!playlistForm.form.valid">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </mat-dialog-actions>
+            </form>
         </div>
-        <!-- Buttons block -->
-        <mat-dialog-actions
-          style="float: right; margin-right: 50px; margin-top: -30px"
-        >
-          <button
-            type="submit"
-            class="btn btn-success button-custom-tick"
-            mat-button
-            [mat-dialog-close]="false"
-            cdkFocusInitial
-            [disabled]="!playlistForm.form.valid"
-          >
-            <mat-icon>done</mat-icon>
-          </button>
-        </mat-dialog-actions>
-      </form>
     </div>
-  </div>
 </mat-dialog-content>

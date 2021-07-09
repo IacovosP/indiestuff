@@ -1,220 +1,219 @@
 .tracks-custom {
-  margin-top: 40px;
-  margin-left: 12%;
-  width: 71.5%;
+    margin-top: 40px;
+    margin-left: 12%;
+    width: 71.5%;
 }
 
 .track-list-header {
-  display: flex;
-  font-family: sans-serif;
-  font-size: 14px;
-  color: #e8e8e8;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #e8e8e8;
 }
 
 .track-list-header a,
 span {
-  font: inherit;
+    font: inherit;
 }
 
 a,
 a:hover,
 a:focus,
 a:active {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .track-list {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 .track-list li {
-  margin-top: 15px;
-  height: 25px;
-  padding-top: 7px;
-  width: 100%;
-  display: flex;
+    margin-top: 15px;
+    height: 25px;
+    padding-top: 7px;
+    width: 100%;
+    display: flex;
 }
 
 .track-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-preview .left-side-items {
-  margin-top: 7px;
+    margin-top: 7px;
 }
 
 .cdk-drag-preview .right-side-items {
-  margin-top: -33px;
+    margin-top: -33px;
 }
 
 .cdk-drag-placeholder {
-  opacity: 0;
+    opacity: 0;
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .track-list li:hover {
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 25px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
 }
 
 .active-track {
-  background: rgba(0, 0, 0, 0.2);
-  color: #fff;
-  border-radius: 25px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border-radius: 25px;
 }
 
 .left-side-items {
-  float: right;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  width: 100%;
+    float: right;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
 }
 
 .left-side-items img:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .playlist-menu-container {
-  outline: none;
-  border: none;
-  background-color: transparent;
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 
 .right-side-items li a {
-  padding-left: 0px;
-  margin-left: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
 }
 
 .right-side-items img:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 .right-side-items a:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .right-side-icon {
-  font-size: 30px;
-  margin-top: -5px;
+    font-size: 30px;
+    margin-top: -5px;
 }
 
 .right-side-icon:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .play-arrow {
-  font-size: 26px;
-  margin-top: -4px;
+    font-size: 26px;
+    margin-top: -4px;
 }
 
 .play-arrow:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .pause-button {
-  margin-top: -4px;
-  font-size: 26px;
+    margin-top: -4px;
+    font-size: 26px;
 }
 
 .playlist-list {
-  list-style-type: none; /* Remove bullets */
-  cursor: pointer;
+    list-style-type: none; /* Remove bullets */
+    cursor: pointer;
 }
 
 .add-to-playlist-button {
-  outline: none;
-  border: none;
-  background-color: transparent;
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 
 .remove-from-playlist {
-  outline: none;
-  border: none;
+    outline: none;
+    border: none;
 }
 
 .a-name {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .already-liked {
-  fill: black;
-  color: red;
+    fill: black;
+    color: red;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 0.35fr 0.4fr 3.6fr 2fr 1fr 0.6fr 0.6fr 0.6fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "index play-state track-name album-name artist-name quick-menu like comment duration"
-    "index play-state track-name album-name artist-name quick-menu like comment duration"
-    "index play-state track-name album-name artist-name quick-menu like comment duration";
-  width: 99.8%;
-  height: 100%;
+    display: grid;
+    grid-template-columns: 0.35fr 0.4fr 3.6fr 2fr 1fr 0.6fr 0.6fr 0.6fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        'index play-state track-name album-name artist-name quick-menu like comment duration'
+        'index play-state track-name album-name artist-name quick-menu like comment duration'
+        'index play-state track-name album-name artist-name quick-menu like comment duration';
+    width: 99.8%;
+    height: 100%;
 }
 
 .box {
-  border-bottom: 1px solid rgb(95, 94, 94);
+    border-bottom: 1px solid rgb(95, 94, 94);
 }
 
 .container button {
-  height: 30px;
-  margin-top: -5px;
-  outline: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+    height: 30px;
+    margin-top: -5px;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .index {
-  grid-area: index;
+    grid-area: index;
 }
 
 .play-state {
-  grid-area: play-state;
+    grid-area: play-state;
 }
 
 .track-name {
-  grid-area: track-name;
+    grid-area: track-name;
 }
 
 .album-name {
-  grid-area: album-name;
+    grid-area: album-name;
 }
 
 .artist-name {
-  grid-area: artist-name;
+    grid-area: artist-name;
 }
 
 .quick-menu {
-  grid-area: quick-menu;
-  outline: none;
-  border: none;
-  background-color: transparent;
+    grid-area: quick-menu;
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 
 .like {
-  grid-area: like;
+    grid-area: like;
 }
 
 .comment {
-  grid-area: comment;
+    grid-area: comment;
 }
 
 .duration {
-  grid-area: duration;
+    grid-area: duration;
 }

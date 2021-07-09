@@ -1,32 +1,17 @@
 <div [ngStyle]="{ 'background-image': (album && album.colour) || 'white' }">
-  <app-top-nav></app-top-nav>
-  <app-my-navbar></app-my-navbar>
-  <app-page-top-image
-    *ngIf="album && album.album_image_filename"
-    [albumImageUrl]="album && album.album_image_filename"
-    [darkColour]="darkColour"
-    [albumDescription]="albumDescription"
-    [textColour]="textColour"
-    [artistImageUrl]="
-      album && album.artist && album.artist.artist_image_filename
-    "
-    [isArtistImageEnabled]="true"
-  ></app-page-top-image>
-  <app-artist-menu-bar
-    [artistId]="album && album.artist.id"
-  ></app-artist-menu-bar>
-  <app-track-list
-    *ngIf="album"
-    [tracks]="trackList"
-    [isAlbumView]="true"
-    [isArtistView]="false"
-    [trackListId]="album.id"
-    [playerColour]="darkColour"
-  ></app-track-list>
-  <app-comments-container
-    [threadId]="album && album.id"
-    [threadType]="threadType"
-    [commentThreadId]="album && album.commentThreadId"
-  ></app-comments-container>
-  <div style="height: 300px"></div>
+    <app-top-nav></app-top-nav>
+    <app-my-navbar></app-my-navbar>
+    <app-page-top-image
+        *ngIf="album && album.album_image_filename"
+        [albumImageUrl]="album && album.album_image_filename"
+        [darkColour]="darkColour"
+        [albumDescription]="albumDescription"
+        [textColour]="textColour"
+        [artistImageUrl]="album && album.artist && album.artist.artist_image_filename"
+        [isArtistImageEnabled]="true"
+    ></app-page-top-image>
+    <app-artist-menu-bar [artistId]="album && album.artist.id"></app-artist-menu-bar>
+    <app-track-list *ngIf="album" [tracks]="trackList" [isAlbumView]="true" [isArtistView]="false" [trackListId]="album.id" [playerColour]="darkColour"></app-track-list>
+    <app-comments-container [threadId]="album && album.id" [threadType]="threadType" [commentThreadId]="album && album.commentThreadId"></app-comments-container>
+    <div style="height: 300px"></div>
 </div>

@@ -1,34 +1,18 @@
 <div class="container comments-container">
-  <div class="card">
-    <div class="commentbox">
-      <div class="col-12 col-sm-12 header"></div>
-      <div class="col-12 col-sm-12 body">
-        <div class="comment-container">
-          <div class="comment-form">
-            <app-commentbox
-              [threadId]="threadId"
-              [threadType]="threadType"
-              [commentThreadId]="commentThreadId"
-              (usercomment)="receiveComment($event)"
-            ></app-commentbox>
-          </div>
+    <div class="card">
+        <div class="commentbox">
+            <div class="col-12 col-sm-12 header"></div>
+            <div class="col-12 col-sm-12 body">
+                <div class="comment-container">
+                    <div class="comment-form">
+                        <app-commentbox [threadId]="threadId" [threadType]="threadType" [commentThreadId]="commentThreadId" (usercomment)="receiveComment($event)"></app-commentbox>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <app-comments *ngIf="shouldShowComments" [postComment]="comments" (alreadyExistingComments)="receiveComment($event)" (countComments)="receiveCount($event)"></app-comments>
     </div>
-    <app-comments
-      *ngIf="shouldShowComments"
-      [postComment]="comments"
-      (alreadyExistingComments)="receiveComment($event)"
-      (countComments)="receiveCount($event)"
-    ></app-comments>
-  </div>
-  <div>
-    <button
-      *ngIf="count > 0"
-      class="custom-toggle-button"
-      (click)="toggleShowComments()"
-    >
-      {{ commentMessage }} {{ count }} comments
-    </button>
-  </div>
+    <div>
+        <button *ngIf="count > 0" class="custom-toggle-button" (click)="toggleShowComments()">{{ commentMessage }} {{ count }} comments</button>
+    </div>
 </div>

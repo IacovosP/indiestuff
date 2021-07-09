@@ -1,152 +1,102 @@
 <div class="tracks-custom">
-  <ul class="track-list-header">
-    <div class="container box" style="padding-bottom: 5px">
-      <div class="index">
-        <a style="padding-left: 10px">#</a>
-      </div>
-      <div class="play-state"></div>
-      <div class="track-name" style="max-width: 100px">
-        <a>track</a>
-      </div>
-      <div class="album-name">
-        <span *ngIf="isAlbumView === false">album</span>
-      </div>
-      <div class="artist-name">
-        <span *ngIf="isArtistView === false && isAlbumView === false"
-          >artist</span
-        >
-      </div>
-      <div class="quick-menu"></div>
-      <div class="like"></div>
-      <div class="comment"></div>
-      <div class="duration">
-        <span>duration</span>
-      </div>
-    </div>
-  </ul>
-  <ul
-    class="track-list"
-    cdkDropList
-    [cdkDropListDisabled]="isAlbumView === true || isArtistView === true"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <li
-      style="list-style-type: none"
-      cdkDrag
-      *ngFor="let track of tracks; index as i"
-      [ngClass]="{
-        'active-track':
-          i === indexOfSongPlaying && trackListId === currentPlayingTrackListId
-      }"
-    >
-      <div class="container">
-        <div class="index">
-          <a style="padding-left: 10px">{{ i + 1 }}</a>
+    <ul class="track-list-header">
+        <div class="container box" style="padding-bottom: 5px">
+            <div class="index">
+                <a style="padding-left: 10px">#</a>
+            </div>
+            <div class="play-state"></div>
+            <div class="track-name" style="max-width: 100px">
+                <a>track</a>
+            </div>
+            <div class="album-name">
+                <span *ngIf="isAlbumView === false">album</span>
+            </div>
+            <div class="artist-name">
+                <span *ngIf="isArtistView === false && isAlbumView === false">artist</span>
+            </div>
+            <div class="quick-menu"></div>
+            <div class="like"></div>
+            <div class="comment"></div>
+            <div class="duration">
+                <span>duration</span>
+            </div>
         </div>
-        <div class="play-state">
-          <mat-icon
-            *ngIf="
-              indexOfSongPlaying !== i ||
-              (isPaused && indexOfSongPlaying === i) ||
-              trackListId !== currentPlayingTrackListId
-            "
-            class="play-arrow"
-            (click)="playSong(i)"
-            >play_circle_outline</mat-icon
-          >
-          <mat-icon
-            *ngIf="
-              isPaused === false &&
-              indexOfSongPlaying === i &&
-              trackListId === currentPlayingTrackListId
-            "
-            class="pause-button"
-            (click)="pauseTrack()"
-            >pause_circle_outline</mat-icon
-          >
-        </div>
-        <div class="track-name">
-          <a>{{ track.title }}</a>
-        </div>
-        <div class="album-name" *ngIf="isAlbumView === false">
-          <a [routerLink]="['/album', track.album.id]" class="a-name">{{
-            track.album.title
-          }}</a>
-        </div>
-        <div
-          class="artist-name"
-          *ngIf="
-            isAlbumView === false && isArtistView === false && track.artist
-          "
-        >
-          <a [routerLink]="['/artist', track.artist.id]" class="a-name">{{
-            track.artist.name
-          }}</a>
-        </div>
-        <div class="quick-menu">
-          <button
-            *ngIf="isRegistered"
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button
-              mat-menu-item
-              class="playlist-menu-container"
-              mat-icon-button
-              [matMenuTriggerFor]="playlistMenu"
-              (mouseenter)="updatePlaylistInfo()"
-            >
-              <mat-icon>playlist_add_check</mat-icon>
-              <span>add to playlist</span>
-            </button>
-            <mat-menu #playlistMenu="matMenu">
-              <li mat-menu-item (click)="openPlaylistCreationDialog()">
-                <mat-icon>playlist_add</mat-icon>
-                <span>create new playlist</span>
-              </li>
-              <li
-                mat-menu-item
-                *ngFor="let playlist of playlists"
-                (click)="addToPlaylist(playlist, i)"
-              >
-                <span>{{ playlist.name }}</span>
-              </li>
-            </mat-menu>
-            <button
-              *ngIf="!isArtistView && !isAlbumView"
-              mat-menu-item
-              class="remove-from-playlist"
-              mat-icon-button
-              (click)="removeFromThisPlaylist(i)"
-            >
-              <mat-icon>delete_outline</mat-icon>
-              <span>remove from this playlist</span>
-            </button>
-          </mat-menu>
-        </div>
-        <div class="like">
-          <mat-icon
-            *ngIf="isRegistered"
-            class="right-side-icon"
+    </ul>
+    <ul class="track-list" cdkDropList [cdkDropListDisabled]="isAlbumView === true || isArtistView === true" (cdkDropListDropped)="drop($event)">
+        <li
+            style="list-style-type: none"
+            cdkDrag
+            *ngFor="let track of tracks; index as i"
             [ngClass]="{
-              'already-liked': likedTrackIds && likedTrackIds.includes(track.id)
+                'active-track': i === indexOfSongPlaying && trackListId === currentPlayingTrackListId
             }"
-            (click)="addOrRemoveTrackLiked(track.id)"
-            >favorite_outline</mat-icon
-          >
-        </div>
-        <div class="comment">
-          <mat-icon class="right-side-icon" (click)="openCommentModal(track.id)"
-            >comment</mat-icon
-          >
-        </div>
-        <div class="duration">
-          <span>{{ track.duration }}</span>
-        </div>
-      </div>
-    </li>
-  </ul>
+        >
+            <div class="container">
+                <div class="index">
+                    <a style="padding-left: 10px">{{ i + 1 }}</a>
+                </div>
+                <div class="play-state">
+                    <mat-icon
+                        *ngIf="indexOfSongPlaying !== i || (isPaused && indexOfSongPlaying === i) || trackListId !== currentPlayingTrackListId"
+                        class="play-arrow"
+                        (click)="playSong(i)"
+                        >play_circle_outline</mat-icon
+                    >
+                    <mat-icon *ngIf="isPaused === false && indexOfSongPlaying === i && trackListId === currentPlayingTrackListId" class="pause-button" (click)="pauseTrack()"
+                        >pause_circle_outline</mat-icon
+                    >
+                </div>
+                <div class="track-name">
+                    <a>{{ track.title }}</a>
+                </div>
+                <div class="album-name" *ngIf="isAlbumView === false">
+                    <a [routerLink]="['/album', track.album.id]" class="a-name">{{ track.album.title }}</a>
+                </div>
+                <div class="artist-name" *ngIf="isAlbumView === false && isArtistView === false && track.artist">
+                    <a [routerLink]="['/artist', track.artist.id]" class="a-name">{{ track.artist.name }}</a>
+                </div>
+                <div class="quick-menu">
+                    <button *ngIf="isRegistered" mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item class="playlist-menu-container" mat-icon-button [matMenuTriggerFor]="playlistMenu" (mouseenter)="updatePlaylistInfo()">
+                            <mat-icon>playlist_add_check</mat-icon>
+                            <span>add to playlist</span>
+                        </button>
+                        <mat-menu #playlistMenu="matMenu">
+                            <li mat-menu-item (click)="openPlaylistCreationDialog()">
+                                <mat-icon>playlist_add</mat-icon>
+                                <span>create new playlist</span>
+                            </li>
+                            <li mat-menu-item *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist, i)">
+                                <span>{{ playlist.name }}</span>
+                            </li>
+                        </mat-menu>
+                        <button *ngIf="!isArtistView && !isAlbumView" mat-menu-item class="remove-from-playlist" mat-icon-button (click)="removeFromThisPlaylist(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                            <span>remove from this playlist</span>
+                        </button>
+                    </mat-menu>
+                </div>
+                <div class="like">
+                    <mat-icon
+                        *ngIf="isRegistered"
+                        class="right-side-icon"
+                        [ngClass]="{
+                            'already-liked': likedTrackIds && likedTrackIds.includes(track.id)
+                        }"
+                        (click)="addOrRemoveTrackLiked(track.id)"
+                        >favorite_outline</mat-icon
+                    >
+                </div>
+                <div class="comment">
+                    <mat-icon class="right-side-icon" (click)="openCommentModal(track.id)">comment</mat-icon>
+                </div>
+                <div class="duration">
+                    <span>{{ track.duration }}</span>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

@@ -1,16 +1,16 @@
 .comments-container {
-  padding-left: 15%;
+    padding-left: 15%;
 }
 
 .comments-container button {
-  text-align: center;
-  width: 20%;
-  margin-left: 30%;
-  border: none;
-  outline: none;
-  background-color: Transparent;
-  color: black;
-  font-family: sans-serif;
-  font-size: 20px;
-  cursor: pointer;
+    text-align: center;
+    width: 20%;
+    margin-left: 30%;
+    border: none;
+    outline: none;
+    background-color: Transparent;
+    color: black;
+    font-family: sans-serif;
+    font-size: 20px;
+    cursor: pointer;
 }

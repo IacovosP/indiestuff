@@ -1,128 +1,100 @@
-<mat-dialog-content
-  class="mat-typography login-modal-container"
-  style="width: 750px; padding: 0"
->
-  <div class="row custom-modal">
-    <div class="col-sm-7 jumbotron">
-      <form novalidate (ngSubmit)="onFormSubmit(loginForm)" #loginForm="ngForm">
-        <div class="signup-title">
-          <p class="signup-title-text">login</p>
+<mat-dialog-content class="mat-typography login-modal-container" style="width: 750px; padding: 0">
+    <div class="row custom-modal">
+        <div class="col-sm-7 jumbotron">
+            <form novalidate (ngSubmit)="onFormSubmit(loginForm)" #loginForm="ngForm">
+                <div class="signup-title">
+                    <p class="signup-title-text">login</p>
+                </div>
+
+                <!-- Email input block -->
+                <div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">email</label>
+                        <div class="col-lg-7">
+                            <input
+                                type="text"
+                                class="form-control input-custom"
+                                [ngModel]="user.email"
+                                name="email"
+                                #email="ngModel"
+                                id="inputEmail"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Email error block -->
+
+                    <div *ngIf="email.invalid && email.touched" class="col-sm-3 text-danger">
+                        <p *ngIf="email.errors?.required">email field can't be blank</p>
+                        <p *ngIf="email.errors?.pattern && email.touched">the email id doesn't seem right</p>
+                    </div>
+                </div>
+
+                <!-- Password block -->
+                <!-- <div ngModelGroup="password" #userPassword="ngModelGroup"> -->
+                <div class="form-group">
+                    <label for="inputPassword" class="col-lg-2 control-label">password</label>
+                    <div class="col-lg-7">
+                        <input
+                            type="password"
+                            class="form-control input-custom"
+                            [ngModel]="user.password"
+                            name="password"
+                            #password="ngModel"
+                            id="inputPassword"
+                            minlength="8"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <!-- Password error block -->
+                <div *ngIf="password.invalid && password.touched" class="col-sm-3 text-danger">
+                    <p *ngIf="password.invalid">password needs to be more than 8 characters</p>
+                </div>
+                <div class="forgot-my-password-container form-group-button">
+                    <form *ngIf="shouldShowForgotPasswordInput" novalidate (ngSubmit)="verifyEmailAndSendResetEmail(forgotPasswordForm)" #forgotPasswordForm="ngForm">
+                        <div style="display: flex; width: 300px; padding-top: 20px">
+                            <input
+                                type="text"
+                                class="form-control input-forgot-password"
+                                placeholder="verify email address to reset password"
+                                [ngModel]="forgottenAccountEmail"
+                                name="forgottenEmail"
+                                #email="ngModel"
+                                id="inputForgottenEmail"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                required
+                            />
+                            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+                            <button
+                                style="padding: 0px; padding-left: 5px; padding-top: 32px"
+                                type="submit"
+                                class="btn btn-success button-custom-tick"
+                                mat-button
+                                [mat-dialog-close]="true"
+                                [disabled]="!forgotPasswordForm.form.valid"
+                            >
+                                reset
+                            </button>
+                        </div>
+                    </form>
+                    <a style="padding-left: 25px" (click)="openForgotPasswordDialog()">forgot my password </a>
+
+                    <!-- Buttons block -->
+                    <mat-dialog-actions>
+                        <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
+                        <button type="submit" class="btn btn-success button-custom-tick" mat-button [mat-dialog-close]="true" [disabled]="!loginForm.form.valid">
+                            <div style="display: flex; float: right; padding-top: 30px">
+                                <mat-icon> done </mat-icon>
+                                <p>login</p>
+                            </div>
+                        </button>
+                    </mat-dialog-actions>
+                </div>
+            </form>
         </div>
-
-        <!-- Email input block -->
-        <div>
-          <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">email</label>
-            <div class="col-lg-7">
-              <input
-                type="text"
-                class="form-control input-custom"
-                [ngModel]="user.email"
-                name="email"
-                #email="ngModel"
-                id="inputEmail"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- Email error block -->
-
-          <div
-            *ngIf="email.invalid && email.touched"
-            class="col-sm-3 text-danger"
-          >
-            <p *ngIf="email.errors?.required">email field can't be blank</p>
-            <p *ngIf="email.errors?.pattern && email.touched">
-              the email id doesn't seem right
-            </p>
-          </div>
-        </div>
-
-        <!-- Password block -->
-        <!-- <div ngModelGroup="password" #userPassword="ngModelGroup"> -->
-        <div class="form-group">
-          <label for="inputPassword" class="col-lg-2 control-label"
-            >password</label
-          >
-          <div class="col-lg-7">
-            <input
-              type="password"
-              class="form-control input-custom"
-              [ngModel]="user.password"
-              name="password"
-              #password="ngModel"
-              id="inputPassword"
-              minlength="8"
-              required
-            />
-          </div>
-        </div>
-
-        <!-- Password error block -->
-        <div
-          *ngIf="password.invalid && password.touched"
-          class="col-sm-3 text-danger"
-        >
-          <p *ngIf="password.invalid">
-            password needs to be more than 8 characters
-          </p>
-        </div>
-        <div class="forgot-my-password-container form-group-button">
-          <form
-            *ngIf="shouldShowForgotPasswordInput"
-            novalidate
-            (ngSubmit)="verifyEmailAndSendResetEmail(forgotPasswordForm)"
-            #forgotPasswordForm="ngForm"
-          >
-            <div style="display: flex; width: 300px; padding-top: 20px">
-              <input
-                type="text"
-                class="form-control input-forgot-password"
-                placeholder="verify email address to reset password"
-                [ngModel]="forgottenAccountEmail"
-                name="forgottenEmail"
-                #email="ngModel"
-                id="inputForgottenEmail"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                required
-              />
-              <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
-              <button
-                style="padding: 0px; padding-left: 5px; padding-top: 32px"
-                type="submit"
-                class="btn btn-success button-custom-tick"
-                mat-button
-                [mat-dialog-close]="true"
-                [disabled]="!forgotPasswordForm.form.valid"
-              >
-                reset
-              </button>
-            </div>
-          </form>
-          <a style="padding-left: 25px" (click)="openForgotPasswordDialog()"
-            >forgot my password
-          </a>
-
-          <!-- Buttons block -->
-          <mat-dialog-actions>
-            <!-- <button type="reset"class="btn btn-default" mat-button mat-dialog-close>cancel</button> -->
-            <button
-              type="submit"
-              class="btn btn-success button-custom-tick"
-              mat-button
-              [mat-dialog-close]="true"
-              [disabled]="!loginForm.form.valid"
-            >
-              <div style="display: flex; float: right; padding-top: 30px">
-                <mat-icon> done </mat-icon>
-                <p>login</p>
-              </div>
-            </button>
-          </mat-dialog-actions>
-        </div>
-      </form>
     </div>
-  </div>
 </mat-dialog-content>

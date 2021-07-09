@@ -1,8 +1,8 @@
 <div *ngIf="!isMyArtistPage" class="artist-menu-bar">
-  <a href="#artistmusic" [routerLink]="['/artist', artistId]">music</a>
-  <a href="#artistDonation" [routerLink]="['/donation']">donate</a>
+    <a href="#artistmusic" [routerLink]="['/artist', artistId]">music</a>
+    <a href="#artistDonation" [routerLink]="['/donation']">donate</a>
 </div>
 <div *ngIf="isMyArtistPage" class="artist-menu-bar">
-  <a (click)="changeToMyMusicPageType()">music</a>
-  <a (click)="changeToNewStuffPageType()">new stuff</a>
+    <a (click)="changeToMyMusicPageType()">music</a>
+    <a (click)="changeToNewStuffPageType()">new stuff</a>
 </div>

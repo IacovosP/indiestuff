@@ -1,65 +1,49 @@
-import {
-  Component,
-  Injectable,
-  Input,
-  Output,
-  EventEmitter,
-} from "@angular/core";
-import { Track } from "@src/app/music-types/types";
+import { Component, Injectable, Input, Output, EventEmitter } from '@angular/core';
+import { Track } from '@src/app/music-types/types';
 
 @Injectable()
 export class SharedService {
-  @Output() fire: EventEmitter<any> = new EventEmitter();
-  @Output() firePause: EventEmitter<any> = new EventEmitter();
-  @Output() fireRestart: EventEmitter<any> = new EventEmitter();
-  @Output() fireChangeIndex: EventEmitter<any> = new EventEmitter();
+    @Output() fire: EventEmitter<any> = new EventEmitter();
+    @Output() firePause: EventEmitter<any> = new EventEmitter();
+    @Output() fireRestart: EventEmitter<any> = new EventEmitter();
+    @Output() fireChangeIndex: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
-    console.log("shared service started");
-  }
+    constructor() {
+        console.log('shared service started');
+    }
 
-  change(value: {
-    tracks: any[];
-    indexOfSongToPlay: number;
-    trackListId: string;
-    isAlbumView?: boolean;
-    isArtistView?: boolean;
-    colour?: string;
-  }) {
-    // console.log("change started " + JSON.stringify(value, null, 4));
-    this.fire.emit(value);
-  }
+    change(value: { tracks: any[]; indexOfSongToPlay: number; trackListId: string; isAlbumView?: boolean; isArtistView?: boolean; colour?: string }) {
+        // console.log("change started " + JSON.stringify(value, null, 4));
+        this.fire.emit(value);
+    }
 
-  changeIndex(value: {
-    newIndexOfSongPlaying: number;
-    tracksWithNewIndexing: any[];
-  }) {
-    this.fireChangeIndex.emit(value);
-  }
+    changeIndex(value: { newIndexOfSongPlaying: number; tracksWithNewIndexing: any[] }) {
+        this.fireChangeIndex.emit(value);
+    }
 
-  pause() {
-    console.log("paused event");
-    this.firePause.emit();
-  }
+    pause() {
+        console.log('paused event');
+        this.firePause.emit();
+    }
 
-  restart() {
-    console.log("restart event");
-    this.fireRestart.emit();
-  }
+    restart() {
+        console.log('restart event');
+        this.fireRestart.emit();
+    }
 
-  getEmittedValue() {
-    return this.fire;
-  }
+    getEmittedValue() {
+        return this.fire;
+    }
 
-  getEmittedPause() {
-    return this.firePause;
-  }
+    getEmittedPause() {
+        return this.firePause;
+    }
 
-  getEmittedRestart() {
-    return this.fireRestart;
-  }
+    getEmittedRestart() {
+        return this.fireRestart;
+    }
 
-  getEmittedIndexChange() {
-    return this.fireChangeIndex;
-  }
+    getEmittedIndexChange() {
+        return this.fireChangeIndex;
+    }
 }

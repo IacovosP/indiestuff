@@ -1,67 +1,46 @@
-<mat-dialog-content
-  class="mat-typography sign-up-modal-container"
-  style="padding: 0"
->
-  <div class="row custom-modal">
-    <div class="col-sm-7 jumbotron">
-      <form
-        novalidate
-        (ngSubmit)="onFormSubmit(trackUploadForm)"
-        #trackUploadForm="ngForm"
-        id="trackUploadForm"
-      >
-        <div>
-          <div class="form-group">
-            <label for="inputTrackTitle" class="col-lg-2 control-label"
-              >track title</label
-            >
-            <div class="col-lg-7">
-              <input
-                type="text"
-                placeholder="{{
-                  trackToEdit
-                    ? trackToEdit.title
-                    : 'song name something less pretentious...'
-                }}"
-                class="form-control input-custom"
-                [ngModel]="track.title"
-                #name="ngModel"
-                name="name"
-                id="inputTrackTitle"
-                required
-              />
-            </div>
-          </div>
+<mat-dialog-content class="mat-typography sign-up-modal-container" style="padding: 0">
+    <div class="row custom-modal">
+        <div class="col-sm-7 jumbotron">
+            <form novalidate (ngSubmit)="onFormSubmit(trackUploadForm)" #trackUploadForm="ngForm" id="trackUploadForm">
+                <div>
+                    <div class="form-group">
+                        <label for="inputTrackTitle" class="col-lg-2 control-label">track title</label>
+                        <div class="col-lg-7">
+                            <input
+                                type="text"
+                                placeholder="{{ trackToEdit ? trackToEdit.title : 'song name something less pretentious...' }}"
+                                class="form-control input-custom"
+                                [ngModel]="track.title"
+                                #name="ngModel"
+                                name="name"
+                                id="inputTrackTitle"
+                                required
+                            />
+                        </div>
+                    </div>
 
-          <!-- username error block -->
-          <div
-            *ngIf="name.invalid && name.touched"
-            class="col-sm-3 text-danger"
-          >
-            <p *ngIf="name.errors?.required">
-              track title field can't be blank
-            </p>
-          </div>
-        </div>
-        <div>
-          <div class="form-group">
-            <label for="inputTrack" class="col-lg-2 control-label">{{
-              data && data.trackToEdit ? "replace" : "upload"
-            }}</label>
-            <div class="col-lg-7">
-              <input
-                type="file"
-                id="file"
-                required
-                [ngModel]="track.file"
-                #file="ngModel"
-                name="file"
-                id="inputTrackTitle"
-                class="form-control"
-                accept="audio/*"
-                (change)="handleFileInput($event.target.files)"
-              />
-              <!-- <input
+                    <!-- username error block -->
+                    <div *ngIf="name.invalid && name.touched" class="col-sm-3 text-danger">
+                        <p *ngIf="name.errors?.required">track title field can't be blank</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="inputTrack" class="col-lg-2 control-label">{{ data && data.trackToEdit ? 'replace' : 'upload' }}</label>
+                        <div class="col-lg-7">
+                            <input
+                                type="file"
+                                id="file"
+                                required
+                                [ngModel]="track.file"
+                                #file="ngModel"
+                                name="file"
+                                id="inputTrackTitle"
+                                class="form-control"
+                                accept="audio/*"
+                                (change)="handleFileInput($event.target.files)"
+                            />
+                            <!-- <input
                 type="text"
                 class="form-control input-custom"
                 [ngModel]="user.username"
@@ -70,28 +49,23 @@
                 id="inputUsername"
                 required
               /> -->
-            </div>
-          </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Buttons block -->
+                <mat-dialog-actions style="float: right; margin-right: 50px; margin-top: -20px">
+                    <button
+                        type="submit"
+                        class="btn btn-success button-custom-tick"
+                        mat-button
+                        [mat-dialog-close]="false"
+                        cdkFocusInitial
+                        [disabled]="!trackUploadForm.form.valid && (!data || (data && !data.trackToEdit))"
+                    >
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </mat-dialog-actions>
+            </form>
         </div>
-        <!-- Buttons block -->
-        <mat-dialog-actions
-          style="float: right; margin-right: 50px; margin-top: -20px"
-        >
-          <button
-            type="submit"
-            class="btn btn-success button-custom-tick"
-            mat-button
-            [mat-dialog-close]="false"
-            cdkFocusInitial
-            [disabled]="
-              !trackUploadForm.form.valid &&
-              (!data || (data && !data.trackToEdit))
-            "
-          >
-            <mat-icon>done</mat-icon>
-          </button>
-        </mat-dialog-actions>
-      </form>
     </div>
-  </div>
 </mat-dialog-content>

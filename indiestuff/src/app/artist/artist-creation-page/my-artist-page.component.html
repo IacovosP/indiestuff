@@ -1,23 +1,11 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
 <app-page-top-image
-  [headerImageUrl]="artistMusic && artistMusic.artist_top_image_filename"
-  [artistImageUrl]="artistMusic && artistMusic.artist_image_filename"
-  [isArtistImageEnabled]="true"
+    [headerImageUrl]="artistMusic && artistMusic.artist_top_image_filename"
+    [artistImageUrl]="artistMusic && artistMusic.artist_image_filename"
+    [isArtistImageEnabled]="true"
 ></app-page-top-image>
-<app-artist-menu-bar
-  [isMyArtistPage]="true"
-  (myArtistSubPageType)="changeMyArtistSubPageType($event)"
-></app-artist-menu-bar>
-<app-artist-creation-page
-  *ngIf="activeSubPageType === 'newStuff'"
-></app-artist-creation-page>
-<app-artist-creation-page
-  *ngIf="activeSubPageType === 'editStuff'"
-  [albumId]="currentAlbumToEdit"
-></app-artist-creation-page>
-<app-my-artist-music-page
-  (myArtistSubPageType)="changeToEditAlbumPageType($event)"
-  [albums]="albumsLite"
-  *ngIf="activeSubPageType === 'myMusic'"
-></app-my-artist-music-page>
+<app-artist-menu-bar [isMyArtistPage]="true" (MyArtistSubPageType)="changeMyArtistSubPageType($event)"></app-artist-menu-bar>
+<app-artist-creation-page *ngIf="activeSubPageType === 'newStuff'"></app-artist-creation-page>
+<app-artist-creation-page *ngIf="activeSubPageType === 'editStuff'" [albumId]="currentAlbumToEdit"></app-artist-creation-page>
+<app-my-artist-music-page (MyArtistSubPageType)="changeToEditAlbumPageType($event)" [albums]="albumsLite" *ngIf="activeSubPageType === 'myMusic'"></app-my-artist-music-page>

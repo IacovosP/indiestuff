@@ -1,61 +1,36 @@
 <div
-  class="player-container"
-  [ngStyle]="{
-    'background-image':
-      'linear-gradient(to top, ' + colour + '  10% , transparent)',
-    display: currentTrack.title ? 'block' : 'none'
-  }"
+    class="player-container"
+    [ngStyle]="{
+        'background-image': 'linear-gradient(to top, ' + colour + '  10% , transparent)',
+        display: currentTrack.title ? 'block' : 'none'
+    }"
 >
-  <div class="track-details">
-    <a>{{ currentTrack.title }}</a>
-    <a> by </a>
-    <a
-      style="text-decoration: none; color: black"
-      [routerLink]="['/artist', currentTrack.artistId]"
-      >{{ currentTrack.artistName }}</a
-    >
-    <a style="padding-left: 40%; margin-top: -0.5px">{{ currentTime }}</a>
-  </div>
-  <div class="player-bar">
-    <div class="play-button" id="playBtn">
-      <mat-icon *ngIf="!isPlaying" class="play-icon" (click)="play()"
-        >play_arrow</mat-icon
-      >
-      <mat-icon *ngIf="isPlaying" class="play-icon" (click)="pause()"
-        >pause</mat-icon
-      >
+    <div class="track-details">
+        <a>{{ currentTrack.title }}</a>
+        <a> by </a>
+        <a style="text-decoration: none; color: black" [routerLink]="['/artist', currentTrack.artistId]">{{ currentTrack.artistName }}</a>
+        <a style="padding-left: 40%; margin-top: -0.5px">{{ currentTime }}</a>
     </div>
-    <div class="progress-bar-container">
-      <mat-progress-bar
-        mode="determinate"
-        (click)="seekSongToLocation($event)"
-        value="{{ playerElapsedTime }}"
-        class="progress-bar"
-      >
-      </mat-progress-bar>
-    </div>
-    <div class="utility-player-buttons">
-      <button (click)="previous()" class="player-utility-button">
-        <mat-icon>skip_previous</mat-icon>
-      </button>
-      <button (click)="skip()" class="player-utility-button">
-        <mat-icon>skip_next</mat-icon>
-      </button>
-      <button (click)="toggleLoop()" class="player-utility-button">
-        <mat-icon
-          [ngClass]="{ 'loop-playlist': loopState === 1 || loopState === 2 }"
-          >{{ repeatIcon }}</mat-icon
-        >
-      </button>
+    <div class="player-bar">
+        <div class="play-button" id="playBtn">
+            <mat-icon *ngIf="!isPlaying" class="play-icon" (click)="play()">play_arrow</mat-icon>
+            <mat-icon *ngIf="isPlaying" class="play-icon" (click)="pause()">pause</mat-icon>
+        </div>
+        <div class="progress-bar-container">
+            <mat-progress-bar mode="determinate" (click)="seekSongToLocation($event)" value="{{ playerElapsedTime }}" class="progress-bar"> </mat-progress-bar>
+        </div>
+        <div class="utility-player-buttons">
+            <button (click)="previous()" class="player-utility-button">
+                <mat-icon>skip_previous</mat-icon>
+            </button>
+            <button (click)="skip()" class="player-utility-button">
+                <mat-icon>skip_next</mat-icon>
+            </button>
+            <button (click)="toggleLoop()" class="player-utility-button">
+                <mat-icon [ngClass]="{ 'loop-playlist': loopState === 1 || loopState === 2 }">{{ repeatIcon }}</mat-icon>
+            </button>
 
-      <mat-slider
-        class="volume-slider"
-        (change)="updateVolume($event)"
-        [value]="volumeValue"
-        min="1"
-        max="100"
-      >
-      </mat-slider>
+            <mat-slider class="volume-slider" (change)="updateVolume($event)" [value]="volumeValue" min="1" max="100"> </mat-slider>
+        </div>
     </div>
-  </div>
 </div>

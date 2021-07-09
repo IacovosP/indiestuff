@@ -1,21 +1,8 @@
 <div class="album-container">
-  <img
-    style="cursor: pointer"
-    [routerLink]="['/album', album.id]"
-    src="{{ album.imageUrl }}"
-  />
-  <div>
-    <span style="cursor: pointer" [routerLink]="['/album', album.id]">{{
-      album.title
-    }}</span>
-    <span
-      class="span-no-hover"
-      style="font-size: 14px; font-weight: normal; opacity: 1; cursor: default"
-    >
-      by
-    </span>
-    <span style="font-size: 14px; font-weight: normal">{{
-      album.artistName
-    }}</span>
-  </div>
+    <img style="cursor: pointer" [routerLink]="['/album', album.id]" src="{{ album.imageUrl }}" />
+    <div>
+        <span style="cursor: pointer" [routerLink]="['/album', album.id]">{{ album.title }}</span>
+        <span class="span-no-hover" style="font-size: 14px; font-weight: normal; opacity: 1; cursor: default"> by </span>
+        <span style="font-size: 14px; font-weight: normal">{{ album.artistName }}</span>
+    </div>
 </div>

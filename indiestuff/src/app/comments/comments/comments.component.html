@@ -1,68 +1,41 @@
-<div
-  class="custom-comments-container"
-  [ngClass]="{ 'custom-modal-comments-container': isModal }"
-  *ngIf="postComment !== undefined"
->
-  <h6 *ngIf="postComment?.length < 1">no comments found</h6>
-  <ul
-    style="padding: 0"
-    class="comments-list-custom"
-    *ngIf="postComment?.length > 0"
-  >
-    <li *ngFor="let post of postComment; let i = index">
-      <div
-        [ngClass]="
-          post.favourite === true
-            ? 'col-12 col-sm-12 comment-container favourite'
-            : 'col-12 col-sm-12 comment-container non-favourte '
-        "
-      >
-        <p>{{ post.text }}</p>
-        <div class="actions date-style">
-          <span style="font-weight: bold; margin-right: 5px">{{
-            post.username
-          }}</span>
-          <span class="divider"></span>
-          <span>{{ post.currentDate | date: "dd/MM/yyyy" }}</span>
-          <span class="divider"></span>
-          <button
-            [disabled]="!isRegistered"
-            class="reply-button"
-            (click)="toggleReplyComment(post)"
-          >
-            reply
-          </button>
-          <span class="divider"></span>
-          <!-- <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
+<div class="custom-comments-container" [ngClass]="{ 'custom-modal-comments-container': isModal }" *ngIf="postComment !== undefined">
+    <h6 *ngIf="postComment?.length < 1">no comments found</h6>
+    <ul style="padding: 0" class="comments-list-custom" *ngIf="postComment?.length > 0">
+        <li *ngFor="let post of postComment; let i = index">
+            <div [ngClass]="post.favourite === true ? 'col-12 col-sm-12 comment-container favourite' : 'col-12 col-sm-12 comment-container non-favourte '">
+                <p>{{ post.text }}</p>
+                <div class="actions date-style">
+                    <span style="font-weight: bold; margin-right: 5px">{{ post.username }}</span>
+                    <span class="divider"></span>
+                    <span>{{ post.currentDate | date: 'dd/MM/yyyy' }}</span>
+                    <span class="divider"></span>
+                    <button [disabled]="!isRegistered" class="reply-button" (click)="toggleReplyComment(post)">reply</button>
+                    <span class="divider"></span>
+                    <!-- <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
             <i class="fa fa-trash"></i>
           </button> -->
-        </div>
-        <div class="childCommentBox">
-          <div datacontainer></div>
-          <ul class="comments-list-custom" *ngIf="post?.replies?.length > 0">
-            <li *ngFor="let reply of post.replies">
-              <div class="col-12 col-sm-12 comment-container">
-                <span style="font-size: 14px; font-style: italic">{{
-                  reply.text
-                }}</span>
-                <div class="reply-metadata">
-                  <span style="font-weight: bold">{{ reply.username }} </span>
-                  <span class="divider"></span>
-                  <span>
-                    {{ reply.currentDate | date: "dd/MM/yyyy" }}
-                  </span>
                 </div>
-              </div>
-            </li>
-          </ul>
-          <div *ngIf="post.shouldShowReplyBox">
-            <app-childbox
-              [parentId]="post.id"
-              (replied)="onReply($event, post)"
-            ></app-childbox>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
+                <div class="childCommentBox">
+                    <div datacontainer></div>
+                    <ul class="comments-list-custom" *ngIf="post?.replies?.length > 0">
+                        <li *ngFor="let reply of post.replies">
+                            <div class="col-12 col-sm-12 comment-container">
+                                <span style="font-size: 14px; font-style: italic">{{ reply.text }}</span>
+                                <div class="reply-metadata">
+                                    <span style="font-weight: bold">{{ reply.username }} </span>
+                                    <span class="divider"></span>
+                                    <span>
+                                        {{ reply.currentDate | date: 'dd/MM/yyyy' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div *ngIf="post.shouldShowReplyBox">
+                        <app-childbox [parentId]="post.id" (replied)="onReply($event, post)"></app-childbox>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

@@ -1,0 +1,5 @@
+{
+    "compilerOptions": { "strict": true },
+    "include": ["**/src/**/*.ts", "**/test/**/*.ts"],
+    "exclude": ["**/test/**/*.spec.ts"]
+}

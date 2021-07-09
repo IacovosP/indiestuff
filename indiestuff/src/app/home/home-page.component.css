@@ -1,205 +1,204 @@
 .home-page {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 }
 
 .home-page h3 {
-  font-family: sans-serif;
-  font-size: 32px;
-  color: #47525e;
+    font-family: sans-serif;
+    font-size: 32px;
+    color: #47525e;
 }
 
 .home-page img {
-  cursor: pointer;
-  outline: none;
+    cursor: pointer;
+    outline: none;
 }
 
 .top-items-container {
-  /* height: 800px; */
-  /* width: 1600px; */
-  display: flex;
-  margin-bottom: 100px;
+    /* height: 800px; */
+    /* width: 1600px; */
+    display: flex;
+    margin-bottom: 100px;
 }
 
 .image-container {
-  position: relative;
-  /* height: 800px;
+    position: relative;
+    /* height: 800px;
   width: 800px; */
 }
 
 .main-image img {
-  /* height: 800px;
+    /* height: 800px;
   width: 800px; */
-  border-style: solid;
-  border-color: white;
-  border-width: 2px;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .image-list {
-  flex: 50%;
-  max-width: 50%;
-  max-height: 400px;
+    flex: 50%;
+    max-width: 50%;
+    max-height: 400px;
 }
 
 .image-list img {
-  /* height: 398px;
+    /* height: 398px;
   width: 398px; */
-  border-style: solid;
-  border-color: white;
-  border-width: 2px;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .home-page img:hover {
-  opacity: 0.6;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
+    opacity: 0.6;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .middle {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: relative;
-  /* top: -50%; */
-  /* left: 50%; */
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  margin-left: auto;
+    transition: 0.5s ease;
+    opacity: 0;
+    position: relative;
+    /* top: -50%; */
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    margin-left: auto;
 }
 
 .middle span {
-  padding-right: 4px;
+    padding-right: 4px;
 }
 
 .image-list:hover .middle {
-  opacity: 1;
+    opacity: 1;
 }
 
 .main-image:hover .middle {
-  opacity: 1;
+    opacity: 1;
 }
 
 .hoverText {
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  color: #30353b;
-  font-size: 16px;
-  font-family: sans-serif;
-  padding: 16px 32px;
-  text-align: center;
-  min-width: 100px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: #30353b;
+    font-size: 16px;
+    font-family: sans-serif;
+    padding: 16px 32px;
+    text-align: center;
+    min-width: 100px;
 }
 
 .album-list-container {
-  margin-bottom: 50px;
-  display: flex;
-  flex-wrap: wrap;
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .album-list {
 }
 
 .album-list img {
-  /* width: 320px;
+    /* width: 320px;
   height: 320px; */
-  border-style: solid;
-  border-color: white;
-  border-width: 2px;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .album-list:hover .middle {
-  opacity: 1;
+    opacity: 1;
 }
 
 .bottom {
-  transition: 0.5s ease;
-  opacity: 0;
-  /* position: relative; */
-  /* top: -50%; */
-  /* left: 50%; */
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  /* margin-left: auto; */
+    transition: 0.5s ease;
+    opacity: 0;
+    /* position: relative; */
+    /* top: -50%; */
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    /* margin-left: auto; */
 }
 
 .bottom span {
-  padding-right: 4px;
-  color: white;
-  font-weight: 100;
+    padding-right: 4px;
+    color: white;
+    font-weight: 100;
 }
 
 .image-container:hover .bottom {
-  opacity: 1;
+    opacity: 1;
 }
 
 .hoverText:hover {
-  text-shadow: -0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white,
-    0.5px 0.5px 0 white;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
+    text-shadow: -0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white, 0.5px 0.5px 0 white;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .image-container .image-hover-overlay {
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  left: 50%;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 2px;
-  margin-bottom: 4px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    left: 50%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2px;
+    margin-bottom: 4px;
 }
 .image-container .small-image-hover-overlay {
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  left: 50%;
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: 4px;
-  margin-bottom: 4px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    left: 50%;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 4px;
+    margin-bottom: 4px;
 }
 
 .image-container .small-image-hover-overlay {
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  left: 50%;
-  width: 204%;
-  box-sizing: border-box;
-  padding-top: 4px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    left: 50%;
+    width: 204%;
+    box-sizing: border-box;
+    padding-top: 4px;
 }
 
 .image-container:hover .image-hover-overlay {
-  display: block;
-  background: rgba(0, 0, 0, 0.6);
+    display: block;
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .image-list:hover .small-image-hover-overlay {
-  display: block;
-  background: rgba(0, 0, 0, 0.6);
+    display: block;
+    background: rgba(0, 0, 0, 0.6);
 }

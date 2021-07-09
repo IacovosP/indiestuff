@@ -1,84 +1,52 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="topnav">
-  <a class="active" href="/home">
-    <img
-      style="margin-top: -9px"
-      width="200px"
-      src="assets/icons/web/Indiestavf-logo.png"
-    />
-  </a>
-  <form class="search-form">
-    <mat-icon>search</mat-icon>
-    <input
-      type="text"
-      placeholder="search for music"
-      aria-label="Number"
-      matInput
-      [formControl]="searchControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete style="max-width: 250px" #auto="matAutocomplete">
-      <mat-option
-        #matOption
-        *ngFor="let option of filteredOptions | async"
-        [value]="option.title"
-        (click)="loadOption(option)"
-      >
-        <div class="result-option">
-          <img src="{{ option.imageName }}" />
-          <div>
-            <span>{{ option.title }}</span>
-            <p style="font-size: 11px">{{ option.type }}</p>
-          </div>
-        </div>
-      </mat-option>
-    </mat-autocomplete>
-  </form>
-  <div *ngIf="!isRegistered" class="auth">
-    <button class="auth-button" mat-button (click)="openSignupDialog()">
-      sign up
-    </button>
-    <button class="auth-button" mat-button (click)="openLoginDialog()">
-      log in
-    </button>
-  </div>
-  <div *ngIf="isRegistered" class="profile">
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Example icon-button with a menu"
-    >
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button
-        *ngIf="isArtistRegistered"
-        mat-menu-item
-        [routerLink]="['/mypage']"
-      >
-        <mat-icon>person</mat-icon>
-        <span>me</span>
-      </button>
-      <button
-        *ngIf="isArtistRegistered"
-        mat-menu-item
-        [routerLink]="['/settings']"
-      >
-        <mat-icon>settings</mat-icon>
-        <span>settings</span>
-      </button>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>dialpad</mat-icon>
-        <span>logout</span>
-      </button>
-      <!-- <button mat-menu-item disabled>
+    <a class="active" href="/home">
+        <img style="margin-top: -9px" width="200px" src="assets/icons/web/Indiestavf-logo.png" />
+    </a>
+    <form class="search-form">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="search for music" aria-label="Number" matInput [formControl]="searchControl" [matAutocomplete]="auto" />
+        <mat-autocomplete style="max-width: 250px" #auto="matAutocomplete">
+            <mat-option #matOption *ngFor="let option of filteredOptions | async" [value]="option.title" (click)="loadOption(option)">
+                <div class="result-option">
+                    <img src="{{ option.imageName }}" />
+                    <div>
+                        <span>{{ option.title }}</span>
+                        <p style="font-size: 11px">{{ option.type }}</p>
+                    </div>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
+    </form>
+    <div *ngIf="!isRegistered" class="auth">
+        <button class="auth-button" mat-button (click)="openSignupDialog()">sign up</button>
+        <button class="auth-button" mat-button (click)="openLoginDialog()">log in</button>
+    </div>
+    <div *ngIf="isRegistered" class="profile">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button *ngIf="isArtistRegistered" mat-menu-item [routerLink]="['/mypage']">
+                <mat-icon>person</mat-icon>
+                <span>me</span>
+            </button>
+            <button *ngIf="isArtistRegistered" mat-menu-item [routerLink]="['/settings']">
+                <mat-icon>settings</mat-icon>
+                <span>settings</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>dialpad</mat-icon>
+                <span>logout</span>
+            </button>
+            <!-- <button mat-menu-item disabled>
         <mat-icon>voicemail</mat-icon>
         <span>Check voice mail</span>
       </button>
       <button mat-menu-item>
         <mat-icon>notifications_off</mat-icon>
         <span>Disable alerts</span> -->
-      <!-- </button> -->
-    </mat-menu>
-  </div>
+            <!-- </button> -->
+        </mat-menu>
+    </div>
 </div>

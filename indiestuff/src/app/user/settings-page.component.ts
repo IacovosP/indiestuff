@@ -1,48 +1,48 @@
-import { Component, OnInit } from "@angular/core";
-import httpClient from "@src/app/network-core/HttpClient";
+import { Component, OnInit } from '@angular/core';
+import httpClient from '@src/app/network-core/HttpClient';
 
 @Component({
-  selector: "settings-page",
-  templateUrl: "./settings-page.component.html",
-  styleUrls: ["./settings-page.component.css"],
+    selector: 'settings-page',
+    templateUrl: './settings-page.component.html',
+    styleUrls: ['./settings-page.component.css']
 })
 export class SettingsPageComponent implements OnInit {
-  private user: { password: string };
-  username: string;
+    user: { password: string };
+    username: string;
 
-  constructor() {}
+    constructor() {}
 
-  ngOnInit() {
-    this.user = {
-      password: "",
-    };
-  }
-
-  checkValidnessOfToken() {
-    // fetch request to check if token is valid
-  }
-
-  onFormSubmit({ value, valid }: { value: any; valid: boolean }) {
-    if (!valid) {
-      return;
+    ngOnInit() {
+        this.user = {
+            password: ''
+        };
     }
-    console.log("form to reset password submitted: " + JSON.stringify(value));
 
-    httpClient
-      .fetch(
-        "auth/resetChangePassword",
-        JSON.stringify({
-          newPassword: value.password,
-          username: this.username,
-        }),
-        "POST"
-      )
-      .then(() => {
-        alert("Password successfully changed");
-      })
-      .catch((error) => {
-        alert("Failed to changed password");
-        console.error("Failed to reset-change password: " + error);
-      });
-  }
+    checkValidnessOfToken() {
+        // fetch request to check if token is valid
+    }
+
+    onFormSubmit({ value, valid }: { value: any; valid: boolean }) {
+        if (!valid) {
+            return;
+        }
+        console.log('form to reset password submitted: ' + JSON.stringify(value));
+
+        httpClient
+            .fetch(
+                'auth/resetChangePassword',
+                JSON.stringify({
+                    newPassword: value.password,
+                    username: this.username
+                }),
+                'POST'
+            )
+            .then(() => {
+                alert('Password successfully changed');
+            })
+            .catch((error) => {
+                alert('Failed to changed password');
+                console.error('Failed to reset-change password: ' + error);
+            });
+    }
 }

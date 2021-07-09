@@ -1,20 +1,20 @@
 export class User {
-  username: string;
-  email: string;
-  password: string;
+    username: string;
+    email: string;
+    password: string;
 
-  constructor(values: Object = {}) {
-    Object.assign(this, values);
-  }
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }
 
 export class Artist {
-  artistName: string;
-  username: string;
-  email: string;
-  password: string;
+    artistName: string;
+    username: string;
+    email: string;
+    password: string;
 
-  constructor(values: Object = {}) {
-    Object.assign(this, values);
-  }
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }

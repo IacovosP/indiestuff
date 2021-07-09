@@ -7,360 +7,305 @@
 //  *
 //  *  MIT License
 //  */
-import { Howl, Howler } from "howler";
-import { Playlist, Track } from "@src/app/music-types/types";
-import playerEventEmitter from "./playerEmitter";
-import defaultHttpClient from "@src/app/network/DefaultHttpClient";
-import auth from "../auth/Auth";
+import { Howl, Howler } from 'howler';
+import { Playlist, Track } from '@src/app/music-types/types';
+import playerEventEmitter from './playerEmitter';
+import defaultHttpClient from '@src/app/network/DefaultHttpClient';
+import auth from '../auth/Auth';
 
+// eslint-disable-next-line no-shadow
 export enum LoopState {
-  "DEFAULT",
-  "LOOP_PLAYLIST",
-  "LOOP_TRACK",
+    'DEFAULT',
+    'LOOP_PLAYLIST',
+    'LOOP_TRACK'
 }
 
 const PERCENTAGE_TO_REPORT_HALF_MARK = 40;
 const SECONDS_LISTENED_TO_REPORT_FIRST_MARK = 30;
 
 class Player {
-  private playlist;
-  private currentlyPlayingIndex: number;
-  private currentlyPlayingSound: any;
-  public elapsedTimeInPercentage = 0; // 0-100
-  public elapsedTimeInSeconds = 0;
-  private playerClock: any; // interval
-  private loopState: LoopState = LoopState.DEFAULT;
-  private currentVolume = 0.5;
-  private trackListId: string;
-  private actualPlayedTimeOfCurrentTrackInSeconds = 0;
-  private shouldReportEvent = true;
-  private shouldReportHalfMark = true;
-  private secondsReportedLast: number;
+    public elapsedTimeInPercentage = 0; // 0-100
+    public elapsedTimeInSeconds = 0;
+    private playlist;
+    private currentlyPlayingIndex: number;
+    private currentlyPlayingSound: any;
+    private playerClock: any; // interval
+    private loopState: LoopState = LoopState.DEFAULT;
+    private currentVolume = 0.5;
+    private trackListId: string;
+    private actualPlayedTimeOfCurrentTrackInSeconds = 0;
+    private shouldReportEvent = true;
+    private shouldReportHalfMark = true;
+    private secondsReportedLast: number;
 
-  constructor() {
-    Howler.volume(this.currentVolume);
-    this.startPlayerTimerLoop();
-  }
+    constructor() {
+        Howler.volume(this.currentVolume);
+        this.startPlayerTimerLoop();
+    }
 
-  public setTrackListId(trackListId: string) {
-    this.trackListId = trackListId;
-  }
+    public setTrackListId(trackListId: string) {
+        this.trackListId = trackListId;
+    }
 
-  private startPlayerTimerLoop() {
-    this.playerClock = setInterval(() => {
-      if (this.currentlyPlayingSound) {
-        const currentTrackTime = this.currentlyPlayingSound.seek();
-        if (typeof currentTrackTime === "number") {
-          if (this.currentlyPlayingSound.playing()) {
-            this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
-            const elapsedActualPlayedTimeInPercentageOfDuration =
-              (this.actualPlayedTimeOfCurrentTrackInSeconds /
-                player.getDurationOfSong()) *
-              100;
-            if (
-              this.actualPlayedTimeOfCurrentTrackInSeconds >
-                SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
-              this.shouldReportEvent
-            ) {
-              this.reportEvent();
-              this.reportAdditionalTimeListened(
-                this.actualPlayedTimeOfCurrentTrackInSeconds
-              );
-            } else if (
-              this.actualPlayedTimeOfCurrentTrackInSeconds >
-                SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
-              elapsedActualPlayedTimeInPercentageOfDuration >
-                PERCENTAGE_TO_REPORT_HALF_MARK &&
-              this.shouldReportHalfMark
-            ) {
-              if (this.shouldReportEvent) {
-                this.reportEvent();
-                this.reportAdditionalTimeListened(
-                  this.actualPlayedTimeOfCurrentTrackInSeconds
-                );
-              } else {
-                this.reportAdditionalTimeListened(
-                  this.actualPlayedTimeOfCurrentTrackInSeconds -
-                    SECONDS_LISTENED_TO_REPORT_FIRST_MARK
-                );
-              }
-              this.shouldReportHalfMark = false;
-            }
-          }
-          this.elapsedTimeInPercentage =
-            (currentTrackTime / player.getDurationOfSong()) * 100;
-          this.elapsedTimeInSeconds = currentTrackTime;
+    public setPlaylistSilently(playlist: Playlist, changeIndexOfSongPlayingTo: number) {
+        if (this.playlist && this.currentlyPlayingIndex >= 0 && this.playlist[this.currentlyPlayingIndex] && this.playlist[this.currentlyPlayingIndex].howl) {
+            const oldCurrentlyPlayingFromSilentSwitch = this.playlist[this.currentlyPlayingIndex];
+            this.playlist = playlist;
+            this.currentlyPlayingIndex = changeIndexOfSongPlayingTo;
+            this.playlist[this.currentlyPlayingIndex] = oldCurrentlyPlayingFromSilentSwitch;
         }
-      }
-    }, 10);
-  }
-
-  private reportEvent() {
-    this.shouldReportEvent = false;
-    if (this.playlist[this.currentlyPlayingIndex].isPlaylistView) {
-      return;
-    }
-    if (!auth.getAccessToken()) {
-      return;
-    }
-    defaultHttpClient.fetch(
-      "event/add",
-      JSON.stringify({
-        trackId: this.playlist[this.currentlyPlayingIndex].id,
-        artistId: this.playlist[this.currentlyPlayingIndex].artistId,
-        albumId: this.playlist[this.currentlyPlayingIndex].albumId,
-      }),
-      "POST"
-    );
-  }
-
-  private reportAdditionalTimeListened(additionalSecondsListened: number) {
-    if (!auth.getAccessToken()) {
-      return;
-    }
-    this.secondsReportedLast = additionalSecondsListened;
-    defaultHttpClient.fetch(
-      "event/addListen",
-      JSON.stringify({
-        trackId: this.playlist[this.currentlyPlayingIndex].id,
-        artistId: this.playlist[this.currentlyPlayingIndex].artistId,
-        albumId: this.playlist[this.currentlyPlayingIndex].albumId,
-        additionalSecondsListened: Math.floor(additionalSecondsListened),
-      }),
-      "POST"
-    );
-  }
-
-  public setPlaylistSilently(
-    playlist: Playlist,
-    changeIndexOfSongPlayingTo: number
-  ) {
-    if (
-      this.playlist &&
-      this.currentlyPlayingIndex >= 0 &&
-      this.playlist[this.currentlyPlayingIndex] &&
-      this.playlist[this.currentlyPlayingIndex].howl
-    ) {
-      const oldCurrentlyPlayingFromSilentSwitch = this.playlist[
-        this.currentlyPlayingIndex
-      ];
-      this.playlist = playlist;
-      this.currentlyPlayingIndex = changeIndexOfSongPlayingTo;
-      this.playlist[
-        this.currentlyPlayingIndex
-      ] = oldCurrentlyPlayingFromSilentSwitch;
-    }
-  }
-
-  public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
-    if (
-      this.playlist &&
-      this.currentlyPlayingIndex >= 0 &&
-      this.playlist[this.currentlyPlayingIndex] &&
-      this.playlist[this.currentlyPlayingIndex].howl
-    ) {
-      this.playlist[this.currentlyPlayingIndex].howl.stop();
     }
 
-    this.playlist = playlist;
-    this.currentlyPlayingIndex = indexOfTrackToPlay;
-  }
+    public setPlaylist(playlist: Playlist, indexOfTrackToPlay: number = 0) {
+        if (this.playlist && this.currentlyPlayingIndex >= 0 && this.playlist[this.currentlyPlayingIndex] && this.playlist[this.currentlyPlayingIndex].howl) {
+            this.playlist[this.currentlyPlayingIndex].howl.stop();
+        }
 
-  public getCurrentTrack() {
-    if (this.currentlyPlayingIndex >= 0) {
-      return this.playlist[this.currentlyPlayingIndex];
-    }
-    return "";
-  }
-
-  /**
-   * Play a song in the playlist.
-   * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
-   */
-  public play(indexOfTrackToPlay: number) {
-    const data = this.playlist[indexOfTrackToPlay];
-    const self = this;
-    // If we already loaded this track, use the current one.
-    // Otherwise, setup and load a new Howl.
-    if (data.howl) {
-      this.currentlyPlayingSound = data.howl;
-    } else {
-      this.currentlyPlayingSound = data.howl = new Howl({
-        src: [
-          `https://indie-music-test.s3.eu-west-2.amazonaws.com/${data.filename}`,
-        ],
-        html5: true,
-        format: "mp3",
-        volume: 0.5,
-        onloaderror: function (error) {
-          console.log("Error!", error);
-        },
-        onplay: function () {},
-        onseek: function () {},
-        onload: function () {
-          data.howl.volume(self.currentVolume);
-          self.actualPlayedTimeOfCurrentTrackInSeconds = 0;
-          self.shouldReportEvent = true;
-          console.log("loaded " + data.howl.duration());
-        },
-        onend: function () {
-          console.log("Finished!");
-          if (
-            data.howl.duration() >
-            (100 / PERCENTAGE_TO_REPORT_HALF_MARK) *
-              SECONDS_LISTENED_TO_REPORT_FIRST_MARK
-          ) {
-            self.reportAdditionalTimeListened(
-              self.actualPlayedTimeOfCurrentTrackInSeconds -
-                SECONDS_LISTENED_TO_REPORT_FIRST_MARK -
-                self.secondsReportedLast
-            );
-          } else if (
-            data.howl.duration() > SECONDS_LISTENED_TO_REPORT_FIRST_MARK
-          ) {
-            self.reportAdditionalTimeListened(
-              self.actualPlayedTimeOfCurrentTrackInSeconds -
-                SECONDS_LISTENED_TO_REPORT_FIRST_MARK
-            );
-          } else {
-            self.reportAdditionalTimeListened(
-              self.actualPlayedTimeOfCurrentTrackInSeconds
-            );
-          }
-          if (
-            (self.loopState === LoopState.DEFAULT &&
-              self.currentlyPlayingIndex !== self.playlist.length - 1) ||
-            self.loopState === LoopState.LOOP_PLAYLIST
-          ) {
-            self.skip("next");
-          } else if (self.loopState === LoopState.LOOP_TRACK) {
-            self.playTrack();
-          } else if (self.currentlyPlayingIndex === self.playlist.length - 1) {
-            self.pause();
-          }
-        },
-        onpause: function () {},
-        onstop: function () {},
-      });
+        this.playlist = playlist;
+        this.currentlyPlayingIndex = indexOfTrackToPlay;
     }
 
-    playerEventEmitter.change({
-      indexOfTrackToPlay,
-      trackListId: this.trackListId,
-    });
-    this.currentlyPlayingSound.play();
-
-    // Keep track of the index we are currently playing.
-    this.currentlyPlayingIndex = indexOfTrackToPlay;
-  }
-
-  public playTrack(indexOfTrackToPlay: number = this.currentlyPlayingIndex) {
-    // Stop the current track.
-    if (this.playlist[this.currentlyPlayingIndex].howl) {
-      this.playlist[this.currentlyPlayingIndex].howl.stop();
+    public getCurrentTrack() {
+        if (this.currentlyPlayingIndex >= 0) {
+            return this.playlist[this.currentlyPlayingIndex];
+        }
+        return '';
     }
 
-    this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
-
-    this.currentlyPlayingSound.play();
-  }
-
-  // play after pause
-  public restart() {
-    this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-    playerEventEmitter.change({
-      indexOfTrackToPlay: this.currentlyPlayingIndex,
-      trackListId: this.trackListId,
-    });
-
-    this.currentlyPlayingSound.play();
-  }
-
-  public pause() {
-    this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
-    this.currentlyPlayingSound.pause();
-
-    playerEventEmitter.change({
-      indexOfTrackToPlay: this.currentlyPlayingIndex,
-      trackListId: this.trackListId,
-    });
-  }
-
-  /**
-   * Seek to a new position in the currently playing track.
-   * @param  {Number} per Percentage through the song to skip.
-   */
-  public seek(per: number) {
-    // Get the Howl we want to manipulate.
-    // Convert the percent into a seek position.
-    if (this.currentlyPlayingSound) {
-      this.currentlyPlayingSound.seek(
-        this.currentlyPlayingSound.duration() * per
-      );
-    }
-  }
-
-  public getDurationOfSong() {
-    return this.currentlyPlayingSound.duration();
-  }
-
-  public isPlayerPlaying() {
-    if (this.currentlyPlayingSound) {
-      return this.currentlyPlayingSound.playing();
-    }
-  }
-
-  public toggleLoop(): LoopState {
-    this.loopState = this.loopState < 2 ? this.loopState + 1 : 0;
-    return this.loopState;
-  }
-
-  /**
-   * Skip to the next or previous track.
-   * @param  {String} direction 'next' or 'prev'.
-   */
-  public skip(direction: "next" | "prev") {
-    // Get the next track based on the direction of the track.
-    let index = 0;
-    if (direction === "prev") {
-      index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
-      if (index < 0) {
-        index = this.playlist && this.playlist.length - 1;
-      } else if (this.currentlyPlayingIndex === 0 && index === 0) {
-        index = this.playlist && this.playlist.length - 1;
-      }
-    } else {
-      index = this.currentlyPlayingIndex + 1;
-      if (this.playlist && index >= this.playlist.length) {
-        index = 0;
-      }
+    /**
+     * Set the volume and update the volume slider display.
+     * @param  {Number} val Volume between 0 and 1.
+     */
+    public volume(value: number) {
+        console.log('value: ' + value);
+        this.currentVolume = value;
+        // Update the global volume (affecting all Howls).
+        Howler.volume(value);
     }
 
-    this.skipTo(index);
-  }
+    /**
+     * Play a song in the playlist.
+     * @param  {Number} index Index of the song in the playlist (leave empty to play the first or current).
+     */
+    public play(indexOfTrackToPlay: number) {
+        const data = this.playlist[indexOfTrackToPlay];
+        const self = this;
+        // If we already loaded this track, use the current one.
+        // Otherwise, setup and load a new Howl.
+        if (data.howl) {
+            this.currentlyPlayingSound = data.howl;
+        } else {
+            this.currentlyPlayingSound = data.howl = new Howl({
+                src: [`https://indie-music-test.s3.eu-west-2.amazonaws.com/${data.filename}`],
+                html5: true,
+                format: 'mp3',
+                volume: 0.5,
+                onloaderror: function (error) {
+                    console.log('Error!', error);
+                },
+                onplay: function () {},
+                onseek: function () {},
+                onload: function () {
+                    data.howl.volume(self.currentVolume);
+                    self.actualPlayedTimeOfCurrentTrackInSeconds = 0;
+                    self.shouldReportEvent = true;
+                    console.log('loaded ' + data.howl.duration());
+                },
+                onend: function () {
+                    console.log('Finished!');
+                    if (data.howl.duration() > (100 / PERCENTAGE_TO_REPORT_HALF_MARK) * SECONDS_LISTENED_TO_REPORT_FIRST_MARK) {
+                        self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK - self.secondsReportedLast);
+                    } else if (data.howl.duration() > SECONDS_LISTENED_TO_REPORT_FIRST_MARK) {
+                        self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+                    } else {
+                        self.reportAdditionalTimeListened(self.actualPlayedTimeOfCurrentTrackInSeconds);
+                    }
+                    if ((self.loopState === LoopState.DEFAULT && self.currentlyPlayingIndex !== self.playlist.length - 1) || self.loopState === LoopState.LOOP_PLAYLIST) {
+                        self.skip('next');
+                    } else if (self.loopState === LoopState.LOOP_TRACK) {
+                        self.playTrack();
+                    } else if (self.currentlyPlayingIndex === self.playlist.length - 1) {
+                        self.pause();
+                    }
+                },
+                onpause: function () {},
+                onstop: function () {}
+            });
+        }
 
-  /**
-   * Skip to a specific track based on its playlist index.
-   * @param  {Number} index Index in the playlist.
-   */
-  private skipTo(index) {
-    // Stop the current track.
-    if (this.playlist[this.currentlyPlayingIndex].howl) {
-      this.playlist[this.currentlyPlayingIndex].howl.stop();
+        playerEventEmitter.change({
+            indexOfTrackToPlay,
+            trackListId: this.trackListId
+        });
+        this.currentlyPlayingSound.play();
+
+        // Keep track of the index we are currently playing.
+        this.currentlyPlayingIndex = indexOfTrackToPlay;
     }
-    // Play the new track.
-    this.play(index);
-  }
-  /**
-   * Set the volume and update the volume slider display.
-   * @param  {Number} val Volume between 0 and 1.
-   */
-  public volume(value: number) {
-    console.log("value: " + value);
-    this.currentVolume = value;
-    // Update the global volume (affecting all Howls).
-    Howler.volume(value);
-  }
+
+    public playTrack(indexOfTrackToPlay: number = this.currentlyPlayingIndex) {
+        // Stop the current track.
+        if (this.playlist[this.currentlyPlayingIndex].howl) {
+            this.playlist[this.currentlyPlayingIndex].howl.stop();
+        }
+
+        this.currentlyPlayingSound = this.playlist[indexOfTrackToPlay].howl;
+
+        this.currentlyPlayingSound.play();
+    }
+
+    // play after pause
+    public restart() {
+        this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
+        playerEventEmitter.change({
+            indexOfTrackToPlay: this.currentlyPlayingIndex,
+            trackListId: this.trackListId
+        });
+
+        this.currentlyPlayingSound.play();
+    }
+
+    public pause() {
+        this.currentlyPlayingSound = this.playlist[this.currentlyPlayingIndex].howl;
+        this.currentlyPlayingSound.pause();
+
+        playerEventEmitter.change({
+            indexOfTrackToPlay: this.currentlyPlayingIndex,
+            trackListId: this.trackListId
+        });
+    }
+
+    /**
+     * Seek to a new position in the currently playing track.
+     * @param  {Number} per Percentage through the song to skip.
+     */
+    public seek(per: number) {
+        // Get the Howl we want to manipulate.
+        // Convert the percent into a seek position.
+        if (this.currentlyPlayingSound) {
+            this.currentlyPlayingSound.seek(this.currentlyPlayingSound.duration() * per);
+        }
+    }
+
+    public getDurationOfSong() {
+        return this.currentlyPlayingSound.duration();
+    }
+
+    public isPlayerPlaying() {
+        if (this.currentlyPlayingSound) {
+            return this.currentlyPlayingSound.playing();
+        }
+    }
+
+    public toggleLoop(): LoopState {
+        this.loopState = this.loopState < 2 ? this.loopState + 1 : 0;
+        return this.loopState;
+    }
+
+    /**
+     * Skip to the next or previous track.
+     * @param  {String} direction 'next' or 'prev'.
+     */
+    public skip(direction: 'next' | 'prev') {
+        // Get the next track based on the direction of the track.
+        let index = 0;
+        if (direction === 'prev') {
+            index = this.currentlyPlayingIndex && this.currentlyPlayingIndex - 1;
+            if (index < 0) {
+                index = this.playlist && this.playlist.length - 1;
+            } else if (this.currentlyPlayingIndex === 0 && index === 0) {
+                index = this.playlist && this.playlist.length - 1;
+            }
+        } else {
+            index = this.currentlyPlayingIndex + 1;
+            if (this.playlist && index >= this.playlist.length) {
+                index = 0;
+            }
+        }
+
+        this.skipTo(index);
+    }
+
+    private startPlayerTimerLoop() {
+        this.playerClock = setInterval(() => {
+            if (this.currentlyPlayingSound) {
+                const currentTrackTime = this.currentlyPlayingSound.seek();
+                if (typeof currentTrackTime === 'number') {
+                    if (this.currentlyPlayingSound.playing()) {
+                        this.actualPlayedTimeOfCurrentTrackInSeconds += 0.01;
+                        const elapsedActualPlayedTimeInPercentageOfDuration = (this.actualPlayedTimeOfCurrentTrackInSeconds / this.getDurationOfSong()) * 100;
+                        if (this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK && this.shouldReportEvent) {
+                            this.reportEvent();
+                            this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
+                        } else if (
+                            this.actualPlayedTimeOfCurrentTrackInSeconds > SECONDS_LISTENED_TO_REPORT_FIRST_MARK &&
+                            elapsedActualPlayedTimeInPercentageOfDuration > PERCENTAGE_TO_REPORT_HALF_MARK &&
+                            this.shouldReportHalfMark
+                        ) {
+                            if (this.shouldReportEvent) {
+                                this.reportEvent();
+                                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds);
+                            } else {
+                                this.reportAdditionalTimeListened(this.actualPlayedTimeOfCurrentTrackInSeconds - SECONDS_LISTENED_TO_REPORT_FIRST_MARK);
+                            }
+                            this.shouldReportHalfMark = false;
+                        }
+                    }
+                    this.elapsedTimeInPercentage = (currentTrackTime / this.getDurationOfSong()) * 100;
+                    this.elapsedTimeInSeconds = currentTrackTime;
+                }
+            }
+        }, 10);
+    }
+
+    private reportEvent() {
+        this.shouldReportEvent = false;
+        if (this.playlist[this.currentlyPlayingIndex].isPlaylistView) {
+            return;
+        }
+        if (!auth.getAccessToken()) {
+            return;
+        }
+        defaultHttpClient.fetch(
+            'event/add',
+            JSON.stringify({
+                trackId: this.playlist[this.currentlyPlayingIndex].id,
+                artistId: this.playlist[this.currentlyPlayingIndex].artistId,
+                albumId: this.playlist[this.currentlyPlayingIndex].albumId
+            }),
+            'POST'
+        );
+    }
+
+    private reportAdditionalTimeListened(additionalSecondsListened: number) {
+        if (!auth.getAccessToken()) {
+            return;
+        }
+        this.secondsReportedLast = additionalSecondsListened;
+        defaultHttpClient.fetch(
+            'event/addListen',
+            JSON.stringify({
+                trackId: this.playlist[this.currentlyPlayingIndex].id,
+                artistId: this.playlist[this.currentlyPlayingIndex].artistId,
+                albumId: this.playlist[this.currentlyPlayingIndex].albumId,
+                additionalSecondsListened: Math.floor(additionalSecondsListened)
+            }),
+            'POST'
+        );
+    }
+
+    /**
+     * Skip to a specific track based on its playlist index.
+     * @param  {Number} index Index in the playlist.
+     */
+    private skipTo(index) {
+        // Stop the current track.
+        if (this.playlist[this.currentlyPlayingIndex].howl) {
+            this.playlist[this.currentlyPlayingIndex].howl.stop();
+        }
+        // Play the new track.
+        this.play(index);
+    }
 }
 
 const player = new Player();

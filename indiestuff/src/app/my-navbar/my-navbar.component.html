@@ -1,42 +1,24 @@
 <div class="my-navbar">
-  <div class="my-navbar-items">
-    <a href="" [routerLink]="['/home']"
-      ><img src="/assets/icons/web/baseline_home_black_18dp.png"
-    /></a>
-    <a *ngIf="isRegistered" href="" [routerLink]="['/mylibrary']"
-      ><img src="/assets/icons/web/baseline_library_music_black_18dp.png"
-    /></a>
-    <a *ngIf="isRegistered" (click)="openPlaylistCreationDialog()"
-      ><img src="/assets/icons/web/baseline_playlist_add_black_18dp.png"
-    /></a>
-    <ul *ngIf="isRegistered" class="playlist-list-container">
-      <li
-        *ngFor="let playlist of playlists; let i = index"
-        [routerLink]="['/playlist', playlist.id]"
-      >
-        <span
-          *ngIf="playlist.id !== 'likedTracks'"
-          (contextmenu)="onContextMenu($event, i)"
-        >
-          {{ playlist.name }}
-        </span>
-        <span *ngIf="playlist.id === 'likedTracks'">
-          <mat-icon style="margin-top: -2px"> favorite_outline </mat-icon>
-        </span>
-      </li>
-    </ul>
-  </div>
+    <div class="my-navbar-items">
+        <a href="" [routerLink]="['/home']"><img src="/assets/icons/web/baseline_home_black_18dp.png" /></a>
+        <a *ngIf="isRegistered" href="" [routerLink]="['/mylibrary']"><img src="/assets/icons/web/baseline_library_music_black_18dp.png" /></a>
+        <a *ngIf="isRegistered" (click)="openPlaylistCreationDialog()"><img src="/assets/icons/web/baseline_playlist_add_black_18dp.png" /></a>
+        <ul *ngIf="isRegistered" class="playlist-list-container">
+            <li *ngFor="let playlist of playlists; let i = index" [routerLink]="['/playlist', playlist.id]">
+                <span *ngIf="i > 0" style="padding-right: 3px">•</span>
+                <span *ngIf="playlist.id !== 'likedTracks'" (contextmenu)="onContextMenu($event, i)">
+                    {{ playlist.name }}
+                </span>
+                <span *ngIf="playlist.id === 'likedTracks'">
+                    <mat-icon style="margin-top: -2px"> favorite_outline </mat-icon>
+                </span>
+            </li>
+        </ul>
+    </div>
 </div>
-<div
-  style="visibility: hidden; position: fixed"
-  [style.left]="contextMenuPosition.x"
-  [style.top]="contextMenuPosition.y"
-  [matMenuTriggerFor]="contextMenu"
-></div>
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x" [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu"></div>
 <mat-menu #contextMenu="matMenu">
-  <ng-template matMenuContent let-item="item">
-    <button mat-menu-item (click)="deletePlaylist(item)">
-      delete playlist
-    </button>
-  </ng-template>
+    <ng-template matMenuContent let-item="item">
+        <button mat-menu-item (click)="deletePlaylist(item)">delete playlist</button>
+    </ng-template>
 </mat-menu>

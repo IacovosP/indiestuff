@@ -1,71 +1,74 @@
-import { TrackInterface } from "@src/app/music-types/lib";
+import { TrackInterface } from '@src/app/music-types/lib';
 
 export interface Track extends TrackInterface {
-  album: {
-    id: string;
-    title: string;
-  };
-  artist: {
-    id: string;
-    name: string;
-  };
-  duration?: string;
+    album: {
+        id: string;
+        title: string;
+    };
+    artist: {
+        id: string;
+        name: string;
+    };
+    duration?: string;
 }
 
 export interface Album {
-  name: string;
-  durationInSec: number;
-  artistName: string;
-  imageUrl: string;
-  tracks: Track[];
+    name: string;
+    durationInSec: number;
+    artistName: string;
+    imageUrl: string;
+    tracks: Track[];
 }
 
 export interface AlbumLite {
-  title: string;
-  duration: string;
-  artistName: string;
-  imageUrl: string;
+    title: string;
+    duration: string;
+    artistName: string;
+    imageUrl: string;
+    id: string;
 }
 
 export interface MyAlbumsLite extends AlbumLite {
-  releaseDate: string;
-  isReleased: boolean;
+    releaseDate: string;
+    isReleased: boolean;
 }
 
 export interface Playlist {
-  tracks: Track[];
-  firstTrackIndex: number;
+    tracks: Track[];
+    firstTrackIndex: number;
 }
 
 export interface AlbumDescription {
-  title: string;
-  durationInSec: string;
-  artist: {
-    name: string;
-    id: string;
-  };
-  releaseDate: string;
+    title: string;
+    durationInSec: string;
+    artist: {
+        name: string;
+        id: string;
+    };
+    releaseDate: string;
 }
 
 export interface PlaylistDescription {
-  name: string;
-  durationInSec: string;
-  creationDate: string;
+    name: string;
+    durationInSec: string;
+    creationDate: string;
 }
 
+// eslint-disable-next-line no-shadow
 export enum ThreadTypes {
-  "Artist",
-  "Album",
-  "Track",
+    'Artist',
+    'Album',
+    'Track'
 }
 
-export enum myArtistSubPageType {
-  NEW_STUFF = "newStuff",
-  MY_MUSIC = "myMusic",
-  EDIT_STUFF = "editStuff",
+// eslint-disable-next-line no-shadow
+export enum MyArtistSubPageType {
+    NEW_STUFF = 'newStuff',
+    MY_MUSIC = 'myMusic',
+    EDIT_STUFF = 'editStuff'
 }
 
 export interface EditSubPageNavigation {
-  subPageType: myArtistSubPageType;
-  albumId: string;
+    subPageType: MyArtistSubPageType;
+    albumId: string;
 }

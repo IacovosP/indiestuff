@@ -14,7 +14,7 @@
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
 
-/***************************************************************************************************
+/** *************************************************************************************************
  * BROWSER POLYFILLS
  */
 
@@ -42,7 +42,7 @@
 
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
-import "core-js/es7/reflect";
+import 'core-js/proposals/reflect-metadata';
 
 /**
  * Web Animations `@angular/platform-browser/animations`
@@ -66,11 +66,11 @@ import "core-js/es7/reflect";
  */
 // (window as any).__Zone_enable_cross_context_check = true;
 
-/***************************************************************************************************
+/** *************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import "zone.js/dist/zone"; // Included with Angular CLI.
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
-/***************************************************************************************************
+/** *************************************************************************************************
  * APPLICATION IMPORTS
  */

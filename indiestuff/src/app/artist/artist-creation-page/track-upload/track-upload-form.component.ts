@@ -1,126 +1,109 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  Output,
-  EventEmitter,
-  Input,
-  Inject,
-} from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { TrackInterface } from "@src/app/music-types/lib";
-import { REST_URL_DEV } from "@src/app/network-core/HttpClient";
+import { Component, OnInit, ElementRef, Output, EventEmitter, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TrackInterface } from '@src/app/music-types/lib';
+import { REST_URL_DEV } from '@src/app/network-core/HttpClient';
 
 // Import the User model
 interface TrackUploadData {
-  trackToEdit: {
-    title: string;
-  };
+    trackToEdit: {
+        title: string;
+    };
+}
+
+interface TrackUploadInterface extends TrackInterface {
+    file?: string;
 }
 @Component({
-  selector: "app-track-upload-form",
-  templateUrl: "./track-upload-form.component.html",
-  styleUrls: ["./track-upload-form.component.css"],
+    selector: 'app-track-upload-form',
+    templateUrl: './track-upload-form.component.html',
+    styleUrls: ['./track-upload-form.component.css']
 })
 export class TrackUploadFormComponent implements OnInit {
-  constructor(
-    public hostElement: ElementRef,
-    public dialogRef: MatDialogRef<TrackUploadFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: TrackUploadData
-  ) {}
-  private track: TrackInterface;
-  fileToUpload: File;
-  originalDataIfInjected: TrackUploadData | undefined;
-
-  ngOnInit() {
-    // Create a new user object
-    const injectedTitle =
-      this.data && this.data.trackToEdit && this.data.trackToEdit.title;
-    this.originalDataIfInjected = injectedTitle ? this.data : undefined;
-    this.track = {
-      title: injectedTitle ? injectedTitle : "",
-      durationInSec: 0,
-      filename: "",
-      id: "",
-      positionInAlbum: "0",
+    track: TrackUploadInterface;
+    fileToUpload: File;
+    originalDataIfInjected: TrackUploadData | undefined;
+    trackToEdit: {
+        title: string;
     };
-  }
 
-  onFormSubmit({ value, valid }: { value: any; valid: boolean }, event: Event) {
-    if (
-      this.originalDataIfInjected &&
-      this.originalDataIfInjected.trackToEdit &&
-      this.originalDataIfInjected.trackToEdit.title === value.name &&
-      !this.fileToUpload
-    ) {
-      return;
+    constructor(public hostElement: ElementRef, public dialogRef: MatDialogRef<TrackUploadFormComponent>, @Inject(MAT_DIALOG_DATA) public data: TrackUploadData) {}
+
+    ngOnInit() {
+        // Create a new user object
+        const injectedTitle = this.data && this.data.trackToEdit && this.data.trackToEdit.title;
+        this.originalDataIfInjected = injectedTitle ? this.data : undefined;
+        this.track = {
+            title: injectedTitle ? injectedTitle : '',
+            durationInSec: 0,
+            filename: '',
+            id: '',
+            positionInAlbum: '0'
+        };
     }
-    this.track.title = value.name;
-    console.log(value);
-    console.log("valid: " + valid);
-    const formData = new FormData();
-    formData.append("name", this.track.title);
-    formData.append("durationInSec", String(this.track.durationInSec));
-    formData.append("myFile", this.fileToUpload);
-    const restAPIUrl = `${REST_URL_DEV}/upload/track`;
-    const requestInit: RequestInit = {
-      body: formData,
-      method: "POST",
-    };
-    const track = this.track;
-    const uploadPromise = fetch(restAPIUrl, requestInit)
-      .then((response) => {
-        return response.json().then((file) => {
-          if (file.filename) {
-            track.filename = file.filename;
-          }
-          console.log("got a response " + JSON.stringify(file));
-          return track;
-        });
-      })
-      .catch((err) => {
-        console.error("got an error: ", err);
-      });
-    this.dialogRef.close(uploadPromise);
-  }
 
-  handleFileInput(files: FileList) {
-    console.log("files name :" + files.item(0).name);
-    console.log("files type :" + files.item(0).type);
-    console.log("files type :" + this.getDuration(files.item(0)));
-    this.fileToUpload = files.item(0);
-  }
-
-  getDuration(file: File) {
-    const reader = new FileReader();
-
-    // When the file has been succesfully read
-    reader.onload = (event) => {
-      // Create an instance of AudioContext
-      const audioContext = new window.AudioContext();
-
-      // Asynchronously decode audio file data contained in an ArrayBuffer.
-      audioContext.decodeAudioData(
-        event.target.result as ArrayBuffer,
-        (buffer) => {
-          // Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
-          const duration = buffer.duration;
-          this.track.durationInSec = Math.round(duration);
-          console.log(
-            "The duration of the song is of: " +
-              this.track.durationInSec +
-              " seconds"
-          );
+    onFormSubmit({ value, valid }: { value: any; valid: boolean }) {
+        if (this.originalDataIfInjected && this.originalDataIfInjected.trackToEdit && this.originalDataIfInjected.trackToEdit.title === value.name && !this.fileToUpload) {
+            return;
         }
-      );
-    };
+        this.track.title = value.name;
+        console.log(value);
+        console.log('valid: ' + valid);
+        const formData = new FormData();
+        formData.append('name', this.track.title);
+        formData.append('durationInSec', String(this.track.durationInSec));
+        formData.append('myFile', this.fileToUpload);
+        const restAPIUrl = `${REST_URL_DEV}/upload/track`;
+        const requestInit: RequestInit = {
+            body: formData,
+            method: 'POST'
+        };
+        const track = this.track;
+        const uploadPromise = fetch(restAPIUrl, requestInit)
+            .then((response) =>
+                response.json().then((file) => {
+                    if (file.filename) {
+                        track.filename = file.filename;
+                    }
+                    console.log('got a response ' + JSON.stringify(file));
+                    return track;
+                })
+            )
+            .catch((err) => {
+                console.error('got an error: ', err);
+            });
+        this.dialogRef.close(uploadPromise);
+    }
 
-    // In case that the file couldn't be read
-    reader.onerror = function (event) {
-      console.error("An error ocurred reading the file: ", event);
-    };
+    handleFileInput(files: FileList) {
+        console.log('files name :' + files.item(0).name);
+        console.log('files type :' + files.item(0).type);
+        console.log('files type :' + this.getDuration(files.item(0)));
+        this.fileToUpload = files.item(0);
+    }
 
-    // Read file as an ArrayBuffer, important !
-    reader.readAsArrayBuffer(file);
-  }
+    getDuration(file: File) {
+        const reader = new FileReader();
+
+        // When the file has been succesfully read
+        reader.onload = (event) => {
+            // Create an instance of AudioContext
+            const audioContext = new window.AudioContext();
+
+            // Asynchronously decode audio file data contained in an ArrayBuffer.
+            audioContext.decodeAudioData(event.target.result as ArrayBuffer, (buffer) => {
+                // Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
+                const duration = buffer.duration;
+                this.track.durationInSec = Math.round(duration);
+                console.log('The duration of the song is of: ' + this.track.durationInSec + ' seconds');
+            });
+        };
+
+        // In case that the file couldn't be read
+        reader.onerror = function (event) {
+            console.error('An error ocurred reading the file: ', event);
+        };
+
+        // Read file as an ArrayBuffer, important !
+        reader.readAsArrayBuffer(file);
+    }
 }
