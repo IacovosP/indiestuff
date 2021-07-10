@@ -52,7 +52,7 @@
     },
     "optionalDependencies": {
         "fsevents": "^1.2.13",
-        "fsevents": "^2.1.2
+        "fsevents": "^2.1.2"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "~12.1.1",
