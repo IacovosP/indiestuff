@@ -1,0 +1,43 @@
+<div class="most-played-list-container">
+    <h3>my most played artists</h3>
+    <ul style="display: flex">
+        <li *ngFor="let artist of mostPlayedArtists">
+            <div
+                [ngStyle]="{
+                    'background-color': artist.colour ? artist.colour : 'darkslateblue'
+                }"
+                class="most-played-item-container"
+            >
+                <div *ngIf="artist.name" class="most-played-item-artist">
+                    <img *ngIf="artist.artist_image_filename" src="https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/{{ artist.artist_image_filename }}" />
+                    <mat-icon *ngIf="!artist.artist_image_filename" style="font-size: 200px">person</mat-icon>
+                    <p style="cursor: pointer; outline: none" [routerLink]="['/artist', artist.id]">
+                        {{ artist.name }}
+                    </p>
+                    <p style="font-size: 12px">artist</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="most-played-list-container">
+    <h3>my most played albums</h3>
+    <ul style="display: flex">
+        <li *ngFor="let album of mostPlayedAlbums">
+            <div
+                [ngStyle]="{
+                    'background-color': album.colour ? album.colour : 'darkslateblue'
+                }"
+                class="most-played-item-container"
+            >
+                <div *ngIf="album.title" class="most-played-item-album">
+                    <img src="https://indie-image-test.s3.eu-west-2.amazonaws.com/{{ album.album_image_filename }}" />
+                    <p style="cursor: pointer; outline: none" [routerLink]="['/album', album.id]">
+                        {{ album.title }}
+                    </p>
+                    <p style="font-size: 12px">album</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,30 @@
+.most-played-list-container ul {
+    list-style: none;
+    font-family: sans-serif;
+    padding-left: 0px;
+}
+
+.most-played-item-container {
+    height: 245px;
+    width: 200px;
+    background-color: darkslateblue;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+.most-played-item-container img {
+    max-height: 200.1px;
+    max-width: 200.1px;
+    border-radius: 15px;
+}
+
+.most-played-item-container p {
+    margin-left: 10%;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.most-played-item-album {
+    border-radius: 15px;
+}

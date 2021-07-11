@@ -53,6 +53,7 @@ import { ConfirmationDialogComponent } from '@src/app/common/confirmation-dialog
 import { SettingsPageComponent } from '@src/app/user/settings-page.component';
 import { ResetPasswordComponent } from '@src/app/user/reset-password/reset-password.component';
 import { DonationPageComponent } from '@src/app/donation/donation-page.component';
+import { MyMostPlayedComponent } from '@src/app/mylibrary/my-most-played/my-most-played.component';
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { DonationPageComponent } from '@src/app/donation/donation-page.component
         CreatePlaylistFormComponent,
         PlaylistPageComponent,
         RecentlyPlayedComponent,
+        MyMostPlayedComponent,
         MyLibraryPageComponent,
         HomePageComponent,
         MyArtistPageComponent,

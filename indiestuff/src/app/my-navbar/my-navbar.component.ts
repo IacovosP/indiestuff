@@ -99,16 +99,16 @@ export class MyNavComponent implements OnInit {
         const playlistToRemove = this.playlists[itemIndex];
         const styleChangesAndInput = playlistToRemove
             ? {
-                  position: {
-                      top: '10%'
-                  },
-                  data: {
-                      message: `are you sure you want to remove playlist '${playlistToRemove.name}'?`
-                      // clientX: $event.clientX,
-                      // clientY: $event.clientY,
-                      // item: playlistToRemove
-                  }
-              }
+                position: {
+                    top: '10%'
+                },
+                data: {
+                    message: `are you sure you want to remove playlist '${playlistToRemove.name}'?`
+                    // clientX: $event.clientX,
+                    // clientY: $event.clientY,
+                    // item: playlistToRemove
+                }
+            }
             : {};
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             panelClass: 'app-signup-form-no-padding',

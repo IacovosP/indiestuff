@@ -105,14 +105,14 @@ export class ArtistCreationPageComponent implements OnInit {
         const trackToRemove = this.tracks[trackToRemoveIndex];
         const styleChangesAndInput = trackToRemove
             ? {
-                  position: {
-                      left: '60%'
-                  },
-                  maxWidth: '100px',
-                  data: {
-                      message: `are you sure you want to remove track '${trackToRemove.title}'? it will be permanent`
-                  }
-              }
+                position: {
+                    left: '60%'
+                },
+                maxWidth: '100px',
+                data: {
+                    message: `are you sure you want to remove track '${trackToRemove.title}'? it will be permanent`
+                }
+            }
             : {};
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             panelClass: 'app-signup-form-no-padding',
@@ -149,13 +149,13 @@ export class ArtistCreationPageComponent implements OnInit {
         const trackToEdit = this.tracks[trackToEditIndex];
         const styleChangesAndInput = trackToEdit
             ? {
-                  position: {
-                      left: '60%'
-                  },
-                  data: {
-                      trackToEdit: { title: trackToEdit.title }
-                  }
-              }
+                position: {
+                    left: '60%'
+                },
+                data: {
+                    trackToEdit: { title: trackToEdit.title }
+                }
+            }
             : {};
         const dialogRef = this.dialog.open(TrackUploadFormComponent, {
             panelClass: 'app-signup-form-no-padding',

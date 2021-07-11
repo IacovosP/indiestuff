@@ -49,20 +49,20 @@ class DefaultHttpClient {
         if (isForm) {
             return accessToken
                 ? new Headers({
-                      auth: accessToken
-                  })
+                    auth: accessToken
+                })
                 : new Headers();
         }
         return accessToken
             ? new Headers({
-                  'Content-Type': 'application/json',
-                  Accept: 'application/json',
-                  auth: accessToken
-              })
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                auth: accessToken
+            })
             : new Headers({
-                  'Content-Type': 'application/json',
-                  Accept: 'application/json'
-              });
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            });
     }
 }
 
