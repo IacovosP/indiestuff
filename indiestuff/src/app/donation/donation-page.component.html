@@ -1,13 +1,92 @@
 <app-top-nav></app-top-nav>
 <app-my-navbar></app-my-navbar>
 <app-artist-menu-bar></app-artist-menu-bar>
-<div class="donation-container">
+<div class="donation-container" [ngStyle]="{ 'min-height': (shouldShowPaymentContainer && '200px') || '780px' }">
     <div cdkDropList class="artist-list" (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let artist of artists; index as i" class="track-box" cdkDrag>
-            <div *ngIf="!artist.shouldRemove" class="tab-container">
-                <mat-icon class="remove-track" (click)="removeTrack(i)">close_outline</mat-icon>
-                <a>{{ artist.name }}</a>
+        <div *ngFor="let artist of mostPlayedArtists; index as i" class="track-box" cdkDrag>
+            <div class="container">
+                <div class="artist-container">
+                  <div class="artist-details">
+                    <a>{{ artist.name }}</a>
+                    <div>you have listened to this artist for {{ artist.timePlayedInHours }}h this year</div>
+                  </div>
+                  <div class="artist-payment-details">
+                      <a (click)="updateAllotmentAmount('2', artist)">$2</a>
+                      <a (click)="updateAllotmentAmount('5', artist)">$5</a>
+                      <a (click)="updateAllotmentAmount('10', artist)">$10</a>
+                      <a (click)="updateAllotmentAmount('20', artist)">$20</a>
+                      <a (click)="updateAllotmentAmount('50', artist)">$50</a>
+                  </div>
+                </div>
+                <div class="allotment-percentage">
+                    <a>{{artist.allotmentPercentage || 0 }}%</a>
+                </div>
+                <div class="artist-image">
+                    <img *ngIf="artist.artist_image_filename" src="https://indie-artist-image-test.s3.eu-west-2.amazonaws.com/{{ artist.artist_image_filename }}" />
+                    <mat-icon *ngIf="!artist.artist_image_filename" style="font-size: 100px">person</mat-icon>
+                </div>
+                <div class="allotment-amount">
+                    <span>$</span>
+                    <textarea 
+                        [id]="'textarea' + artist.id"
+                        class="allotment-textarea" 
+                        (change)="updateAllotmentAmount($event.target.value, artist)" 
+                        [value]="artist.allotmentAmount | json"
+                        (keydown.enter)="onTextareaKeydown($event, artist)"
+                    ></textarea>
+                </div>
+                <div class="remove">
+                    <mat-icon *ngIf="!artist.shouldRemove" class="remove-track" (click)="removeTrack(i)">close_outline</mat-icon>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="container epilogue-container" style="border:none;">
+        <div class="artist-container">
+          <div class="artist-details">
+            <a>total:</a>
+          </div>
+        </div>
+        <div class="allotment-amount">
+            <a>${{ totalAmount }}</a>
+        </div>
+    </div>
+    <div class="donation-sliders-container">
+        <div>
+            <div class="container website-donation-container" style="border:none; box-shadow: none;">
+                <div class="artist-container">
+                  <div class="artist-details" style="top: 20%;">
+                    <span>percentage of total donation for indiestavf:</span>
+                    <div class="artist-payment-details">
+                        <mat-slider thumbLabel aria-label="website-donation-percentage" (change)="updateDonationPercentage($event)" [value]="websiteDonationPercentage" min="0" max="10"></mat-slider>
+                    </div>
+                  </div>
+                </div>
+                <div class="allotment-percentage">
+                    <a>{{websiteDonationPercentage}}%</a>
+                </div>
+                <div class="allotment-amount">
+                    <a>${{websiteDonationAmount}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="donation-button-container">
+        <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            cdkFocusInitial
+            (click)="makeDonation()"
+        >
+        make donation
+    </button>
+    </div>
+</div>
+<div *ngIf="shouldShowPaymentContainer" class="payment-container" >
+    <h3>click one of the buttons</h3>
+    <div class="payment-button-container">
+        <div id="payment-checkout">
         </div>
     </div>
 </div>

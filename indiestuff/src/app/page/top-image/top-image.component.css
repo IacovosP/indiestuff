@@ -122,6 +122,10 @@
     display: block;
 }
 
+.div-background-color {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+
 .uploaded-top-image:hover {
     opacity: 0.8;
 }
@@ -190,4 +194,17 @@
 .artist-image-exists {
     width: 100px;
     height: 100px;
+}
+
+.artist-details {
+    position: absolute;
+    margin-left: 22%;
+    left: 50px;
+    font-family: sans-serif;
+    top: 250px;
+}
+
+.artist-details h1 {
+    color: white;
+    text-shadow:1px 1px 5px rgba(65, 63, 63)
 }

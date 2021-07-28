@@ -1,5 +1,7 @@
 <div class="top-image parent-image-container">
-    <img *ngIf="!!headerImageUrl && !isEditing" src="{{ headerImageUrl }}" />
+    <div class="div-background-color" style="margin-right: 15%; margin-left: 15%;">
+        <img *ngIf="!!headerImageUrl && !isEditing" src="{{ headerImageUrl }}" />
+    </div>
     <div
         *ngIf="!!albumImageUrl"
         class="album-image-container"
@@ -42,7 +44,7 @@
             {{ playlistDescription.createdAt }}
         </p>
     </div>
-    <div *ngIf="!!uploadedImageUrl">
+    <div *ngIf="!!uploadedImageUrl" class="div-background-color">
         <div>
             <div class="form-group">
                 <label for="top-image-input">
@@ -55,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="isEditing && headerImageUrl">
+    <div *ngIf="isEditing && headerImageUrl" class="div-background-color">
         <div>
             <div class="form-group">
                 <label for="top-image-input">
@@ -68,7 +70,11 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages" class="no-image">
+    <div *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages && !isEditing" class="no-image div-background-color">
+        <label for="top-image-input">
+        </label>
+    </div>
+    <div *ngIf="!headerImageUrl && !uploadedImageUrl && !albumImageUrl && !albumImages && isEditing" class="no-image">
         <label for="top-image-input">
             <img style="cursor: pointer; padding-top: 100px" width="60px" height="60px" src="/assets/icons/web/outline_add_photo_alternate_black_48dp.png" />
         </label>
@@ -79,6 +85,9 @@
             <img class="artist-image" src="/assets/icons/web/baseline_portrait_black_18dp.png" id="artist_image_id" />
         </label>
         <input type="file" id="artist-image-input" (change)="artistImageUpload($event)" style="display: none" />
+    </div>
+    <div *ngIf="isArtistImageEnabled && artistDetails" class="artist-details">
+        <h1>{{ artistDetails.name }}</h1>
     </div>
     <div *ngIf="artistImageUrl && isArtistImageEnabled" class="artist-image-container">
         <label for="artist-image-input">

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import defaultHttpClient from '@src/app/network/DefaultHttpClient';
-import { AlbumDescription, PlaylistDescription } from '@src/app/music-types/types';
+import { AlbumDescription, ArtistDetails, PlaylistDescription } from '@src/app/music-types/types';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,6 +12,7 @@ export class PageTopImageComponent implements OnInit {
     @Input() headerImageUrl: string;
     @Input() albumImageUrl: string;
     @Input() darkColour = '#c1c5ca';
+    @Input() artistDetails: ArtistDetails;
     @Input() albumDescription: AlbumDescription;
     @Input() textColour: string;
     @Input() albumImages: string[];

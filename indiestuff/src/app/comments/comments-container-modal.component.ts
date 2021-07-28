@@ -44,6 +44,9 @@ export class CommentModalContainerComponent implements OnInit {
         } else if (this.comments && !Array.isArray($event)) {
             this.comments.push($event);
             this.count = this.comments.length;
+        } else if (!this.comments && !Array.isArray($event)) {
+            this.comments = [$event];
+            this.count = this.comments.length;
         }
     }
 

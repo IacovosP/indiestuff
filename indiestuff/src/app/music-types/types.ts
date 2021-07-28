@@ -38,6 +38,10 @@ export interface Playlist {
     firstTrackIndex: number;
 }
 
+export interface ArtistDetails {
+    name: string;
+}
+
 export interface AlbumDescription {
     title: string;
     durationInSec: string;

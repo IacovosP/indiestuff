@@ -4,6 +4,7 @@
     *ngIf="artistMusic && (artistMusic.artist_image_filename || artistMusic.artist_top_image_filename)"
     [headerImageUrl]="artistMusic.artist_top_image_filename"
     [artistImageUrl]="artistMusic.artist_image_filename"
+    [artistDetails]="artistMusic"
     [isArtistImageEnabled]="true"
 ></app-page-top-image>
 <app-artist-menu-bar [artistId]="artistMusic && artistMusic.id"></app-artist-menu-bar>

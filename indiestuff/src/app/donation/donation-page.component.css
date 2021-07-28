@@ -1,9 +1,194 @@
 .donation-container {
     margin-left: 15%;
     font-family: sans-serif;
+    min-height: 180px;
+}
+
+.payment-container {
+    margin-left: 30%;
+    margin-top: 90px;
+    font-family: sans-serif;
+    min-height: 600px;
+}
+
+.payment-button-container {
+    max-width: 300px;
 }
 
 .tab-container {
     padding-bottom: 15px;
     border-bottom: lightseagreen;
+}
+
+.container {
+    margin-top: 50px;
+    border: 0px solid pink;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 0.5fr 1.8fr 0.4fr 0.4fr 0.2fr;
+    grid-template-rows: 1.1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "artist-image artist-container allotment-percentage allotment-amount remove";
+    width: 55.7%;
+    height: 40.3%;
+    background-color: rgba(255,255,255, 0.3);
+    font-family: sans-serif;
+    color: #47525e;
+    box-shadow: 3px 3px 3px 1px rgba(207, 196, 196, 0.2);
+}
+  
+.artist-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.4fr 0.6fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "artist-details"
+        "artist-payment-details";
+    grid-area: artist-container;
+    padding-left: 25px;
+}
+
+.artist-details { 
+    grid-area: artist-details; 
+    position: relative;
+    top: 10%;
+    max-height: 50px;
+}
+
+.artist-details a {
+    font-size: 26px;
+}
+
+.artist-details div {
+}
+
+.artist-payment-details { 
+    grid-area: artist-payment-details; 
+}
+
+.artist-payment-details a {
+    margin-right: 12px;
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(158, 80, 80, 0.2);
+    background-color: salmon;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.artist-payment-details a:hover {
+    opacity: 1;
+}
+
+
+.allotment-percentage { 
+    grid-area: allotment-percentage; 
+    text-align: center;
+}
+
+.allotment-percentage a { 
+    position: relative;
+    top: 42%;
+}
+
+.allotment-textarea {
+    max-width: 45px;
+    height: 15px;
+    resize: none;
+    overflow: hidden;
+    background-color: rgba(255,255,255, 0.7);
+}
+
+.artist-image { 
+    grid-area: artist-image; 
+}
+
+.artist-image img {
+    padding: 5px;
+    max-height: 110px;
+    border-radius: 15px;
+}
+
+.allotment-amount { 
+    grid-area: allotment-amount;
+}
+
+.allotment-amount textarea { 
+    position: relative;
+    top: 40%;
+}
+
+.allotment-amount a { 
+    position: relative;
+    top: 40%;
+}
+
+.allotment-amount span { 
+    position: relative;
+    top: 37%;
+}
+
+.remove { 
+    grid-area: remove; 
+    color: black;
+}
+
+.remove mat-icon { 
+    padding-left: 6px;
+    position: relative;
+    top: 30%;
+}
+
+.donation-sliders-container {
+    margin-top: 24px;
+    font-weight: bold;
+}
+
+.donation-sliders-container mat-slider {
+    width: 60%;
+}
+
+.epilogue-container a {
+    position: relative;
+    top: 30%;
+    font-weight: bolder;
+}
+
+.website-donation-container {
+    border: none;
+    background-color: transparent;
+    color: rgb(27, 27, 27);
+}
+
+.website-donation-container a {
+    position: relative;
+    top: 15%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.donation-button-container {
+    position: relative;
+    margin-top: 21px;
+    float: right;
+    width: 60%;
+}
+
+.donation-button-container button {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #1e63ac;
+    box-shadow: 2px 2px 2px 1px rgba(158, 80, 80, 0.2);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    height: 42px;
+    cursor: pointer;
 }
